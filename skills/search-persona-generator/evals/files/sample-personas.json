@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "source_url": "https://harborcomfort.example/",
+    "generated_on": "2026-10-09",
+    "profile_status": "ok",
+    "persona_count": 3,
+    "service_area": "Bayport, Sayville, Patchogue (Suffolk County, NY)",
+    "assumptions": [
+      "Age ranges are inferred from homeownership and property-management roles, not stated on the site."
+    ]
+  },
+  "brand": {
+    "name": "Harbor Comfort Heating & Air",
+    "what_they_sell": "Residential and light-commercial HVAC repair, installation and maintenance plans.",
+    "who_they_serve": "Homeowners and small businesses on Long Island's South Shore, plus property managers with multi-unit buildings.",
+    "where": "Bayport, Sayville, Patchogue, Blue Point, Bayshore and surrounding Suffolk County, NY.",
+    "proof_points": [
+      "4.9 stars from 612 Google reviews",
+      "NATE-certified, background-checked technicians",
+      "Family-owned since 2004, 14 technicians, 9,000+ homes served",
+      "Lennox Premier Dealer",
+      "Upfront flat-rate pricing and 100% satisfaction guarantee"
+    ],
+    "services": [
+      "Emergency AC Repair",
+      "Furnace & Boiler Repair",
+      "Heat Pump & Central Air Installation",
+      "Ductless Mini-Split Systems",
+      "Indoor Air Quality",
+      "Comfort Club Maintenance Plan",
+      "Commercial HVAC for Small Businesses"
+    ]
+  },
+  "personas": [
+    {
+      "name": "Emergency Erin",
+      "one_liner": "A homeowner whose AC or furnace just died and who needs someone at the door today.",
+      "snapshot": {
+        "role": "Homeowner, dual-income household",
+        "age_range": "35-55",
+        "location": "Sayville / Bayport, NY",
+        "device": "Mobile, often searching from the driveway or living room"
+      },
+      "situation": "It is 92 degrees, the house is heating up, and the system she has had for 12 years finally quit. She has no existing HVAC relationship and is choosing from whoever shows up first in search and looks trustworthy.",
+      "goals": [
+        "Get a licensed technician to the house today",
+        "Know roughly what it will cost before anyone arrives",
+        "Avoid being upsold a new system when a repair will do"
+      ],
+      "pain_points": [
+        "Companies that quote a dispatch fee but hide the real price",
+        "Call centers that cannot commit to a same-day window",
+        "Weekend and after-hours surcharges"
+      ],
+      "trigger_moments": [
+        "First heat wave of the summer",
+        "Furnace fails on the first cold night",
+        "Unit blowing warm air or making a new noise"
+      ],
+      "funnel_stage": "decision",
+      "search_behavior": {
+        "informational_queries": [
+          "ac blowing warm air",
+          "furnace not turning on",
+          "why is my ac leaking water"
+        ],
+        "commercial_queries": [
+          "ac repair near me",
+          "best hvac company bayport ny",
+          "emergency furnace repair sayville"
+        ],
+        "transactional_queries": [
+          "24 hour ac repair bayport",
+          "same day hvac repair near me",
+          "hvac emergency service patchogue"
+        ],
+        "question_queries": [
+          "how much does ac repair cost",
+          "should i repair or replace my ac",
+          "do hvac companies charge extra on weekends"
+        ],
+        "serp_features": ["Local pack / map", "Google Business Profile reviews", "Call button", "People Also Ask"],
+        "modifiers": ["near me", "24 hour", "same day", "emergency", "cost"]
+      },
+      "decision_criteria": [
+        "Same-day availability stated clearly",
+        "Star rating and recent review count",
+        "Upfront or flat-rate pricing language",
+        "No overtime fee promise"
+      ],
+      "objections": [
+        "Worried the diagnostic fee is a bait and switch",
+        "Fears being pushed into a replacement"
+      ],
+      "content_needs": [
+        "Emergency repair page with hours, service area and pricing policy above the fold",
+        "Symptom-based troubleshooting posts that end in a clear call to action",
+        "Repair vs replace decision guide"
+      ],
+      "services_matched": ["Emergency AC Repair", "Furnace & Boiler Repair"],
+      "evidence": [
+        "Homepage H2 'Emergency AC & Furnace Repair' with 24/7 dispatch and no-overtime promise",
+        "JSON-LD lists 'Emergency AC Repair' as the first offered service"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Planning Pat",
+      "one_liner": "A homeowner replacing an aging system who is comparing equipment, rebates and contractors over several weeks.",
+      "snapshot": {
+        "role": "Homeowner, long-term resident",
+        "age_range": "45-65",
+        "location": "Patchogue / Blue Point, NY",
+        "device": "Desktop in the evening, mobile for quick checks"
+      },
+      "situation": "The 18-year-old central air system limps along, utility bills are climbing, and Pat wants to replace it before it fails. Researching heat pumps vs gas furnaces, reading about rebates, and planning to get three quotes.",
+      "goals": [
+        "Pick the right system type and size for the house",
+        "Maximize utility and federal rebates",
+        "Find a contractor who will still be around in ten years"
+      ],
+      "pain_points": [
+        "Conflicting advice about heat pumps in cold climates",
+        "Quotes that are not comparable because they size equipment differently",
+        "Not knowing which rebates apply or who files the paperwork"
+      ],
+      "trigger_moments": [
+        "Third repair bill in two years",
+        "Neighbor mentions a utility rebate",
+        "Planning a home addition or sunroom"
+      ],
+      "funnel_stage": "consideration",
+      "search_behavior": {
+        "informational_queries": [
+          "heat pump vs furnace long island",
+          "how long does central air last",
+          "what is a manual j load calculation"
+        ],
+        "commercial_queries": [
+          "best heat pump brands 2026",
+          "hvac installation companies suffolk county",
+          "lennox dealer near me"
+        ],
+        "transactional_queries": [
+          "free hvac estimate bayport",
+          "heat pump installation quote",
+          "hvac financing 0 percent"
+        ],
+        "question_queries": [
+          "how much does a new ac system cost",
+          "are heat pumps worth it in new york",
+          "what rebates are available for heat pumps in ny"
+        ],
+        "serp_features": ["People Also Ask", "Organic guides and comparisons", "Local pack", "Video results"],
+        "modifiers": ["cost", "vs", "best", "rebate", "financing", "near me"]
+      },
+      "decision_criteria": [
+        "Load calculation performed, not rule-of-thumb sizing",
+        "Rebate handling included",
+        "Manufacturer dealer status and warranty terms",
+        "Financing options"
+      ],
+      "objections": [
+        "Heat pump may not keep up in January",
+        "Replacement cost is higher than expected"
+      ],
+      "content_needs": [
+        "Installation page explaining the load-calculation process and financing",
+        "Heat pump vs furnace comparison for the local climate",
+        "Rebate and incentive guide updated yearly"
+      ],
+      "services_matched": ["Heat Pump & Central Air Installation", "Ductless Mini-Split Systems"],
+      "evidence": [
+        "Services page describes Manual J load calculations, Energy Star equipment and rebate paperwork",
+        "Homepage mentions financing with approved credit and free in-home load calculation"
+      ],
+      "confidence": "high"
+    },
+    {
+      "name": "Portfolio Priya",
+      "one_liner": "A property manager who needs one reliable vendor for maintenance contracts across several buildings.",
+      "snapshot": {
+        "role": "Property manager, small-to-mid portfolio",
+        "age_range": "30-50",
+        "location": "Suffolk County, NY",
+        "device": "Desktop during business hours"
+      },
+      "situation": "Priya manages a dozen small multi-unit and retail properties. Tenant HVAC complaints eat her week, and she wants a single contractor with scheduled maintenance, fast response and one monthly invoice.",
+      "goals": [
+        "Reduce emergency calls through scheduled maintenance",
+        "Consolidate invoicing and reporting",
+        "Keep tenants comfortable without approving every small job"
+      ],
+      "pain_points": [
+        "Residential-only contractors who cannot handle rooftop units",
+        "Vendors that bill per visit with no reporting",
+        "Slow response when a tenant business loses cooling"
+      ],
+      "trigger_moments": [
+        "Current vendor misses a service window",
+        "Taking on a new building with aging equipment",
+        "Annual budget planning"
+      ],
+      "funnel_stage": "mixed",
+      "search_behavior": {
+        "informational_queries": [
+          "hvac preventive maintenance checklist commercial",
+          "how often should rooftop units be serviced",
+          "hvac maintenance contract what is included"
+        ],
+        "commercial_queries": [
+          "commercial hvac maintenance contract long island",
+          "hvac company for property managers",
+          "restaurant hvac service suffolk county"
+        ],
+        "transactional_queries": [
+          "request commercial hvac maintenance quote",
+          "hvac service agreement pricing",
+          "schedule rooftop unit service bayport"
+        ],
+        "question_queries": [
+          "how much does a commercial hvac maintenance plan cost",
+          "can one hvac company service multiple properties",
+          "what should a commercial hvac contract include"
+        ],
+        "serp_features": ["Organic service pages", "Local pack", "Business listings and directories"],
+        "modifiers": ["commercial", "contract", "property management", "multi-unit", "pricing"]
+      },
+      "decision_criteria": [
+        "Experience with rooftop and make-up air units",
+        "Consolidated monthly invoicing",
+        "Priority response terms in writing"
+      ],
+      "objections": [
+        "Residential-focused brand may not scale to commercial work"
+      ],
+      "content_needs": [
+        "Dedicated commercial and property-manager page with contract inclusions",
+        "Case study or testimonial from a multi-property client",
+        "Downloadable maintenance checklist"
+      ],
+      "services_matched": ["Commercial HVAC for Small Businesses", "Comfort Club Maintenance Plan"],
+      "evidence": [
+        "Homepage H3 'Property managers welcome' with consolidated monthly invoicing",
+        "Services page lists rooftop units, restaurant make-up air and maintenance agreements for property managers"
+      ],
+      "confidence": "medium"
+    }
+  ],
+  "seo_usage": {
+    "persona_to_pages": [
+      {"persona": "Emergency Erin", "target_pages": ["/services.html#emergency", "Homepage hero", "City pages for Bayport, Sayville, Patchogue"]},
+      {"persona": "Planning Pat", "target_pages": ["Heat pump and central air installation page", "Financing page", "Rebate guide (new)"]},
+      {"persona": "Portfolio Priya", "target_pages": ["Commercial HVAC page", "Property manager landing page (new)"]}
+    ],
+    "content_gaps": [
+      "No standalone emergency repair page with pricing policy",
+      "No rebate or incentive guide",
+      "No property-manager-specific page or case study"
+    ],
+    "priority_persona": "Emergency Erin"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "source_url": "https://harborcomfort.example/",
+    "generated_on": "2026-10-09",
+    "profile_status": "ok",
+    "persona_count": 2
+  },
+  "brand": {
+    "name": "Harbor Comfort Heating & Air",
+    "what_they_sell": "HVAC repair and installation.",
+    "who_they_serve": "Homeowners.",
+    "where": "Bayport, NY",
+    "proof_points": [],
+    "services": ["Emergency AC Repair"]
+  },
+  "personas": [
+    {
+      "name": "Emergency Erin",
+      "one_liner": "Needs AC fixed today.",
+      "snapshot": {"role": "Homeowner", "age_range": "35-55", "location": "Bayport", "device": "Mobile"},
+      "situation": "AC died.",
+      "goals": ["Fix it"],
+      "pain_points": ["Hidden fees", "Slow response"],
+      "trigger_moments": ["Heat wave", "Breakdown"],
+      "funnel_stage": "bottom",
+      "search_behavior": {
+        "informational_queries": ["ac blowing warm air", "ac repair near me"],
+        "commercial_queries": ["ac repair near me", "best hvac bayport", "hvac reviews"],
+        "transactional_queries": ["24 hour ac repair bayport", "same day hvac", "emergency hvac"],
+        "question_queries": ["how much does ac repair cost", "repair or replace ac", ""],
+        "serp_features": ["Local pack"],
+        "modifiers": ["near me"]
+      },
+      "decision_criteria": ["Availability", "Reviews"],
+      "objections": ["Upsell"],
+      "content_needs": ["Emergency page", "Pricing policy"],
+      "services_matched": ["Solar Panel Installation"],
+      "evidence": ["Homepage mentions 24/7 dispatch"],
+      "confidence": "high"
+    }
+  ],
+  "seo_usage": {
+    "persona_to_pages": [{"persona": "Emergency Erin", "target_pages": ["/services.html"]}],
+    "content_gaps": [],
+    "priority_persona": "Emergency Erin"
+  }
+}

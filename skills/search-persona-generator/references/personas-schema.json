@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "search-persona-generator output",
+  "description": "Machine-readable form of the personas deliverable. Mirrors persona-template.md section for section.",
+  "type": "object",
+  "required": ["meta", "brand", "personas", "seo_usage"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["source_url", "generated_on", "profile_status", "persona_count"],
+      "properties": {
+        "source_url": {"type": "string", "minLength": 1},
+        "generated_on": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+        "profile_status": {"type": "string", "enum": ["ok", "partial", "unreachable"]},
+        "persona_count": {"type": "integer", "minimum": 1, "maximum": 3},
+        "service_area": {"type": "string"},
+        "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "brand": {
+      "type": "object",
+      "required": ["name", "what_they_sell", "who_they_serve", "where", "proof_points", "services"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "what_they_sell": {"type": "string", "minLength": 1},
+        "who_they_serve": {"type": "string", "minLength": 1},
+        "where": {"type": "string", "minLength": 1},
+        "proof_points": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "services": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "personas": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "name", "one_liner", "snapshot", "situation", "goals", "pain_points", "trigger_moments",
+          "funnel_stage", "search_behavior", "decision_criteria", "objections", "content_needs",
+          "services_matched", "evidence", "confidence"
+        ],
+        "properties": {
+          "name": {"type": "string", "minLength": 1},
+          "one_liner": {"type": "string", "minLength": 1},
+          "snapshot": {
+            "type": "object",
+            "required": ["role", "age_range", "location", "device"],
+            "properties": {
+              "role": {"type": "string", "minLength": 1},
+              "age_range": {"type": "string", "minLength": 1},
+              "location": {"type": "string", "minLength": 1},
+              "device": {"type": "string", "minLength": 1}
+            }
+          },
+          "situation": {"type": "string", "minLength": 1},
+          "goals": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "pain_points": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "trigger_moments": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "funnel_stage": {"type": "string", "enum": ["awareness", "consideration", "decision", "mixed"]},
+          "search_behavior": {
+            "type": "object",
+            "required": ["informational_queries", "commercial_queries", "transactional_queries",
+                         "question_queries", "serp_features", "modifiers"],
+            "properties": {
+              "informational_queries": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}},
+              "commercial_queries": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}},
+              "transactional_queries": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}},
+              "question_queries": {"type": "array", "minItems": 3, "items": {"type": "string", "minLength": 1}},
+              "serp_features": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+              "modifiers": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+            }
+          },
+          "decision_criteria": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "objections": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "content_needs": {"type": "array", "minItems": 2, "items": {"type": "string", "minLength": 1}},
+          "services_matched": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "evidence": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+          "confidence": {"type": "string", "enum": ["high", "medium", "low"]}
+        }
+      }
+    },
+    "seo_usage": {
+      "type": "object",
+      "required": ["persona_to_pages", "content_gaps", "priority_persona"],
+      "properties": {
+        "persona_to_pages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["persona", "target_pages"],
+            "properties": {
+              "persona": {"type": "string", "minLength": 1},
+              "target_pages": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+            }
+          }
+        },
+        "content_gaps": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "priority_persona": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

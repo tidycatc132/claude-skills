@@ -1,0 +1,59 @@
+{
+  "skill_name": "search-persona-generator",
+  "notes": "Evals 1-3 are executed deterministically by run_evals.py (scripts and validator against local fixtures). Eval 4 is a trigger check: the prompt must not activate this skill. Persona prose quality is reviewed by a human.",
+  "evals": [
+    {
+      "id": 1,
+      "name": "happy-path-local-service",
+      "prompt": "Here's a new client: http://127.0.0.1:{port}/ . Build search personas for the SEO team.",
+      "files": ["evals/files/fixture-site/"],
+      "expected_output": "Site profile status ok with 3 pages read and services harvested from JSON-LD and headings; 3 personas (emergency homeowner, planned replacement, property manager); personas.json passes validate_personas.py; each persona's services_matched names a service from the profile.",
+      "expectations": [
+        "fetch_site_profile.py exits 0 and writes status 'ok'",
+        "profile.pages has 3 entries and a page with page_role 'services'",
+        "profile.services contains 'Emergency AC Repair' and 'Comfort Club Maintenance Plan'",
+        "profile.organization.name is 'Harbor Comfort Heating & Air' and service_areas include 'Bayport'",
+        "off-host links (facebook.com) and privacy page are not fetched",
+        "sample-personas.json validates with exit code 0",
+        "every services_matched entry in sample-personas.json appears in profile.services"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "edge-unreachable-url",
+      "prompt": "Create personas for https://127.0.0.1:9/ (client site is behind a login right now).",
+      "files": [],
+      "expected_output": "Script exits 2 with status 'unreachable' and recorded errors; the skill asks for pasted homepage text or proceeds with low-confidence personas and an assumptions list, never inventing proof points.",
+      "expectations": [
+        "fetch_site_profile.py exits 2",
+        "profile.status is 'unreachable' and profile.errors is non-empty",
+        "SKILL.md instructs the fallback: ask for homepage text, mark confidence low, list assumptions"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "edge-single-page-site",
+      "prompt": "Who would search for this business? http://127.0.0.1:{port}/ (it's just a landing page for now)",
+      "files": ["evals/files/single-page-site/"],
+      "expected_output": "Profile status 'partial' with one page and no invented services; the skill produces 1-2 personas with lowered confidence rather than padding to three.",
+      "expectations": [
+        "fetch_site_profile.py exits 0 and writes status 'partial'",
+        "profile.pages has exactly 1 entry",
+        "profile.services is empty (no services invented from a one-line landing page)",
+        "profile.notes mentions low confidence",
+        "validator rejects sample-personas-bad.json with messages about funnel_stage enum, empty query, duplicate query across buckets, unmatched service and persona_count mismatch"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "should-not-trigger-topical-map",
+      "prompt": "Build a topical map for a Phoenix HVAC company, we already have their personas.",
+      "files": [],
+      "expected_output": "This skill does not run. The request is for a topical map, which is a downstream task; the description's exclusion list names topical maps explicitly.",
+      "expectations": [
+        "SKILL.md description lists topical maps in its 'Do NOT use' clause",
+        "No persona files are produced"
+      ]
+    }
+  ]
+}
