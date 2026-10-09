@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """SessionStart hook (startup, resume, clear, compact): the 'get your bearings' ritual, automated.
 
-stdout becomes context for Claude. Keeps it short: the non-negotiable rules, the next backlog
-item, what is currently red, and the tail of progress.md.
+stdout becomes context for Claude. Keeps it short: the non-negotiable rules, how a skill starts,
+what is currently red, and the tail of progress.md.
 """
 from __future__ import annotations
 
@@ -29,12 +29,13 @@ def run(script: str, *args: str) -> str:
 def main() -> int:
     lines = [
         "SKILLS HARNESS - reminders (re-injected at session start / after compaction)",
-        "- One skill per session. Source of truth for what is next: skills_backlog.json (you may only change `passes`/`notes`).",
+        "- One skill per session, built fresh from a plain-language description with /new-skill <description>.",
+        "- Never model a new skill on an existing one; read sibling descriptions only to write the boundary sentence.",
         "- Never edit committed evals/, fixtures/, contracts/, scripts/ or .claude/ to make a check pass. Fix the skill.",
-        "- Done means: validator strict + contracts + overlap + backlog gate green, then /verify-skill for behavior, then commit.",
+        "- Done means: validator strict + contracts + overlap green, then /verify-skill for behavior, then commit.",
         "- Hooks run the cheap gates for you; read their messages and fix, do not argue with them.",
         "",
-        "Next buildable skill: " + run("check_backlog.py", "--next"),
+        "Skills on disk: " + (", ".join(d.name for d in C.list_skill_dirs()) or "none yet"),
     ]
     red = [l for l in run("validate_skill.py", "--changed", "--quiet").splitlines() if "ERROR" in l]
     if red:

@@ -6,8 +6,8 @@ evals/<skill>/outputs.json
   "cases": [
     {
       "id": "basic-map",
-      "prompt": "Use the example-topic-map skill on seeds.txt and save topic_map.csv",
-      "fixtures": [{"src": "fixtures/example-topic-map/seeds.txt", "dest": "seeds.txt"}],
+      "prompt": "Use the map-maker skill on seeds.txt and save topic_map.csv",
+      "fixtures": [{"src": "fixtures/map-maker/seeds.txt", "dest": "seeds.txt"}],
       "allowed_tools": "optional override of the allow-list",
       "assertions": [
         {"type": "file_exists", "path": "topic_map.csv"},

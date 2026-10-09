@@ -3,11 +3,12 @@ description: Build one brand-new skill from a plain-language description, with n
 argument-hint: "<what the skill should do>"
 ---
 
-You are building ONE new skill this session from the description in $ARGUMENTS. There is no backlog entry for it and you must not add one (the backlog is frozen). The gates are identical to `/next-skill`; only the picking step differs.
+You are building ONE new skill this session from the description in $ARGUMENTS. Every skill starts from scratch: there is no backlog and no template skill to copy.
 
 ## 1. Bearings
 - Run `bash init.sh`. If anything is red before you start, report or fix that first.
-- Read `progress.md` (last entries). Read the `description` lines of existing skills in `skills/` only to avoid overlap; do not copy from them.
+- Read `progress.md` (last entries) and `failure_log.md` (open items).
+- Read the `description` lines of existing skills in `skills/` only to avoid overlap and to write the boundary sentence; do not copy their structure, wording or steps.
 - If $ARGUMENTS is empty or too vague to write 8 realistic test prompts from, ask the user ONE short question and stop. Otherwise do not ask; take the most reasonable reading and say which one you took.
 
 ## 2. Interface and evals FIRST
@@ -36,3 +37,4 @@ Then run `/verify-skill <id>`. Structure alone is not done.
 ## Hard rules
 - Never edit committed evals, fixtures, contracts, scripts or `.claude/` to make something pass. If one looks wrong, stop and tell the user exactly what and why.
 - Never claim an eval passed that did not run.
+- If a gate keeps failing for a reason you do not understand, run `/log-failure` and ask the user. Do not weaken the gate.

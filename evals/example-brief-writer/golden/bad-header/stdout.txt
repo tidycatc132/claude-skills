@@ -1,1 +1,0 @@
-I didn't write any briefs: the header of topic_map_bad_header.csv is keyword, topic, priority, page_type, but this skill expects topic, keyword, page_type, priority in that order. I haven't changed your file. Regenerate it with example-topic-map, or tell me if you want to fix the column order yourself.
