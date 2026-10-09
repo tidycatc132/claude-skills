@@ -1,1 +1,0 @@
-I wrote topic_map.csv with 7 pages: 3 service, 2 location, and 2 blog.

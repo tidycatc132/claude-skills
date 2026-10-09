@@ -143,7 +143,7 @@ def check_evals(skill_dir: Path, r: C.Report, strict: bool) -> None:
     if not outs.exists():
         emit(
             f"evals/{name}/outputs.json is missing. Add at least one case with a prompt, fixtures and "
-            "assertions (see evals/example-topic-map/outputs.json)."
+            "assertions (format: README.md, 'Eval formats')."
         )
     else:
         try:

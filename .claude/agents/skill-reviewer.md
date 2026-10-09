@@ -1,6 +1,6 @@
 ---
 name: skill-reviewer
-description: Independent, read-only reviewer for a skill under development. Use after the cheap gates pass and before marking a backlog skill as passing; never use it to write or fix the skill.
+description: Independent, read-only reviewer for a skill under development. Use after the cheap gates pass and before shipping a skill; never use it to write or fix the skill.
 tools: Read, Grep, Glob
 ---
 

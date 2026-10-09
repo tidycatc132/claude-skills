@@ -4,10 +4,10 @@
 A contract lives in contracts/<name>.json:
 
 {
-  "name": "topic-map-to-brief",
+  "name": "map-to-brief",
   "version": 1,
-  "producer": "example-topic-map",
-  "consumer": "example-brief-writer",
+  "producer": "map-maker",
+  "consumer": "brief-writer",
   "format": "csv",                                  # csv | json
   "fixture": "fixtures/contracts/topic-map.csv",    # frozen sample of the producer's output
   "columns": ["topic", "keyword", "page_type"],     # csv: exact header, in order
