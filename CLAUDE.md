@@ -19,7 +19,7 @@ This repo builds Claude skills. It is a harness: scripts and hooks check your wo
 - No TODO/FIXME/TBD in anything shipped.
 
 ## Workflow
-- Start with `bash init.sh`. Then `/next-skill`. Behavior checks: `/verify-skill <id>`. Repeated failure: `/log-failure`.
+- Start with `bash init.sh`. Then `/new-skill <description>` for a fresh skill (no backlog needed) or `/next-skill` for a backlog item. Behavior checks: `/verify-skill <id>`. Repeated failure: `/log-failure`.
 - Write the evals before the skill. Describe the interface before the implementation.
 - Done means: strict validator, contracts, overlap check and backlog gate are green, `/verify-skill` was run, and the work is committed with a message naming the skill.
 

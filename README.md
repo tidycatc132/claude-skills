@@ -11,7 +11,7 @@ cd skills-harness-kit
 git init && git add -A && git commit -m "Harness baseline"   # freezes evals, scripts, .claude/
 bash init.sh                                                  # must print GREEN
 claude                                                        # open Claude Code here
-# then:  /next-skill
+# then:  /new-skill <what the skill should do>    (or /next-skill for a backlog item)
 ```
 
 Requirements: Python 3.9+, git, the `claude` CLI (only for the real eval runners). The hooks call `python3`; on Windows, change the command name in `.claude/settings.json` if your interpreter is `python`/`py`.
@@ -24,14 +24,14 @@ Commit the baseline first: the "frozen once committed" rules are based on git, s
 |---|---|
 | `CLAUDE.md` | Short rules (advisory guide) |
 | `skills/<name>/` | The product |
-| `skills_backlog.json` | Skills to build; model may only change `passes` and `notes` |
+| `skills_backlog.json` | Optional list of planned skills; model may only change `passes` and `notes`. Ad hoc skills use `/new-skill` and skip it |
 | `progress.md`, `failure_log.md` | Session memory and the steering-loop log |
 | `evals/<name>/` | `trigger.json`, `outputs.json`, `golden/` |
 | `contracts/`, `fixtures/` | Machine-checked interfaces between pipeline skills, and their test data |
 | `scripts/` | Sensors (validator, contracts, overlap, backlog, eval runners, packager, selftest) |
 | `.claude/settings.json`, `hooks/` | Deterministic enforcement |
 | `.claude/agents/skill-reviewer.md` | Read-only reviewer subagent |
-| `.claude/commands/` | `/next-skill`, `/verify-skill`, `/log-failure` |
+| `.claude/commands/` | `/new-skill`, `/next-skill`, `/verify-skill`, `/log-failure` |
 | `init.sh`, `Makefile` | Session-start ritual and shortcuts |
 
 ## Guides and sensors
