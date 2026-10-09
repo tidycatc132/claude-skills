@@ -1,0 +1,17 @@
+{
+  "should_trigger": [
+    "Create content briefs for each page in topic_map.csv",
+    "I have the topical map CSV from earlier. Generate writer briefs for all the pages.",
+    "Turn this topical map into briefs a freelancer can write from",
+    "Make a brief per row of this CSV: topic, keyword, page_type, priority",
+    "Prepare content briefs for all the priority 1 pages in the map"
+  ],
+  "should_not_trigger": [
+    "Here are seed topics: drain cleaning, water heater repair. Build me a topical map.",
+    "Plan the pages for a new site from a list of seed keywords",
+    "Write the full article for the 'drain cleaning' page",
+    "Proofread this paragraph for me",
+    "Brief me on today's top news",
+    "Make a chart of my keyword rankings"
+  ]
+}

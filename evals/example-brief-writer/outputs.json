@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "id": "basic-briefs",
+      "prompt": "Use the example-brief-writer skill to write content briefs for topic_map.csv into the briefs/ folder.",
+      "fixtures": [{"src": "fixtures/example-brief-writer/topic_map.csv", "dest": "topic_map.csv"}],
+      "assertions": [
+        {"type": "file_exists", "path": "briefs/1-water-heater-repair.md"},
+        {"type": "file_exists", "path": "briefs/3-tankless-water-heater-vs-tank-guide.md", "label": "lowest-priority page also got a brief"},
+        {"type": "contains", "target": "briefs/1-water-heater-repair.md", "text": "Target keyword: water heater repair"},
+        {"type": "contains", "target": "briefs/1-water-heater-repair.md", "text": "Word count target: 900", "label": "service pages get the service word count"},
+        {"type": "contains", "target": "briefs/3-tankless-water-heater-vs-tank-guide.md", "text": "Word count target: 1200", "label": "blog pages get the blog word count"},
+        {"type": "not_regex", "target": "briefs/1-water-heater-repair.md", "pattern": "TODO|lorem ipsum|\\d+% of (?:homeowners|people)", "label": "no placeholders or invented statistics"},
+        {"type": "rubric", "target": "stdout", "criteria": ["The reply reports how many briefs were written and names the page types", "The reply does not paste every brief into the chat"]}
+      ]
+    },
+    {
+      "id": "bad-header",
+      "prompt": "Use the example-brief-writer skill to write content briefs for topic_map_bad_header.csv.",
+      "fixtures": [{"src": "fixtures/example-brief-writer/topic_map_bad_header.csv", "dest": "topic_map_bad_header.csv"}],
+      "assertions": [
+        {"type": "file_absent", "path": "briefs", "label": "no briefs are written from a CSV that breaks the contract"},
+        {"type": "rubric", "target": "stdout", "criteria": ["The reply says the CSV header does not match the expected columns topic, keyword, page_type, priority", "The reply points the user to example-topic-map instead of silently repairing the CSV"]}
+      ]
+    }
+  ]
+}

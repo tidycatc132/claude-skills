@@ -1,0 +1,8 @@
+.harness/
+.harness-unlock
+.claude/.state/
+.claude/settings.local.json
+dist/
+__pycache__/
+*.pyc
+.DS_Store
