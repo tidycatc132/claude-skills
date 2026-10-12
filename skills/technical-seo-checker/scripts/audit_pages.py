@@ -39,6 +39,13 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlsplit
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 AI_BOTS = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "anthropic-ai", "Claude-SearchBot", "Claude-User",
            "Google-Extended", "PerplexityBot", "Perplexity-User", "CCBot", "Googlebot", "Bingbot"]
 RESOURCE_TAGS = {"img": "src", "script": "src", "link": "href", "iframe": "src", "video": "src", "audio": "src", "source": "src"}
@@ -211,10 +218,13 @@ def main() -> int:
     ap.add_argument("--manifest", required=True)
     ap.add_argument("--robots")
     ap.add_argument("--sitemap")
-    ap.add_argument("--out-csv", default="page_checks.csv")
-    ap.add_argument("--out-json", default="audit_facts.json")
-    ap.add_argument("--out-md", default="audit_findings.md")
+    ap.add_argument("--out-csv", default=None, help="default: page_checks.csv next to the manifest")
+    ap.add_argument("--out-json", default=None, help="default: audit_facts.json next to the manifest")
+    ap.add_argument("--out-md", default=None, help="default: audit_findings.md next to the manifest")
     args = ap.parse_args()
+    args.out_csv = _beside(args.manifest, "page_checks.csv", args.out_csv)
+    args.out_json = _beside(args.manifest, "audit_facts.json", args.out_json)
+    args.out_md = _beside(args.manifest, "audit_findings.md", args.out_md)
 
     mpath = Path(args.manifest)
     try:

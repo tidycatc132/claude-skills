@@ -30,6 +30,13 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 def norm(url: str) -> str:
     u = url.strip()
     if not u:
@@ -75,8 +82,9 @@ def main() -> int:
     ap.add_argument("snapshot_b", nargs="?")
     ap.add_argument("--label-a", default=None)
     ap.add_argument("--label-b", default=None)
-    ap.add_argument("--out", default="serp_stability.json")
+    ap.add_argument("--out", default=None, help="default: serp_stability.json next to snapshot_a")
     args = ap.parse_args()
+    args.out = _beside(args.snapshot_a, "serp_stability.json", args.out)
 
     try:
         a = load(Path(args.snapshot_a))

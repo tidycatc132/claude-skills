@@ -26,6 +26,13 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 def local(tag: str) -> str:
     return tag.rsplit("}", 1)[-1].lower()
 
@@ -64,12 +71,15 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--site", action="append", default=[], metavar="NAME=FILE", help="repeatable")
     ap.add_argument("--since", help="count URLs with lastmod on or after this date (YYYY-MM-DD)")
-    ap.add_argument("--out", default="coverage_inventory.csv")
-    ap.add_argument("--out-md", default="coverage_inventory.md")
+    ap.add_argument("--out", default=None, help="default: coverage_inventory.csv next to the first sitemap")
+    ap.add_argument("--out-md", default=None, help="default: coverage_inventory.md next to the first sitemap")
     args = ap.parse_args()
     if not args.site:
         print("sitemap_inventory: give at least one --site NAME=FILE", file=sys.stderr)
         return 2
+    first = args.site[0].split("=", 1)[-1].strip()
+    args.out = _beside(first, "coverage_inventory.csv", args.out)
+    args.out_md = _beside(first, "coverage_inventory.md", args.out_md)
 
     rows = []
     totals = {}

@@ -27,6 +27,13 @@ import sys
 from pathlib import Path
 
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 def load(path: str) -> dict[str, dict]:
     p = Path(path)
     with p.open(newline="", encoding="utf-8") as f:
@@ -63,9 +70,11 @@ def main() -> int:
     ap.add_argument("--competitor", action="append", default=[], metavar="NAME=CSV", help="repeatable")
     ap.add_argument("--min-volume", type=int, default=100)
     ap.add_argument("--losing-position", type=int, default=20)
-    ap.add_argument("--out", default="keyword_segments.csv")
-    ap.add_argument("--out-md", default="keyword_gap_summary.md")
+    ap.add_argument("--out", default=None, help="default: keyword_segments.csv next to your export")
+    ap.add_argument("--out-md", default=None, help="default: keyword_gap_summary.md next to your export")
     args = ap.parse_args()
+    args.out = _beside(args.you, "keyword_segments.csv", args.out)
+    args.out_md = _beside(args.you, "keyword_gap_summary.md", args.out_md)
     if not args.competitor:
         print("keyword_gap: give at least one --competitor NAME=CSV", file=sys.stderr)
         return 2

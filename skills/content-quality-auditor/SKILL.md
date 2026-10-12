@@ -30,7 +30,7 @@ Writes, in the working directory:
 8. **Report** in the order of `references/output-format.md`: typed header, one plain-language decision sentence with the single most important fix, unknown items, vetoes, dimension table with arithmetic, critical evidence, findings, fix plan. For `NEEDS_INPUT` runs, the result is an interval and the verdict is `UNDECIDED`; never present a single score.
 9. **Hand off** with the YAML block in `references/output-format.md`, recommend at most one next skill, then ask once whether to save.
 
-Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; write every output into the working directory. If a Bash call is denied, the cause is almost always chaining (`&&`, `;`, `|`, `for`, `cd`); retry the script as one plain `python3` command before concluding Bash is unavailable, and never skip the output files because an exploratory command was denied.
+Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; each script writes its outputs next to its primary input file unless you pass explicit output paths, so run it on files in the working directory. If a Bash call is denied, the cause is almost always chaining (`&&`, `;`, `|`, `for`, `cd`); retry the script as one plain `python3` command before concluding Bash is unavailable, and never skip the output files because an exploratory command was denied.
 
 ## Verdict rules the script enforces
 

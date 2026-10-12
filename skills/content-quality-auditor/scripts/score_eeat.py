@@ -38,6 +38,13 @@ import math
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 CATALOG_VERSION = "20.1.0"
 RUNBOOK_VERSION = "3.0.0"
 SCHEMA_VERSION = "3.0"
@@ -438,8 +445,8 @@ def main() -> int:
     ap.add_argument("--market")
     ap.add_argument("--publication-state")
     ap.add_argument("--observed-at")
-    ap.add_argument("--out-json", default="eeat_result.json")
-    ap.add_argument("--out-md", default="eeat_report.md")
+    ap.add_argument("--out-json", default=None, help="default: eeat_result.json next to the sheet")
+    ap.add_argument("--out-md", default=None, help="default: eeat_report.md next to the sheet")
     args = ap.parse_args()
 
     if args.template:
@@ -455,6 +462,8 @@ def main() -> int:
     except json.JSONDecodeError as e:
         die(f"{p} is not valid JSON: {e}")
     result = score(sheet)
+    args.out_json = _beside(args.sheet, "eeat_result.json", args.out_json)
+    args.out_md = _beside(args.sheet, "eeat_report.md", args.out_md)
     if result.get("errors"):
         for e in result["errors"]:
             print(f"score_eeat: {e}", file=sys.stderr)

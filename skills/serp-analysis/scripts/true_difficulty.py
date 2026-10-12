@@ -34,6 +34,13 @@ import json
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 WEIGHTS = [
     ("top10_authority", 0.25, "Top-10 authority"),
     ("page_authority_links", 0.20, "Page authority / links"),
@@ -79,8 +86,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("inputs")
     ap.add_argument("--stability-from", metavar="SERP_STABILITY_JSON")
-    ap.add_argument("--out", default="true_difficulty.json")
+    ap.add_argument("--out", default=None, help="default: true_difficulty.json next to the inputs file")
     args = ap.parse_args()
+    args.out = _beside(args.inputs, "true_difficulty.json", args.out)
 
     try:
         sheet = json.loads(Path(args.inputs).read_text(encoding="utf-8"))

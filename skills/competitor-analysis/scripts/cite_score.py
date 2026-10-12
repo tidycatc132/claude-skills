@@ -34,6 +34,13 @@ import json
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 DIMS = ["C", "I", "T", "E"]
 DIM_NAMES = {"C": "Citation", "I": "Identity", "T": "Trust", "E": "Eminence"}
 ALL_IDS = [f"{d}{i:02d}" for d in DIMS for i in range(1, 11)]
@@ -160,9 +167,11 @@ def score_domain(name: str, spec: dict, errors: list[str]) -> dict:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("sheet")
-    ap.add_argument("--out-csv", default="cite_scores.csv")
-    ap.add_argument("--out-md", default="cite_scores.md")
+    ap.add_argument("--out-csv", default=None, help="default: cite_scores.csv next to the sheet")
+    ap.add_argument("--out-md", default=None, help="default: cite_scores.md next to the sheet")
     args = ap.parse_args()
+    args.out_csv = _beside(args.sheet, "cite_scores.csv", args.out_csv)
+    args.out_md = _beside(args.sheet, "cite_scores.md", args.out_md)
     try:
         sheet = json.loads(Path(args.sheet).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as e:

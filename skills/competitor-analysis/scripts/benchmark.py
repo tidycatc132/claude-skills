@@ -22,6 +22,13 @@ import csv
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 METRICS = ["authority", "traffic", "top10_keywords", "backlinks", "referring_domains"]
 REQUIRED = ["domain"] + METRICS
 
@@ -45,9 +52,11 @@ def fmt(v) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("metrics_csv")
-    ap.add_argument("--out-csv", default="competitor_benchmark.csv")
-    ap.add_argument("--out-md", default="competitor_benchmark.md")
+    ap.add_argument("--out-csv", default=None, help="default: competitor_benchmark.csv next to the input")
+    ap.add_argument("--out-md", default=None, help="default: competitor_benchmark.md next to the input")
     args = ap.parse_args()
+    args.out_csv = _beside(args.metrics_csv, "competitor_benchmark.csv", args.out_csv)
+    args.out_md = _beside(args.metrics_csv, "competitor_benchmark.md", args.out_md)
 
     p = Path(args.metrics_csv)
     try:

@@ -26,6 +26,13 @@ import csv
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 FACTORS = [("demand", 0.25), ("density", 0.20), ("relevance", 0.25), ("effort", 0.15), ("conversion", 0.15)]
 
 
@@ -60,9 +67,11 @@ def bucket(t: str, qw: int) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("scores_csv")
-    ap.add_argument("--out", default="gap_priority.csv")
-    ap.add_argument("--out-md", default="gap_priority.md")
+    ap.add_argument("--out", default=None, help="default: gap_priority.csv next to the input")
+    ap.add_argument("--out-md", default=None, help="default: gap_priority.md next to the input")
     args = ap.parse_args()
+    args.out = _beside(args.scores_csv, "gap_priority.csv", args.out)
+    args.out_md = _beside(args.scores_csv, "gap_priority.md", args.out_md)
     p = Path(args.scores_csv)
     try:
         with p.open(newline="", encoding="utf-8") as f:

@@ -22,6 +22,13 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 BANDS = {"lcp_ms": (2500, 4000), "inp_ms": (200, 500), "cls": (0.1, 0.25), "ttfb_ms": (800, 1800), "tbt_ms": (200, 600)}
 LOWER_IS_BETTER = {"lcp_ms", "inp_ms", "cls", "ttfb_ms", "tbt_ms", "hops", "html_errors", "sample_non_indexable"}
 HIGHER_IS_BETTER = {"perf_score", "crawlability", "indexability", "performance", "mobile", "security", "url_structure",
@@ -56,9 +63,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("before")
     ap.add_argument("after")
-    ap.add_argument("--out", default="snapshot_diff.md")
-    ap.add_argument("--out-json", default="snapshot_diff.json")
+    ap.add_argument("--out", default=None, help="default: snapshot_diff.md next to the after snapshot")
+    ap.add_argument("--out-json", default=None, help="default: snapshot_diff.json next to the after snapshot")
     args = ap.parse_args()
+    args.out = _beside(args.after, "snapshot_diff.md", args.out)
+    args.out_json = _beside(args.after, "snapshot_diff.json", args.out_json)
     try:
         b = json.loads(Path(args.before).read_text(encoding="utf-8"))
         a = json.loads(Path(args.after).read_text(encoding="utf-8"))

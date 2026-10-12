@@ -27,6 +27,13 @@ import json
 import sys
 from pathlib import Path
 
+
+def _beside(primary: str, default_name: str, given: str | None) -> str:
+    """Default output path: next to the primary input file unless an explicit path was given."""
+    if given is not None:
+        return given
+    return str(Path(primary).resolve().parent / default_name)
+
 AREAS = ["crawlability", "indexability", "performance", "mobile", "security", "url_structure", "structured_data", "international"]
 NAMES = {"crawlability": "Crawlability", "indexability": "Indexability", "performance": "Performance", "mobile": "Mobile",
          "security": "Security", "url_structure": "URL structure", "structured_data": "Structured data", "international": "International"}
@@ -36,9 +43,11 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("area_scores")
     ap.add_argument("--checks")
-    ap.add_argument("--out-json", default="audit_scorecard.json")
-    ap.add_argument("--out-md", default="audit_scorecard.md")
+    ap.add_argument("--out-json", default=None, help="default: audit_scorecard.json next to area_scores.json")
+    ap.add_argument("--out-md", default=None, help="default: audit_scorecard.md next to area_scores.json")
     args = ap.parse_args()
+    args.out_json = _beside(args.area_scores, "audit_scorecard.json", args.out_json)
+    args.out_md = _beside(args.area_scores, "audit_scorecard.md", args.out_md)
     try:
         raw = json.loads(Path(args.area_scores).read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as e:
