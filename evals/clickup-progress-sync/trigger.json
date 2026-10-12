@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Sub-agent research-bot reports that ClickUp task 86c1abc2d is complete and the audit is at https://files.example.com/audit.pdf. Push this update into ClickUp.",
+    "The content writer agent finished the draft for task WEB-231 and spent about two hours on it. Update ClickUp with the status change, a comment and the time.",
+    "Here is the status report from the dev sub-agent: three tasks touched, one of them blocked on missing API keys. Reflect all of it in ClickUp.",
+    "Log this worker outcome to ClickUp: the data migration task is blocked. Add a comment listing the blockers and move it to the blocked status.",
+    "A worker agent found two follow-up bugs while doing ClickUp task 86c1abc2d. Create them as subtasks and leave a comment on the parent explaining them.",
+    "Managing agent here. The SEO sub-agent delivered drift_report.md for the ClickUp task 'Q4 SEO monitoring'. Attach the report and mark the task ready for review.",
+    "Post a progress comment on https://app.clickup.com/t/86c1abc2d from the QA agent's results: 48 of 50 checks passed, two failing on the contact form.",
+    "Sync these sub-agent updates to their ClickUp tasks: 86c1a (done, 1h), 86c1b (in progress, 60%), 86c1c (cancelled, duplicate of 86c1a)."
+  ],
+  "should_not_trigger": [
+    "What's on my plate in ClickUp today? Show me overdue tasks and anything I was mentioned in.",
+    "Summarize the comment thread on ClickUp task 86c1abc2d for me.",
+    "Did Friday's redeploy break SEO? Compare the site against the baseline snapshot in seo-drift/.",
+    "Update the Jira ticket PROJ-42 to Done and add a comment describing the fix.",
+    "Set up a ClickUp workspace structure with spaces, folders and lists for a new client onboarding.",
+    "Write a weekly status email to the client summarizing what the team shipped this sprint.",
+    "Export every task in the Marketing list in ClickUp to a CSV with status and assignee columns.",
+    "The research sub-agent finished. Give me its findings in three bullets; no need to touch any project tool."
+  ]
+}

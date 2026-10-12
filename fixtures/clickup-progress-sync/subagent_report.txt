@@ -1,0 +1,7 @@
+From: qa-runner (sub-agent)
+Time: 2026-10-12 16:05
+
+Finished the QA pass on ClickUp task https://app.clickup.com/t/86c1ghi4f (staging checklist for the Acme Roofing relaunch).
+Result: 48 of 50 checks pass. Two failures: the contact form posts to the staging endpoint, and the sitemap still lists the old /services-old/ URLs.
+I did not fix either; both need a developer. The task should not be closed yet. I spent about 40 minutes.
+Full results are at https://files.example.com/qa/acme-relaunch-qa.html
