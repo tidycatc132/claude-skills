@@ -13,7 +13,9 @@ the response had no body), `status` (HTTP status of the final response), optiona
 Checks (scope robots | sitemap | url), each with area, status (pass | warn | fail | info | na),
 severity (P0 | P1 | P2 | none), evidence and fix:
   robots: file present, sitemap declared, assets (css/js) blocked, wildcard query block, AI-bot
-          policy per bot (info), manifest URLs blocked for Googlebot (P0 if also in the sitemap)
+          policy per bot (info: allowed | blocked | allowed-by-default | blocked-by-default | unaddressed,
+          where "-by-default" means no bot-specific group and the * group decides), manifest URLs
+          blocked for Googlebot (P0 if also in the sitemap)
   sitemap: valid XML, url count, lastmod share, identical lastmods, each sitemap URL vs manifest
           (missing from manifest, non-200, redirecting, noindex), indexable pages missing from it
   url: http_status, redirect_hops, title, meta_robots (+ X-Robots-Tag), canonical, viewport,
@@ -183,9 +185,12 @@ def group_for(groups: list[dict], agent: str) -> dict | None:
 
 
 def robots_decision(groups: list[dict], agent: str, path: str) -> tuple[str, str]:
+    """Return (decision, rule). Decision is allowed | blocked | unaddressed (no group at all) and,
+    for a bot with no named group that falls under `User-agent: *`, allowed-by-default | blocked-by-default."""
     g = group_for(groups, agent)
     if g is None:
-        return "unspecified", ""
+        return "unaddressed", "no user-agent group matches and there is no * group"
+    default = agent.lower() not in g["agents"]
     best = None
     for kind, pat in g["rules"]:
         if pat == "" and kind == "disallow":
@@ -194,9 +199,10 @@ def robots_decision(groups: list[dict], agent: str, path: str) -> tuple[str, str
             score = (len(pat), kind == "allow")
             if best is None or score > best[0]:
                 best = (score, kind, pat)
+    suffix = "-by-default" if default else ""
     if best is None:
-        return "allowed", ""
-    return ("allowed" if best[1] == "allow" else "blocked"), f"{best[1]}: {best[2]}"
+        return "allowed" + suffix, ("no bot-specific group; falls under User-agent: * with no matching rule" if default else "no matching rule")
+    return ("allowed" if best[1] == "allow" else "blocked") + suffix, f"{best[1]}: {best[2]}" + (" (from the * group, not a bot-specific rule)" if default else "")
 
 
 # --------------------------------------------------------------------------- #
@@ -310,7 +316,8 @@ def main() -> int:
         for bot in AI_BOTS:
             decision, rule = robots_decision(groups, bot, "/")
             robots_facts["ai_bots"][bot] = decision
-            add("robots", f"https://{host}/robots.txt", "crawlability", f"ai_bot_{bot}", "info", "none", f"{decision} for / ({rule or 'no matching rule'})")
+            add("robots", f"https://{host}/robots.txt", "crawlability", f"ai_bot_{bot}", "info", "none", f"{decision} for / ({rule})",
+                "" if "-by-default" not in decision and decision != "unaddressed" else "Not addressed explicitly; decide the stance for this bot")
 
     # ---- sitemap
     sitemap_urls: list[tuple[str, str]] = []
@@ -399,7 +406,7 @@ def main() -> int:
             add("url", u, "url_structure", "redirect_hops", "pass", "none", "no redirect")
         if groups:
             decision, rule = robots_decision(groups, "Googlebot", path)
-            if decision == "blocked":
+            if decision.startswith("blocked"):
                 important = norm(u) in sitemap_keys
                 add("url", u, "crawlability", "robots_blocked", "fail" if important else "warn", "P0" if important else "P2",
                     f"blocked for Googlebot by {rule}" + (" and listed in the sitemap" if important else ""),
@@ -503,6 +510,7 @@ def main() -> int:
         L.append("")
     if robots_facts.get("ai_bots"):
         L.append("### AI crawler policy (robots.txt, for /)")
+        L.append("\"-by-default\" means the bot has no rule of its own and inherits User-agent: *; the site has not decided a stance for it.")
         L.append("| Bot | Decision |")
         L.append("|---|---|")
         for bot, d in robots_facts["ai_bots"].items():
