@@ -1,0 +1,45 @@
+{
+  "source_agent": "content-writer",
+  "reported_at": "2026-10-12 14:30",
+  "default_list_id": "901300112233",
+  "items": [
+    {
+      "task_ref": "https://app.clickup.com/t/86c1abc2d",
+      "outcome": "completed",
+      "summary": "Drafted the Denver roof repair service page (1,420 words) following the content brief.",
+      "details": "Primary keyword in H1, title and first paragraph. FAQ block has four questions pulled from the brief.",
+      "artifacts": [
+        {"name": "roof-repair-denver-draft.md", "url": "https://files.example.com/drafts/roof-repair-denver-draft.md"}
+      ],
+      "time_spent_minutes": 95
+    },
+    {
+      "task_ref": "WEB-418",
+      "outcome": "blocked",
+      "summary": "Could not start the gutter page: the brief references a pricing table that does not exist yet.",
+      "blockers": [
+        "Pricing table for gutter services has not been supplied by the client",
+        "Brief links to a Figma frame that returns 404"
+      ],
+      "time_spent_minutes": 20
+    },
+    {
+      "task_ref": "86c1def3e",
+      "outcome": "in_progress",
+      "summary": "Winter checklist refresh is about 60% done; remaining sections are ice dams and attic ventilation.",
+      "progress_percent": 60,
+      "due_date": "2026-10-16",
+      "time_spent_minutes": 50,
+      "tags": ["content"]
+    }
+  ],
+  "new_tasks": [
+    {
+      "name": "Supply gutter services pricing table",
+      "parent_ref": "WEB-418",
+      "description": "The gutter page brief depends on a pricing table the client has not provided. Needed before copy can start.",
+      "priority": "high",
+      "due_date": "2026-10-15"
+    }
+  ]
+}

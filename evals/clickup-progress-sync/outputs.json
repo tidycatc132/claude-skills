@@ -1,0 +1,188 @@
+{
+  "cases": [
+    {
+      "id": "structured-update-plan",
+      "prompt": "You are the managing agent. Sub-agent content-writer just handed you the report saved as `agent_update.json`. Use the clickup-progress-sync skill to prepare the ClickUp updates for it. The ClickUp connector is not available in this environment, so stop once the plan files exist and tell me exactly what would be sent to ClickUp, grouped by task.",
+      "fixtures": [
+        {
+          "src": "fixtures/clickup-progress-sync/agent_update.json",
+          "dest": "agent_update.json"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "clickup_ops.json"
+        },
+        {
+          "type": "file_exists",
+          "path": "clickup_sync_preview.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "clickup_sync_log.json",
+          "label": "nothing executed, so no log"
+        },
+        {
+          "type": "json_has_keys",
+          "path": "clickup_ops.json",
+          "keys": [
+            "generated_at",
+            "source_agent",
+            "ops",
+            "warnings"
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"seq\": 1,\\s*\"op\": \"verify_task\",\\s*\"tool\": \"clickup_get_task\".*\"op\": \"verify_task\".*\"op\": \"verify_task\"",
+          "label": "three tasks each get a verify op and the plan starts with one"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"task_id\": \"86c1abc2d\"",
+          "label": "task id parsed out of the ClickUp URL"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"update_status\"[^}]*\"task_id\": \"86c1abc2d\"[^}]*\"status_candidates\": \\[\\s*\"complete\"",
+          "label": "completed outcome maps to complete first"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"update_status\"[^}]*\"task_id\": \"WEB-418\"[^}]*\"blocked\"",
+          "label": "blocked outcome maps to blocked status"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"add_comment\"[^}]*\"entity_id\": \"WEB-418\"[^}]*Pricing table for gutter services",
+          "label": "blockers land in the comment"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"attach_file\"[^}]*\"file_url\": \"https://files\\.example\\.com/drafts/roof-repair-denver-draft\\.md\"",
+          "label": "artifact URL becomes an attachment"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"add_time_entry\"[^}]*\"task_id\": \"86c1abc2d\"[^}]*\"start\": \"2026-10-12 12:55\"[^}]*\"duration\": \"95m\"",
+          "label": "time entry starts 95 minutes before the report time"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"set_due_date\"[^}]*\"task_id\": \"86c1def3e\"[^}]*\"due_date\": \"2026-10-16\"",
+          "label": "due date change planned"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"add_tag\"[^}]*\"tag_name\": \"content\"",
+          "label": "explicit tag planned"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"create_task\"[^}]*\"list_id\": \"901300112233\"[^}]*\"parent\": \"WEB-418\"",
+          "label": "new task uses default list and parsed parent"
+        },
+        {
+          "type": "not_regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"assignees\"",
+          "label": "existing tasks are never reassigned (no assignees arg anywhere in this plan)"
+        },
+        {
+          "type": "contains",
+          "path": "clickup_sync_preview.md",
+          "text": "Update from content-writer"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The answer groups the planned ClickUp actions by task and covers all three tasks plus the new task to create",
+            "The answer states clearly that nothing was sent to ClickUp",
+            "The answer does not claim any status, comment or attachment was already applied"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "free-text-report",
+      "prompt": "You are the managing agent. A sub-agent's report arrived as plain text in `subagent_report.txt`. Use the clickup-progress-sync skill to turn it into ClickUp updates. There is no ClickUp connector here, so write the plan files and stop; then tell me what status you chose for the task and why.",
+      "fixtures": [
+        {
+          "src": "fixtures/clickup-progress-sync/subagent_report.txt",
+          "dest": "subagent_report.txt"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "agent_update.json",
+          "label": "free text transcribed into the structured input"
+        },
+        {
+          "type": "json_has_keys",
+          "path": "agent_update.json",
+          "keys": [
+            "source_agent",
+            "reported_at",
+            "items"
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "agent_update.json",
+          "pattern": "\"outcome\": \"needs_review\"",
+          "label": "48/50 with open failures is needs_review, not completed"
+        },
+        {
+          "type": "not_regex",
+          "path": "agent_update.json",
+          "pattern": "\"outcome\": \"completed\"",
+          "label": "task is not marked completed"
+        },
+        {
+          "type": "file_exists",
+          "path": "clickup_ops.json"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"task_id\": \"86c1ghi4f\""
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"attach_file\"[^}]*acme-relaunch-qa\\.html",
+          "label": "QA results URL attached"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "\"op\": \"add_time_entry\"[^}]*\"duration\": \"40m\"",
+          "label": "40 minutes logged"
+        },
+        {
+          "type": "regex",
+          "path": "clickup_ops.json",
+          "pattern": "contact form",
+          "label": "failures appear in the comment text"
+        },
+        {
+          "type": "file_absent",
+          "path": "clickup_sync_log.json"
+        }
+      ]
+    }
+  ]
+}
