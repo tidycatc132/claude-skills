@@ -32,7 +32,7 @@ Writes, in the working directory:
 8. **Write `competitor_report.md`** using the synthesis template: Executive Summary (who leads, why, the single biggest opening), Competitive Landscape table with the CITE Score row, Strengths to Learn From, Weaknesses to Exploit, Priority Opportunities, Content Strategy Recommendations (create, improve, promote), Action Plan with Immediate, Short-term and Long-term items, and the handoff summary YAML (`status`, `objective`, `key_findings`, `evidence`, `assumptions`, `open_loops` including any Manipulation Alert, `recommended_next_skill`). Status reports execution only: `DONE`, `DONE_WITH_CONCERNS` for named limitations such as Estimated or N/A metrics, `NEEDS_INPUT` when the competitor set is missing, `BLOCKED` when a safety or retry boundary stopped the run.
 9. Ask once whether to save the dated report.
 
-Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; write every output into the working directory.
+Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; write every output into the working directory. If a Bash call is denied, the cause is almost always chaining (`&&`, `;`, `|`, `for`, `cd`); retry the script as one plain `python3` command before concluding Bash is unavailable, and never skip the output files because an exploratory command was denied.
 
 ## Fetching rules
 

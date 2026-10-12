@@ -38,7 +38,7 @@ Writes, in the working directory:
 8. **Write `serp_brief.md`** with the templates in `references/analysis-templates.md`: verdict line (intent, difficulty or score state, biggest opening, main limitation), snapshot table, top results, ranking patterns, feature strategy, difficulty table with the script's arithmetic, minimum requirements to compete, recommended content outline, next steps, and the handoff YAML from `references/evidence-and-handoff.md` with `recommended_next_skill` set to competitor-analysis, content-gap-analysis, content-quality-auditor or none.
 9. Ask once whether to save the brief.
 
-Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; write every output into the working directory.
+Run each script as its own plain `python3` command with file paths as arguments. Do not chain commands, `cd`, or pipe; inspect inputs and outputs with the file-reading tool. The `scripts/` paths are relative to this skill's folder; write every output into the working directory. If a Bash call is denied, the cause is almost always chaining (`&&`, `;`, `|`, `for`, `cd`); retry the script as one plain `python3` command before concluding Bash is unavailable, and never skip the output files because an exploratory command was denied.
 
 ## Evidence rules
 
