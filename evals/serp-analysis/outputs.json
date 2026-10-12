@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "id": "two-sources-volatile",
+      "prompt": "Use the serp-analysis skill on the query 'how to start a podcast' (US, English, desktop, Google). I have no live search tools in this environment, so work from the saved snapshots: serp_websearch.csv is the WebSearch top 10 and serp_connector.csv is the SE Ranking top 10, both captured 2026-10-12. My authority and link inputs are in difficulty_inputs.json; derive the SERP stability input from the two snapshots. Write the SERP brief and give me the True Difficulty score with the arithmetic.",
+      "fixtures": [
+        {"src": "fixtures/serp-analysis/serp_websearch.csv", "dest": "serp_websearch.csv"},
+        {"src": "fixtures/serp-analysis/serp_connector.csv", "dest": "serp_connector.csv"},
+        {"src": "fixtures/serp-analysis/difficulty_inputs.json", "dest": "difficulty_inputs.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "serp_stability.json"},
+        {"type": "file_exists", "path": "true_difficulty.json"},
+        {"type": "file_exists", "path": "serp_brief.md"},
+        {"type": "json_has_keys", "path": "serp_stability.json", "keys": ["same_number_one", "top5_common", "top10_common", "verdict", "stability_input_suggested"]},
+        {"type": "regex", "path": "serp_stability.json", "pattern": "\"same_number_one\": false"},
+        {"type": "regex", "path": "serp_stability.json", "pattern": "\"top5_common\": 2"},
+        {"type": "regex", "path": "serp_stability.json", "pattern": "\"verdict\": \"volatile\""},
+        {"type": "regex", "path": "true_difficulty.json", "pattern": "\"score_state\": \"SCORED\""},
+        {"type": "regex", "path": "true_difficulty.json", "pattern": "\"score\": 65\\b", "label": "72x.25 + 60x.20 + 65x.20 + 55x.20 + 75x.15 = 65.25 -> 65"},
+        {"type": "regex", "path": "serp_brief.md", "pattern": "(?i)volatile"},
+        {"type": "regex", "path": "serp_brief.md", "pattern": "(?i)informational", "label": "intent named"},
+        {"type": "regex", "path": "serp_brief.md", "pattern": "(?i)(Measured|User-provided|Estimated|Calculated)", "label": "evidence labels used"},
+        {"type": "regex", "target": "stdout", "pattern": "\\b65\\b"},
+        {"type": "rubric", "target": "serp_brief.md", "criteria": [
+          "States the SERP is volatile because the two snapshots disagree on the number one result and share fewer than half of the top five, and keeps the two lists as separate observations rather than merging them.",
+          "Names the dominant intent (informational) with evidence drawn from the actual result titles and URLs in the snapshots.",
+          "Shows the True Difficulty arithmetic with the five weighted inputs and labels each input Measured, User-provided, Estimated, Calculated, Proxy or Unknown.",
+          "Does not assert SERP features (AI Overview, People Also Ask, ads) as measured facts, since no feature data was provided; either marks them Unknown or omits them.",
+          "Ends with a handoff summary that includes a status and a recommended next skill or none."
+        ]}
+      ]
+    },
+    {
+      "id": "single-source-not-scored",
+      "prompt": "Use the serp-analysis skill on 'how to start a podcast' (US, English, desktop, Google). The only snapshot I have is serp_websearch.csv from 2026-10-12; there is no second source and no rank history. My other difficulty inputs are in difficulty_inputs.json. Give me the brief and tell me honestly whether a True Difficulty score can be computed.",
+      "fixtures": [
+        {"src": "fixtures/serp-analysis/serp_websearch.csv", "dest": "serp_websearch.csv"},
+        {"src": "fixtures/serp-analysis/difficulty_inputs.json", "dest": "difficulty_inputs.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "true_difficulty.json"},
+        {"type": "file_exists", "path": "serp_brief.md"},
+        {"type": "regex", "path": "true_difficulty.json", "pattern": "\"score_state\": \"NOT_SCORED\""},
+        {"type": "regex", "path": "true_difficulty.json", "pattern": "\"missing_inputs\": \\[\\s*\"serp_stability\"", "label": "stability is the missing input"},
+        {"type": "not_regex", "path": "true_difficulty.json", "pattern": "\"score\": \\d", "label": "no partial score"},
+        {"type": "contains", "path": "serp_brief.md", "text": "NOT_SCORED"},
+        {"type": "regex", "target": "stdout", "pattern": "NOT_SCORED"},
+        {"type": "not_regex", "target": "stdout", "pattern": "(?i)difficulty[^.\\n]{0,40}\\b\\d{2}\\s*/\\s*100", "label": "does not state a numeric difficulty out of 100"}
+      ]
+    }
+  ]
+}

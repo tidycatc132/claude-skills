@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Analyze the SERP for 'best running shoes for flat feet' and tell me which features show up and who ranks.",
+    "What does it take to rank for 'how to start a podcast'? Give me the difficulty and a recommended content outline.",
+    "Which sites get cited in the AI Overview for 'what is a heat pump', and what format are the cited pages using?",
+    "Compare the Google results for 'emergency plumber' in Denver versus Austin and tell me how the local pack differs.",
+    "Is there a featured snippet opportunity for 'how long to boil eggs'? Who holds it now and in what format?",
+    "I have two top-10 exports for the same keyword, serp_a.csv from WebSearch and serp_b.csv from SE Ranking. Is this SERP stable enough to target and how hard is it really?",
+    "Break down the search intent behind 'crm software' from the live results. Is it informational or commercial, and what proves it?",
+    "Look at the video carousel and YouTube outliers for 'how to tile a bathroom floor' and tell me what packaging wins."
+  ],
+  "should_not_trigger": [
+    "Find content gaps between my blog and my competitors' blogs. What should we write next?",
+    "Benchmark my domain against ahrefs.com and semrush.com on backlinks, traffic share and top keywords.",
+    "Audit this article for E-E-A-T and publish readiness before we release it.",
+    "Check Core Web Vitals, crawlability and indexability for example.com.",
+    "Did last week's redeploy break our SEO? Compare the site now against the baseline snapshot.",
+    "Do keyword research for a Denver roofing company and cluster the keywords by intent.",
+    "Write meta titles and descriptions for these 10 product pages.",
+    "Set up weekly rank tracking for 50 keywords and email me the report every Monday."
+  ]
+}
