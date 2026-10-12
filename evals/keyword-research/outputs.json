@@ -1,0 +1,340 @@
+{
+  "cases": [
+    {
+      "id": "export-to-brief",
+      "prompt": "Use the keyword-research skill. No SEO connectors are available in this session, so work only from the file. `keywords.csv` is an SE Ranking export (volume, KD, CPC and current position are all measured; relevance and trend were filled in by me) for Denver Flow Plumbing, a residential plumber in Denver with a DR of about 18 whose goal is more service calls. Produce the full keyword brief. You already have my approval to save: write the report to `research/keyword-research/denver-plumber.md` and the scored CSV to `research/keyword-research/denver-plumber-scored.csv`. Then give me the brief in chat.",
+      "fixtures": [
+        {
+          "src": "fixtures/keyword-research/keywords.csv",
+          "dest": "keywords.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "research/keyword-research/denver-plumber.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "research/keyword-research/denver-plumber-scored.csv"
+        },
+        {
+          "type": "csv_columns",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "columns": [
+            "keyword",
+            "volume",
+            "kd",
+            "intent",
+            "funnel",
+            "relevance",
+            "trend",
+            "cpc",
+            "position",
+            "impressions",
+            "clicks",
+            "source",
+            "priority_score",
+            "tier",
+            "intent_value",
+            "opportunity_score",
+            "bucket",
+            "impact",
+            "confidence",
+            "impact_confidence"
+          ]
+        },
+        {
+          "type": "csv_enum",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "column": "tier",
+          "values": [
+            "P0",
+            "P1",
+            "P2",
+            "P3"
+          ]
+        },
+        {
+          "type": "csv_enum",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "column": "bucket",
+          "values": [
+            "Quick Win",
+            "Growth",
+            "Long-term",
+            "Research",
+            "Hold"
+          ]
+        },
+        {
+          "type": "csv_enum",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "column": "funnel",
+          "values": [
+            "TOFU",
+            "MOFU",
+            "BOFU"
+          ]
+        },
+        {
+          "type": "csv_no_empty",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "column": "priority_score"
+        },
+        {
+          "type": "csv_min_rows",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "n": 14
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "pattern": "^water heater repair denver,880,29,transactional,BOFU,5,growing,31,9,N/A,N/A,Measured,4\\.43,P0,3,91\\.03,Quick Win,0\\.789,0\\.869,0\\.686$",
+          "label": "top P0 row is scored by the script, not by hand"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "pattern": "^plumber near me,74000,78,transactional,BOFU,5,stable,22\\.1,N/A,N/A,N/A,Measured,3\\.83,P1,3,2846\\.15,Long-term,",
+          "label": "head term lands in Long-term with the exact opportunity score"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/denver-plumber-scored.csv",
+          "pattern": "^why does my water heater make noise,1300,18,informational,TOFU,3,stable,0\\.6,N/A,N/A,N/A,Measured,3\\.25,P1,1,72\\.22,Research,",
+          "label": "informational question row keeps the Research bucket"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Executive Summary"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Quick Win"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "GEO"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Content Calendar"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Next Steps"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Measured"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/denver-plumber.md",
+          "text": "Calculated"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/denver-plumber.md",
+          "pattern": "4\\.43",
+          "label": "report quotes the script's priority score rather than a re-derived one"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/denver-plumber.md",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "not_regex",
+          "path": "research/keyword-research/denver-plumber.md",
+          "pattern": "\\b(TODO|TBD|lorem)\\b",
+          "label": "no placeholders"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "At least three named opportunities, each with at least one specific number from the data (volume, KD, position or a score) and a one-line reason",
+            "Keywords are grouped into at least two pillar or cluster hubs with named member keywords",
+            "The GEO section names at least one question or comparison keyword from the file (for example the water heater noise question or the tankless vs tank comparison) with a recommended answer format",
+            "No search volume, KD or CPC figure appears that is not in keywords.csv, and any judgment-based figure is labeled Estimated or Calculated rather than presented as measured",
+            "The answer does not claim to have queried SE Ranking, Search Console or any live tool"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "striking-distance-gsc",
+      "prompt": "Use the keyword-research skill. No SEO connectors are available in this session, so work only from the file. `gsc_queries.csv` is a Google Search Console export (last 3 months, positions are 3-month averages) for denverflowplumbing.com, a residential plumber in Denver. Find the striking-distance keywords and tell me which ones to push first. You already have my approval to save the scored CSV to `research/keyword-research/striking-distance.csv` and the write-up to `research/keyword-research/striking-distance.md`.",
+      "fixtures": [
+        {
+          "src": "fixtures/keyword-research/gsc_queries.csv",
+          "dest": "gsc_queries.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "research/keyword-research/striking-distance.csv"
+        },
+        {
+          "type": "file_exists",
+          "path": "research/keyword-research/striking-distance.md"
+        },
+        {
+          "type": "csv_columns",
+          "path": "research/keyword-research/striking-distance.csv",
+          "columns": [
+            "keyword",
+            "volume",
+            "kd",
+            "intent",
+            "funnel",
+            "relevance",
+            "trend",
+            "cpc",
+            "position",
+            "impressions",
+            "clicks",
+            "source",
+            "priority_score",
+            "tier",
+            "intent_value",
+            "opportunity_score",
+            "bucket",
+            "impact",
+            "confidence",
+            "impact_confidence"
+          ]
+        },
+        {
+          "type": "csv_min_rows",
+          "path": "research/keyword-research/striking-distance.csv",
+          "n": 12
+        },
+        {
+          "type": "csv_enum",
+          "path": "research/keyword-research/striking-distance.csv",
+          "column": "source",
+          "values": [
+            "Measured"
+          ]
+        },
+        {
+          "type": "not_regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^denver plumber,",
+          "label": "a position-2 query is not striking distance"
+        },
+        {
+          "type": "not_regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^plumbing company denver,",
+          "label": "a position-3 query is not striking distance"
+        },
+        {
+          "type": "not_regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^frozen pipe repair denver,",
+          "label": "a position-25 query is outside the band"
+        },
+        {
+          "type": "not_regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^plumber,",
+          "label": "a position-58 query is outside the band"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^emergency plumber denver,N/A,N/A,[^,]*,[^,]*,[^,]*,[^,]*,N/A,7\\.8,4100,96,Measured,N/A,N/A,",
+          "label": "biggest striking-distance query keeps measured GSC fields and N/A for volume, KD and priority"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/striking-distance.csv",
+          "pattern": "^backflow testing denver,N/A,N/A,[^,]*,[^,]*,[^,]*,[^,]*,N/A,5\\.2,290,3,Measured,",
+          "label": "position 5.2 is inside the band"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/striking-distance.md",
+          "text": "N/A"
+        },
+        {
+          "type": "contains",
+          "path": "research/keyword-research/striking-distance.md",
+          "text": "Measured"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/striking-distance.md",
+          "pattern": "7\\.8",
+          "label": "report quotes the measured position"
+        },
+        {
+          "type": "regex",
+          "path": "research/keyword-research/striking-distance.md",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "At least three striking-distance keywords are named to push first, each with its position and impressions from the export and a reason",
+            "No search volume, keyword difficulty or CPC number is stated for any keyword; where those would normally appear the answer says they are unavailable or N/A",
+            "The answer explains why the striking-distance band was chosen (queries already ranking roughly 5 to 20 can move with on-page work) and does not present 'denver plumber' (position 2.3) as a striking-distance target",
+            "The answer does not claim to have queried Search Console, SE Ranking or any live tool"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no-save-without-approval",
+      "prompt": "Use the keyword-research skill. No SEO connectors are available in this session, so work only from the file. `keywords.csv` is an SE Ranking export for a Denver residential plumber whose goal is more service calls; relevance and trend were filled in by me. Give me the top five keywords to go after and why.",
+      "fixtures": [
+        {
+          "src": "fixtures/keyword-research/keywords.csv",
+          "dest": "keywords.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "research",
+          "label": "nothing is saved under research/ without approval"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "4\\.43|162\\.86|91\\.03",
+          "label": "answer quotes a script-calculated score"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The answer asks the user once whether to save the report and CSV to disk, or states that it has not saved anything pending approval; it does not claim that a report file was written",
+            "Five keywords are named, each with at least one number from the data and a reason",
+            "No search volume, KD or CPC figure appears that is not in keywords.csv"
+          ]
+        }
+      ]
+    }
+  ]
+}
