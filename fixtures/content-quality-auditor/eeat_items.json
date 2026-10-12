@@ -1,0 +1,560 @@
+{
+  "target": "https://example.com/x200-robot-vacuum-review",
+  "profile": "product-review",
+  "market": "US",
+  "publication_state": "live",
+  "observed_at": "2026-10-12",
+  "execution_blocked": false,
+  "blocked_reason": "",
+  "items": {
+    "C01": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "title 'X200 robot vacuum review: 6 weeks of testing' matches the delivered review"
+    },
+    "C02": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C03": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C04": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C05": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C06": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C07": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C08": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C09": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "C10": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O01": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O02": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O03": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O04": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O05": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O06": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O07": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O08": {
+      "state": "fail",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "no table of contents on a 3,400-word page"
+    },
+    "O09": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "O10": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R01": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R02": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R03": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R04": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R05": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R06": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R07": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R08": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R09": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "R10": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "prices, specs and test figures consistent across summary box, body and table; all 9 cited links resolve"
+    },
+    "E01": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "E02": {
+      "state": "na",
+      "reason": "no framework claimed"
+    },
+    "E03": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "E04": {
+      "state": "na",
+      "reason": "no contrarian stance taken"
+    },
+    "E05": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "E06": {
+      "state": "partial",
+      "source": "comparison with 3 top-ranking reviews",
+      "source_date": "2026-10-12",
+      "evidence_type": "estimated",
+      "confidence": "medium"
+    },
+    "E07": {
+      "state": "fail",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "no checklist, template or calculator"
+    },
+    "E08": {
+      "state": "pass",
+      "source": "comparison with 3 top-ranking reviews",
+      "source_date": "2026-10-12",
+      "evidence_type": "estimated",
+      "confidence": "medium"
+    },
+    "E09": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "E10": {
+      "state": "na",
+      "reason": "no predictions or trend claims"
+    },
+    "Exp01": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp02": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp03": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp04": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp05": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp06": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp07": {
+      "state": "na",
+      "reason": "no before/after claim made"
+    },
+    "Exp08": {
+      "state": "pass",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp09": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Exp10": {
+      "state": "partial",
+      "source": "rendered page capture",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept01": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept02": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept03": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept04": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept05": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept06": {
+      "state": "partial",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept07": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept08": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept09": {
+      "state": "partial",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "Ept10": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "A01": {
+      "state": "pass",
+      "source": "user-pasted backlink and brand export",
+      "source_date": "2026-10-12",
+      "evidence_type": "user-provided",
+      "confidence": "high",
+      "note": "backlink export shows 14 referring domains, none authoritative"
+    },
+    "A02": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "no media mentions found"
+    },
+    "A03": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "A04": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "A05": {
+      "state": "partial",
+      "source": "user-pasted backlink and brand export",
+      "source_date": "2026-10-12",
+      "evidence_type": "user-provided",
+      "confidence": "high"
+    },
+    "A06": {
+      "state": "pass",
+      "source": "user-pasted backlink and brand export",
+      "source_date": "2026-10-12",
+      "evidence_type": "user-provided",
+      "confidence": "high"
+    },
+    "A07": {
+      "state": "na",
+      "reason": "knowledge-graph presence not material to a single-review audit"
+    },
+    "A08": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "A09": {
+      "state": "fail",
+      "source": "user-pasted backlink and brand export",
+      "source_date": "2026-10-12",
+      "evidence_type": "user-provided",
+      "confidence": "high"
+    },
+    "A10": {
+      "state": "partial",
+      "source": "user-pasted backlink and brand export",
+      "source_date": "2026-10-12",
+      "evidence_type": "user-provided",
+      "confidence": "high"
+    },
+    "T01": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T02": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T03": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T04": {
+      "state": "fail",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high",
+      "note": "6 affiliate 'Check price' buttons; no disclosure text anywhere on the rendered desktop or mobile page"
+    },
+    "T05": {
+      "state": "partial",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T06": {
+      "state": "partial",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T07": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T08": {
+      "state": "na",
+      "reason": "non-YMYL topic, no health, money, legal or safety claims"
+    },
+    "T09": {
+      "state": "pass",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    },
+    "T10": {
+      "state": "partial",
+      "source": "author page, site policy pages, backlink export",
+      "source_date": "2026-10-12",
+      "evidence_type": "measured",
+      "confidence": "high"
+    }
+  }
+}

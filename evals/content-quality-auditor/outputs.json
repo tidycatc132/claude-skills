@@ -1,0 +1,52 @@
+{
+  "cases": [
+    {
+      "id": "prescored-one-veto",
+      "prompt": "We already audited a product review by hand and recorded every CORE-EEAT item state with its evidence in eeat_items.json. Use the content-quality-auditor skill to compute the result from that sheet exactly as recorded (do not change any item state), write the result and report files, and tell me the verdict, the raw and final scores, and which veto fired.",
+      "fixtures": [
+        {"src": "fixtures/content-quality-auditor/eeat_items.json", "dest": "eeat_items.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "eeat_result.json"},
+        {"type": "file_exists", "path": "eeat_report.md"},
+        {"type": "json_has_keys", "path": "eeat_result.json", "keys": ["status", "verdict", "score_state", "raw_overall_score", "final_overall_score", "cap_applied", "veto_count", "score_confidence", "coverage_pct", "dimensions"]},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"raw_overall_score\": 78", "label": "raw score floors to 78"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"final_overall_score\": 59", "label": "one veto caps the final score at 59"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"verdict\": \"FIX\""},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"status\": \"DONE_WITH_CONCERNS\""},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"cap_applied\": true"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"veto_count\": 1"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"score_confidence\": \"high\""},
+        {"type": "contains", "path": "eeat_report.md", "text": "**Raw score:** 78"},
+        {"type": "contains", "path": "eeat_report.md", "text": "**Final score:** 59"},
+        {"type": "regex", "target": "stdout", "pattern": "T04", "label": "the answer names the veto item"},
+        {"type": "regex", "target": "stdout", "pattern": "\\b59\\b", "label": "the answer states the capped score"},
+        {"type": "not_regex", "target": "stdout", "pattern": "(?i)\\bSHIP\\b[^.]*\\bverdict|verdict[^.]*\\bSHIP\\b", "label": "does not call it shippable"}
+      ]
+    },
+    {
+      "id": "pasted-draft-unknowns",
+      "prompt": "Use the content-quality-auditor skill on the how-to guide draft saved as draft.md. It is an unpublished draft from our content team; there is no live URL yet and no sponsorship or affiliate relationship. Audit it, run the scoring, and tell me the verdict and what evidence is still missing.",
+      "fixtures": [
+        {"src": "fixtures/content-quality-auditor/draft.md", "dest": "draft.md"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "eeat_items.json"},
+        {"type": "file_exists", "path": "eeat_result.json"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"item_count\": 80", "label": "all 80 items accounted for"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"status\": \"NEEDS_INPUT\"", "label": "site-level items are unobservable from a pasted draft"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"verdict\": \"UNDECIDED\""},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"score_state\": \"NOT_SCORED\""},
+        {"type": "not_regex", "path": "eeat_result.json", "pattern": "\"final_overall_score\": \\d", "label": "no final score is emitted for an incomplete run"},
+        {"type": "regex", "path": "eeat_result.json", "pattern": "\"interval\": \\{\\s*\"lower\": \\d+,\\s*\"upper\": \\d+", "label": "interval shown instead of a score"},
+        {"type": "regex", "path": "eeat_items.json", "pattern": "\"A01\": \\{[^}]*\"state\": \"unknown\"", "label": "backlink profile cannot be observed from a draft"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)UNDECIDED"},
+        {"type": "rubric", "target": "stdout", "criteria": [
+          "States that the audit is not scored or undecided because evidence is incomplete, and lists at least three specific unknown items with what evidence would resolve them (for example the live URL, author page, site policy pages, backlink data).",
+          "Does not present a single final score as the result of the audit.",
+          "Does not invent facts about the author, the site, backlinks or reviews that are not in the draft."
+        ]}
+      ]
+    }
+  ]
+}
