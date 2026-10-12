@@ -1,0 +1,7 @@
+url,file,status
+https://example.com/,home.html,200
+https://example.com/services/roof-repair,roof-repair.html,200
+https://example.com/services/gutters,gutters.html,200
+https://example.com/about,about.html,404
+https://example.com/blog/winter-roof-checklist,winter-checklist.html,200
+https://example.com/blog/spring-gutter-cleaning,spring-gutters.html,200

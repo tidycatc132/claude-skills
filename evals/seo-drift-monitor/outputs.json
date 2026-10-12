@@ -1,0 +1,73 @@
+{
+  "cases": [
+    {
+      "id": "redeploy-regressions",
+      "prompt": "Use the seo-drift-monitor skill. The folder `baseline/` holds the saved HTML of my site before Friday's redeploy and `current/` holds the HTML after it; each folder has a `manifest.csv` mapping URLs to files and a `rankings.csv` with keyword positions from the same day. Did the redeploy break SEO? Build both snapshots, diff them, and save `drift_changes.csv` and `drift_report.md` in the working directory. Then tell me the three worst problems in plain English.",
+      "fixtures": [
+        {"src": "fixtures/seo-drift-monitor/baseline/manifest.csv", "dest": "baseline/manifest.csv"},
+        {"src": "fixtures/seo-drift-monitor/baseline/rankings.csv", "dest": "baseline/rankings.csv"},
+        {"src": "fixtures/seo-drift-monitor/baseline/home.html", "dest": "baseline/home.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/roof-repair.html", "dest": "baseline/roof-repair.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/gutters.html", "dest": "baseline/gutters.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/about.html", "dest": "baseline/about.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/winter-checklist.html", "dest": "baseline/winter-checklist.html"},
+        {"src": "fixtures/seo-drift-monitor/current/manifest.csv", "dest": "current/manifest.csv"},
+        {"src": "fixtures/seo-drift-monitor/current/rankings.csv", "dest": "current/rankings.csv"},
+        {"src": "fixtures/seo-drift-monitor/current/home.html", "dest": "current/home.html"},
+        {"src": "fixtures/seo-drift-monitor/current/roof-repair.html", "dest": "current/roof-repair.html"},
+        {"src": "fixtures/seo-drift-monitor/current/gutters.html", "dest": "current/gutters.html"},
+        {"src": "fixtures/seo-drift-monitor/current/about.html", "dest": "current/about.html"},
+        {"src": "fixtures/seo-drift-monitor/current/winter-checklist.html", "dest": "current/winter-checklist.html"},
+        {"src": "fixtures/seo-drift-monitor/current/spring-gutters.html", "dest": "current/spring-gutters.html"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "drift_changes.csv"},
+        {"type": "file_exists", "path": "drift_report.md"},
+        {"type": "csv_columns", "path": "drift_changes.csv", "columns": ["severity", "category", "subject", "field", "before", "after", "note"]},
+        {"type": "csv_enum", "path": "drift_changes.csv", "column": "severity", "values": ["critical", "high", "medium", "low", "info"]},
+        {"type": "csv_enum", "path": "drift_changes.csv", "column": "category", "values": ["ranking", "index", "status", "title", "meta_description", "canonical", "robots", "schema", "h1", "content", "page"]},
+        {"type": "csv_no_empty", "path": "drift_changes.csv", "column": "subject"},
+        {"type": "csv_min_rows", "path": "drift_changes.csv", "n": 10},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "critical,robots,https://example\\.com/services/roof-repair,noindex,false,true", "label": "noindex flip on roof-repair is critical"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "high,canonical,https://example\\.com/services/gutters,canonical,https://example\\.com/services/gutters,https://staging\\.example\\.com/services/gutters", "label": "canonical now points at staging"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "critical,status,https://example\\.com/about,status,200,404", "label": "about page now 404"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "high,schema,https://example\\.com/services/roof-repair,schema_types,[^\\n]*FAQPage", "label": "FAQPage schema removal is high"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "high,ranking,roof repair denver,position,3,21", "label": "18-place ranking drop is high"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "high,ranking,hail damage roof repair denver,position,12,", "label": "keyword that stopped ranking is high"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "critical,title,\\*,title,", "label": "mass title overwrite flagged site-wide"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "medium,meta_description,https://example\\.com/services/gutters,meta_description,[^\\n]+,,", "label": "gutters meta description went missing"},
+        {"type": "regex", "path": "drift_changes.csv", "pattern": "info,page,https://example\\.com/blog/spring-gutter-cleaning,", "label": "new page is info only"},
+        {"type": "not_regex", "path": "drift_changes.csv", "pattern": "https://example\\.com/blog/winter-roof-checklist", "label": "unchanged page produces no rows"},
+        {"type": "regex", "path": "drift_report.md", "pattern": "VERDICT: REGRESSION DETECTED", "label": "report states a regression verdict"},
+        {"type": "rubric", "target": "stdout", "criteria": [
+          "The answer names the noindex on the roof-repair page, the 404 on the about page, and either the staging canonical on the gutters page or the site-wide title overwrite as top problems",
+          "The answer is written for a site owner, not a developer: it says what each problem does to search visibility, not how the script works",
+          "The answer does not invent problems that are not in the diff (for example it does not claim the winter checklist page changed)"
+        ]}
+      ]
+    },
+    {
+      "id": "baseline-only",
+      "prompt": "Use the seo-drift-monitor skill to baseline my site's SEO. The saved pages are in `site/` with a `manifest.csv` mapping URLs to files, and `site/rankings.csv` has today's keyword positions. Save the baseline to `seo-drift/baseline.json` and tell me how to compare against it after the next release.",
+      "fixtures": [
+        {"src": "fixtures/seo-drift-monitor/baseline/manifest.csv", "dest": "site/manifest.csv"},
+        {"src": "fixtures/seo-drift-monitor/baseline/rankings.csv", "dest": "site/rankings.csv"},
+        {"src": "fixtures/seo-drift-monitor/baseline/home.html", "dest": "site/home.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/roof-repair.html", "dest": "site/roof-repair.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/gutters.html", "dest": "site/gutters.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/about.html", "dest": "site/about.html"},
+        {"src": "fixtures/seo-drift-monitor/baseline/winter-checklist.html", "dest": "site/winter-checklist.html"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "seo-drift/baseline.json"},
+        {"type": "json_has_keys", "path": "seo-drift/baseline.json", "keys": ["schema_version", "captured_at", "pages", "rankings", "indexed_count"]},
+        {"type": "contains", "path": "seo-drift/baseline.json", "text": "\"https://example.com/services/roof-repair\""},
+        {"type": "contains", "path": "seo-drift/baseline.json", "text": "\"FAQPage\""},
+        {"type": "contains", "path": "seo-drift/baseline.json", "text": "\"roof repair denver\""},
+        {"type": "regex", "path": "seo-drift/baseline.json", "pattern": "\"noindex\":\\s*false", "label": "robots directives captured as booleans"},
+        {"type": "file_absent", "path": "drift_changes.csv"},
+        {"type": "regex", "target": "stdout", "pattern": "diff_snapshots\\.py", "label": "answer tells the user which script runs the comparison"}
+      ]
+    }
+  ]
+}

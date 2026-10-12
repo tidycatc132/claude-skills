@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "We redeployed the marketing site on Friday and organic traffic dipped. Did the redesign break SEO? Compare what the site looks like now against how it was before.",
+    "Baseline my site's SEO so I can detect regressions later. Here is the list of URLs in urls.txt.",
+    "Set up SEO drift monitoring for acme-roofing.com: capture titles, meta descriptions, canonicals, robots directives and schema so we can diff after each release.",
+    "Something in the CMS update overwrote my page titles and I think some pages fell out of the index. What changed on my site's SEO since last month?",
+    "I have two snapshots, before.json and after.json, from our site migration. Show me the SEO regressions: ranking drops, noindex flips, missing schema.",
+    "Track SEO over time for our client site. Take a snapshot now and tell me how to run the comparison after the next deploy.",
+    "After the WordPress migration, can you check whether any canonicals or noindex tags got flipped compared to the pre-migration crawl in the baseline folder?",
+    "Compare SEO to last month: rankings.csv has the current positions and seo-drift/baseline.json is the old state. Which keywords dropped?"
+  ],
+  "should_not_trigger": [
+    "Run a full technical SEO audit of example.com and give me a prioritized list of issues to fix.",
+    "Write optimized title tags and meta descriptions for these five service pages.",
+    "Generate FAQPage and LocalBusiness JSON-LD schema markup for my roofing company's homepage.",
+    "Do keyword research for a Denver roofing company and cluster the keywords by intent.",
+    "Our deploy broke the CSS on the homepage; the hero image is overlapping the nav. Can you find the regression in the stylesheet?",
+    "Compare the two versions of config.yaml and tell me which settings changed between releases.",
+    "Who are my top organic competitors and what do they rank for that I don't?",
+    "Write a blog post about winter roof maintenance for homeowners in Colorado.",
+    "Monitor my site's uptime and Lighthouse performance scores over time and alert me when they regress."
+  ]
+}
