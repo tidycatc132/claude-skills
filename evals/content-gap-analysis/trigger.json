@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Find content gaps between my site acme-crm.com and the competitors pipeline-pro.com and dealflowhq.com.",
+    "What content am I missing compared to my top three competitors? Our keyword exports are in the exports folder.",
+    "What are our competitors writing about that we are not? I want a prioritized list and a content calendar.",
+    "Run a keyword gap analysis against hubspot.com and turn the gaps into a content plan for next quarter.",
+    "Compare our topic cluster coverage for 'sales forecasting' against the top five competitors and show where we have holes.",
+    "What have our competitors published in the last six months that we have not covered? Use their sitemaps.",
+    "Which questions get our competitors cited in AI Overviews that we have no page for at all?",
+    "We do not know what to write next quarter. Map our blog against competitor blogs and tell me which gaps are worth filling first."
+  ],
+  "should_not_trigger": [
+    "Benchmark my domain against three competitors on authority, backlinks and traffic share.",
+    "Analyze the SERP for 'sales forecasting spreadsheet' and tell me what it takes to rank.",
+    "Audit our 'what is a CRM' article for E-E-A-T and tell me whether it is good enough to keep.",
+    "Why is Google not indexing our blog pages? Check robots.txt, canonicals and noindex tags.",
+    "Compare our site's SEO to last month's snapshot and flag any regressions.",
+    "Write the article 'Sales forecasting spreadsheet: a complete guide' at 1800 words.",
+    "Do keyword research for a brand-new product category; we have no competitors yet, just give me demand data.",
+    "Build a topical map for our site from scratch based on the services we offer."
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "cases": [
+    {
+      "id": "exports-and-sitemaps",
+      "prompt": "Use the content-gap-analysis skill. We are acme-crm.com, a small-business CRM; the competitors are pipeline-pro.com and dealflowhq.com. There are no web or connector tools in this environment, so work only from the files here: kw_you.csv, kw_pipeline-pro.csv and kw_dealflowhq.csv are SE Ranking keyword exports (US, 2026-10-11) and sitemap_you.xml, sitemap_pipeline-pro.xml and sitemap_dealflowhq.xml are the saved sitemaps. Find the content gaps, score them, and give me the prioritized backlog with a dated content calendar for the Quick Wins.",
+      "fixtures": [
+        {"src": "fixtures/content-gap-analysis/kw_you.csv", "dest": "kw_you.csv"},
+        {"src": "fixtures/content-gap-analysis/kw_pipeline-pro.csv", "dest": "kw_pipeline-pro.csv"},
+        {"src": "fixtures/content-gap-analysis/kw_dealflowhq.csv", "dest": "kw_dealflowhq.csv"},
+        {"src": "fixtures/content-gap-analysis/sitemap_you.xml", "dest": "sitemap_you.xml"},
+        {"src": "fixtures/content-gap-analysis/sitemap_pipeline-pro.xml", "dest": "sitemap_pipeline-pro.xml"},
+        {"src": "fixtures/content-gap-analysis/sitemap_dealflowhq.xml", "dest": "sitemap_dealflowhq.xml"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "keyword_segments.csv"},
+        {"type": "file_exists", "path": "coverage_inventory.csv"},
+        {"type": "file_exists", "path": "gap_priority.csv"},
+        {"type": "file_exists", "path": "content_gap_report.md"},
+        {"type": "csv_columns", "path": "keyword_segments.csv", "columns": ["keyword", "volume", "segment", "your_position", "competitor_positions", "best_competitor", "best_competitor_position", "best_competitor_url", "qualified_gap", "battleground"]},
+        {"type": "csv_enum", "path": "keyword_segments.csv", "column": "segment", "values": ["only_you", "shared", "only_them"]},
+        {"type": "regex", "path": "keyword_segments.csv", "pattern": "^sales forecasting spreadsheet,1600,only_them,,pipeline-pro\\.com:2,pipeline-pro\\.com,2,[^,]*,yes,no$", "label": "qualified gap owned by pipeline-pro"},
+        {"type": "regex", "path": "keyword_segments.csv", "pattern": "^crm implementation cost,90,only_them,[^\\n]*,no,no$", "label": "volume under 100 is not a qualified gap"},
+        {"type": "regex", "path": "keyword_segments.csv", "pattern": "^crm onboarding checklist,300,only_you,6,", "label": "moat keyword"},
+        {"type": "regex", "path": "keyword_segments.csv", "pattern": "^email sequence templates,1900,shared,22,[^\\n]*,no,yes$", "label": "shared but losing is a battleground, not a gap"},
+        {"type": "csv_columns", "path": "coverage_inventory.csv", "columns": ["site", "section", "url_count", "with_lastmod_pct", "latest_lastmod", "recent_count"]},
+        {"type": "regex", "path": "coverage_inventory.csv", "pattern": "pipeline-pro\\.com,templates,5,"},
+        {"type": "csv_enum", "path": "gap_priority.csv", "column": "tier", "values": ["P0", "P1", "P2", "P3"]},
+        {"type": "csv_enum", "path": "gap_priority.csv", "column": "bucket", "values": ["Quick Wins", "Strategic Builds", "Long-term"]},
+        {"type": "csv_min_rows", "path": "gap_priority.csv", "n": 3},
+        {"type": "regex", "path": "gap_priority.csv", "pattern": "(?i)sales forecasting spreadsheet"},
+        {"type": "regex", "path": "content_gap_report.md", "pattern": "(?i)quick wins[\\s\\S]*strategic builds[\\s\\S]*long-term"},
+        {"type": "regex", "path": "content_gap_report.md", "pattern": "(?i)calendar"},
+        {"type": "regex", "path": "content_gap_report.md", "pattern": "(?i)sales forecasting spreadsheet[^\\n]*pipeline-pro\\.com|pipeline-pro\\.com[^\\n]*sales forecasting spreadsheet", "label": "gap names the competitor that covers it"},
+        {"type": "regex", "path": "content_gap_report.md", "pattern": "(?i)(Measured|User-provided|Calculated|Estimated)"},
+        {"type": "regex", "path": "content_gap_report.md", "pattern": "(?i)status:\\s*`?(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)", "label": "handoff summary present"},
+        {"type": "not_regex", "path": "content_gap_report.md", "pattern": "(?i)crm onboarding checklist[^\\n]{0,60}(gap|missing)", "label": "a keyword only you rank for is not reported as a gap"},
+        {"type": "rubric", "target": "content_gap_report.md", "criteria": [
+          "Every prioritized gap names the competitor domain that covers it and gives the search volume from the exports (or marks it Estimated or N/A); no gap is a bare topic.",
+          "Gaps are bucketed into Quick Wins, Strategic Builds and Long-term and each Quick Win has a dated calendar entry (a week or a date).",
+          "The scoring arithmetic for each gap is shown or referenced from the script output, and scores are labeled Calculated.",
+          "Does not claim to have fetched web pages, searched, or used tools that were not available; evidence comes from the exports and sitemaps."
+        ]}
+      ]
+    },
+    {
+      "id": "prescored-backlog",
+      "prompt": "Use the content-gap-analysis skill. We already identified and scored our content gaps against pipeline-pro.com and dealflowhq.com; the factor scores (1-5) are in gap_scores.csv. Do not rescore them. Compute the Opportunity Score, tier and Quick Win value for each, bucket them, and give me the backlog with a dated content calendar starting the week of 2026-10-19.",
+      "fixtures": [
+        {"src": "fixtures/content-gap-analysis/gap_scores.csv", "dest": "gap_scores.csv"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "gap_priority.csv"},
+        {"type": "csv_columns", "path": "gap_priority.csv", "columns": ["gap", "competitor", "volume", "demand", "density", "relevance", "effort", "conversion", "score", "tier", "quick_win", "quick_win_label", "bucket", "arithmetic"]},
+        {"type": "regex", "path": "gap_priority.csv", "pattern": "^sales forecasting spreadsheet,[^\\n]*,3\\.80,P1,4,strong,Quick Wins,", "label": "3.80 P1 promoted on a strong quick win"},
+        {"type": "regex", "path": "gap_priority.csv", "pattern": "^sales commission calculator,[^\\n]*,3\\.45,P1,1,weak,Strategic Builds,"},
+        {"type": "regex", "path": "gap_priority.csv", "pattern": "^what is a crm \\(refresh and improve\\),[^\\n]*,2\\.95,P2,1,weak,Long-term,"},
+        {"type": "regex", "target": "stdout", "pattern": "3\\.80?\\b", "label": "answer quotes the score"},
+        {"type": "regex", "target": "stdout", "pattern": "2026-10-(19|2\\d)|Oct(ober)? 19", "label": "calendar starts the requested week"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)quick wins[\\s\\S]*strategic builds[\\s\\S]*long-term"}
+      ]
+    }
+  ]
+}
