@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "Run a 30-day performance review of my researcher sub-agent using the dispatch records in subagent_dispatch_log.jsonl and act on whatever you decide.",
+    "The content-writer sub-agent keeps needing rework. Review its performance over the last month and decide whether to keep it, put it on an improvement plan or replace it.",
+    "Evaluate how each of my sub-agents performed this month. Dispatch records are in subagent_dispatch_log.jsonl and their definitions are under .claude/agents/.",
+    "Is the qa-checker sub-agent worth keeping? Score it against its last 30 days of dispatches and tell me what action you took.",
+    "Do a manager-style review of the seo-researcher agent I delegate to: what did it do well, where did it fail, and should it be promoted or reassigned?",
+    "I think my data-extractor and researcher sub-agents overlap. Review their dispatch history and tell me whether to merge them.",
+    "Log that the researcher sub-agent just finished dispatch d-0042 with the deliverable accepted after one round of fixes, then tell me whether it has enough history for a review.",
+    "Put the data-extractor agent on a performance improvement plan based on its recent dispatch results and rewrite its instructions accordingly."
+  ],
+  "should_not_trigger": [
+    "Sub-agent research-bot reports that ClickUp task 86c1abc2d is complete. Push this update into ClickUp.",
+    "Audit this article's quality and E-E-A-T signals before we publish it.",
+    "Write a 30-day review for my new employee Priya, who joined the marketing team last month.",
+    "Create a new sub-agent definition for a code reviewer in .claude/agents/ with read-only tools.",
+    "Why did competitor acme.com's rankings jump last month? Benchmark us against them.",
+    "Summarize what the research sub-agent found in three bullets; no need to touch anything else.",
+    "Which model should I pick for my sub-agents to cut token cost?",
+    "Compare our site's SEO snapshot against last month's to find regressions after the redeploy.",
+    "Evaluate the performance of our website: page speed and Core Web Vitals for example.com."
+  ]
+}
