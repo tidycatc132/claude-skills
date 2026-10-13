@@ -177,7 +177,7 @@ recommended_next_skill: <one skill from Next Steps, or none>
 
 After presenting results, ask once: "Save these results for future sessions?" If yes, write `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>.md` in the working directory with: mode, the page decision table (architecture), one-line finding, score with deductions, top actions, redirect map (if any), evidence refs and dates, assumptions, open loops, status, and recommended next step.
 
-In architecture mode, also offer `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>-targets.csv` (pages to create or revise, columns and sources defined in [Page Inclusion](references/page-inclusion.md)) so content-brief-creator can brief them.
+In architecture mode, also offer `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>-targets.csv` (pages to create or revise, columns and sources defined in [Page Inclusion](references/page-inclusion.md)) so a content-brief skill can brief them; until that skill exists in this repo, say the file is a standalone deliverable with no automatic consumer.
 
 Veto-level risks (URL migration without redirects, broken link targets) go into `open_loops` with a recommendation to run content-quality-auditor. This skill never writes a veto or a gate verdict itself.
 

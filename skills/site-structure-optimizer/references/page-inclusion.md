@@ -59,7 +59,7 @@ For each Level 1 and Level 2 concept, compare the audience's wording (persona fi
 
 Write 8–12 "Where would you find…?" tasks from the audience's top questions, with the expected path. Walk each through the tree and flag any where two Level 1 labels are plausible. Offer the list to the user to run in any survey or tree-test tool.
 
-## targets.csv (for content-brief-creator)
+## targets.csv (handoff to the content-brief skill, once it exists)
 
 Offered in Save Results as `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>-targets.csv`, UTF-8, header row first. One row per page whose action is `create` or `revise` and that has a primary keyword. A page with no keyword gets no row and goes in `open_loops` as "needs keyword research (keyword-research)".
 
