@@ -79,6 +79,7 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 - **Island**: two or more pages that link among themselves but receive no link from the home page, a pillar/hub, or the navigation.
 - **Contextual link**: an in-body link inside page copy, as opposed to header, footer, sidebar, or breadcrumb links. Count the two separately.
 - **Click depth**: the fewest link hops from the home page.
+- **Link counts** come from the export or crawl as given: one link per listed source-to-destination row. Do not add navigation links to pages where the data does not list them, and do not compute a second score on an expanded graph; if the data looks incomplete, say so in `assumptions`.
 
 ### Mode: architecture
 
@@ -150,7 +151,7 @@ Lead with the mode, the site type, the score, and the single biggest structural 
 
 ## Handoff Summary
 
-End every run with this block. Include which mode ran and the score with its deductions as evidence.
+End every run with this block, in the chat answer itself (also in the saved report when one is written). Include which mode ran and the score with its deductions as evidence.
 
 ```yaml
 status: DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_INPUT

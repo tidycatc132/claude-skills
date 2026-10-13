@@ -65,7 +65,7 @@ Every integration is optional. Use whatever is available, in this order, and say
 chatgpt\.com|openai\.com|perplexity\.ai|copilot\.microsoft\.com|copilot\.com|gemini\.google|bard\.google\.com|claude\.ai|anthropic\.com|deepseek\.com|doubao\.com|chat\.qwen\.ai|poe\.com|edgeservices\.bing\.com
 ```
 
-**Measurement loop (both modes)**: each run writes a dated JSON snapshot per source (`backlinks`, `mentions`, `ai-citations`, `ai-traffic`). On the next run, read the most recent prior snapshot and compute the delta and trend by hand, showing the arithmetic. Schemas and a worked diff are in [data-sources-and-snapshots.md](references/data-sources-and-snapshots.md).
+**Measurement loop (both modes)**: each run writes a dated JSON snapshot per source (`backlinks`, `mentions`, `ai-citations`, `ai-traffic`) carrying every key of that source's schema (a key with no data is `null`, never dropped). On the next run, read the most recent prior snapshot and compute the delta and trend by hand, showing the arithmetic. Schemas and a worked diff are in [data-sources-and-snapshots.md](references/data-sources-and-snapshots.md).
 
 ## Decision Gates
 
@@ -117,7 +117,7 @@ Use [Backlink Analysis Templates](references/backlinks-analysis-templates.md) fo
 3. **Pull AI-referral sessions**: in GA4 use an Exploration on `Session source / medium` filtered by the regex, or a custom channel group with "AI Assistants" placed **above** Referral so it matches first. From server logs, count requests whose `Referer` matches the regex. Tag each count Measured / User-provided / Estimated.
 4. **Build the AI trend**: report AI sessions period-over-period and AI share of total sessions. Compute the delta from the prior `ai-traffic` snapshot with the arithmetic shown, not by eye.
 5. **Top AI landing pages**: list the pages AI assistants send traffic to, with sessions and conversion rate per page. These are your likely cited/surfaced URLs: an **engagement signal that informs (does not evidence)** CITE C05/C06. Referral traffic proves an AI answer linked you, not that the answer cited you prominently; treat it as a lead, not proof.
-6. **AI vs organic**: compare engagement and conversion rate of the AI channel against organic for the same window. State the gap as a ratio (AI CVR ÷ organic CVR), and flag low sample sizes.
+6. **AI vs organic**: compare engagement and conversion rate of the AI channel against organic for the same window. State the gap as a ratio (AI CVR ÷ organic CVR). Flag every AI source with fewer than 100 sessions or fewer than 5 conversions by name as a low sample whose rate is not reliable.
 7. **Cross-check GSC**: where available, note AI-Overview / AI-feature query and click movement from Search Console as corroboration; mark coverage as partial. Add the WebSearch upstream spot-check results here, labeled as above.
 8. **Read movement against a control**: before crediting any change to an AI-traffic shift, apply [measurement-protocol.md](references/measurement-protocol.md): pick the readback window up front, compare delta-vs-control, and label the result **Promote / Keep-testing / Rollback / Unproven**. Separate an observed change from a plausible cause.
 
