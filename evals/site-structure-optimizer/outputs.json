@@ -1,0 +1,179 @@
+{
+  "cases": [
+    {
+      "id": "linking-orphans-score",
+      "prompt": "Use the site-structure-optimizer skill in linking mode for mailcraft.example, a small SaaS blog. No crawler connector, WebFetch, WebSearch or curl is available in this session, so work only from the two files, which are a Screaming Frog export from 2026-10-12. `pages.csv` is the full page inventory (12 indexable pages). `inlinks.csv` lists every internal link as one row per unique source-to-destination pair; the sitewide header and footer links are listed once, from the home page, and the Link position column says whether a link is Header, Footer or Content (contextual). The five important pages are the home page, /guides/email-marketing/, /guides/email-marketing/automation/, /tools/subject-line-tester/ and /pricing/. There is no traffic data. Treat every link target as resolving; do not try to fetch anything. You already have my approval to save the report to `seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md`. Give me the diagnosis and the link plan in chat as well.",
+      "fixtures": [
+        {
+          "src": "fixtures/site-structure-optimizer/pages.csv",
+          "dest": "pages.csv"
+        },
+        {
+          "src": "fixtures/site-structure-optimizer/inlinks.csv",
+          "dest": "inlinks.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        },
+        {
+          "type": "regex",
+          "pattern": "(?i)(mode[^\\n]{0,30}linking|linking[ -]mode)",
+          "label": "mode stated",
+          "path": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "/blog/black-friday-email-ideas-2024/"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "/blog/welcome-series-examples/"
+        },
+        {
+          "type": "regex",
+          "pattern": "\\b65\\s?/\\s?100",
+          "label": "structure score 100 - 20 (2 orphans) - 5 (/about/ has no contextual inbound link) - 10 (1.6 links per page is below every model's range)",
+          "path": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        },
+        {
+          "type": "regex",
+          "pattern": "\\b65\\s?/\\s?100",
+          "label": "chat answer carries the same score",
+          "target": "stdout"
+        },
+        {
+          "type": "regex",
+          "pattern": "(?i)orphan[^\\n]{0,80}(−|-|minus)\\s?(10|20)|(−|-|minus)\\s?(10|20)[^\\n]{0,80}orphan",
+          "label": "orphan deduction shown",
+          "path": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "/about/"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)click here",
+          "label": "generic anchor flagged"
+        },
+        {
+          "type": "regex",
+          "pattern": "(?i)user-provided",
+          "label": "evidence labeled",
+          "path": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "not_regex",
+          "pattern": "\\b(TODO|TBD|lorem)\\b",
+          "label": "no placeholders",
+          "target": "stdout"
+        },
+        {
+          "type": "rubric",
+          "criteria": [
+            "Exactly two orphans are listed (black-friday-email-ideas-2024 and welcome-series-examples) and no other page is called an orphan; each orphan either gets a disposition (keep and link, noindex, or redirect) with a reason, or, because its traffic value is unknown, is put to the user as a numbered choice between those options",
+            "The score arithmetic is shown as deductions from 100 that sum to 65: -20 for two orphans, -5 for /about/ having no inbound contextual link, -10 for average links per page (19 links / 12 pages, about 1.6) being outside the chosen model's target range; no important page is charged for being deeper than 3 clicks",
+            "The anchor analysis flags 'email marketing guide' (4 links to the pillar) as a repeated exact-match anchor to one target and 'click here' from the deliverability checklist as a generic anchor to rewrite",
+            "The link plan is a table of source, target and anchor rows with at least three rows that give the two orphans inbound contextual links from topically related pages",
+            "The answer does not claim to have crawled, fetched or curl-checked anything, and link counts are labeled User-provided rather than Measured"
+          ],
+          "target": "seo-reports/site-structure-optimizer/2026-10-13-mailcraft.md"
+        }
+      ]
+    },
+    {
+      "id": "architecture-new-saas",
+      "prompt": "Use the site-structure-optimizer skill in architecture mode. We are rebuilding the marketing site for Ledgerly, a SaaS accounting tool for freelancers (about 30 pages at launch). Goals: free-trial signups, organic traffic to the guides, and a clean docs area. Pages we will have: home, product overview, three feature pages (invoicing, expenses, tax estimates), pricing, integrations, about, contact, a blog with roughly 15 posts about freelancer taxes and bookkeeping, and a 6-page docs section. The five most important pages are home, pricing, the invoicing feature page, the tax-estimates feature page and a pillar guide on freelancer taxes. Two legacy URLs are still linked from partner sites and must keep resolving, so if you change them they need 301 redirects: /blog/2024/05/launch-announcement/ and /features.html; we want clean URL patterns, not grandfathered exceptions. No crawler data, no web access; work from this description only and do not fetch anything. Do not save a report; give me everything in chat.",
+      "fixtures": [],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "seo-reports",
+          "label": "nothing saved when told not to"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)(mode[^\\n]{0,30}architecture|architecture[ -]mode)",
+          "label": "mode stated"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "graph TD"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\b\\d{1,3}\\s?/\\s?100",
+          "label": "architecture score out of 100"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\b301\\b",
+          "label": "redirect map uses 301s"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "/blog/2024/05/launch-announcement/"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "/features.html"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)breadcrumb",
+          "label": "navigation spec covers breadcrumbs"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)(hub|pillar)",
+          "label": "hub/spoke plan present"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "/pricing/?",
+          "label": "URL map includes pricing"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "An ASCII hierarchy tree is shown with a URL or URL pattern at every node (unnamed blog posts or docs articles may be grouped under one node that shows their URL pattern), and none of the five important pages sits deeper than 3 clicks from home",
+            "The URL map is a table with page, URL, parent, navigation location and priority columns, and it flags the dated blog URL pattern (/blog/2024/05/...) and the .html extension as mistakes to fix",
+            "A redirect map lists both existing URLs with their new destination and a 301, and the architecture score arithmetic shows each deduction (or states that there are none) and sums correctly",
+            "The header navigation spec has between 4 and 7 items with the free-trial CTA rightmost, and the footer and breadcrumb rules are stated",
+            "The hub/spoke plan names the freelancer-taxes pillar as a hub with specific blog posts as spokes, with cross-section links between features and guides",
+            "The handoff recommends running linking mode next, and the answer does not claim to have crawled or fetched anything"
+          ]
+        }
+      ]
+    }
+  ]
+}
