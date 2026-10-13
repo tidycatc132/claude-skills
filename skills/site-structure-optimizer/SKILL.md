@@ -1,6 +1,6 @@
 ---
 name: site-structure-optimizer
-description: Use when the user asks to "plan my site structure", "design the page hierarchy / navigation / URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize internal anchor text", or "suggest internal links for this article". Two modes. architecture designs whole-site information architecture (ASCII hierarchy, URL map, nav spec, hub/spoke clusters, Mermaid site map flagging orphans and islands). linking optimizes links inside an existing site (link graph, click depth, authority flow, anchor distribution, orphan disposition, source/target/anchor plan). Both output a structure score /100, phased actions, and a handoff summary, from a crawler connector or export, a sitemap, or a pasted page list. Also triggers on 网站架构, 信息架构, 站点地图, 内链优化. Do NOT use for backlinks or AI referrals (use offsite-signal-analyzer), for XML sitemap, indexation or crawl errors (use technical-seo-checker), or for page content scoring (use content-quality-auditor).
+description: Use when the user asks to "plan my site structure", "plan a sitemap", "which pages should we keep, merge or cut", "design the page hierarchy, navigation or URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize internal anchor text", or "suggest internal links for this article". Two modes. architecture decides which pages exist (ROT, keep/merge/retire scoring) and designs the information architecture (hierarchy, URL map, nav, hub/spoke clusters, Mermaid site map). linking optimizes links inside an existing site (link graph, click depth, authority flow, anchors, orphan disposition, link plan). Both output a structure score /100 and a handoff summary from a crawler export, sitemap or page list. Also for 网站架构, 信息架构, 站点地图, 内链优化. Do NOT use for backlinks or AI referrals (use offsite-signal-analyzer), for XML sitemap, indexation or crawl errors (use technical-seo-checker), or for page content scoring (use content-quality-auditor).
 allowed-tools: WebFetch, WebSearch, Bash(curl:*)
 ---
 
@@ -10,7 +10,7 @@ allowed-tools: WebFetch, WebSearch, Bash(curl:*)
 
 Works one lever, site structure, at two altitudes. **Architecture mode** designs the whole-site information architecture: page hierarchy, navigation, URL taxonomy, hub/spoke topic clusters, and link topology, rendered as Mermaid site maps that make orphans and link islands visible. **Linking mode** optimizes the links inside an existing structure: link graph, authority flow, anchor text, and orphan disposition, delivered as a prioritized source/target/anchor plan. Both emit a **structure score /100** and a handoff summary.
 
-**Scope**: this skill does not compute a CORE-EEAT score or run vetoes; that belongs to content-quality-auditor. It does not analyze external backlinks (offsite-signal-analyzer) or diagnose XML sitemaps, indexation, or crawl errors (technical-seo-checker). When findings belong to one of those, name it as the next step in the handoff.
+**Scope**: this skill does not compute a CORE-EEAT score or run vetoes; that belongs to content-quality-auditor. It does not analyze external backlinks (offsite-signal-analyzer) or diagnose XML sitemaps, indexation, or crawl errors (technical-seo-checker). When findings belong to one of those, name it as the next step in the handoff. It does not discover keywords or build a content backlog (keyword-research, content-gap-analysis) and does not profile competitors (competitor-analysis); in Step 1b it only places pages that demand data already supports and reads competitors' nav labels.
 
 ## Mode Selector
 
@@ -40,15 +40,15 @@ Optimize anchor text across the site
 ## Skill Contract
 
 **Expected output** (mode-dependent):
-- `architecture`: a page hierarchy (ASCII tree), a URL map table, a navigation spec, a hub/spoke link plan, a Mermaid site map flagging orphans and islands, a redirect map for any URL changes, and an **architecture score /100** with the arithmetic shown.
+- `architecture`: a page decision table (keep / revise / merge / retire / create, with score and reason), a page hierarchy (ASCII tree), a URL map table, a navigation spec, a hub/spoke link plan, a Mermaid site map flagging orphans and islands, a redirect map for any URL changes, and an **architecture score /100** with the arithmetic shown.
 - `linking`: a scored diagnosis, an orphan list with disposition, an anchor-distribution check against thresholds, and a prioritized source/target/anchor plan, with a **structure score /100** and the arithmetic shown.
 - Both end with the handoff summary below.
 
 - **Reads**: site type, goals, page inventory or sitemap, key page URLs, audiences, content categories, existing URLs to preserve, any crawler export or connector data, and (linking mode) the article or URL to link from. Also any prior report in `seo-reports/site-structure-optimizer/`.
-- **Writes** (only after asking, see Save Results): a dated report under `seo-reports/site-structure-optimizer/`.
+- **Writes** (only after asking, see Save Results): a dated report under `seo-reports/site-structure-optimizer/` and, in architecture mode, an optional `-targets.csv` beside it in the columns listed in [Page Inclusion](references/page-inclusion.md).
 - **Surfaces**: blocking defects (URL migrations without redirects, high-value orphans, broken link targets), recurring weaknesses, restructure/fix priorities, and pending decisions go into the handoff `open_loops` as pending decisions for the user.
 - **Done when**:
-  - `architecture`: hierarchy + URL taxonomy + nav spec + hub/spoke plan + Mermaid map listing orphans/islands are produced, and the architecture score is computed with arithmetic shown.
+  - `architecture`: every inventory page has a decision, and hierarchy + URL taxonomy + nav spec + hub/spoke plan + Mermaid map listing orphans/islands are produced, and the architecture score is computed with arithmetic shown.
   - `linking`: orphans are listed with a disposition, anchor distribution is checked against the thresholds, a source/target/anchor plan is produced, and the structure score is computed with arithmetic shown.
 
 ## Data Sources
@@ -57,7 +57,7 @@ Every integration is optional. Use whatever is available, in this order, and say
 
 1. **SEO crawler connector**: if a site-audit connector is available (for example SE Ranking's website audit, which returns crawled pages and found links), use its crawled-page list, internal links, click depth, status codes, and anchors. Label **Measured**.
 2. **User's crawler export**: a Screaming Frog, Sitebulb, or similar export (internal HTML pages plus an all-inlinks table with source, destination, anchor, link position, follow). Label **User-provided**.
-3. **Traffic data**: a Google Search Console or GA4 connector, or a pasted pages export, to judge the value of orphans and pick important pages. Label **Measured** (connector) or **User-provided** (paste).
+3. **Traffic data**: a Google Search Console or GA4 connector (for example SEO Gets `get_site_performance` by page over 12 months: sessions, key events, clicks, impressions), or a pasted pages export, to judge the value of orphans and pick important pages. Label **Measured** (connector) or **User-provided** (paste).
 4. **Sample crawl (keyless)**: a polite WebFetch crawl from the home page plus the XML sitemap, 50 pages and 5 clicks deep by default, after the robots.txt pre-flight. Label **Measured (sample)** and state the cap.
 5. **Page list only**: a pasted sitemap or page inventory. Every step works manually from it; link counts are then **Estimated** unless the user supplied them.
 
@@ -83,14 +83,15 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 
 ### Mode: architecture
 
-1. **Confirm Scope**: capture site type, top 3 goals, new-build vs restructure, page count/inventory, the 5 most important pages, and existing URLs to preserve. If site type and page inventory are both missing, this is a hard stop (see Decision Gates).
+1. **Confirm Scope**: capture site type, top 3 goals and the conversion path for each (entry page → key page → action), audiences (reuse a persona file from url-persona-generator or audience-persona-builder if one exists), new-build vs restructure, page count/inventory, the 5 most important pages, and existing URLs to preserve. If site type and page inventory are both missing, this is a hard stop (see Decision Gates).
+   **1b. Decide Which Pages Exist**: score every inventory page (restructure) and every candidate page from search demand (both) with the five metrics in [Page Inclusion](references/page-inclusion.md), tag ROT, apply the overrides, and output the decision table. Benchmark 3–5 competitors' Level 1 nav and build the label table there; with no web access or data, mark those inputs N/A, score on what exists, and say so. Only kept, revised, and created pages go into Step 3.
 2. **Pick the Model**: map site type to a typical depth and URL pattern using the [Site-Type Patterns](references/site-type-patterns.md) table; state the chosen model and target depth.
-3. **Design the Hierarchy**: produce an ASCII tree (L0 home → L1 sections → L2/L3 detail) with a URL at each node. Apply the 3-click rule: flag any important page deeper than 3 clicks. Keep it as flat as the nav allows.
+3. **Design the Hierarchy**: produce an ASCII tree (L0 home → L1 sections → L2/L3 detail) with a URL at each node. Apply the 3-click rule: flag any important page deeper than 3 clicks. Keep it as flat as the nav allows. Apply the nesting rules in [Page Inclusion](references/page-inclusion.md): 4–7 Level 1 categories with audience labels, parents as hubs, merge single-child parents, split 12+ children, facets instead of URLs unless search demand justifies a page.
 4. **Define the URL Taxonomy**: output a URL map table (page, URL, parent, nav location, priority) following the patterns in [Site-Type Patterns](references/site-type-patterns.md). Flag common mistakes (dates in blog URLs, over-nesting, IDs/query params, file extensions, inconsistent parents, mixed case/trailing slash). When existing URLs are supplied, add a `URL mistakes` list under the map naming each one that breaks a rule, the rule it breaks and its new URL.
 5. **Spec the Navigation**: header (4–7 items, CTA rightmost, logo → home), footer column groups, sidebar (docs/blog sections), and breadcrumbs mirroring the URL path.
 6. **Plan Hub/Spoke Clusters**: map each pillar (hub) to its spokes; every spoke links back to its hub, the hub links to all spokes, spokes cross-link where relevant. Identify cross-section links (feature ↔ case study, blog ↔ product). This is the structural layer of CORE-EEAT **R08 (Internal Link Graph)**, descriptive anchors forming topic clusters, which content-quality-auditor scores, not this skill.
 7. **Draw the Site Map (Mermaid)**: render a `graph TD` with one subgraph per nav zone. Put orphans (no inbound edges) in their own subgraph; mark islands (clusters that link among themselves but never to a pillar). See [Mermaid Templates](references/mermaid-templates.md).
-8. **Score and Prioritize**: compute an **architecture score /100**: start 100; −10 per orphan, −10 per island, −5 per important page deeper than 3 clicks, −10 per URL migration without a planned 301, −5 per inconsistent URL parent; floor 0. Show each deduction. Output phased priority actions and a redirect map (old URL → new URL, 301) for any URL changes.
+8. **Score and Prioritize**: compute an **architecture score /100**: start 100; −10 per orphan, −10 per island, −5 per important page deeper than 3 clicks, −10 per URL migration without a planned 301, −5 per inconsistent URL parent, −5 if Level 1 has more than 7 categories, −5 per parent with a single child; floor 0. Show each deduction. Output phased priority actions and a redirect map (old URL → new URL, 301) for any URL changes.
 
 ### Mode: linking
 
@@ -131,6 +132,7 @@ This skill reports evidence for R08 and broken-link findings for R10. It never s
 
 **Stop and ask the user when:**
 - (architecture) Site type and page inventory are both missing and neither is inferable from context. Present numbered options: (1) name the site type + paste a page list, (2) provide a domain to crawl, (3) proceed with a stated assumed site type (state which and its risk).
+- (architecture) The decision table would retire or merge a page with conversions (C ≥ 1) or more than 5% of site sessions. Show its numbers and ask: (1) keep, (2) merge into the named page, (3) retire with a 301.
 - (linking) A high-value orphan must be deleted, noindexed, or redirected and its traffic/ranking value is unknown. State what you see and ask: (1) keep and add links, (2) noindex, (3) 301-redirect to the nearest relevant page.
 - The target domain is not the user's and its robots.txt disallows the paths you need, or it posts a TDM reservation. Stop crawling, report the block, and ask for an export or page list instead.
 
@@ -173,7 +175,9 @@ recommended_next_skill: <one skill from Next Steps, or none>
 
 ## Save Results
 
-After presenting results, ask once: "Save these results for future sessions?" If yes, write `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>.md` in the working directory with: mode, one-line finding, score with deductions, top actions, redirect map (if any), evidence refs and dates, assumptions, open loops, status, and recommended next step.
+After presenting results, ask once: "Save these results for future sessions?" If yes, write `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>.md` in the working directory with: mode, the page decision table (architecture), one-line finding, score with deductions, top actions, redirect map (if any), evidence refs and dates, assumptions, open loops, status, and recommended next step.
+
+In architecture mode, also offer `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>-targets.csv` (pages to create or revise, columns and sources defined in [Page Inclusion](references/page-inclusion.md)) so content-brief-creator can brief them.
 
 Veto-level risks (URL migration without redirects, broken link targets) go into `open_loops` with a recommendation to run content-quality-auditor. This skill never writes a veto or a gate verdict itself.
 
@@ -189,6 +193,7 @@ Termination: never run a skill twice in the same chain, allow at most 3 automati
 ## Reference Materials
 
 - [Data Collection](references/data-collection.md): read before any crawl, sitemap fetch, connector pull, or link-graph calculation (orphans, click depth, in-degree, internal PageRank), and for the scraping pre-flight.
+- [Page Inclusion](references/page-inclusion.md): read in architecture Steps 1b and 3 for the inclusion score, ROT tags, competitor/label research, nesting rules, and the targets.csv columns.
 - [Site-Type Patterns](references/site-type-patterns.md): read in architecture Steps 2 and 4 for depth, topology, hierarchy levels, URL rules, and common mistakes.
 - [Link Architecture Patterns](references/link-architecture-patterns.md): read in linking Step 1 for the five models, selection thresholds, avg-links/page targets, anchor targets, migration safeguards, and monitoring.
 - [Linking Templates](references/linking-templates.md): read when writing output for linking Steps 3–7.

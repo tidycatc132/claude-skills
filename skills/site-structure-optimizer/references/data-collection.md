@@ -30,7 +30,7 @@ Ask for, in order of usefulness:
 
 ### C. Traffic data (Measured or User-provided)
 
-GSC pages report (clicks, impressions, average position) or GA4 landing-page report for the last 90 days. Use it to pick important pages when the user names none, and to value orphans before choosing a disposition.
+GSC pages report (clicks, impressions, average position) or GA4 landing-page report for the last 12 months (the inclusion-score thresholds in [page-inclusion.md](page-inclusion.md) assume 12 months; if only 90 days exist, say so and scale T accordingly, labeled Estimated). Use it to pick important pages when the user names none, and to value orphans before choosing a disposition.
 
 ### D. Sample crawl with WebFetch (Measured, sample)
 
