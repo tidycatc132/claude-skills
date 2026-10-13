@@ -1,0 +1,384 @@
+{
+  "cases": [
+    {
+      "id": "improvement-plan",
+      "prompt": "You are the managing agent. Run the 30-day review of sub-agent content-writer as of 2026-10-13 using the subagent-performance-review skill. The dispatch log is `subagent_dispatch_log.jsonl` and the agent definitions are in `agents/`. Take whatever action the review calls for, then report to me what you found and what you did.",
+      "fixtures": [
+        {
+          "src": "fixtures/subagent-performance-review/subagent_dispatch_log.jsonl",
+          "dest": "subagent_dispatch_log.jsonl"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/content-writer.md",
+          "dest": "agents/content-writer.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/data-extractor.md",
+          "dest": "agents/data-extractor.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/qa-checker.md",
+          "dest": "agents/qa-checker.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/researcher.md",
+          "dest": "agents/researcher.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "review_content-writer.json"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"verdict\": \"improvement_plan\""
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"composite\": 66\\b",
+          "label": "composite 0.4*40 + 0.25*90 + 0.2*70 + 0.15*90 = 66"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"acceptance\": 40\\.0"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"adherence\": 90\\.0"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"efficiency\": 70\\.0"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"reliability\": 90\\.0"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"dispatches\": 10\\b",
+          "label": "the 2026-08-30 record is outside the window"
+        },
+        {
+          "type": "regex",
+          "path": "review_content-writer.json",
+          "pattern": "\"trend\": \"flat\""
+        },
+        {
+          "type": "contains",
+          "path": "review_content-writer.md",
+          "text": "VERDICT: improvement_plan"
+        },
+        {
+          "type": "file_exists",
+          "path": "pip_content-writer.md"
+        },
+        {
+          "type": "contains",
+          "path": "pip_content-writer.md",
+          "text": "2026-11-12",
+          "label": "re-review date is 30 days after the review"
+        },
+        {
+          "type": "contains",
+          "path": "agents/content-writer.md",
+          "text": "name: content-writer",
+          "label": "definition keeps its frontmatter"
+        },
+        {
+          "type": "contains",
+          "path": "agents/content-writer.md",
+          "text": "## Performance improvement plan",
+          "label": "the plan is written into the definition the sub-agent actually runs with"
+        },
+        {
+          "type": "file_absent",
+          "path": "agents/retired/content-writer.2026-10-13.md",
+          "label": "not replaced"
+        },
+        {
+          "type": "file_exists",
+          "path": "review_actions.json"
+        },
+        {
+          "type": "regex",
+          "path": "review_actions.json",
+          "pattern": "\"action\": \"improvement_plan\""
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The report states the verdict (improvement plan) and cites concrete evidence from the log such as the rejection count, the abandoned dispatch or the scope violations",
+            "The report says what was changed in the content-writer definition and when the re-review is due",
+            "The report does not claim the agent was replaced, reassigned or promoted"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "replace-after-fabrication",
+      "prompt": "You are the managing agent. Review sub-agent data-extractor as of 2026-10-13 with the subagent-performance-review skill. Dispatch log: `subagent_dispatch_log.jsonl`; definitions: `agents/`. If the review calls for a replacement, do it now so the position is not left empty, then report back.",
+      "fixtures": [
+        {
+          "src": "fixtures/subagent-performance-review/subagent_dispatch_log.jsonl",
+          "dest": "subagent_dispatch_log.jsonl"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/content-writer.md",
+          "dest": "agents/content-writer.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/data-extractor.md",
+          "dest": "agents/data-extractor.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/qa-checker.md",
+          "dest": "agents/qa-checker.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/researcher.md",
+          "dest": "agents/researcher.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "path": "review_data-extractor.json",
+          "pattern": "\"verdict\": \"replace\""
+        },
+        {
+          "type": "regex",
+          "path": "review_data-extractor.json",
+          "pattern": "\"composite\": 39\\b",
+          "label": "58.75 rounds to 59 then two fabrications cap it at 39"
+        },
+        {
+          "type": "regex",
+          "path": "review_data-extractor.json",
+          "pattern": "\"fabrications\": 2\\b"
+        },
+        {
+          "type": "regex",
+          "path": "review_data-extractor.json",
+          "pattern": "\"cap_reason\": \"[^\"]*fabrication"
+        },
+        {
+          "type": "contains",
+          "path": "review_data-extractor.md",
+          "text": "VERDICT: replace"
+        },
+        {
+          "type": "file_exists",
+          "path": "agents/retired/data-extractor.2026-10-13.md",
+          "label": "old definition retired, not deleted"
+        },
+        {
+          "type": "contains",
+          "path": "agents/retired/data-extractor.2026-10-13.md",
+          "text": "You turn unstructured source material into clean structured data."
+        },
+        {
+          "type": "file_exists",
+          "path": "agents/data-extractor.md",
+          "label": "position filled immediately"
+        },
+        {
+          "type": "contains",
+          "path": "agents/data-extractor.md",
+          "text": "name: data-extractor"
+        },
+        {
+          "type": "not_contains",
+          "path": "agents/data-extractor.md",
+          "text": "You turn unstructured source material into clean structured data.",
+          "label": "replacement has a new system prompt"
+        },
+        {
+          "type": "regex",
+          "path": "agents/data-extractor.md",
+          "pattern": "(?i)source",
+          "label": "replacement instructions address the fabrication failure"
+        },
+        {
+          "type": "regex",
+          "path": "review_actions.json",
+          "pattern": "\"action\": \"replace\""
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The report names fabrication (invented data not in the sources) as the reason for replacement",
+            "The report says the old definition was retired and a replacement is already in place at the same name",
+            "The report does not describe the replacement as a performance improvement plan"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "insufficient-data",
+      "prompt": "You are the managing agent. Run a subagent-performance-review of sub-agent qa-checker as of 2026-10-13. Log: `subagent_dispatch_log.jsonl`; definitions: `agents/`. Act on the result and report to me.",
+      "fixtures": [
+        {
+          "src": "fixtures/subagent-performance-review/subagent_dispatch_log.jsonl",
+          "dest": "subagent_dispatch_log.jsonl"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/content-writer.md",
+          "dest": "agents/content-writer.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/data-extractor.md",
+          "dest": "agents/data-extractor.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/qa-checker.md",
+          "dest": "agents/qa-checker.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/researcher.md",
+          "dest": "agents/researcher.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "path": "review_qa-checker.json",
+          "pattern": "\"verdict\": \"insufficient_data\""
+        },
+        {
+          "type": "regex",
+          "path": "review_qa-checker.json",
+          "pattern": "\"dispatches\": 3\\b"
+        },
+        {
+          "type": "contains",
+          "path": "review_qa-checker.md",
+          "text": "VERDICT: insufficient_data"
+        },
+        {
+          "type": "file_absent",
+          "path": "pip_qa-checker.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "agents/retired/qa-checker.2026-10-13.md"
+        },
+        {
+          "type": "contains",
+          "path": "agents/qa-checker.md",
+          "text": "You are a QA checker. Run the checks the task names",
+          "label": "definition untouched"
+        },
+        {
+          "type": "not_contains",
+          "path": "agents/qa-checker.md",
+          "text": "## Performance improvement plan"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The report says no action was taken because three dispatches are too few (the minimum is five)",
+            "The report does not promote, retain, or otherwise grade the agent as if the sample were sufficient"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "promote",
+      "prompt": "You are the managing agent. Review sub-agent researcher as of 2026-10-13 with the subagent-performance-review skill (log `subagent_dispatch_log.jsonl`, definitions in `agents/`). If it earns a promotion, the new role is `lead-researcher`; fill it right away and make sure the researcher position is not left empty. Report what you found and did.",
+      "fixtures": [
+        {
+          "src": "fixtures/subagent-performance-review/subagent_dispatch_log.jsonl",
+          "dest": "subagent_dispatch_log.jsonl"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/content-writer.md",
+          "dest": "agents/content-writer.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/data-extractor.md",
+          "dest": "agents/data-extractor.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/qa-checker.md",
+          "dest": "agents/qa-checker.md"
+        },
+        {
+          "src": "fixtures/subagent-performance-review/agents/researcher.md",
+          "dest": "agents/researcher.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "path": "review_researcher.json",
+          "pattern": "\"verdict\": \"promote\""
+        },
+        {
+          "type": "regex",
+          "path": "review_researcher.json",
+          "pattern": "\"composite\": 94\\b",
+          "label": "0.4*87.5 + 25 + 0.2*92.5 + 15 = 93.5 rounds to 94"
+        },
+        {
+          "type": "regex",
+          "path": "review_researcher.json",
+          "pattern": "\"trend\": \"improving\""
+        },
+        {
+          "type": "regex",
+          "path": "review_researcher.json",
+          "pattern": "\"complex_accepted\": 3\\b"
+        },
+        {
+          "type": "contains",
+          "path": "review_researcher.md",
+          "text": "VERDICT: promote"
+        },
+        {
+          "type": "file_exists",
+          "path": "agents/lead-researcher.md"
+        },
+        {
+          "type": "contains",
+          "path": "agents/lead-researcher.md",
+          "text": "name: lead-researcher"
+        },
+        {
+          "type": "file_exists",
+          "path": "agents/researcher.md",
+          "label": "old position backfilled"
+        },
+        {
+          "type": "contains",
+          "path": "agents/researcher.md",
+          "text": "name: researcher"
+        },
+        {
+          "type": "regex",
+          "path": "review_actions.json",
+          "pattern": "\"action\": \"promote\""
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The report states the promotion and the evidence for it (high acceptance, complex tasks accepted, improving trend)",
+            "The report says the lead-researcher role now exists and that the researcher position is still filled"
+          ]
+        }
+      ]
+    }
+  ]
+}
