@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Audit my Google Ads account. Customer ID 987-654-3210; we take it over from the previous agency next week.",
+    "Run an account health check on our Google Ads: structure, conversion tracking, keywords, ads, bidding, targeting and wasted spend.",
+    "Here are CSV exports from Google Ads (campaigns, keywords, search terms, conversions). Find the problems and score the account out of 10.",
+    "Do a PPC account review of our Google Ads before we restructure; rate every issue Critical to Low and give me a 30/60/90-day plan.",
+    "Check my whole Google Ads account for problems, including conversion tracking setup and wasted spend, and list the quick wins.",
+    "Is my Google Ads account set up correctly? Review all the campaigns and tell me what is broken.",
+    "Give me a comprehensive Google Ads audit with an estimate of how much we waste per month.",
+    "A new client handed us their Google Ads account. Review their campaigns and write an audit report I can send them."
+  ],
+  "should_not_trigger": [
+    "Why did CPA go up in my Google Ads account last month compared with the month before? Here is the campaigns export.",
+    "How are my Google Ads campaigns doing? Here is the last 30 days campaigns export, give me the summary table.",
+    "Show me the Google Ads search terms with zero conversions in the plumbing campaign and how much they cost.",
+    "Which Google Ads campaigns are capped by budget, and how much impression share am I losing to budget per campaign?",
+    "Run a technical SEO audit on example.com: crawlability, indexing, Core Web Vitals and redirect chains.",
+    "Audit the content quality of this blog post before we publish it: https://example.com/blog/furnace-maintenance",
+    "Audit my Meta Ads account and tell me what to fix in the ad sets.",
+    "Analyze the internal linking on example.com and find the orphan pages."
+  ]
+}

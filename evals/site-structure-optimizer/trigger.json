@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "Plan the site structure for a new SaaS marketing site with about 40 pages: product, pricing, docs, blog and company pages.",
+    "Find the orphan pages on mailcraft.example from this Screaming Frog export (pages.csv and inlinks.csv) and tell me what to do with them.",
+    "Suggest internal links for this new article on email deliverability; here is the list of other pages on the site.",
+    "Design the URL taxonomy and navigation for brightsmiledental.com; the current URLs are a mess of dates and IDs.",
+    "Map hub-and-spoke topic clusters for my blog around home solar and draw the site map as a Mermaid diagram.",
+    "Our important pages are buried four clicks deep. Restructure the site hierarchy and give me a redirect map for the URL changes.",
+    "Optimize the anchor text across example.com: too many 'click here' links and the same exact-match anchor everywhere.",
+    "Analyze the internal linking structure of example.com from this sitemap and inlinks export. Where does authority flow and what is under-linked?"
+  ],
+  "should_not_trigger": [
+    "Analyze the backlinks pointing to example.com and find the toxic domains to disavow.",
+    "Why is Google not indexing 40 of my product pages? Check the XML sitemap, robots.txt and canonicals.",
+    "Audit the content quality of this guide for E-E-A-T before we publish it.",
+    "Do keyword research for 'home solar' with search volume and difficulty for each keyword.",
+    "Who are my competitors in search and what are they doing better than us?",
+    "Did the redesign break our titles and canonicals? Compare the site against last month's SEO snapshot.",
+    "Where am I wasting spend in my Google Ads account?",
+    "Write the navigation menu copy and button labels for our new homepage.",
+    "Analyze the anchor-text distribution of my backlink profile and flag over-optimized anchors from other sites."
+  ]
+}

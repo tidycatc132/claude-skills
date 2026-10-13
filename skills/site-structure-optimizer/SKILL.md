@@ -1,6 +1,6 @@
 ---
 name: site-structure-optimizer
-description: Use when the user asks to "plan my site structure", "design the page hierarchy / navigation / URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize anchor text", or "suggest internal links for this article". Two modes. architecture designs whole-site information architecture (ASCII hierarchy, URL map, navigation spec, hub/spoke clusters, Mermaid site map flagging orphans and link islands). linking optimizes the links inside an existing site (link graph, click depth, authority flow, anchor-text distribution, orphan disposition, prioritized source/target/anchor plan). Both output a structure score /100, phased actions, and a handoff summary. Works from an SEO crawler connector, a crawler export, a sitemap, or a pasted page list. Also triggers on 网站架构, 信息架构, 站点地图, 内链优化.
+description: Use when the user asks to "plan my site structure", "design the page hierarchy / navigation / URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize internal anchor text", or "suggest internal links for this article". Two modes. architecture designs whole-site information architecture (ASCII hierarchy, URL map, nav spec, hub/spoke clusters, Mermaid site map flagging orphans and islands). linking optimizes links inside an existing site (link graph, click depth, authority flow, anchor distribution, orphan disposition, source/target/anchor plan). Both output a structure score /100, phased actions, and a handoff summary, from a crawler connector or export, a sitemap, or a pasted page list. Also triggers on 网站架构, 信息架构, 站点地图, 内链优化. Do NOT use for backlinks or AI referrals (use offsite-signal-analyzer), for XML sitemap, indexation or crawl errors (use technical-seo-checker), or for page content scoring (use content-quality-auditor).
 allowed-tools: WebFetch, WebSearch, Bash(curl:*)
 ---
 
@@ -79,13 +79,14 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 - **Island**: two or more pages that link among themselves but receive no link from the home page, a pillar/hub, or the navigation.
 - **Contextual link**: an in-body link inside page copy, as opposed to header, footer, sidebar, or breadcrumb links. Count the two separately.
 - **Click depth**: the fewest link hops from the home page.
+- **Link counts** come from the export or crawl as given: one link per listed source-to-destination row. Do not add navigation links to pages where the data does not list them, and do not compute a second score on an expanded graph; if the data looks incomplete, say so in `assumptions`.
 
 ### Mode: architecture
 
 1. **Confirm Scope**: capture site type, top 3 goals, new-build vs restructure, page count/inventory, the 5 most important pages, and existing URLs to preserve. If site type and page inventory are both missing, this is a hard stop (see Decision Gates).
 2. **Pick the Model**: map site type to a typical depth and URL pattern using the [Site-Type Patterns](references/site-type-patterns.md) table; state the chosen model and target depth.
 3. **Design the Hierarchy**: produce an ASCII tree (L0 home → L1 sections → L2/L3 detail) with a URL at each node. Apply the 3-click rule: flag any important page deeper than 3 clicks. Keep it as flat as the nav allows.
-4. **Define the URL Taxonomy**: output a URL map table (page, URL, parent, nav location, priority) following the patterns in [Site-Type Patterns](references/site-type-patterns.md). Flag common mistakes (dates in blog URLs, over-nesting, IDs/query params, inconsistent parents, mixed case/trailing slash).
+4. **Define the URL Taxonomy**: output a URL map table (page, URL, parent, nav location, priority) following the patterns in [Site-Type Patterns](references/site-type-patterns.md). Flag common mistakes (dates in blog URLs, over-nesting, IDs/query params, file extensions, inconsistent parents, mixed case/trailing slash). When existing URLs are supplied, add a `URL mistakes` list under the map naming each one that breaks a rule, the rule it breaks and its new URL.
 5. **Spec the Navigation**: header (4–7 items, CTA rightmost, logo → home), footer column groups, sidebar (docs/blog sections), and breadcrumbs mirroring the URL path.
 6. **Plan Hub/Spoke Clusters**: map each pillar (hub) to its spokes; every spoke links back to its hub, the hub links to all spokes, spokes cross-link where relevant. Identify cross-section links (feature ↔ case study, blog ↔ product). This is the structural layer of CORE-EEAT **R08 (Internal Link Graph)**, descriptive anchors forming topic clusters, which content-quality-auditor scores, not this skill.
 7. **Draw the Site Map (Mermaid)**: render a `graph TD` with one subgraph per nav zone. Put orphans (no inbound edges) in their own subgraph; mark islands (clusters that link among themselves but never to a pillar). See [Mermaid Templates](references/mermaid-templates.md).
@@ -93,11 +94,11 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 
 ### Mode: linking
 
-1. **Analyze Current Structure**: capture domain, pages analyzed, total internal links, average links/page, link distribution, top linked pages, under-linked important pages, and a **structure score /100**: start at 100; −10 per orphan page, −5 per important page deeper than 3 clicks, −5 per page with 0 inbound contextual links, −10 if avg links/page is outside the architecture model's target range in [Link Architecture Patterns](references/link-architecture-patterns.md); floor 0. Show each deduction. Flag crawl-depth and authority-flow problems (pages with high internal PageRank or in-degree that are not important, and important pages with low ones).
+1. **Analyze Current Structure**: capture domain, pages analyzed, total internal links, average links/page, link distribution, top linked pages, under-linked important pages, and a **structure score /100**: start at 100; −10 per orphan page, −5 per important page deeper than 3 clicks, −5 per page with 0 inbound contextual links (home page and orphans excluded), −10 if avg links/page is outside the architecture model's target range in [Link Architecture Patterns](references/link-architecture-patterns.md); floor 0. Show each deduction. Flag crawl-depth and authority-flow problems (pages with high internal PageRank or in-degree that are not important, and important pages with low ones).
 2. **Identify Orphan Pages**: list pages with no inbound internal links. Prioritize high-value orphans with traffic/rankings, medium-potential pages that need category/tag links, and low-value pages to delete, noindex, or redirect.
 3. **Analyze Anchor Text Distribution**: check current anchor patterns, distribution by page, over-optimization, generic anchors, and CORE-EEAT **R08** alignment (descriptive anchors, not "click here"). Anchor Score /10 and thresholds are defined in the Step 3 template in [Linking Templates](references/linking-templates.md).
 4. **Create Topic Cluster Link Strategy**: map pillar/cluster links, recommend a structure, and list specific links to add. Template: [Linking Templates](references/linking-templates.md) Step 4.
-5. **Find Contextual Link Opportunities**: for each page, identify topic-relevant source/target/anchor opportunities and prioritize high-impact additions. Confirm every target resolves before recommending it (`curl -s -o /dev/null -w '%{http_code} %{url_effective}\n' -IL "<url>"`; 4xx/5xx = broken, note redirect hops and link to the final URL). Flag any broken target in `open_loops` for content-quality-auditor (a broken link is an R10 finding, see below). Template: [Linking Templates](references/linking-templates.md) Step 5.
+5. **Find Contextual Link Opportunities**: for each page, identify topic-relevant source/target/anchor opportunities and prioritize high-impact additions. Output the plan as one table with `source`, `target`, `anchor` and `priority` columns, one row per link with the exact anchor text; every orphan kept on the site gets at least two rows. Confirm every target resolves before recommending it (`curl -s -o /dev/null -w '%{http_code} %{url_effective}\n' -IL "<url>"`; 4xx/5xx = broken, note redirect hops and link to the final URL). Flag any broken target in `open_loops` for content-quality-auditor (a broken link is an R10 finding, see below). Template: [Linking Templates](references/linking-templates.md) Step 5.
 6. **Optimize Navigation and Footer Links**: review main/footer/sidebar/breadcrumb navigation; recommend pages to add, demote, or remove. Template: [Linking Templates](references/linking-templates.md) Step 6.
 7. **Generate Implementation Plan**: include executive summary, current-state metrics, phased priority actions, implementation guide, and tracking plan. Template: [Linking Templates](references/linking-templates.md) Step 7.
 
@@ -150,7 +151,7 @@ Lead with the mode, the site type, the score, and the single biggest structural 
 
 ## Handoff Summary
 
-End every run with this block. Include which mode ran and the score with its deductions as evidence.
+End every run with this block, in the chat answer itself (also in the saved report when one is written). Include which mode ran and the score with its deductions as evidence.
 
 ```yaml
 status: DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_INPUT
@@ -179,7 +180,7 @@ Veto-level risks (URL migration without redirects, broken link targets) go into 
 ## Next Steps
 
 - Ran **architecture**: primary → run this skill again in **linking** mode to optimize the actual links inside the new structure. If linking already ran in this chain, stop and report chain-complete.
-- Ran **linking**: primary → on-page-seo-checker, to verify that revised internal links support page-level goals.
+- Ran **linking**: terminal unless a scored gate is needed (content-quality-auditor, below); report chain-complete.
 - XML sitemap, indexation, redirect-chain, or crawl-error findings → technical-seo-checker.
 - Structure is publish-ready and a scored gate is needed → content-quality-auditor, the only skill that computes the CORE-EEAT score and runs the vetoes. Stop after it returns a verdict.
 

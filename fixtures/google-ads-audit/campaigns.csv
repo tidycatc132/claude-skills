@@ -1,0 +1,7 @@
+Campaign,Campaign status,Campaign type,Bid strategy type,Budget,Shared budget,Cost,Clicks,Impr.,Conversions,Conv. value,Search impr. share,Search lost IS (budget),Search lost IS (rank)
+Search - Core Services,Enabled,Search,Maximize clicks,120.00,No,3300.00,2750,55000,38.0,0.00,55.0%,12.0%,33.0%
+Search - Brand,Enabled,Search,Manual CPC,30.00,No,864.00,1080,9600,41.0,0.00,91.0%,< 10%,< 10%
+Search - Commercial HVAC,Enabled,Search,Manual CPC,20.00,No,310.00,210,5200,0.0,0.00,38.0%,15.0%,47.0%
+Display - Prospecting,Enabled,Display,Manual CPC,25.00,No,406.00,2030,290000,4.0,0.00,--,--,--
+Search - Competitors,Paused,Search,Manual CPC,15.00,No,0.00,0,0,0.0,0.00,--,--,--
+Total: All campaigns,,,,,,4880.00,6070,359800,83.0,0.00,,,

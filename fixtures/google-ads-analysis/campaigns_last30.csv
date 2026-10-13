@@ -1,0 +1,7 @@
+Campaign,Campaign status,Campaign type,Bid strategy type,Budget,Cost,Clicks,Impr.,Conversions,Conv. value,CTR,Avg. CPC,Cost / conv.,Search impr. share,Search lost IS (budget),Search lost IS (rank)
+Brand - Search,Enabled,Search,Target CPA,40.00,1164.00,1200,15000,60.0,9000.00,8.00%,0.97,19.40,85.2%,9.1%,5.7%
+Generic - Plumbing Services,Enabled,Search,Maximize conversions,150.00,3750.00,2500,62500,50.0,12500.00,4.00%,1.50,75.00,42.0%,31.5%,26.5%
+Display - Retargeting,Enabled,Display,Manual CPC,20.00,312.40,1562,260000,0.0,0.00,0.60%,0.20,--,--,--,--
+Competitor - Search,Enabled,Search,Manual CPC,25.00,48.60,54,1800,0.0,0.00,3.00%,0.90,--,22.0%,10.0%,68.0%
+Emergency - Search,Paused,Search,Manual CPC,30.00,0.00,0,0,0.0,0.00,--,--,--,--,--,--
+Total: All campaigns,,,,,5275.00,5316,339300,110.0,21500.00,1.57%,0.99,47.95,,,

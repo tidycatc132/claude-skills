@@ -1,0 +1,20 @@
+Source,Destination,Anchor,Link position,Follow
+https://mailcraft.example/,https://mailcraft.example/guides/email-marketing/,Email Marketing Guide,Header,True
+https://mailcraft.example/,https://mailcraft.example/tools/subject-line-tester/,Subject Line Tester,Header,True
+https://mailcraft.example/,https://mailcraft.example/pricing/,Pricing,Header,True
+https://mailcraft.example/,https://mailcraft.example/about/,About,Footer,True
+https://mailcraft.example/guides/email-marketing/,https://mailcraft.example/guides/email-marketing/list-building/,email list building strategies,Content,True
+https://mailcraft.example/guides/email-marketing/,https://mailcraft.example/guides/email-marketing/subject-lines/,writing email subject lines,Content,True
+https://mailcraft.example/guides/email-marketing/,https://mailcraft.example/guides/email-marketing/segmentation/,email segmentation,Content,True
+https://mailcraft.example/guides/email-marketing/,https://mailcraft.example/guides/email-marketing/automation/,email automation workflows,Content,True
+https://mailcraft.example/guides/email-marketing/,https://mailcraft.example/,Mailcraft,Content,True
+https://mailcraft.example/guides/email-marketing/list-building/,https://mailcraft.example/guides/email-marketing/,email marketing guide,Content,True
+https://mailcraft.example/guides/email-marketing/subject-lines/,https://mailcraft.example/guides/email-marketing/,email marketing guide,Content,True
+https://mailcraft.example/guides/email-marketing/segmentation/,https://mailcraft.example/guides/email-marketing/,email marketing guide,Content,True
+https://mailcraft.example/guides/email-marketing/automation/,https://mailcraft.example/guides/email-marketing/,email marketing guide,Content,True
+https://mailcraft.example/guides/email-marketing/list-building/,https://mailcraft.example/guides/email-marketing/subject-lines/,subject line tips,Content,True
+https://mailcraft.example/guides/email-marketing/subject-lines/,https://mailcraft.example/tools/subject-line-tester/,subject line tester,Content,True
+https://mailcraft.example/blog/email-deliverability-checklist/,https://mailcraft.example/guides/email-marketing/,click here,Content,True
+https://mailcraft.example/blog/email-deliverability-checklist/,https://mailcraft.example/guides/email-marketing/automation/,automation,Content,True
+https://mailcraft.example/guides/email-marketing/segmentation/,https://mailcraft.example/blog/email-deliverability-checklist/,email deliverability checklist,Content,True
+https://mailcraft.example/tools/subject-line-tester/,https://mailcraft.example/pricing/,see pricing,Content,True

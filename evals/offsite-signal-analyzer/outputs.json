@@ -1,0 +1,203 @@
+{
+  "cases": [
+    {
+      "id": "backlinks-toxic-ratio",
+      "prompt": "Use the offsite-signal-analyzer skill in backlinks mode for summitheating.example. No SEO connector, no web access and no WebFetch or WebSearch are available in this session, so work only from `referring_domains.csv`, an SE Ranking referring-domains export dated 2026-10-12 with one row per referring domain; the Toxicity column is the tool's own toxic flag. No competitor exports and no prior snapshots exist. Do not save anything to disk; print the snapshot JSON in the appendix instead.",
+      "fixtures": [
+        {
+          "src": "fixtures/offsite-signal-analyzer/referring_domains.csv",
+          "dest": "referring_domains.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "seo-reports",
+          "label": "nothing saved when told not to"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)(mode[^\\n]{0,30}backlinks|backlinks[ -]mode)",
+          "label": "mode stated"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "4\\s?[÷/]\\s?20",
+          "label": "toxic ratio arithmetic shown"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "20(\\.0)?\\s?%",
+          "label": "toxic ratio 20%"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)manipulation",
+          "label": "manipulation risk flagged above 15%"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "T03",
+          "label": "CITE veto item T03 named"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "T05",
+          "label": "CITE veto item T05 named"
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "cheap-casino-bonus.ru"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "85(\\.0)?\\s?%|\\\"dofollow_pct\\\":\\s*85",
+          "label": "dofollow share 17 / 20"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)measured",
+          "label": "source labels used"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"source\\\":\\s*\\\"backlinks\\\"",
+          "label": "snapshot JSON printed"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"referring_domains\\\":\\s*20",
+          "label": "snapshot carries the measured domain count"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"toxic_ratio_pct\\\":\\s*20(\\.0)?",
+          "label": "snapshot carries the toxic ratio"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "All four toxic domains (best-seo-links.xyz, cheap-casino-bonus.ru, pbn-network-01.site, free-directory-list.info) are named as disavow candidates and no Clean domain is called toxic",
+            "The exact-match anchor 'denver hvac repair' (6 of 20 domains, 30%) is flagged as over-optimized",
+            "At least three concrete link-building or disavow actions are named, and 'run a formal domain authority / CITE review' is among the recommended actions",
+            "Competitor link gap and unlinked news mentions are reported as N/A or not run, not estimated, and the answer does not claim to have called GDELT, WebSearch or any connector",
+            "The run is described as the baseline because no prior snapshot exists, and no referring-domain or traffic figure appears that is not in the CSV"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ai-referrals-ga4",
+      "prompt": "Use the offsite-signal-analyzer skill in ai-referrals mode for summitheating.example. No analytics connector, WebFetch or WebSearch is available in this session, so work only from `ga4_source_medium.csv`, a GA4 export of sessions by source/medium for 2026-09-13 to 2026-10-12 where the Conversions column is the lead_form key event. Use google / organic alone as the organic control (20,400 sessions). No prior snapshot exists. Do not save anything to disk; print the snapshot JSON in the appendix instead.",
+      "fixtures": [
+        {
+          "src": "fixtures/offsite-signal-analyzer/ga4_source_medium.csv",
+          "dest": "ga4_source_medium.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "seo-reports",
+          "label": "nothing saved when told not to"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)(mode[^\\n]{0,30}ai[- ]referrals|ai[- ]referrals[ -]mode)",
+          "label": "mode stated"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\b520\\b",
+          "label": "AI sessions 380 + 110 + 30"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "3\\.46\\s?%",
+          "label": "AI conversion rate 18 / 520"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "1\\.50?\\s?%",
+          "label": "organic conversion rate 306 / 20400"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "2\\.3\\d?\\s?(x|×|times)",
+          "label": "AI vs organic CVR ratio"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "1\\.9\\d?\\s?%",
+          "label": "AI share of sessions 520 / 27400"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "chatgpt\\\\?\\.com",
+          "label": "final AI source regex or list recorded as evidence"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"source\\\":\\s*\\\"ai-traffic\\\"",
+          "label": "snapshot JSON printed"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"ai_sessions\\\":\\s*520",
+          "label": "snapshot carries AI sessions"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\\"organic_conversions\\\":\\s*306",
+          "label": "snapshot carries organic conversions"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The AI channel is defined as exactly chatgpt.com, perplexity.ai and copilot.microsoft.com; facebook.com, bing and direct are not counted as AI",
+            "copilot.microsoft.com (30 sessions, 1 conversion) is flagged as a low sample size",
+            "No period-over-period movement is credited to a cause: the run is called the baseline, and the measurement-protocol label is Unproven or the answer states that no readback is possible yet",
+            "Top AI landing pages and the Search Console cross-check are reported as unavailable from this export, not estimated, and the answer does not claim to have run WebSearch or a connector",
+            "Figures are labeled Measured, User-provided or Calculated (one label covering a whole table or section is acceptable), and the arithmetic is shown for the headline calculated figures: AI sessions total, AI CVR, organic CVR, the AI-vs-organic ratio and the AI share of sessions"
+          ]
+        }
+      ]
+    }
+  ]
+}
