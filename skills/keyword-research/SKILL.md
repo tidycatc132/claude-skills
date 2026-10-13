@@ -94,5 +94,3 @@ Intent mapping of an existing list, seasonal analysis, single-competitor keyword
 - `scripts/wiki_pageviews.py "<Article_Title>" --months 12 [--json]`: Wikimedia pageviews as an attention proxy for relative demand and seasonality, never a search-volume number.
 
 ---
-
-Methodology adapted from the Apache-2.0 `keyword-research` skill in aaron-he-zhu/aaron-marketing-skills (https://github.com/aaron-he-zhu/aaron-marketing-skills/tree/main/seo-geo/survey/keyword-research), rewritten as a standalone skill.
