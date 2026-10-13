@@ -1,0 +1,69 @@
+{
+  "cases": [
+    {
+      "id": "saved-site-audit",
+      "prompt": "Use the technical-seo-checker skill to audit shop.example.com. There is no network access and no PageSpeed data in this environment, so work from the saved files only: manifest.csv lists each fetched URL with its saved HTML file (in pages/), final status and redirect hops; robots.txt and sitemap.xml are the live copies, all captured 2026-10-12. Give me the scored diagnosis, the P0/P1/P2 fix queue and the handoff summary.",
+      "fixtures": [
+        {"src": "fixtures/technical-seo-checker/manifest.csv", "dest": "manifest.csv"},
+        {"src": "fixtures/technical-seo-checker/robots.txt", "dest": "robots.txt"},
+        {"src": "fixtures/technical-seo-checker/sitemap.xml", "dest": "sitemap.xml"},
+        {"src": "fixtures/technical-seo-checker/pages/home.html", "dest": "pages/home.html"},
+        {"src": "fixtures/technical-seo-checker/pages/products.html", "dest": "pages/products.html"},
+        {"src": "fixtures/technical-seo-checker/pages/widget-a.html", "dest": "pages/widget-a.html"},
+        {"src": "fixtures/technical-seo-checker/pages/widget-b.html", "dest": "pages/widget-b.html"},
+        {"src": "fixtures/technical-seo-checker/pages/blog.html", "dest": "pages/blog.html"},
+        {"src": "fixtures/technical-seo-checker/pages/search.html", "dest": "pages/search.html"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "page_checks.csv"},
+        {"type": "file_exists", "path": "area_scores.json"},
+        {"type": "file_exists", "path": "audit_scorecard.json"},
+        {"type": "file_exists", "path": "technical_audit_report.md"},
+        {"type": "csv_columns", "path": "page_checks.csv", "columns": ["scope", "url", "area", "check", "status", "severity", "evidence", "fix"]},
+        {"type": "csv_enum", "path": "page_checks.csv", "column": "status", "values": ["pass", "warn", "fail", "info", "na"]},
+        {"type": "csv_enum", "path": "page_checks.csv", "column": "severity", "values": ["P0", "P1", "P2", "none"]},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^url,https://shop\\.example\\.com/products/,indexability,meta_robots,fail,P0,", "label": "noindex on a sitemap URL is P0"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^robots,[^\\n]*,crawlability,assets_blocked,fail,P1,", "label": "blocked JS path"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^sitemap,https://shop\\.example\\.com/old-catalog,crawlability,sitemap_url_status,fail,P1,", "label": "404 listed in sitemap"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^url,https://shop\\.example\\.com/products/widget-a,mobile,viewport,fail,P1,"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^url,https://shop\\.example\\.com/products/widget-a,security,mixed_content,fail,P1,"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^url,https://shop\\.example\\.com/products/widget-b,url_structure,redirect_hops,fail,P1,"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "^url,https://shop\\.example\\.com/blog/choosing-widgets,international,hreflang,fail,P1,"},
+        {"type": "regex", "path": "page_checks.csv", "pattern": "ai_bot_GPTBot,info,none,blocked"},
+        {"type": "json_has_keys", "path": "audit_scorecard.json", "keys": ["areas", "overall", "arithmetic", "queue", "queue_counts"]},
+        {"type": "regex", "path": "audit_scorecard.json", "pattern": "\"performance\": \\{\\s*\"score\": null", "label": "no PageSpeed data means performance is N/A, not guessed"},
+        {"type": "regex", "path": "technical_audit_report.md", "pattern": "(?i)\\bP0\\b[\\s\\S]*noindex", "label": "P0 noindex surfaced"},
+        {"type": "regex", "path": "technical_audit_report.md", "pattern": "\\d+/10"},
+        {"type": "regex", "path": "technical_audit_report.md", "pattern": "\\d+/100"},
+        {"type": "regex", "path": "technical_audit_report.md", "pattern": "GPTBot"},
+        {"type": "regex", "path": "technical_audit_report.md", "pattern": "(?i)status:\\s*`?(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)", "label": "handoff summary present"},
+        {"type": "not_regex", "path": "technical_audit_report.md", "pattern": "(?i)LCP[^\\n]{0,30}\\d\\.\\d\\s*s", "label": "no invented Core Web Vitals values"},
+        {"type": "rubric", "target": "technical_audit_report.md", "criteria": [
+          "Flags the noindex on https://shop.example.com/products/ as a P0 blocker with its evidence, and lists the 404 in the sitemap, the blocked JS path, the redirect chain on widget-b, the missing viewport and the mixed content on widget-a as issues with fixes.",
+          "Gives a /10 score per audited area with evidence and marks Performance (Core Web Vitals) N/A because no PageSpeed data was available; the overall /100 excludes N/A areas and the arithmetic is shown.",
+          "Reports the AI crawler policy from robots.txt (GPTBot and ClaudeBot blocked, retrieval bots not addressed) without inventing a stance for the user.",
+          "Does not claim to have fetched live pages, run PageSpeed, or measured anything beyond the saved files; labels are Measured (saved files) or Calculated."
+        ]}
+      ]
+    },
+    {
+      "id": "before-after-proof",
+      "prompt": "Use the technical-seo-checker skill. We fixed https://shop.example.com/products/widget-a in late September (removed the noindex, fixed the canonical, collapsed the redirect chain, image work). snapshot_before.json is the audit snapshot from 2026-09-14 and snapshot_after.json is the re-check from 2026-10-12. Show me what changed and whether the fix worked.",
+      "fixtures": [
+        {"src": "fixtures/technical-seo-checker/snapshot_before.json", "dest": "snapshot_before.json"},
+        {"src": "fixtures/technical-seo-checker/snapshot_after.json", "dest": "snapshot_after.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "snapshot_diff.md"},
+        {"type": "regex", "path": "snapshot_diff.md", "pattern": "field lcp_ms \\| 3100 \\| 2400 \\| 2400 - 3100 = -700[^|]*\\| Needs Improvement -> Good \\| Improved", "label": "LCP delta with band change"},
+        {"type": "regex", "path": "snapshot_diff.md", "pattern": "lab tbt_ms \\| 210 \\| 200 \\|[^|]*\\|[^|]*\\| Unchanged", "label": "within 10 percent lab noise is Unchanged"},
+        {"type": "regex", "path": "snapshot_diff.md", "pattern": "indexability\\.meta_robots \\| noindex,follow \\| null \\|[^|]*\\|[^|]*\\| Improved"},
+        {"type": "regex", "path": "snapshot_diff.md", "pattern": "http\\.hops \\| 3 \\| 1 \\|"},
+        {"type": "regex", "path": "snapshot_diff.md", "pattern": "(?i)27 days[^\\n]*28-day", "label": "CrUX window caveat stated"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)improved"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)28.day|rolling", "label": "answer carries the CrUX caveat"},
+        {"type": "not_regex", "target": "stdout", "pattern": "(?i)\\bregress(ed|ion)\\b[^.\\n]{0,40}\\b(LCP|INP|CLS|TTFB)", "label": "no false regression claims"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Perform a technical SEO audit of shop.example.com and give me a prioritized fix list.",
+    "Check Core Web Vitals for https://example.com/pricing on mobile and tell me which metric is failing and why.",
+    "Why is Google not indexing my product pages? Search Console says 40 of 50 are excluded.",
+    "Audit how my site handles AI crawlers. I want to allow retrieval bots but block training bots, and I am not sure what robots.txt should say.",
+    "We are migrating from WordPress to Next.js next month. Give me a pre-migration technical SEO checklist and a redirect plan.",
+    "Audit crawlability and indexability for example.com: robots.txt, sitemap, canonicals and noindex tags.",
+    "Bulk audit every URL in https://example.com/sitemap.xml for status codes, redirect chains and canonical conflicts.",
+    "Is our HTTPS set up properly? Check mixed content, HSTS and the redirect chains from the http and www versions."
+  ],
+  "should_not_trigger": [
+    "Audit this blog post's content quality and E-E-A-T before we publish it.",
+    "Find content gaps between our site and our two main competitors and build a content calendar.",
+    "Analyze the SERP for 'running shoes' and tell me what it takes to rank.",
+    "Benchmark our domain against three competitors on backlinks, authority and traffic share.",
+    "We redeployed on Friday and traffic dropped. Compare the site's SEO now against last month's baseline snapshot and tell me what changed.",
+    "Write new title tags and meta descriptions for these 20 category pages.",
+    "Our deploy broke the CSS on the homepage; the hero image overlaps the nav. Find the regression in the stylesheet.",
+    "Set up uptime monitoring and alert me when the site goes down."
+  ]
+}

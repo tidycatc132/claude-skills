@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Audit the content quality of this blog post before we publish it: https://example.com/blog/remote-onboarding-checklist",
+    "Run an E-E-A-T analysis on our 'best CRM for small business' comparison page and tell me what is weak.",
+    "Is this how-to guide ready to publish? The draft is in draft.md. Give me a ship or fix verdict.",
+    "Score this product review against CORE-EEAT for the US market and show the arithmetic behind the score.",
+    "Rerun the content quality audit on the pricing article after our fixes and compare it with the last run.",
+    "Check this landing page for trust and expertise signals, author bio, disclosures and citations, and tell me whether it can go live.",
+    "Our article reads like AI slop and shows no real hands-on experience. Audit it and give me a prioritized fix plan.",
+    "Does example.com/guides/solar-panel-cost meet the quality bar for experience, expertise, authoritativeness and trust? I need a publish readiness verdict."
+  ],
+  "should_not_trigger": [
+    "Perform a technical SEO audit of example.com: crawlability, indexing, Core Web Vitals and robots.txt.",
+    "Find content gaps between my site and hubspot.com and drift.com. What topics are they covering that we are not?",
+    "Analyze the SERP for 'how to start a podcast' and tell me what it takes to rank.",
+    "Compare my site against three competitors across keywords, backlinks and traffic share.",
+    "We redeployed on Friday and organic traffic dipped. Compare the site's SEO now against the baseline snapshot.",
+    "Write a 1500-word blog post about winter roof maintenance for homeowners in Colorado.",
+    "Proofread this paragraph for grammar and typos and tighten the wording.",
+    "Generate FAQPage JSON-LD schema for the questions on my pricing page."
+  ]
+}

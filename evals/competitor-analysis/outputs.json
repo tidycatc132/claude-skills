@@ -1,0 +1,38 @@
+{
+  "cases": [
+    {
+      "id": "benchmark-with-cite",
+      "prompt": "Use the competitor-analysis skill. We are acme-crm.com (US small-business CRM). domain_metrics.csv holds the SE Ranking domain overview export for us and three competitors (observed 2026-10-11), and cite_items.json holds the CITE item checks we already completed for all four domains. There are no web or connector tools in this environment, so work only from these two files. Produce the competitor report with the comparison table, the CITE row, strengths to learn from, weaknesses to exploit, and the action plan.",
+      "fixtures": [
+        {"src": "fixtures/competitor-analysis/domain_metrics.csv", "dest": "domain_metrics.csv"},
+        {"src": "fixtures/competitor-analysis/cite_items.json", "dest": "cite_items.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "competitor_benchmark.csv"},
+        {"type": "file_exists", "path": "cite_scores.csv"},
+        {"type": "file_exists", "path": "competitor_report.md"},
+        {"type": "csv_columns", "path": "competitor_benchmark.csv", "columns": ["domain", "role", "authority", "traffic", "top10_keywords", "backlinks", "referring_domains", "source", "observed_at", "traffic_share_pct", "rank_traffic", "rank_authority", "rank_top10_keywords", "rank_referring_domains", "label"]},
+        {"type": "regex", "path": "competitor_benchmark.csv", "pattern": "^pipeline-pro\\.com,competitor,61,48000,920,15400,1850,[^,]*,[^,]*,48\\.0,1,1,1,1,Calculated$", "label": "traffic share 48000/100000 = 48.0% and rank 1 everywhere"},
+        {"type": "regex", "path": "competitor_benchmark.csv", "pattern": "^acme-crm\\.com,you,[^\\n]*,12\\.0,3,4,4,4,Calculated$", "label": "your traffic share is 12.0%"},
+        {"type": "csv_columns", "path": "cite_scores.csv", "columns": ["domain", "domain_type", "C", "I", "T", "E", "coverage", "raw_score", "score", "rating", "status", "veto_fails", "capped", "manipulation_alert", "label"]},
+        {"type": "csv_enum", "path": "cite_scores.csv", "column": "status", "values": ["scored", "partial-coverage", "N/A", "no-score"]},
+        {"type": "regex", "path": "cite_scores.csv", "pattern": "^pipeline-pro\\.com,[^\\n]*,93\\.8,59\\.0,Low,scored,T05,true,", "label": "one verified veto caps 93.8 at 59"},
+        {"type": "regex", "path": "cite_scores.csv", "pattern": "^closerapp\\.io,[^\\n]*,N/A,N/A,N/A,", "label": "Identity 3/10 observed gives N/A, not a guess"},
+        {"type": "regex", "path": "cite_scores.csv", "pattern": "^acme-crm\\.com,[^\\n]*,64\\.8,64\\.8,Medium,scored,,false,"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "(?i)strengths to learn from"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "(?i)weaknesses to exploit"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "(?i)immediate[\\s\\S]*short-term[\\s\\S]*long-term", "label": "action plan in three horizons"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "(?i)manipulation alert", "label": "the veto is surfaced"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "48\\.0\\s*%", "label": "leader traffic share quoted"},
+        {"type": "regex", "path": "competitor_report.md", "pattern": "(?i)status:\\s*`?(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)", "label": "handoff summary present"},
+        {"type": "not_regex", "path": "competitor_report.md", "pattern": "closerapp\\.io[^\\n]{0,80}\\b(6[0-9]|7[0-9])\\.\\d\\s*/\\s*100", "label": "no invented CITE score for the N/A domain"},
+        {"type": "rubric", "target": "competitor_report.md", "criteria": [
+          "Every strength to learn from and weakness to exploit names a specific competitor domain and a specific labeled metric or CITE item from the input files (for example a referring-domain count or a failed item), not a generic statement.",
+          "The CITE row shows pipeline-pro.com capped at 59 because of the T05 veto and shows closerapp.io as N/A because Identity had too few observed items; it does not invent a score for closerapp.io.",
+          "Metrics are labeled Measured, User-provided, Calculated or Estimated and the source and date (SE Ranking, 2026-10-11) are stated.",
+          "Does not claim to have fetched websites, run searches, or observed anything beyond the two input files."
+        ]}
+      ]
+    }
+  ]
+}

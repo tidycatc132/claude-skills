@@ -1,0 +1,19 @@
+{
+  "schema": "technical-seo-snapshot/1",
+  "url": "https://shop.example.com/products/widget-a",
+  "captured_at": "2026-10-12T09:30:00Z",
+  "sources": ["psi:mobile", "curl", "robots", "sitemap"],
+  "cwv": {
+    "strategy": "mobile",
+    "field": {"scope": "url", "lcp_ms": 2400, "inp_ms": 180, "cls": 0.07, "ttfb_ms": 650},
+    "lab": {"lcp_ms": 2300, "cls": 0.05, "tbt_ms": 200, "ttfb_ms": 790, "perf_score": 0.81}
+  },
+  "http": {"final_status": 200, "final_url": "https://shop.example.com/products/widget-a", "hops": 1, "chain": ["http://shop.example.com/products/widget-a", "https://shop.example.com/products/widget-a"], "hsts": "max-age=31536000", "x_robots_tag": null},
+  "indexability": {"meta_robots": null, "canonical": "https://shop.example.com/products/widget-a", "self_canonical": true},
+  "robots": {"status": 200, "sitemap_declared": true, "ai_bots": {"GPTBot": "blocked", "ClaudeBot": "blocked"}},
+  "sitemap": {"status": 200, "url_count": 6, "sample_size": 6, "sample_non_indexable": 1},
+  "structured_data": {"raw_jsonld_types": ["Product", "BreadcrumbList"], "rendered_checked": true},
+  "html_errors": 1,
+  "scores": {"crawlability": 7, "indexability": 8, "performance": 8, "mobile": 8, "security": 8, "url_structure": 8, "structured_data": 8, "international": null, "overall": 79},
+  "notes": "after removing the noindex, fixing the canonical and collapsing the redirect chain"
+}

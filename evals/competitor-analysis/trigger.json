@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Analyze the competitors for my CRM startup: pipedrive.com, hubspot.com and close.com. Who is beating me in search and why?",
+    "Compare my site acme-crm.com against pipeline-pro.com and dealflowhq.com on keywords, backlinks and traffic share.",
+    "Benchmark our domain against three competitors and tell me which of their strengths we should copy and which weaknesses we can exploit.",
+    "Why does HubSpot rank so well for marketing keywords? Break down their SEO strategy for me.",
+    "Build a competitive battlecard for monday.com covering positioning, pricing and their SEO footprint.",
+    "Which of my competitors get cited by ChatGPT and Perplexity for project management questions, and what makes them citable?",
+    "Do a competitor SEO analysis for the Denver roofing market: who are the top five organic competitors and how strong are their backlink profiles?",
+    "Here is an SE Ranking export of four domains including ours (domain_metrics.csv). Benchmark us against the other three and give me an action plan."
+  ],
+  "should_not_trigger": [
+    "What topics are our competitors publishing that we have not covered? Turn the gaps into a content calendar.",
+    "Analyze the SERP for 'crm software' and tell me what it takes to rank for it.",
+    "Audit our 'best CRM' comparison page for E-E-A-T and publish readiness.",
+    "Run a technical SEO audit of example.com: crawlability, Core Web Vitals and indexing.",
+    "Compare our site's SEO now against the snapshot we took before the migration and flag regressions.",
+    "Write a landing page that compares our product to Pipedrive.",
+    "Research the Denver roofing market size and growth rate for my business plan.",
+    "Monitor my competitors' rankings every week and alert me when one of them overtakes us."
+  ]
+}

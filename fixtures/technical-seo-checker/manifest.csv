@@ -1,0 +1,8 @@
+url,file,status,final_url,hops,x_robots_tag
+https://shop.example.com/,pages/home.html,200,https://shop.example.com/,0,
+https://shop.example.com/products/,pages/products.html,200,https://shop.example.com/products/,0,
+https://shop.example.com/products/widget-a,pages/widget-a.html,200,https://shop.example.com/products/widget-a,0,
+https://shop.example.com/products/widget-b,pages/widget-b.html,200,https://shop.example.com/products/widget-b-pro,2,
+https://shop.example.com/blog/choosing-widgets,pages/blog.html,200,https://shop.example.com/blog/choosing-widgets,0,
+https://shop.example.com/old-catalog,,404,https://shop.example.com/old-catalog,0,
+https://shop.example.com/search?q=widgets,pages/search.html,200,https://shop.example.com/search?q=widgets,0,noindex

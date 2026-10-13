@@ -1,0 +1,14 @@
+{
+  "query": "how to start a podcast",
+  "locale": "US",
+  "language": "en",
+  "device": "desktop",
+  "engine": "google",
+  "inputs": {
+    "top10_authority": {"value": 72, "label": "User-provided", "source": "Ahrefs export 2026-10-10, mean DR of top 10 = 72", "observed_at": "2026-10-10"},
+    "page_authority_links": {"value": 60, "label": "User-provided", "source": "Ahrefs export 2026-10-10, median 640 referring domains to the ranking URLs", "observed_at": "2026-10-10"},
+    "content_quality_bar": {"value": 65, "label": "Estimated", "source": "top results are 5,000 to 12,000 word step-by-step guides with the current year in the title", "observed_at": "2026-10-12"},
+    "backlinks_required": {"value": 55, "label": "Estimated", "source": "the weakest top-10 URL has about 300 referring domains", "observed_at": "2026-10-12"},
+    "serp_stability": {"value": "unknown", "label": "Unknown", "source": "fill from the two-snapshot comparison", "observed_at": ""}
+  }
+}
