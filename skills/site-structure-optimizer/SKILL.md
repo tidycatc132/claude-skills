@@ -1,7 +1,7 @@
 ---
 name: site-structure-optimizer
-description: Use when the user asks to "plan my site structure", "plan a sitemap", "which pages should we keep, merge or cut", "design the page hierarchy, navigation or URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize internal anchor text", or "suggest internal links for this article". Two modes. architecture decides which pages exist (ROT, keep/merge/retire scoring) and designs the information architecture (hierarchy, URL map, nav, hub/spoke clusters, Mermaid site map). linking optimizes links inside an existing site (link graph, click depth, authority flow, anchors, orphan disposition, link plan). Both output a structure score /100 and a handoff summary from a crawler export, sitemap or page list. Also for 网站架构, 信息架构, 站点地图, 内链优化. Do NOT use for backlinks or AI referrals (use offsite-signal-analyzer), for XML sitemap, indexation or crawl errors (use technical-seo-checker), or for page content scoring (use content-quality-auditor).
-allowed-tools: WebFetch, WebSearch, Bash(curl:*)
+description: Use when the user asks to "plan my site structure", "plan a sitemap", "which pages should we keep, merge or cut", "design the page hierarchy, navigation or URL taxonomy", "map hub-and-spoke topic clusters", "restructure my site", "fix internal linking", "find orphan pages", "optimize anchor text", or "suggest internal links for this article". Two modes. architecture decides which pages exist (keep/merge/retire scoring) and designs the architecture (hierarchy, URL map, nav, hub/spoke clusters, Mermaid site map). linking optimizes links inside an existing site (link graph, click depth, authority flow, anchors, orphan disposition, link plan). Both output a structure score /100 and a handoff summary from a crawler or inlinks export, sitemap or page list. architecture enforces the SOW page cap and can use Figma. Do NOT use for backlinks or AI referrals (use offsite-signal-analyzer), for XML sitemap, indexation or crawl errors (use technical-seo-checker), or for page content scoring (use content-quality-auditor).
+allowed-tools: WebFetch, WebSearch, Bash(curl:*), mcp__Figma__*, mcp__figma__*
 ---
 
 <!-- Adapted from aaron-he-zhu/aaron-marketing-skills seo-geo/tune/site-structure-optimizer v20.1.0 (Apache-2.0). -->
@@ -44,11 +44,11 @@ Optimize anchor text across the site
 - `linking`: a scored diagnosis, an orphan list with disposition, an anchor-distribution check against thresholds, and a prioritized source/target/anchor plan, with a **structure score /100** and the arithmetic shown.
 - Both end with the handoff summary below.
 
-- **Reads**: site type, goals, page inventory or sitemap, key page URLs, audiences, content categories, existing URLs to preserve, any crawler export or connector data, and (linking mode) the article or URL to link from. Also any prior report in `seo-reports/site-structure-optimizer/`.
+- **Reads**: the SOW (architecture mode, see SOW Page Cap), site type, goals, page inventory or sitemap, key page URLs, audiences, content categories, existing URLs to preserve, any crawler export or connector data, and (linking mode) the article or URL to link from. Also any prior report in `seo-reports/site-structure-optimizer/`.
 - **Writes** (only after asking, see Save Results): a dated report under `seo-reports/site-structure-optimizer/` and, in architecture mode, an optional `-targets.csv` beside it in the columns listed in [Page Inclusion](references/page-inclusion.md).
 - **Surfaces**: blocking defects (URL migrations without redirects, high-value orphans, broken link targets), recurring weaknesses, restructure/fix priorities, and pending decisions go into the handoff `open_loops` as pending decisions for the user.
 - **Done when**:
-  - `architecture`: every inventory page has a decision, and hierarchy + URL taxonomy + nav spec + hub/spoke plan + Mermaid map listing orphans/islands are produced, and the architecture score is computed with arithmetic shown.
+  - `architecture`: the countable page total is at or under the SOW cap (or the cap is recorded as Unknown and the run is `NEEDS_INPUT`), every inventory page has a decision, and hierarchy + URL taxonomy + nav spec + hub/spoke plan + Mermaid map listing orphans/islands are produced, and the architecture score is computed with arithmetic shown.
   - `linking`: orphans are listed with a disposition, anchor distribution is checked against the thresholds, a source/target/anchor plan is produced, and the structure score is computed with arithmetic shown.
 
 ## Data Sources
@@ -59,7 +59,10 @@ Every integration is optional. Use whatever is available, in this order, and say
 2. **User's crawler export**: a Screaming Frog, Sitebulb, or similar export (internal HTML pages plus an all-inlinks table with source, destination, anchor, link position, follow). Label **User-provided**.
 3. **Traffic data**: a Google Search Console or GA4 connector (for example SEO Gets `get_site_performance` by page over 12 months: sessions, key events, clicks, impressions), or a pasted pages export, to judge the value of orphans and pick important pages. Label **Measured** (connector) or **User-provided** (paste).
 4. **Sample crawl (keyless)**: a polite WebFetch crawl from the home page plus the XML sitemap, 50 pages and 5 clicks deep by default, after the robots.txt pre-flight. Label **Measured (sample)** and state the cap.
-5. **Page list only**: a pasted sitemap or page inventory. Every step works manually from it; link counts are then **Estimated** unless the user supplied them.
+5. **Figma file** (architecture mode): if a Figma MCP is available and the user names a Figma or FigJam file, read its page and frame names (`get_metadata`, or `get_figjam` for a FigJam board) as a page inventory and nav draft. Label **User-provided (Figma)**. The same MCP can draw the three boards from Step 7 into FigJam (`generate_diagram`); that is an external write, so ask first.
+6. **Page list only**: a pasted sitemap or page inventory. Every step works manually from it; link counts are then **Estimated** unless the user supplied them.
+
+In architecture mode the SOW is read before any of these (see SOW Page Cap).
 
 The crawl procedure, the sitemap-vs-crawl orphan comparison, and the link-graph math (in-degree, click depth, internal PageRank) are in [data-collection.md](references/data-collection.md). Read it before any crawl or graph calculation.
 
@@ -67,7 +70,7 @@ The crawl procedure, the sitemap-vs-crawl orphan comparison, and the link-graph 
 
 ## Instructions
 
-Label every metric **Measured** (tool/export or live fetch), **User-provided**, **Calculated** (arithmetic on measured or provided data, shown), or **Estimated** (model inference). Never present an estimate as measured. If a required input is unavailable, mark it N/A; do not invent it.
+Label every metric **Measured** (tool/export or live fetch), **User-provided**, **Calculated** (arithmetic on measured or provided data, shown), or **Estimated** (model inference). Never present an estimate as measured. If a required input is unavailable, mark it N/A; do not invent it, and never leave a placeholder word in any table or board; N/A is the only allowed stand-in.
 
 First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen mode and the site type before running steps.
 
@@ -81,6 +84,14 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 - **Click depth**: the fewest link hops from the home page.
 - **Link counts** come from the export or crawl as given: one link per listed source-to-destination row. Do not add navigation links to pages where the data does not list them, and do not compute a second score on an expanded graph; if the data looks incomplete, say so in `assumptions`.
 
+### SOW Page Cap (architecture mode)
+
+The statement of work fixes how many pages the site may have, and the sitemap must not exceed it.
+
+- **Find it**: look in the project's files (project knowledge, the working directory, or a path the user gives) for a file whose name or first heading contains `SOW`, `Statement of Work` or `Scope of Work`. Quote the sentence that states the page count and record it in `evidence` as `type: user-provided, ref: <file name>`. If no SOW is found or it states no count, use a page count the user stated in the request as the cap (User-provided); with neither, see Decision Gates. Never infer a cap from the inventory.
+- **Countable pages**: every page in the sitemap except the home page, the 404 page, the contact page, the privacy policy, the terms and conditions, the blog archive and individual blog posts. Those still appear in the hierarchy, URL map and boards, marked `(not in SOW scope)`, and are not counted.
+- **Enforce it**: after Step 1b, count the pages whose action is keep, revise or create and that are countable. If the count exceeds the cap, merge or defer pages (lowest inclusion score first, never an important page or a user-required URL) until it fits, and list each deferred page under `Phase 2 (over SOW cap)` with its score. Show the arithmetic as `countable pages N / SOW cap M` in the output and the report; the final sitemap is never over the cap.
+
 ### Mode: architecture
 
 1. **Confirm Scope**: capture site type, top 3 goals and the conversion path for each (entry page → key page → action), audiences (reuse a persona file from url-persona-generator or audience-persona-builder if one exists), new-build vs restructure, page count/inventory, the 5 most important pages, and existing URLs to preserve. If site type and page inventory are both missing, this is a hard stop (see Decision Gates).
@@ -90,7 +101,7 @@ First, resolve the mode (see [Mode Selector](#mode-selector)); state the chosen 
 4. **Define the URL Taxonomy**: output a URL map table (page, URL, parent, nav location, priority) following the patterns in [Site-Type Patterns](references/site-type-patterns.md). Flag common mistakes (dates in blog URLs, over-nesting, IDs/query params, file extensions, inconsistent parents, mixed case/trailing slash). When existing URLs are supplied, add a `URL mistakes` list under the map naming each one that breaks a rule, the rule it breaks and its new URL.
 5. **Spec the Navigation**: header (4–7 items, CTA rightmost, logo → home), footer column groups, sidebar (docs/blog sections), and breadcrumbs mirroring the URL path.
 6. **Plan Hub/Spoke Clusters**: map each pillar (hub) to its spokes; every spoke links back to its hub, the hub links to all spokes, spokes cross-link where relevant. Identify cross-section links (feature ↔ case study, blog ↔ product). This is the structural layer of CORE-EEAT **R08 (Internal Link Graph)**, descriptive anchors forming topic clusters, which content-quality-auditor scores, not this skill.
-7. **Draw the Site Map (Mermaid)**: render a `graph TD` with one subgraph per nav zone. Put orphans (no inbound edges) in their own subgraph; mark islands (clusters that link among themselves but never to a pillar). See [Mermaid Templates](references/mermaid-templates.md).
+7. **Draw the Boards (Mermaid)**: render three separate `graph TD` diagrams, each in its own fenced block, from the templates in [Mermaid Templates](references/mermaid-templates.md) section 7: (a) **Site Map**, top-down so each level is one horizontal row, with the home page, Level 1 pages and deeper pages in distinct shapes and sizes, orphans in their own subgraph with no inbound edges, islands marked, and pages outside the SOW scope labeled; (b) **Main Navigation**, containing only the pages in the header navigation, in menu order; (c) **Footer**, containing only the pages recommended for the footer, grouped by column. Offer to draw the same three boards into FigJam when a Figma MCP is available.
 8. **Score and Prioritize**: compute an **architecture score /100**: start 100; −10 per orphan, −10 per island, −5 per important page deeper than 3 clicks, −10 per URL migration without a planned 301, −5 per inconsistent URL parent, −5 if Level 1 has more than 7 categories, −5 per parent with a single child; floor 0. Show each deduction. Output phased priority actions and a redirect map (old URL → new URL, 301) for any URL changes.
 
 ### Mode: linking
@@ -138,6 +149,7 @@ This skill reports evidence for R08 and broken-link findings for R10. It never s
 
 **Continue silently (never stop for):**
 - Which architecture model to apply: infer it from site type and page count using [Site-Type Patterns](references/site-type-patterns.md) / [Link Architecture Patterns](references/link-architecture-patterns.md), state the choice, and proceed.
+- (architecture) No SOW and no user-stated page count: build the full architecture anyway, record the cap as Unknown, set status `NEEDS_INPUT`, and put "SOW page cap needed: point to the SOW or state the cap" in `open_loops`. Do not halt before producing the deliverables.
 - No crawler/analytics data: work from the provided sitemap or page list, label inferred metrics Estimated, and proceed.
 - A low-value orphan with no traffic: recommend the default disposition (noindex or redirect) without stopping.
 
@@ -175,7 +187,7 @@ recommended_next_skill: <one skill from Next Steps, or none>
 
 ## Save Results
 
-After presenting results, ask once: "Save these results for future sessions?" If yes, write `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>.md` in the working directory with: mode, the page decision table (architecture), one-line finding, score with deductions, top actions, redirect map (if any), evidence refs and dates, assumptions, open loops, status, and recommended next step.
+After presenting results, ask once: "Save these results for future sessions?" If yes, write `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>.md` in the working directory with: mode, the SOW cap and countable-page count (architecture), the page decision table (architecture), the three Mermaid boards (architecture), one-line finding, score with deductions, top actions, redirect map (if any), evidence refs and dates, assumptions, open loops, status, and recommended next step.
 
 In architecture mode, also offer `seo-reports/site-structure-optimizer/YYYY-MM-DD-<site-or-topic>-targets.csv` (pages to create or revise, columns and sources defined in [Page Inclusion](references/page-inclusion.md)) so a content-brief skill can brief them; until that skill exists in this repo, say the file is a standalone deliverable with no automatic consumer.
 
@@ -197,5 +209,5 @@ Termination: never run a skill twice in the same chain, allow at most 3 automati
 - [Site-Type Patterns](references/site-type-patterns.md): read in architecture Steps 2 and 4 for depth, topology, hierarchy levels, URL rules, and common mistakes.
 - [Link Architecture Patterns](references/link-architecture-patterns.md): read in linking Step 1 for the five models, selection thresholds, avg-links/page targets, anchor targets, migration safeguards, and monitoring.
 - [Linking Templates](references/linking-templates.md): read when writing output for linking Steps 3–7.
-- [Mermaid Templates](references/mermaid-templates.md): read when drawing any site map, hub/spoke, orphan/island, or before/after diagram.
+- [Mermaid Templates](references/mermaid-templates.md): read when drawing any site map, hub/spoke, orphan/island, or before/after diagram; section 7 holds the three architecture boards (site map shapes, main navigation, footer).
 - [Linking Example](references/linking-example.md): read for a full worked before/after example with scoring.

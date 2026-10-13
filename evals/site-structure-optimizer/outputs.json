@@ -174,6 +174,94 @@
           ]
         }
       ]
+    },
+    {
+      "id": "architecture-sow-cap-boards",
+      "prompt": "Use the site-structure-optimizer skill in architecture mode for Peakline Roofing, a local roofing contractor whose site is being rebuilt. The statement of work is in `sow.md` in this folder; read it for the page cap. No crawler, Figma MCP, web access or traffic data is available; work from this list and do not fetch anything. Pages the client wants: home, about, contact, privacy policy, terms and conditions, 404, blog archive, 6 blog posts, and these service and company pages: roof repair, roof replacement, storm damage repair, gutter installation, gutter repair, skylight installation, commercial roofing, financing, reviews, service areas, our process, careers. The five most important pages are home, roof repair, roof replacement, storm damage repair and contact. Do not save a report; give me everything in chat, including the three Mermaid boards.",
+      "fixtures": [
+        {
+          "src": "fixtures/site-structure-optimizer/sow.md",
+          "dest": "sow.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "seo-reports",
+          "label": "nothing saved when told not to"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)(mode[^\\n]{0,30}architecture|architecture[ -]mode)",
+          "label": "mode stated"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)countable pages\\s*8\\s*/\\s*SOW cap\\s*8",
+          "label": "final countable count equals the cap of 8 (13 requested countable pages incl. about, 5 merged or deferred)"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)phase 2",
+          "label": "over-cap pages listed as phase 2"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)not in SOW scope",
+          "label": "excluded pages labeled"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?is)graph TD.*graph TD.*graph TD",
+          "label": "three top-down boards"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)main navigation",
+          "label": "main navigation board present"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)footer",
+          "label": "footer board present"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)sow\\.md",
+          "label": "SOW cited as evidence"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "status[^A-Za-z\\n]{0,12}(DONE|DONE_WITH_CONCERNS|NEEDS_INPUT|BLOCKED)",
+          "label": "handoff block carries a status"
+        },
+        {
+          "type": "not_regex",
+          "target": "stdout",
+          "pattern": "\\b(TODO|TBD|lorem)\\b",
+          "label": "no placeholders"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The SOW sentence stating the 8-page cap is quoted, and home, contact, privacy policy, terms and conditions, 404, the blog archive and the blog posts are shown in the sitemap but explicitly not counted toward the cap",
+            "Exactly 8 countable pages remain in the final sitemap; the other 5 requested countable pages (about counts as one of the 13) are each either merged into a named page or deferred to a Phase 2 list with a reason, and none of the five important pages is merged or deferred",
+            "Three separate Mermaid diagrams are given, each starting with graph TD: a site map in which the home page, Level 1 pages and deeper pages use different node shapes (and classDef font sizes), a main navigation board containing only header items with the CTA rightmost, and a footer board containing only footer pages grouped into columns",
+            "A decision table lists every requested page with an action (keep, revise, merge, retire, create or defer) and a reason; scores are N/A or Estimated because no traffic data exists, and the answer never claims to have fetched, crawled or opened Figma",
+            "The architecture score arithmetic is shown and the handoff recommends running linking mode next"
+          ]
+        }
+      ]
     }
   ]
 }
