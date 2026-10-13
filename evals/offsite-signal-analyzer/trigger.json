@@ -1,0 +1,24 @@
+{
+  "should_trigger": [
+    "Analyze the backlink profile for summitheating.example using this referring domains export (referring_domains.csv).",
+    "Review my toxic links and tell me which domains to disavow. The backlinks CSV from SE Ranking is attached.",
+    "Find link-building opportunities for brightsmiledental.com by comparing its referring domains with these two competitor exports.",
+    "How much of my traffic comes from ChatGPT and Perplexity, and does it convert better than organic? Here is the GA4 source/medium export.",
+    "Track AI referral traffic for acme-hvac.com over the last 90 days from these server access logs.",
+    "What is the anchor-text distribution and dofollow ratio across these backlinks to example.com? Is anything over-optimized?",
+    "Analyze my off-site signals for example.com: referring domains, authority mix and toxic share.",
+    "Are there unlinked news mentions of our brand Summit Heating that we could turn into links?"
+  ],
+  "should_not_trigger": [
+    "Find the orphan pages on example.com and fix the internal linking between the guides.",
+    "Who are my top organic competitors and what do they rank for that I don't?",
+    "Which sites get cited in AI Overviews for the query 'best running shoes'?",
+    "Why did organic clicks drop after the redeploy? Compare the site against last month's SEO snapshot.",
+    "Audit my Google Ads account for wasted spend and conversion tracking problems.",
+    "Check Core Web Vitals, indexability and robots.txt for example.com.",
+    "What content gaps do we have versus competitor.com, and what should we write next?",
+    "Score this product review page for E-E-A-T before we publish it.",
+    "Plan the URL taxonomy and navigation for a new SaaS marketing site.",
+    "Benchmark acme.com against three rival domains across keywords, backlinks, AI citations and traffic share, and build a competitor battlecard."
+  ]
+}

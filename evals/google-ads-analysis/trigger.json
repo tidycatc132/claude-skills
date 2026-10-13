@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "How are my Google Ads campaigns doing this month? Here is the campaigns export from the Google Ads interface (campaigns.csv).",
+    "Why did my CPA go up in September compared with August in Google Ads? Customer ID 123-456-7890.",
+    "Where am I wasting spend in my Google Ads account? Pull the search terms with zero conversions for the last 30 days.",
+    "Give me a device breakdown for my Google Ads campaigns: mobile vs desktop CPA and ROAS over the last 30 days.",
+    "What is my search impression share per campaign in Google Ads, and how much am I losing to budget versus rank?",
+    "Here is a Google Ads keyword export (keywords.csv). Which keywords have a Quality Score under 5 and are still spending?",
+    "Compare ROAS, CTR and CPC for the last 30 days against the previous 30 days for my Google Ads account.",
+    "Which of my Google Ads campaigns are hitting their daily budget cap? Run a budget pacing check on these exports."
+  ],
+  "should_not_trigger": [
+    "Audit my Google Ads account end to end and give me a health score out of 10 with a 30/60/90-day plan before I take it over.",
+    "Give me a full PPC account review across structure, conversion tracking, keywords, creative, bidding and targeting, with every issue rated Critical to Low.",
+    "Find keywords for a Denver plumbing company with search volume and keyword difficulty so we can plan organic content.",
+    "Why is Google not indexing my product pages? Search Console says 40 of them are excluded.",
+    "Who are my organic search competitors and what do they rank for that I don't?",
+    "Analyze the backlinks pointing to my site and tell me which toxic domains to disavow.",
+    "Write three responsive search ad headlines and two descriptions for my furnace repair campaign.",
+    "Review my Facebook Ads campaign performance and tell me which ad sets to scale.",
+    "Mark the ClickUp task for the Google Ads report as done and attach the final file."
+  ]
+}

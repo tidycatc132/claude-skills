@@ -1,0 +1,168 @@
+{
+  "cases": [
+    {
+      "id": "exports-wasted-spend-cpa",
+      "prompt": "Use the google-ads-analysis skill. No Google Ads connector is available in this session, so work only from the three CSV files, which are exports from the Google Ads interface for the account Denver Flow Plumbing (customer ID 123-456-7890, currency USD). `campaigns_last30.csv` covers 2026-09-12 to 2026-10-11 (30 days), `campaigns_prev30.csv` covers the previous 30 days (2026-08-13 to 2026-09-11), and `search_terms_last30.csv` covers the current window. How are my campaigns doing, where am I wasting spend, and why did CPA go up? Write the full analysis to `reports/google-ads-analysis.md` and give me the summary in chat.",
+      "fixtures": [
+        {
+          "src": "fixtures/google-ads-analysis/campaigns_last30.csv",
+          "dest": "campaigns_last30.csv"
+        },
+        {
+          "src": "fixtures/google-ads-analysis/campaigns_prev30.csv",
+          "dest": "campaigns_prev30.csv"
+        },
+        {
+          "src": "fixtures/google-ads-analysis/search_terms_last30.csv",
+          "dest": "search_terms_last30.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "reports/google-ads-analysis.md"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "5,?275\\.00",
+          "label": "total spend from the export, not divided by a million"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "47\\.9[0-9]",
+          "label": "account CPA 5275 / 110"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "4\\.0[78]",
+          "label": "account ROAS 21500 / 5275"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-analysis.md",
+          "text": "Critical"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "Display - Retargeting[\\s\\S]{0,150}?Critical|Critical[\\s\\S]{0,150}?Display - Retargeting",
+          "label": "the Critical flag is tied to Display - Retargeting"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "312\\.40",
+          "label": "zero-conversion spend amount quoted"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "(?i)Brand - Search[\\s\\S]{0,150}?budget[- ]capped|budget[- ]capped[\\s\\S]{0,150}?Brand - Search",
+          "label": "the budget-capped flag is tied to Brand - Search"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "\\+?50(\\.0)?\\s?%",
+          "label": "Generic campaign CPA change of +50% vs previous period"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-analysis.md",
+          "text": "free plumbing course"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "218\\.40",
+          "label": "top wasted search term spend quoted"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "(?i)(export|user-provided)",
+          "label": "data source stated"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-analysis.md",
+          "pattern": "2026-09-12",
+          "label": "date window stated"
+        },
+        {
+          "type": "not_regex",
+          "pattern": "\\b(TODO|TBD|lorem)\\b",
+          "label": "no placeholders",
+          "path": "reports/google-ads-analysis.md"
+        },
+        {
+          "type": "rubric",
+          "target": "reports/google-ads-analysis.md",
+          "criteria": [
+            "Summary metrics appear before any per-campaign detail and include total spend, conversions, ROAS and CPA for the current window",
+            "Display - Retargeting is flagged Critical for spending more than $50 with zero conversions, and Competitor - Search ($48.60, 0 conversions) is NOT flagged Critical",
+            "Brand - Search is flagged as budget capped (average daily spend $38.80 against a $40.00 daily budget, 97%)",
+            "The CPA increase is attributed to Generic - Plumbing Services with numbers from both periods (CPA $50.00 to $75.00, conversions 72 to 50), not to a generic cause",
+            "At least three recommendations each name an entity and a specific change, for example adding 'free plumbing course' ($218.40, 0 conversions) as a negative keyword in Generic - Plumbing Services",
+            "The answer does not claim to have queried the Google Ads API or a connector, and it does not claim to have paused, changed or added anything in the account",
+            "No metric is stated that cannot be computed from the three CSV files; anything missing (for example device or geographic data) is marked N/A or named as a missing export"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "numbers-in-chat",
+      "prompt": "Use the google-ads-analysis skill. I only have these figures for my Google Ads campaign 'Furnace Repair - Search' last month: spend $2,400.00, 1,200 clicks, 48,000 impressions, 30 conversions worth $9,600.00. My target CPA is $60. What are the CTR, CPC, CPA and ROAS, am I at target, how many more conversions would I have needed at the same spend to hit the target, and what questions can't you answer from these numbers? Do not write any files.",
+      "fixtures": [],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "reports",
+          "label": "no files written when told not to"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "2\\.5\\s?%",
+          "label": "CTR 1200 / 48000"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\$?2\\.00",
+          "label": "CPC 2400 / 1200"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\$?80\\.00",
+          "label": "CPA 2400 / 30"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "4\\.0+\\s?x",
+          "label": "ROAS 9600 / 2400 shown as a multiple"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\b10\\b",
+          "label": "10 additional conversions needed (2400 / 60 - 30)"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "States clearly that the campaign is not at the $60 CPA target and shows the formula or arithmetic for the additional conversions needed",
+            "Names at least two questions the figures cannot answer (for example wasted search terms, Quality Score, impression share or device split) and what export or query would answer them",
+            "Does not invent any figure that is not derivable from the numbers given"
+          ]
+        }
+      ]
+    }
+  ]
+}

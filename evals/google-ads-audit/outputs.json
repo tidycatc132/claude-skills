@@ -1,0 +1,124 @@
+{
+  "cases": [
+    {
+      "id": "partial-exports-audit",
+      "prompt": "Use the google-ads-audit skill. No Google Ads connector is available in this session, so audit only from the four CSV exports from the Google Ads interface for Summit Heating & Cooling (customer ID 555-123-4567, USD, a lead-generation HVAC business in Denver). `campaigns.csv`, `search_keywords.csv` and `search_terms.csv` cover 2026-09-12 to 2026-10-11 (30 days); `conversions.csv` is the conversions summary for the same window. I could not export ads, assets, devices, locations, audiences, placements or negative keyword lists. Write the audit to `reports/google-ads-audit.md` and give me the headline in chat.",
+      "fixtures": [
+        {
+          "src": "fixtures/google-ads-audit/campaigns.csv",
+          "dest": "campaigns.csv"
+        },
+        {
+          "src": "fixtures/google-ads-audit/search_keywords.csv",
+          "dest": "search_keywords.csv"
+        },
+        {
+          "src": "fixtures/google-ads-audit/search_terms.csv",
+          "dest": "search_terms.csv"
+        },
+        {
+          "src": "fixtures/google-ads-audit/conversions.csv",
+          "dest": "conversions.csv"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "reports/google-ads-audit.md"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "Overall Score:?\\**\\s*\\d+(\\.\\d)?\\s?/\\s?10",
+          "label": "overall score out of 10"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-audit.md",
+          "text": "Not assessed"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-audit.md",
+          "text": "Critical"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-audit.md",
+          "text": "Search - Commercial HVAC"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "310\\.00",
+          "label": "zero-conversion campaign spend quoted"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "810\\.00",
+          "label": "wasted spend in window = spend on zero-conversion search terms"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "16\\.6\\s?%",
+          "label": "wasted share 810 / 4880"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "820\\.80",
+          "label": "wasted spend per month = 810 / 30 x 30.4"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-audit.md",
+          "text": "Contact form submit"
+        },
+        {
+          "type": "contains",
+          "path": "reports/google-ads-audit.md",
+          "text": "Search - Brand"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "30[ /-]?60[ /-]?90",
+          "label": "30/60/90-day plan present"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "(?i)quick win",
+          "label": "quick wins listed"
+        },
+        {
+          "type": "regex",
+          "path": "reports/google-ads-audit.md",
+          "pattern": "(?i)(export|user-provided)",
+          "label": "data source stated"
+        },
+        {
+          "type": "not_regex",
+          "pattern": "\\b(TODO|TBD|lorem)\\b",
+          "label": "no placeholders",
+          "path": "reports/google-ads-audit.md"
+        },
+        {
+          "type": "rubric",
+          "target": "reports/google-ads-audit.md",
+          "criteria": [
+            "Ad Creative and Targeting are reported as Not assessed, each naming the missing export (ads/assets; devices, locations, audiences or placements), and they are left out of the overall score average",
+            "The overall score arithmetic is shown per assessed dimension (start at 10, Critical -4, High -2, Medium -1, Low -0.5) and the average matches the stated overall score",
+            "Search - Commercial HVAC is rated Critical for $310.00 spend with zero conversions",
+            "Search - Brand is flagged as budget-capped (average daily spend $28.80 against a $30.00 budget, 96%) and treated as a top performer because its CPA ($21.07) is below the account CPA ($58.80)",
+            "The 'Contact form submit' lead action counted as Every is flagged with a recommendation to switch counting to One",
+            "The keyword 'hvac' with Quality Score 2 is flagged as a very low Quality Score finding",
+            "Every fix is a recommendation for the user; the answer does not claim to have changed anything in the account or to have queried a connector"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Keyword,Match type,Status,Campaign,Ad group,Quality Score,Cost,Clicks,Impr.,Conversions
+ac repair denver,Exact,Enabled,Search - Core Services,AC Repair,8,1500.00,1020,18500,22.0
+furnace repair,Broad,Enabled,Search - Core Services,Furnace,4,1100.00,900,21000,14.0
+hvac,Broad,Enabled,Search - Core Services,General,2,700.00,830,15500,2.0
+summit heating cooling,Exact,Enabled,Search - Brand,Brand,10,864.00,1080,9600,41.0
+commercial hvac,Phrase,Enabled,Search - Commercial HVAC,Commercial,3,310.00,210,5200,0.0
+heating repair denver,Phrase,Paused,Search - Core Services,Furnace,--,0.00,0,0,0.0
