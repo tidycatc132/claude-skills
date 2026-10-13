@@ -1,0 +1,24 @@
+{
+  "should_trigger": [
+    "Find keywords for a Denver plumbing company. Which search terms should their site target, and how hard are they?",
+    "What should we write about for acme-hvac.com next quarter? Pull their Search Console queries and tell me which keywords are worth going after.",
+    "Striking distance keywords for brightsmiledental.com please. I want the queries sitting on page 2 that we could push onto page 1.",
+    "Keyword clusters for 'project management software for nonprofits', with search volume and keyword difficulty for each one.",
+    "Do keyword research for an online watercolor painting course. I need volume, difficulty and intent for each keyword and a shortlist to start with.",
+    "Here is a keyword export from SE Ranking in keywords.csv. Score and prioritize these and tell me the quick wins.",
+    "Which long-tail keywords could a small accounting firm in Leeds realistically rank for in the next six months?",
+    "What questions are people asking Google about standing desks that might get answered in AI Overviews? I want keyword ideas plus how competitive they are."
+  ],
+  "should_not_trigger": [
+    "Who are my top organic competitors and what do they rank for that I don't?",
+    "Cluster these 15 seed keywords by SERP overlap and give me a pillar-and-spoke plan with H2 drafts: crm for nonprofits, donor management software, nonprofit crm pricing, best nonprofit crm, volunteer management software.",
+    "Look at bloomgardens.co and tell me which topics they should build topical authority in.",
+    "Build a full topical map for 'home solar' and reconcile it against our existing site URLs so we know what to build new.",
+    "Break down the Google results page for 'best running shoes': who ranks, which SERP features show, and what content format wins.",
+    "Compare our site's SEO now against last month's snapshot and tell me what regressed after the redeploy.",
+    "Write a 1500-word blog post targeting 'how to fix a leaking faucet' with an FAQ section.",
+    "Mark the ClickUp task for the keyword research deliverable as done and attach the final file.",
+    "Write title tags and meta descriptions for these five service pages.",
+    "Set up Google Search Console for my new site and verify the domain."
+  ]
+}
