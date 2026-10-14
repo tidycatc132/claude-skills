@@ -1,0 +1,500 @@
+{
+  "cases": [
+    {
+      "id": "kineticpath-full-kit",
+      "prompt": "Use the client-reference-kit skill for our new client Kinetic Path Physical Therapy (kineticpathpt.com). There is no WebFetch, WebSearch or internet access in this session. Our project files are in `project/`, and the client's website was saved to `site/` yesterday as one HTML file per page (home, about, services, pricing, privacy, terms); treat those files as the site crawl. Save the kit in `client-reference/kineticpathpt/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/project/kickoff-notes.md",
+          "dest": "project/kickoff-notes.md"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/index.html",
+          "dest": "site/index.html"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/about.html",
+          "dest": "site/about.html"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/services.html",
+          "dest": "site/services.html"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/pricing.html",
+          "dest": "site/pricing.html"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/privacy.html",
+          "dest": "site/privacy.html"
+        },
+        {
+          "src": "fixtures/client-reference-kit/kineticpath/site/terms.html",
+          "dest": "site/terms.html"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "client-reference/kineticpathpt/brand.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/kineticpathpt/voice.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/kineticpathpt/style.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/kineticpathpt/audience.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/kineticpathpt/compliance.md"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "text": "$145",
+          "label": "internal price wins over the stale site price"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?im)^(?![^\\n]*\\b(?:not|n't|never|retire|remov|outdated|out of date|out-of-date|exclude|banned|withdraw|prohibit|avoid|supersed|unverified|old|ended|former|previous|stale|replace|instead|conflict|wrong|neither|lack|uncertified|unapproved|without|no))[^\\n]*\\$129\\b",
+          "label": "$129 only appears flagged as retired"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "4\\.9[^\\n]{0,60}312|312[^\\n]{0,60}4\\.9",
+          "label": "approved review proof point"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?im)^(?![^\\n]*\\b(?:not|n't|never|retire|remov|outdated|out of date|out-of-date|exclude|banned|withdraw|prohibit|avoid|supersed|unverified|old|ended|former|previous|stale|replace|instead|conflict|wrong|neither|lack|uncertified|unapproved|without|no))[^\\n]*98\\s?%",
+          "label": "98% satisfaction only appears flagged as not approved"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?i)direct access|without (a )?(doctor'?s |physician'?s )?referral|no referral",
+          "label": "Ohio direct access in offer or differentiators"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/style.md",
+          "text": "PathPlan"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/style.md",
+          "text": "Run Lab"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/style.md",
+          "pattern": "(?i)physiotherapy",
+          "label": "physiotherapy listed as non-canonical"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/style.md",
+          "pattern": "(?i)state[- ]of[- ]the[- ]art",
+          "label": "client-banned cliche in banned list"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/style.md",
+          "pattern": "(?i)\\bUS English|American English|en-US",
+          "label": "English variant"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/audience.md",
+          "text": "Columbus"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/audience.md",
+          "pattern": "(?i)referral",
+          "label": "referral objection handled"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "text": "HIPAA"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "pattern": "\\bFTC\\b|Federal Trade Commission",
+          "label": "FTC endorsement rules"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "pattern": "(?i)not medical advice",
+          "label": "site disclaimer carried as exact copy"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "text": "Ortiz",
+          "label": "clinical review owner named"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "pattern": "(?i)\\bcure\\b",
+          "label": "client-prohibited claim listed"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?m)^## Key Differentiators",
+          "label": "brand.md has Key Differentiators"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?im)^### High[ -]intent",
+          "label": "CTA high-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?im)^### Mid[ -]intent",
+          "label": "CTA mid-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?im)^### Low[ -]intent",
+          "label": "CTA low-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/voice.md",
+          "pattern": "(?ms)^## Reading Level & Cadence\\s*\\n[^#]*\\d",
+          "label": "numeric reading-level targets"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/style.md",
+          "pattern": "(?m)^## Banned Words",
+          "label": "banned words live in style.md"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/audience.md",
+          "pattern": "(?ms)^## Objection Handling\\s*\\n[^#]*\\|",
+          "label": "objection handling table"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "pattern": "(?ms)^## Regulatory Framework\\s*\\n[^#]*\\|",
+          "label": "regulatory framework table"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/brand.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in brand.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/voice.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in voice.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/style.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in style.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/audience.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in audience.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/kineticpathpt/compliance.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in compliance.md"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\|\\s*File\\s*\\|\\s*Status\\s*\\|\\s*Primary Sections Covered\\s*\\|",
+          "label": "completion summary table in chat"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/kineticpathpt/style.md",
+          "criteria": [
+            "'physiotherapy', 'state-of-the-art', 'cutting-edge' and 'world-class' appear only as terms writers must not use, never as recommended wording"
+          ],
+          "label": "rubric: style.md"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/kineticpathpt/compliance.md",
+          "criteria": [
+            "The regulatory framework names each body or law (at least HIPAA and the FTC rules on endorsements or claims) with why it applies to Kinetic Path and what it means for content",
+            "Review triggers name who signs off: Dr. Maya Ortiz for clinical claims and Jordan Lee for pricing, insurance and testimonial authorizations"
+          ],
+          "label": "rubric: compliance.md"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/kineticpathpt/brand.md",
+          "criteria": [
+            "Every statistic, rating, award or certification under approved claims or proof points names where it came from (the kickoff notes or a site page)",
+            "The pricing conflict ($129 on the site vs $145 in the kickoff notes) is resolved in favour of $145 and the conflict is recorded, not silently dropped",
+            "There is a CTA library split into high-intent, mid-intent and low-intent CTAs, built from the client's real offers (evaluation booking, free 15-minute phone screen, Run Lab, PathPlan)"
+          ],
+          "label": "rubric: brand.md"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/kineticpathpt/voice.md",
+          "criteria": [
+            "There are 3 or 4 voice dimensions, each with an operational definition a writer could check a sentence against",
+            "There is a tone matrix covering at least three contexts and a do/don't table with at least 5 pairs whose wording is specific to Kinetic Path (its services, its patients or its claims), not generic",
+            "Reading level and sentence-length targets are stated as numbers"
+          ],
+          "label": "rubric: voice.md"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/kineticpathpt/audience.md",
+          "criteria": [
+            "There are 2 or 3 personas, each with a role, KPIs or success measures, and a daily routine, and none of them is a workers' comp or pediatric patient",
+            "There are 4 or 5 objections, each paired with a counter-framing that uses a real Kinetic Path fact"
+          ],
+          "label": "rubric: audience.md"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The final answer does not stop to ask permission or ask the user to confirm anything before the files are written; it reports that all five files were written",
+            "The summary table has one row per file with a status and the sections covered"
+          ],
+          "label": "rubric: stdout"
+        }
+      ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *)"
+    },
+    {
+      "id": "ferngully-thin-brief",
+      "prompt": "Use the client-reference-kit skill for Ferngully Coffee Roasters. All we have is the account lead's brief in `client-brief.md`. Their site is not reachable from this session and there is no WebFetch, WebSearch or internet access, so work from the brief and what you know about the regulations that apply. Save the kit in `client-reference/ferngully/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-reference-kit/ferngully/client-brief.md",
+          "dest": "client-brief.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "client-reference/ferngully/brand.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/ferngully/voice.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/ferngully/style.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/ferngully/audience.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "client-reference/ferngully/compliance.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "\\b(?!10\\s?%)\\d{1,3}(\\.\\d+)?\\s?%",
+          "label": "no invented percentage claims (the only one in the brief is the 10% subscription discount)"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?i)\\b\\d(\\.\\d)?\\s?(stars?|/\\s?5|out of 5)\\b",
+          "label": "no invented review rating"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?im)^(?![^\\n]*\\b(?:not|n't|never|retire|remov|outdated|out of date|out-of-date|exclude|banned|withdraw|prohibit|avoid|supersed|unverified|old|ended|former|previous|stale|replace|instead|conflict|wrong|neither|lack|uncertified|unapproved|without|no))[^\\n]*(?i:fair trade|certified organic|USDA organic)",
+          "label": "certifications the client lacks are never claimed"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "Finca El Roble|Kiamabara",
+          "label": "named farm sourcing used as a differentiator"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/style.md",
+          "pattern": "(?i)artisanal",
+          "label": "client-banned word"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/style.md",
+          "pattern": "(?i)perfect cup",
+          "label": "client-banned phrase"
+        },
+        {
+          "type": "contains",
+          "path": "client-reference/ferngully/style.md",
+          "text": "Canopy"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/compliance.md",
+          "pattern": "\\bCASL\\b|Canada'?s Anti-Spam",
+          "label": "ships to Canada and emails, so CASL"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/compliance.md",
+          "pattern": "(?i)CAN-SPAM",
+          "label": "US email law"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/compliance.md",
+          "pattern": "(?i)auto-?renew|automatic renewal|negative option|ROSCA|recurring (billing|charge)",
+          "label": "subscription billing rules"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?m)^## Key Differentiators",
+          "label": "brand.md has Key Differentiators"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?im)^### High[ -]intent",
+          "label": "CTA high-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?im)^### Mid[ -]intent",
+          "label": "CTA mid-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?im)^### Low[ -]intent",
+          "label": "CTA low-intent tier"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/voice.md",
+          "pattern": "(?ms)^## Reading Level & Cadence\\s*\\n[^#]*\\d",
+          "label": "numeric reading-level targets"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/style.md",
+          "pattern": "(?m)^## Banned Words",
+          "label": "banned words live in style.md"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/audience.md",
+          "pattern": "(?ms)^## Objection Handling\\s*\\n[^#]*\\|",
+          "label": "objection handling table"
+        },
+        {
+          "type": "regex",
+          "path": "client-reference/ferngully/compliance.md",
+          "pattern": "(?ms)^## Regulatory Framework\\s*\\n[^#]*\\|",
+          "label": "regulatory framework table"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/brand.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in brand.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/voice.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in voice.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/style.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in style.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/audience.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in audience.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "client-reference/ferngully/compliance.md",
+          "pattern": "(?i)\\[(client|company|insert|brand|name|product|your)[^\\]\\n]*\\]|\\bTBD\\b|\\bTODO\\b|lorem ipsum|\\{\\{|\\bXX%",
+          "label": "no placeholders in compliance.md"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "\\|\\s*File\\s*\\|\\s*Status\\s*\\|\\s*Primary Sections Covered\\s*\\|",
+          "label": "completion summary table in chat"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/ferngully/audience.md",
+          "criteria": [
+            "There are 2 or 3 personas drawn from the brief's audiences (home espresso or pour-over hobbyists, cafe owners buying wholesale), and 4 or 5 objections each with a counter-framing that uses a fact from the brief",
+            "Details the brief does not give (income, job titles, numbers) are marked as assumptions or GAP lines, not stated as research findings"
+          ],
+          "label": "rubric: audience.md"
+        },
+        {
+          "type": "rubric",
+          "target": "client-reference/ferngully/brand.md",
+          "criteria": [
+            "Where the brief gives no statistic, award or certification, the proof-points section says so plainly and names what to ask the client for, instead of inventing one",
+            "Every proof point listed is traceable to the brief (founding year, named farms, roast days, 48-hour shipping, published price paid per pound)"
+          ],
+          "label": "rubric: brand.md"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The summary table marks files that rest on thin evidence or have open gaps differently from complete ones, and the answer names the main gaps the client must fill"
+          ],
+          "label": "rubric: stdout"
+        }
+      ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *)"
+    }
+  ]
+}

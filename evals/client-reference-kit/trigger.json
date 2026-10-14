@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "We just signed Harborline Dental (harborlinedental.com). Build the reference files our writers will use: brand, voice, style, audience and compliance.",
+    "Create a client reference kit for kineticpathpt.com from the kickoff notes in this folder plus their website.",
+    "Set up brand.md, voice.md, style.md, audience.md and compliance.md for our new client Ferngully Coffee so the content team stops guessing.",
+    "Before we write anything for Ledgerly, I want a source-of-truth pack: positioning, approved claims, tone of voice, house style, ICP and the disclaimers legal needs.",
+    "Onboard this client for content production: crawl acmeroofing.com, read the SOW in /docs, and write the voice and style guide plus the compliance rules for their marketing.",
+    "Our writers keep using the wrong product names and banned claims for Brightpay. Put together the client brand, voice and compliance reference docs from their site and our project files.",
+    "Make the content reference files for this client (see the brief in client/brief.md): brand facts, CTA library, do and don't phrasing, banned words, personas, objections and mandatory disclaimers.",
+    "New client kickoff for Summit Physio. Generate the full brand and voice kit we will hand every writer and designer working on their account."
+  ],
+  "should_not_trigger": [
+    "Write a 1200-word blog post for Harborline Dental about teeth whitening, using their voice guide in voice.md.",
+    "Build 4 buyer personas for kineticpathpt.com so we know who to write for.",
+    "Run a brand audit on Glossier: visual identity, messaging, perception and a brand health scorecard as a PDF.",
+    "Create a content brief for the topic 'how much does physical therapy cost' from our topical map CSV.",
+    "Audit this landing page draft for E-E-A-T and tell me if it is ready to publish.",
+    "Who are Ledgerly's top organic competitors and what keywords do they rank for that we don't?",
+    "Check this email against our style guide and fix any banned words.",
+    "Apply Anthropic's brand colors and typography to this slide deck.",
+    "Plan the site structure and navigation for acmeroofing.com's redesign."
+  ]
+}
