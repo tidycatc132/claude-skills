@@ -130,8 +130,7 @@ def main() -> int:
                     if ck.ok is None:
                         if args.judge and outdir is not None:
                             crit = json.loads(ck.detail)
-                            a = next(x for x in case["assertions"] if x.get("type") == "rubric" and (x.get("label") or "rubric") == ck.label)
-                            tgt = a.get("target", "stdout")
+                            tgt = (ck.assertion or {}).get("target", "stdout")
                             if tgt == "stdout":
                                 sf = outdir / ("stdout.txt" if args.golden else ".harness-stdout.txt")
                                 material = C.read_text(sf) if sf.exists() else ""

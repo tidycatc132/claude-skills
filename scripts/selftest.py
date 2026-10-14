@@ -511,6 +511,57 @@ def t_assertions() -> None:
     check("assertions: stdout target works", one({"type": "contains", "target": "stdout", "text": "yes"}, "yes please") is True)
 
 
+FAKE_CLAUDE_PY = r'''
+import json, os, sys
+argv = sys.argv[1:]
+def result(text, err=False):
+    print(json.dumps({"type": "result", "is_error": err, "result": text}))
+    sys.exit(0)
+if "--tools" in argv:  # judge session: the prompt must come on stdin, never argv
+    after = argv[argv.index("-p") + 1] if argv.index("-p") + 1 < len(argv) else "--"
+    if not after.startswith("--"):
+        result("prompt was passed as an argv", True)
+    prompt = sys.stdin.read()
+    crit, material = prompt.split("OUTPUT UNDER REVIEW:", 1)
+    needs = [l.split("needs ", 1)[1].strip() for l in crit.splitlines() if l.startswith("- needs ")]
+    ok = all(n in material for n in needs)
+    result(json.dumps({"verdict": "pass" if ok else "fail", "reasons": ["checked " + ",".join(needs)]}))
+open("a.md", "w").write("MARK-A " + "x" * 20000 + "\n")
+open("b.md", "w").write("MARK-B\n")
+result("wrote a.md and b.md")
+'''
+
+
+def fake_claude(d: Path) -> Path:
+    (d / "fake_claude.py").write_text(FAKE_CLAUDE_PY, encoding="utf-8")
+    if os.name == "nt":
+        exe = d / "claude.cmd"
+        exe.write_text(f'@"{sys.executable}" "{d / "fake_claude.py"}" %*\n', encoding="utf-8")
+    else:
+        exe = d / "claude"
+        exe.write_text(f'#!/bin/sh\nexec "{sys.executable}" "{d / "fake_claude.py"}" "$@"\n', encoding="utf-8")
+        exe.chmod(0o755)
+    return exe
+
+
+def t_judge() -> None:
+    r = fresh()
+    exe = fake_claude(r)
+    env = {"HARNESS_CLAUDE_BIN": str(exe)}
+
+    def outputs(rubrics: list[dict]) -> None:
+        write(r, f"evals/{PRODUCER}/outputs.json", {"cases": [{"id": "two-rubrics", "prompt": "write the files", "assertions": rubrics}]})
+
+    outputs([{"type": "rubric", "target": "a.md", "criteria": ["needs MARK-A"]},
+             {"type": "rubric", "target": "b.md", "criteria": ["needs MARK-B"]}])
+    code, out = run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env)
+    check("judge: unlabeled rubrics are each judged on their own target", code == 0 and "[PASS]" in out, out)
+    check("judge: a 20K-char target reaches the judge on stdin", "argv" not in out and "too long" not in out, out)
+    outputs([{"type": "rubric", "target": "a.md", "criteria": ["needs MARK-A"]},
+             {"type": "rubric", "target": "b.md", "criteria": ["needs MARK-A"]}])
+    expect("judge: a rubric that does not hold on its own target fails", run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env), 1, "[FAIL]")
+
+
 def t_package() -> None:
     r = fresh()
     code, out = run("package_skill.py", PRODUCER, root=r)
@@ -625,7 +676,7 @@ def main() -> int:
     args = ap.parse_args()
     BASE = base_tree()
     try:
-        for t in (t_baseline, t_validator, t_contracts, t_overlap, t_backlog, t_assertions, t_package, t_hooks):
+        for t in (t_baseline, t_validator, t_contracts, t_overlap, t_backlog, t_assertions, t_judge, t_package, t_hooks):
             try:
                 t()
             except Exception as e:  # a crashing test is a failing test

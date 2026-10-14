@@ -26,7 +26,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import common as C  # noqa: E402
 
-DEFAULT_ALLOWED = "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *)"
+# On Windows the CLI exposes a PowerShell tool instead of Bash, so each shell rule appears twice.
+_SHELL_ALLOWED = ("python3 *", "ls *", "cat *", "mkdir *")
+DEFAULT_ALLOWED = ",".join(
+    ["Skill", "Read", "Write", "Edit", "Glob", "Grep"]
+    + [f"{tool}({rule})" for tool in ("Bash", "PowerShell") for rule in _SHELL_ALLOWED]
+)
 
 
 def claude_bin() -> str | None:
@@ -77,12 +82,14 @@ def run_claude(
     model: str | None = None,
     budget: float | None = None,
     timeout: int = 240,
+    prompt_via_stdin: bool = False,
 ) -> RunResult:
+    """prompt_via_stdin sends the prompt on stdin instead of argv (Windows caps a command line at ~32K chars)."""
     exe = claude_bin()
     if not exe:
         return RunResult(False, error="`claude` CLI not found on PATH (set HARNESS_CLAUDE_BIN).")
     cmd = [
-        exe, "-p", prompt,
+        exe, "-p", *([] if prompt_via_stdin else [prompt]),
         "--output-format", "stream-json", "--verbose",
         "--setting-sources", "project",
         "--permission-mode", "dontAsk",
@@ -97,7 +104,8 @@ def run_claude(
     if budget:
         cmd += ["--max-budget-usd", str(budget)]
     try:
-        p = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True, timeout=timeout)
+        p = subprocess.run(cmd, cwd=cwd, input=prompt if prompt_via_stdin else None, capture_output=True,
+                           text=True, encoding="utf-8", errors="replace", timeout=timeout)
     except subprocess.TimeoutExpired:
         return RunResult(False, error=f"timed out after {timeout}s")
     except OSError as e:
@@ -135,6 +143,7 @@ class Check:
     ok: bool | None   # None = needs judge
     label: str
     detail: str = ""
+    assertion: dict | None = None   # the source assertion, so a rubric is judged on its own target
 
 
 def _target_text(a: dict, outdir: Path, stdout: str) -> tuple[str | None, str]:
@@ -153,9 +162,11 @@ def evaluate(assertions: list[dict], outdir: Path, stdout: str = "") -> list[Che
         kind = a.get("type", "")
         label = a.get("label") or kind
         try:
-            out.append(_evaluate_one(a, kind, label, outdir, stdout))
+            ck = _evaluate_one(a, kind, label, outdir, stdout)
         except Exception as e:  # malformed assertion should fail loudly, not crash the run
-            out.append(Check(False, label, f"assertion could not be evaluated: {e}"))
+            ck = Check(False, label, f"assertion could not be evaluated: {e}")
+        ck.assertion = a
+        out.append(ck)
     return out
 
 
@@ -245,7 +256,7 @@ def judge(criteria: list[str], material: str, model: str | None = None) -> tuple
             '{"verdict":"pass"|"fail","reasons":["..."]}. Fail if any criterion is not clearly met.\n\n'
             "CRITERIA:\n" + "\n".join(f"- {c}" for c in criteria) + "\n\nOUTPUT UNDER REVIEW:\n" + material[:30000]
         )
-        r = run_claude(prompt, tmp, no_tools=True, model=model, timeout=180)
+        r = run_claude(prompt, tmp, no_tools=True, model=model, timeout=180, prompt_via_stdin=True)
         if not r.ok:
             return False, f"judge error: {r.error}"
         m = re.search(r"\{.*\}", r.text, re.S)
