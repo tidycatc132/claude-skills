@@ -78,10 +78,32 @@ key_findings: <2 to 4 items>
 evidence: <type, source, date for each data set>
 assumptions: <what was inferred>
 open_loops: <what is unverified or missing>
-next_skill: competitor-research (competitor gap analysis) | none
+next_skill: competitor-research (competitor gap analysis) | content-brief (write briefs from the targets block) | none
 ```
 
 Ask once before writing anything to disk, unless the user already gave approval in the request. On approval, save the report to `./research/keyword-research/YYYY-MM-DD-<topic-slug>.md` and the scored CSV next to it as `YYYY-MM-DD-<topic-slug>-scored.csv`, or to the exact paths the user named.
+
+### Brief-ready targets block (saved file only)
+
+The last thing in the saved report, after the handoff block, is a `targets:` block with one row per page to build or refresh (every Content Calendar item, plus any other recommended page), so the brief skill can pick a row without re-parsing the prose. Each `id` is the primary keyword lowercased and hyphenated, unique in the file, and never changes once written. Use `N/A` for an unavailable metric and never invent one.
+
+```
+targets:
+  - id: frozen-pipes-what-to-do
+    primary_keyword: frozen pipes what to do
+    secondary_keywords: [how to thaw frozen pipes, frozen pipes burst]
+    intent: Informational
+    funnel: TOFU
+    format: how-to + FAQ
+    cluster: Drains and sewer
+    pillar_url: /drains-sewer/        # for internal linking
+    geo_candidate: true
+    geo_answer_format: steps
+    metrics: {volume: 880, kd: 14, source: Measured}
+    why_now: seasonal peak in January
+```
+
+Fields: `intent` is Informational, Navigational, Commercial or Transactional; `funnel` is TOFU, MOFU or BOFU; `cluster` is the cluster name or `none`; `pillar_url` is the pillar page path or `N/A`; `geo_answer_format` is one of direct answer, steps, comparison table, definition plus example, FAQ block, or `N/A` when `geo_candidate` is false; `source` is Measured, User-provided, Calculated or Estimated.
 
 ## Advanced modes
 

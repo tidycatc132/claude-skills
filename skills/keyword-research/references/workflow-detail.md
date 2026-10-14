@@ -97,7 +97,7 @@ Report sections in order:
 4. **Content Calendar**: 3 months, 2 to 4 items a month, keyword, format, funnel, cluster, why now.
 5. **Next Steps**: what the client must do, what the next skill is.
 
-Then the handoff block (see SKILL.md).
+Then the handoff block (see SKILL.md). In the saved file, finish with the `targets:` block described in SKILL.md, one row per calendar page.
 
 ## Quality bar
 

@@ -100,3 +100,17 @@ evidence: SE Ranking keyword metrics (Measured, 2026-10-12); Search Console via 
 assumptions: DR 18 is the current figure; the client can install tankless units; no paid search data considered
 open_loops: trend for 3 keywords is Estimated, confirm with 12-month history; cluster volumes include 2 keywords without KD
 next_skill: competitor-research (link gap for "plumber denver")
+
+targets:
+  - id: frozen-pipes-what-to-do
+    primary_keyword: frozen pipes what to do
+    secondary_keywords: [how to thaw frozen pipes, frozen pipes burst]
+    intent: Informational
+    funnel: TOFU
+    format: how-to + FAQ
+    cluster: Drains and sewer
+    pillar_url: /drains-sewer/
+    geo_candidate: true
+    geo_answer_format: steps
+    metrics: {volume: 4400, kd: 26, source: Measured}
+    why_now: seasonal peak in January; publish 6 to 8 weeks early
