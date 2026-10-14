@@ -59,6 +59,7 @@ SPEC = {
     ],
 }
 SOURCES = "Sources"
+EVIDENCE = re.compile(r"\[(internal|site|search)\]|\bGAP:|\bAssumption:", re.I)
 
 PLACEHOLDER = re.compile(
     r"\[(client|company|insert|brand|name|product|your)[^\]\n]*\]"
@@ -151,6 +152,15 @@ def count_check(name: str, secs: dict[str, str]) -> list[str]:
         n = h3_count(body("Key Personas"))
         if not 2 <= n <= 3:
             errs.append(f"Key Personas has {n} '###' personas (need 2 to 3)")
+        untagged = [
+            ln.strip()[:50] for ln in body("Key Personas").splitlines()
+            if re.match(r"\s*[-*+]\s+\S", ln) and not EVIDENCE.search(ln)
+        ]
+        if untagged:
+            errs.append(
+                f"Key Personas has {len(untagged)} bullet(s) with no source tag, GAP: or Assumption:, "
+                f"first: {untagged[0]!r}"
+            )
         n = table_rows(body("Objection Handling"))
         if not 4 <= n <= 5:
             errs.append(f"Objection Handling table has {n} rows (need 4 to 5)")

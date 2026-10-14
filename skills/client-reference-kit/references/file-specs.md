@@ -11,7 +11,7 @@ Open every file with one line: `Client: <legal or trading name> · Site: <domain
 | `## Core Positioning` | A one-sentence positioning statement (for whom, what, how it differs), the mission (quote the client's wording when it exists and cite it), and the UVP in one line. |
 | `## Offer Architecture` | Every product, service, tier, package and add-on with the current price and what is included. Name the price source and date. List retired offers or prices under a `Retired, do not use` line. |
 | `## Key Differentiators` | 3 to 6 tangible advantages: a feature, a process, a credential, a business-model choice. Each says what competitors do instead when the sources say so. |
-| `## Approved Claims & Proof Points` | Table `| Claim | Exact approved wording | Source | Date checked |`. Only claims a source backs. Claims found but not approved go in a second table `| Claim | Why not to use | Source |`. Then one line per proof type the sources lack (statistics, ratings or reviews, awards, certifications, press), for example `GAP: no awards or press found in any source; ask the owner for awards, competition scores or coverage`. |
+| `## Approved Claims & Proof Points` | Table `| Claim | Exact approved wording | Source | Date checked |`. Only claims a source backs. The approved wording keeps the source's own quantifiers and hedges ("some", "about", "most") and is never stronger than the source. Claims found but not approved go in a second table `| Claim | Why not to use | Source |`. Then one line per proof type the sources lack (statistics, ratings or reviews, awards, certifications, press), for example `GAP: no awards or press found in any source; ask the owner for awards, competition scores or coverage`. |
 | `## Call-to-Action Library` | `### High intent` (book, buy, call, start), `### Mid intent` (free consult, quote, demo, trial), `### Low intent` (guide, newsletter, quiz). Each CTA is button text plus where it links. Build them from real offers. |
 
 ## voice.md
@@ -38,7 +38,7 @@ Open every file with one line: `Client: <legal or trading name> · Site: <domain
 | Heading | What goes in it |
 | :--- | :--- |
 | `## Ideal Customer Profile` | For B2B: company size, revenue, verticals, geography, tech stack. For B2C: age band, location or service area, life situation, budget, buying trigger. Add who NOT to target when the sources say so. |
-| `## Key Personas` | 2 or 3 `###` personas, each with a name and role, goals and KPIs (or for consumers, what success looks like), a typical day or workflow, the trigger that makes them search, and the channel where they look. Merge segments that differ only by demographics. |
+| `## Key Personas` | 2 or 3 `###` personas, each with a name and role, goals and KPIs (or for consumers, what success looks like), a typical day or workflow, the trigger that makes them search, and the channel where they look, one `-` bullet per field. Every bullet carries its evidence: a source tag (`[internal] brief.md`, `[site] /about`, `[search] url`), a `GAP:`, or the word `Assumption:` when no source states it (for example `- **Typical day:** Assumption: pulls a shot before work`). Merge segments that differ only by demographics. |
 | `## Core Pain Points` | Operational, financial and emotional pain, each tied to the offer that solves it. |
 | `## Objection Handling` | Table `| Objection | Counter-framing | Proof to cite |` with 4 or 5 rows. Each counter uses a client fact from brand.md. |
 
