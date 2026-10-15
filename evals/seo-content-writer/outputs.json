@@ -1,0 +1,369 @@
+{
+  "cases": [
+    {
+      "id": "harborpine-full-brief",
+      "prompt": "Use the seo-content-writer skill to write the finished page from the approved brief at `briefs/tankless-lifespan-brief.md`. There is no WebFetch, WebSearch or internet access in this session, and the brief's evidence pack is all the evidence there is. Save the outputs in `content/tankless-lifespan/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/harborpine/briefs/tankless-lifespan-brief.md",
+          "dest": "briefs/tankless-lifespan-brief.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "VERDICT: (READY|NEEDS_INPUT)",
+          "label": "QA pass ran and nothing FAILs"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^\\**by\\b[^\\n]*Marcus Delgado[^\\n]*PB-1188",
+          "label": "visible byline with name and license"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\]\\(/water-heaters/?\\)",
+          "label": "pillar link"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\]\\(/tankless-water-heater-installation/?\\)",
+          "label": "sibling link installation"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\]\\(/water-heater-repair/?\\)",
+          "label": "sibling link repair"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\]\\(/blog/tank-water-heater-anode-rod/?\\)",
+          "label": "sibling link anode rod"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)\\[(click here|here|learn more|read more)\\]",
+          "label": "no generic anchors"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article.md",
+          "text": "412"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article.md",
+          "text": "11.6"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article.md",
+          "text": "$3,850"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article.md",
+          "text": "$5,400"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "heat exchanger pays for it",
+          "label": "approved quote used verbatim"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)Oregon City",
+          "label": "first-hand case included"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?m)^\\|[^\\n]*Tankless water heater[^\\n]*Tank water heater[^\\n]*\\|",
+          "label": "comparison table names both entities in the header"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^##\\s+sources\\s*$",
+          "label": "sources section"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)studies (show|suggest)|experts (say|agree)|research shows|many people believe",
+          "label": "no unattributed claims"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^##\\s(?!\\s*(key takeaways|frequently asked questions|faqs?|sources|references)\\s*$)[^\\n]*[^?\\s]\\s*$",
+          "label": "every non-utility H2 is a question"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?<![\\d.])(?!(?:24|34)\\s?%)\\d+(?:\\.\\d+)?\\s?%",
+          "label": "no percentage outside the evidence pack"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)on-demand unit|the new model",
+          "label": "brief-banned entity aliases"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/metadata.md",
+          "pattern": "(?im)^\\|\\s*Meta title\\s*\\|\\s*\\S",
+          "label": "meta title row"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/metadata.md",
+          "pattern": "(?im)^\\|\\s*Meta description\\s*\\|\\s*\\S",
+          "label": "meta description row"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/metadata.md",
+          "pattern": "(?im)^\\|\\s*Key takeaways\\s*\\|\\s*\\S",
+          "label": "key takeaways row"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/metadata.md",
+          "pattern": "(?im)^\\|\\s*Article summary\\s*\\|\\s*\\S",
+          "label": "article summary row"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.html",
+          "pattern": "<article>[\\s\\S]*<section[\\s\\S]*</article>",
+          "label": "semantic article with sections"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.html",
+          "pattern": "<title>[^<]+</title>",
+          "label": "html title"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/handoff.md",
+          "pattern": "(?i)canonical",
+          "label": "build handoff covers canonical"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/handoff.md",
+          "pattern": "(?i)noindex|indexab",
+          "label": "build handoff covers indexability"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/handoff.md",
+          "pattern": "(?i)AI Overview|Perplexity",
+          "label": "post-publish citation check"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^##\\s+(frequently asked questions|faqs?)\\s*$",
+          "label": "FAQ section the brief asks for"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\(503\\) 555-0142|\\]\\(/schedule/?\\)",
+          "label": "CTA uses the brief's contact route"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| First sentence is a direct answer \\| PASS",
+          "label": "openers are direct answers (scripted)"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| First sentence restates the heading's subject \\| PASS",
+          "label": "openers restate the subject (scripted)"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| Yes/no questions open with a verdict and the subject \\| PASS",
+          "label": "yes/no openers give a verdict (scripted)"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| Figures \\(%, \\$, decimals\\) trace to the brief or Sources \\| PASS",
+          "label": "every figure traces to the brief (scripted)"
+        },
+        {
+          "type": "rubric",
+          "target": "content/tankless-lifespan/article.md",
+          "criteria": [
+            "Every number on the page (lifespans, percentages, ppm, warranty years, job counts, prices) is attributed in its sentence or table cell to a named source (U.S. Department of Energy, Portland Water Bureau, Rinnai, Harbor & Pine records, pricing or interview, or the named first-hand case), and each of those sources appears in the Sources list",
+            "All six sub-questions from the brief are answered under their own question headings"
+          ],
+          "label": "rubric: sourced numbers, sub-questions"
+        },
+        {
+          "type": "rubric",
+          "target": "content/tankless-lifespan/metadata.md",
+          "criteria": [
+            "The metadata is one table with rows for at least meta title, meta description, H1, key takeaways and article summary; the meta title contains the page's H1 wording (a brand name or short benefit may be added) and keeps its informational intent; the article summary is 3 or 4 sentences"
+          ],
+          "label": "rubric: metadata table"
+        }
+      ]
+    },
+    {
+      "id": "cedarline-thin-ymyl-brief",
+      "prompt": "Use the seo-content-writer skill on `heloc-brief.md` for our credit union client. There is no WebFetch, WebSearch or internet access in this session and nothing else about the client is on file. Save the outputs in `content/what-is-a-heloc/`. We need it today.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/cedarline/heloc-brief.md",
+          "dest": "heloc-brief.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/what-is-a-heloc/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/what-is-a-heloc/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/what-is-a-heloc/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/what-is-a-heloc/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/what-is-a-heloc/handoff.md"
+        },
+        {
+          "type": "contains",
+          "path": "content/what-is-a-heloc/qa_report.md",
+          "text": "VERDICT: NEEDS_INPUT",
+          "label": "not READY with open evidence and author gaps"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/qa_report.md",
+          "pattern": "\\| H2/H3 phrased as questions \\| PASS",
+          "label": "question headings"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/qa_report.md",
+          "pattern": "\\| 5\\+ sub-questions under own headings \\| PASS",
+          "label": "sub-questions built out to 5+"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "\\[NEEDS SOURCE:",
+          "label": "evidence gaps flagged"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "(?i)\\[NEEDS INPUT:[^\\]]*(author|byline|reviewer)",
+          "label": "missing author flagged, not invented"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "(?i)staff writer|\\badmin\\b|editorial team",
+          "label": "no generic byline"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "(?m)^(?![^\\n]*NEEDS (SOURCE|INPUT))[^\\n]*\\d\\s?%",
+          "label": "no unsourced percentages"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "\\]\\([^)]*apply[^)]*\\)",
+          "label": "no invented application URL"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "\\]\\(/home-equity/heloc-rates/?\\)",
+          "label": "rates link"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/article.md",
+          "pattern": "\\]\\(/home-equity/?\\)",
+          "label": "pillar link"
+        },
+        {
+          "type": "regex",
+          "path": "content/what-is-a-heloc/handoff.md",
+          "pattern": "(?i)NEEDS INPUT:[^\\]]*(review|compliance|disclos)",
+          "label": "YMYL review flagged as NEEDS INPUT, not template text"
+        },
+        {
+          "type": "rubric",
+          "target": "content/what-is-a-heloc/article.md",
+          "criteria": [
+            "The first sentence of body text after the H1 and the byline is a one-sentence definition that states the mechanism (a revolving line of credit secured by the borrower's home equity that the borrower draws on as needed), not just a category label; sentences after it may add detail such as the draw and repayment periods",
+            "No figure for draw period length, repayment period length, loan-to-value limit, rates or costs is stated as fact without a named source; any such figure the page needs is replaced by a visible [NEEDS SOURCE: ...] or [NEEDS INPUT: ...] flag",
+            "The comparison with a home equity loan names both 'HELOC' and 'home equity loan' in each sentence that states a difference"
+          ],
+          "label": "rubric: definition, no fabricated YMYL figures, comparison naming"
+        },
+        {
+          "type": "rubric",
+          "target": "content/what-is-a-heloc/handoff.md",
+          "criteria": [
+            "handoff.md routes the page to a compliance or lending expert reviewer (named, or flagged as NEEDS INPUT because the brief names none) and lists the lending disclosures or member-specific terms the brief did not supply"
+          ],
+          "label": "rubric: YMYL routing in handoff"
+        }
+      ]
+    }
+  ]
+}

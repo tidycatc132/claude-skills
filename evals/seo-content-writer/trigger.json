@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Write the article from the approved brief in briefs/tankless-lifespan-brief.md for Harbor & Pine Plumbing.",
+    "Here's the content brief Dana signed off on for 'what is a HELOC'. Turn it into the finished page, with meta title, meta description, key takeaways and a summary.",
+    "Execute this brief: primary question 'how much does a roof replacement cost in Denver', six sub-questions, author Kim Ortega, internal links to /roofing/ and /roof-repair/. I need publish-ready copy.",
+    "We've got 12 approved briefs in /briefs from the brief step. Start with the first one and write the full blog post, optimized for Google and AI Overviews.",
+    "Draft the service page for emergency dental care in Tacoma from this brief, ready for the dev to build.",
+    "The keyword research and brief are done for 'best standing desks for small spaces'. Now write the listicle itself so it can get cited in ChatGPT and Perplexity.",
+    "Use our client's voice.md and style.md plus brief-07.md to write the how-to article on replacing a garbage disposal.",
+    "Produce the long-form guide this content brief describes, with a semantic HTML version and the pre-publish QA pass."
+  ],
+  "should_not_trigger": [
+    "Create a content brief for 'how long does a tankless water heater last' from our topical map CSV.",
+    "Find long-tail keywords for a Portland plumber's water heater pages with volume and difficulty.",
+    "Audit this published article for E-E-A-T and tell me if it's good enough to keep.",
+    "Build the brand, voice, style, audience and compliance reference files for our new client Cedarline Credit Union.",
+    "Write JSON-LD schema markup (Article, FAQPage, Person) for this blog URL.",
+    "What topics do our competitors cover that we have no page on?",
+    "Plan the site structure and hub pages for the home equity section of cedarlinecu.org.",
+    "Proofread this two-paragraph customer email for typos.",
+    "Write three LinkedIn posts announcing our new tankless water heater service.",
+    "I wrote this draft myself (draft.md). Is it ready to publish? Score it for E-E-A-T.",
+    "What does it take to rank for 'tankless water heater lifespan'? Show me who holds the featured snippet."
+  ]
+}
