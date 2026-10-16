@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Kick off Copperline Plumbing, copperlineplumbing.com, Tacoma metro. The Sales transcript and the signed SOW are in this folder.",
+    "We just closed Brightwater Dental. Run the new build kickoff: brightwaterdental.com, Boise. The Dialpad transcript is sales/transcript.txt and the SOW is sow.md.",
+    "Start the new website build for Hollis & Grant Law (hollisgrant.com, Denver): context doc, URL inventory, gap questions, project instructions and setup checklist.",
+    "Sales handed off a new website client today: Maple Row Bakery, no website yet, serves Portland. Here's the sales call transcript and the scope of work, set up the Day 1 kickoff files.",
+    "Spin up Week 1 for Ridgeview Roofing, ridgeviewroofing.com, Spokane. I need the gap questions for the intake form and the setup checklist.",
+    "New build kickoff for Atlas Physio, atlasphysio.co, Leeds. Two sales transcripts and the SOW are attached.",
+    "Onboard Summit Auto Glass for the website build: crawl summitautoglass.com, read the sales transcript and SOW, and produce the kickoff package for the Claude Project.",
+    "Deal closed for Lakeside Pediatrics (lakesidepeds.com, Madison WI). Kick it off. The SOW includes Google Ads, so we need the paid media brief too."
+  ],
+  "should_not_trigger": [
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Copperline Plumbing from their site and our project files.",
+    "Plan the sitemap and page hierarchy for copperlineplumbing.com's new site and keep it inside the 12-page SOW.",
+    "Do keyword research for a plumbing company in Tacoma and give me a prioritized keyword brief.",
+    "Write the content for the Copperline Plumbing water heater service page from this brief.",
+    "Run a technical SEO audit on copperlineplumbing.com and check Core Web Vitals.",
+    "Analyze our Google Ads account performance for last month: CPA, ROAS and wasted spend.",
+    "Who are copperlineplumbing.com's main search competitors and why do they outrank us?",
+    "Post this progress update to the ClickUp task for the Copperline build.",
+    "Audit this homepage draft for E-E-A-T and tell me if it's ready to publish.",
+    "Write the welcome email for Copperline Plumbing with the intake form link and the gap questions.",
+    "Here's the Kickoff Call transcript for Copperline Plumbing. Process it and update the client context."
+  ]
+}
