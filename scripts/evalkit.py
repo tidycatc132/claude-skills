@@ -248,13 +248,18 @@ def _evaluate_one(a: dict, kind: str, label: str, outdir: Path, stdout: str) -> 
 # --------------------------------------------------------------------------- #
 # LLM judge (separate session, no tools)
 # --------------------------------------------------------------------------- #
-def judge(criteria: list[str], material: str, model: str | None = None) -> tuple[bool, str]:
+def judge(criteria: list[str], material: str, model: str | None = None, context: str = "") -> tuple[bool, str]:
+    """One tool-less judge call. `context` is reference material (for example the brief the output was
+    written from) that the judge may use to check the criteria; it is not itself under review."""
     tmp = Path(tempfile.mkdtemp(prefix="harness-judge-"))
     try:
+        ref = ("REFERENCE MATERIAL (use it to check the criteria; it is not under review):\n" + context[:30000] + "\n\n"
+               if context else "")
         prompt = (
             "You are a strict reviewer. Judge ONLY against the criteria. Reply with one JSON object and nothing else: "
             '{"verdict":"pass"|"fail","reasons":["..."]}. Fail if any criterion is not clearly met.\n\n'
-            "CRITERIA:\n" + "\n".join(f"- {c}" for c in criteria) + "\n\nOUTPUT UNDER REVIEW:\n" + material[:30000]
+            "CRITERIA:\n" + "\n".join(f"- {c}" for c in criteria) + "\n\n" + ref
+            + "OUTPUT UNDER REVIEW:\n" + material[:30000]
         )
         r = run_claude(prompt, tmp, no_tools=True, model=model, timeout=180, prompt_via_stdin=True)
         if not r.ok:
@@ -269,3 +274,39 @@ def judge(criteria: list[str], material: str, model: str | None = None) -> tuple
         return v.get("verdict") == "pass", "; ".join(map(str, v.get("reasons", [])))[:300]
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
+
+
+JUDGE_ERROR_PREFIXES = ("judge error", "judge returned")
+
+
+def judge_majority(criteria: list[str], material: str, runs: int = 1, model: str | None = None,
+                   context: str = "") -> tuple[bool, str]:
+    """Judge up to `runs` times and decide by majority of the valid votes (a tie fails).
+
+    A call that errors or returns no or invalid JSON is not a vote. Stops early once one side
+    has a strict majority of `runs`, so a clear verdict costs fewer calls. runs <= 1 is one plain call.
+    """
+    if runs <= 1:
+        return judge(criteria, material, model, context)
+    need = runs // 2 + 1
+    passes = fails = errors = 0
+    fail_reasons: list[str] = []
+    for _ in range(runs):
+        ok, why = judge(criteria, material, model, context)
+        if why.startswith(JUDGE_ERROR_PREFIXES):
+            errors += 1
+        elif ok:
+            passes += 1
+        else:
+            fails += 1
+            fail_reasons.append(why)
+        if passes >= need or fails >= need:
+            break
+    votes = passes + fails
+    if votes == 0:
+        return False, f"no valid judge votes ({errors} errored)"
+    ok = passes > fails
+    detail = f"{passes}/{votes} judge votes pass" + (f", {errors} errored" if errors else "")
+    if not ok and fail_reasons:
+        detail += ": " + fail_reasons[0]
+    return ok, detail[:300]
