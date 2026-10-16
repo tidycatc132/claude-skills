@@ -136,6 +136,16 @@ def parse(md: str):
     return h1s, sections
 
 
+MONTHS = r"(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?"
+
+
+def undated(text: str) -> str:
+    """Remove URLs and dates (ISO and written) so their digits are not read as figures."""
+    text = re.sub(r"https?://\S+|\b[\w.-]+\.(?:gov|com|org|net|us|edu)/\S*", " ", text)
+    text = re.sub(r"\b\d{4}-\d{2}(?:-\d{2})?\b", " ", text)
+    return re.sub(rf"(?i)\b{MONTHS}\s+\d{{1,2}},?\s+\d{{4}}\b|\b\d{{1,2}}\s+{MONTHS}\s+\d{{4}}\b", " ", text)
+
+
 def heading_coverage(title: str, words: list[str]) -> float:
     """Share of the heading's content terms found (by stem prefix) in `words`."""
     terms = [t for t in dict.fromkeys(re.findall(r"[a-z0-9]+", title.lower())) if t not in STOP and len(t) > 2]
@@ -314,6 +324,16 @@ def main() -> int:
 
     # 6b. comparison stand-ins that hide which entity is meant
     standin = sorted({m.group(0).lower() for m in STANDIN.finditer(strip_md(md))})
+    # "The difference is how you receive the money." names neither side
+    for s in sections:
+        for kind, text in s["blocks"]:
+            for u in ([text] if kind == "row" else sentences(text)):
+                m = re.match(r"(?i)^the (main |key |biggest |big |real |core )?differences? (is|are|comes? down to|lies)\b",
+                             strip_md(u))
+                # a sentence that goes on to contrast two things ("... while ...", "X and Y") is fine
+                if m and not re.search(r"(?i)\b(and|while|whereas|than|versus|vs\.?|compared with|but)\b", strip_md(u)):
+                    standin.append(m.group(0).lower())
+    standin = sorted(set(standin))
     add("Comparisons name both entities", not standin, ("replace with the entity names: " + ", ".join(standin)) if standin else "")
 
     # 7. paragraph length 2-4 sentences
@@ -365,6 +385,11 @@ def main() -> int:
     cm = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*]+)", brief + "\n" + meta)
     client = re.sub(r"\s+(plumbing|inc\.?|llc|ltd|co\.?|corp\.?|community credit union|credit union)$", "",
                     cm.group(1).strip(), flags=re.I) if cm else ""
+    # figures the brief's evidence supplies ("10 to 15 years", "41 gallons") need a source in their sentence
+    # too, even without a %, $ or decimal; years and evidence ids do not count
+    ev_sec = re.search(r"(?ims)^#+\s*evidence[^\n]*\n(.*?)(?=^#|\Z)", brief) if brief else None
+    ev_figs = {n.replace(",", "") for n in re.findall(r"(?<![\w.#E])\d[\d,]*(?:\.\d+)?", undated(ev_sec.group(1) if ev_sec else ""))
+               if len(n.replace(",", "")) >= 2 and not re.fullmatch(r"(19|20)\d\d", n)}
     unattributed = []
     in_sources = False
     for s in sections:
@@ -376,7 +401,10 @@ def main() -> int:
             units = [text] if kind == "row" else sentences(text)
             for u in units:
                 plain = strip_md(FLAG.sub("", u))
-                if FIGURE.search(plain) and not ATTRIBUTION.search(plain) \
+                if re.match(r"^\**by\b", plain, re.I):  # the byline: credentials and date, not claims
+                    continue
+                nums = {n.replace(",", "") for n in re.findall(r"(?<![\w.])\$?(\d[\d,]*(?:\.\d+)?)", undated(plain))}
+                if (FIGURE.search(plain) or nums & ev_figs) and not ATTRIBUTION.search(plain) \
                         and not (client and client.lower() in plain.lower()):
                     unattributed.append(plain[:70])
     add("Every figure names its source in the same sentence", not unattributed, "; ".join(unattributed[:5]))

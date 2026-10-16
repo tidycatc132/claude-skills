@@ -270,6 +270,201 @@
           "label": "run reported BLOCKED"
         }
       ]
+    },
+    {
+      "id": "harborpine-refresh-existing-brief",
+      "prompt": "Use the content-brief skill to brief target tankless-water-heater-maintenance from research/keyword-research/2026-10-15-tankless-maintenance.md. Client files are in project/. harborpineplumbing.com cannot be reached from this sandbox: site/ holds the saved site (site/sitemap.xml, and one HTML file per page, for example site/blog/tankless-water-heater-maintenance.html is /blog/tankless-water-heater-maintenance/); treat those files as the fetched pages. WebSearch and WebFetch are available for everything else; there is no SE Ranking or Search Console connector. Do not ask questions.",
+      "fixtures": [
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/research/keyword-research/2026-10-15-tankless-maintenance.md",
+          "dest": "research/keyword-research/2026-10-15-tankless-maintenance.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/research/content-briefs/tankless-water-heater-maintenance.md",
+          "dest": "research/content-briefs/tankless-water-heater-maintenance.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/project/brand.md",
+          "dest": "project/brand.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/project/style.md",
+          "dest": "project/style.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/sitemap.xml",
+          "dest": "site/sitemap.xml"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/water-heaters.html",
+          "dest": "site/water-heaters.html"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/tankless-water-heater-installation.html",
+          "dest": "site/tankless-water-heater-installation.html"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/blog/tankless-water-heater-maintenance.html",
+          "dest": "site/blog/tankless-water-heater-maintenance.html"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/schedule.html",
+          "dest": "site/schedule.html"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/index.html",
+          "dest": "site/index.html"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine-refresh/site/blog/tank-water-heater-anode-rod.html",
+          "dest": "site/blog/tank-water-heater-anode-rod.html"
+        }
+      ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *),PowerShell(ls *),PowerShell(cat *),PowerShell(mkdir *),WebSearch,WebFetch",
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.v1.md",
+          "label": "old brief kept as .v1"
+        },
+        {
+          "type": "contains",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.v1.md",
+          "text": "First draft brief from September",
+          "label": "old brief content preserved"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^brief_version: 2\\s*$",
+          "label": "version incremented"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^mode: refresh\\s*$",
+          "label": "refresh mode inferred from the report"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^existing_url: /blog/tankless-water-heater-maintenance/\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^format: how-to\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "## Page Goal\\n(?:(?!\\n## ).)*\\n## Refresh Audit\\n",
+          "label": "Refresh Audit right after Page Goal"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^- Mode: (keep|rewrite)\\b",
+          "label": "outline marks kept or rewritten sections"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^- Mode: new\\b",
+          "label": "outline marks new sections"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?i)## Refresh Audit\\n(?:(?!\\n## ).)*(2019|Admin|click here)",
+          "label": "audit records what the old post got wrong"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^cannibalization: clear",
+          "label": "the page's own URL is not a conflict"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/tankless-water-heater-maintenance.md",
+          "pattern": "(?m)^\\| /water-heaters/ \\|",
+          "label": "pillar link"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?m)^next_step:",
+          "label": "handoff block"
+        }
+      ]
+    },
+    {
+      "id": "cedarline-unattended-cannibalization-conflict",
+      "prompt": "Scheduled content-brief run for Cedarline Community Credit Union using 2026-10-14-home-equity.md. Nobody is available to answer questions during this run. cedarlinecu.org cannot be reached from this sandbox: site/ holds the saved site (site/sitemap.xml, and one HTML file per page, for example site/blog/heloc-explained.html is /blog/heloc-explained/); treat those files as the fetched pages. WebSearch and WebFetch are available; there is no SE Ranking or Search Console connector.",
+      "fixtures": [
+        {
+          "src": "fixtures/content-brief/cedarline-conflict/2026-10-14-home-equity.md",
+          "dest": "2026-10-14-home-equity.md"
+        },
+        {
+          "src": "fixtures/content-brief/cedarline-conflict/site/sitemap.xml",
+          "dest": "site/sitemap.xml"
+        },
+        {
+          "src": "fixtures/content-brief/cedarline-conflict/site/blog/heloc-explained.html",
+          "dest": "site/blog/heloc-explained.html"
+        },
+        {
+          "src": "fixtures/content-brief/cedarline-conflict/site/home-equity.html",
+          "dest": "site/home-equity.html"
+        }
+      ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *),PowerShell(ls *),PowerShell(cat *),PowerShell(mkdir *),WebSearch,WebFetch",
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "label": "conflicting row gets no brief"
+        },
+        {
+          "type": "file_absent",
+          "path": "research/content-briefs/heloc-vs-home-equity-loan.md",
+          "label": "unattended run briefs month 1 only"
+        },
+        {
+          "type": "file_absent",
+          "path": "research/content-briefs/heloc-payment-calculator.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "/blog/heloc-explained/",
+          "label": "names the conflicting URL"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)conflict",
+          "label": "reports a cannibalization conflict"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?is)what-is-a-heloc.{0,300}NEEDS_INPUT|NEEDS_INPUT.{0,300}what-is-a-heloc",
+          "label": "what-is-a-heloc is NEEDS_INPUT"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?is)(month 1|november|earliest month).{0,300}what-is-a-heloc|what-is-a-heloc.{0,300}(month 1|november|earliest month)",
+          "label": "says it used the month 1 default"
+        }
+      ]
     }
   ]
 }

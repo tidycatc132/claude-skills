@@ -14,10 +14,10 @@ Two layers. The script checks what can be checked mechanically; you check the re
 | First sentence restates the heading's subject | Fewer than half the heading's content words appear in the answer's first sentence | Name the subject in full in that sentence |
 | Yes/no questions open with a verdict and the subject | A yes/no answer that does not start with Yes, No, Usually, Rarely, Most..., or that does not name the heading subject in its first 15 words | "No, a tankless water heater on city water does not need ..." (choice questions get a WARN instead) |
 | No orphaned pronouns at block starts | A paragraph, list item or table row starts with It/This/They... | Restate the entity name |
-| Comparisons name both entities | "the former", "the latter", "both products", "the two" | Name each entity in the sentence |
+| Comparisons name both entities | "the former", "the latter", "both products", "the two", or a sentence opening "The difference is" | Name each entity in the sentence |
 | No unattributed claims | "studies show", "experts say"... | Name the source or flag `[NEEDS SOURCE: ...]` |
 | A statistic or evidence flag per major section | A question H2 section with no figure | Add a sourced figure or a `[NEEDS SOURCE: ...]` flag |
-| Every figure names its source in the same sentence | A sentence, bullet or table row with %, $, a decimal or ppm and no source cue | Add the source name or a short tag such as "(U.S. Department of Energy)" |
+| Every figure names its source in the same sentence | A sentence, bullet or table row with %, $, a decimal or ppm, or any figure from the brief's evidence ("10 to 15 years"), and no source cue; a source named in the next sentence does not count | Add the source name or a short tag such as "(U.S. Department of Energy)" |
 | Sources section for stated figures | Figures but no `## Sources` | Add the list |
 | Descriptive anchor text | "click here", "learn more"... | Name the destination topic |
 | Every internal link from the brief is placed | A brief link is missing | Place it in a sentence that says why it is relevant |
