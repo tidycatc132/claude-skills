@@ -4,7 +4,11 @@
 Usage:
   python3 check_kickoff.py --slug "Client Name"            print the client slug
   python3 check_kickoff.py --paid-media sow.md             print yes or no
+  python3 check_kickoff.py --deal-terms notes.md           print yes if the notes have a Deal Details block
   python3 check_kickoff.py kickoff/<slug> --client "Client Name" --sow sow.md [--no-website]
+
+--sow is the scope source: the signed SOW, or the discovery notes holding the signed deal terms
+when there is no SOW (then the scope lines are tagged [notes] instead of [sow]).
 
 The full check prints one `| Check | Result | Detail |` table and a final line `RESULT: PASS` or
 `RESULT: FAIL`. Exit code 0 on PASS, 1 on FAIL. Standard library only.
@@ -36,6 +40,9 @@ INTAKE = re.compile(r"(?<!web )\b(address|phone number|business hours|opening ho
                     r"access to|logo|fonts?|colou?r palette|brand colou?rs|photos?|video|testimonials?|reviews?|"
                     r"team members?|bios?|certifications?|awards?|licen[cs]es?|memberships?|disclaimers?|"
                     r"legal language|compliance language|websites? you like|sites you like)\b", re.I)
+DEAL_HEAD = re.compile(r"^[#*_\s]*(deal details|deal terms|deal summary)\b", re.I)
+INTEREST = re.compile(r"\b(interested|interest only|considering|open to|maybe|possibly|might|would like|hoping|"
+                      r"undecided|declined|not signed|not included|excluded|out of scope|none)\b", re.I)
 FORBIDDEN_FILES = ("brand-brief", "review-baseline")
 
 
@@ -64,8 +71,33 @@ def included_part(sow: str) -> str:
     return "\n".join(keep)
 
 
-def has_paid_media(sow: str) -> bool:
-    return bool(PAID.search(included_part(sow)))
+def deal_block(text: str) -> str | None:
+    """Lines under a `Deal Details` (or `Deal terms`, `Deal summary`) heading in discovery notes, up to the
+    next markdown heading. None when there is no such heading (the file is an SOW, or not signed terms)."""
+    lines = text.splitlines()
+    for i, line in enumerate(lines):
+        if DEAL_HEAD.match(line):
+            out = []
+            for ln in lines[i + 1:]:
+                if ln.lstrip().startswith("#"):
+                    break
+                out.append(ln)
+            return "\n".join(out)
+    return None
+
+
+def scope_text(text: str) -> str:
+    """What counts as scope: an SOW's text minus exclusions, or the deal block of discovery notes."""
+    block = deal_block(text)
+    return included_part(text) if block is None else included_part(block)
+
+
+def has_paid_media(text: str) -> bool:
+    """SOW: paid media named outside the exclusions. Deal notes: a deal-block line naming paid media
+    that does not list it only as an interest."""
+    if deal_block(text) is None:
+        return bool(PAID.search(included_part(text)))
+    return any(PAID.search(ln) and not INTEREST.search(ln) for ln in scope_text(text).splitlines())
 
 
 def squash(s: str) -> str:
@@ -90,14 +122,15 @@ def check(folder: Path, client: str, sow_path: Path, no_website: bool) -> list[t
     slug = slugify(client)
     sow = sow_path.read_text(encoding="utf-8", errors="replace")
     paid = has_paid_media(sow)
+    scope_src = sow if deal_block(sow) is None else deal_block(sow)
 
     add("folder name is the slug", folder.name == slug, f"expected {slug}, got {folder.name}")
     names = ["context.md", "url-inventory.csv", "gap-questions.md", "project-instructions.md", "setup-checklist.md"]
     missing = [n for n in names if not (folder / f"{slug}-{n}").exists()]
     add("required files present", not missing, ", ".join(missing))
     pm = (folder / f"{slug}-paid-media-brief.md").exists()
-    add("paid media brief matches the SOW", pm == paid,
-        f"SOW includes paid media: {'yes' if paid else 'no'}; brief present: {'yes' if pm else 'no'}")
+    add("paid media brief matches the scope", pm == paid,
+        f"scope includes paid media: {'yes' if paid else 'no'}; brief present: {'yes' if pm else 'no'}")
     extra = [p.name for p in folder.iterdir() if any(f in p.name for f in FORBIDDEN_FILES)] if folder.exists() else []
     add("no brand brief or review baseline", not extra, ", ".join(extra))
     stray = [p.name for p in folder.iterdir() if p.is_file() and not p.name.startswith(slug + "-")] if folder.exists() else []
@@ -124,12 +157,12 @@ def check(folder: Path, client: str, sow_path: Path, no_website: bool) -> list[t
                     untagged.append(ln[:60])
         add("every context fact has a source tag", not untagged, "; ".join(untagged[:4]))
         scope = "\n".join(sec.get("Scope Summary", []))
-        m = re.search(r"^SOW pages: (\d+|unknown)(?:\s*\[sow\])?\s*$", scope, re.M)
-        ok = bool(m) and (m.group(1) == "unknown" or re.search(rf"\b{m.group(1)}\b[^\n]*page|page[^\n]*\b{m.group(1)}\b", sow, re.I))
+        m = re.search(r"^SOW pages: (\d+|unknown)(?:\s*\[(?:sow|notes)\])?\s*$", scope, re.M)
+        ok = bool(m) and (m.group(1) == "unknown" or re.search(rf"\b{m.group(1)}\b[^\n]*page|page[^\n]*\b{m.group(1)}\b", scope_src, re.I))
         add("SOW page count stated and found in the SOW", bool(ok), m.group(0) if m else "no `SOW pages:` line")
         add("included services line", bool(re.search(r"^Included services: \S", scope, re.M)))
-        quotes = [re.sub(r"\s*\[sow\]\s*$", "", q[1:].strip()) for q in scope.splitlines() if q.startswith(">")]
-        found = [q for q in quotes if q and squash(q) in squash(sow)]
+        quotes = [re.sub(r"\s*\[(?:sow|notes)\]\s*$", "", q[1:].strip()) for q in scope.splitlines() if q.startswith(">")]
+        found = [q for q in quotes if q and squash(q) in squash(scope_src)]
         add("SOW quote is word for word", bool(found), "no `>` line matches the SOW text" if not found else "")
 
     inv_p = folder / f"{slug}-url-inventory.csv"
@@ -197,9 +230,13 @@ def main() -> int:
     ap.add_argument("--no-website", action="store_true")
     ap.add_argument("--slug")
     ap.add_argument("--paid-media")
+    ap.add_argument("--deal-terms")
     a = ap.parse_args()
     if a.slug:
         print(slugify(a.slug))
+        return 0
+    if a.deal_terms:
+        print("yes" if deal_block(Path(a.deal_terms).read_text(encoding="utf-8", errors="replace")) is not None else "no")
         return 0
     if a.paid_media:
         print("yes" if has_paid_media(Path(a.paid_media).read_text(encoding="utf-8", errors="replace")) else "no")

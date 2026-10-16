@@ -1,10 +1,10 @@
 # Kickoff file specs
 
-All files go in `kickoff/<slug>/` and start with the slug: `<slug>-context.md`, and so on. Get the slug from `python3 scripts/check_kickoff.py --slug "<Client Name>"`. Every markdown file's first line is `Client: <Client Name>`.
+All files go in `kickoff/<slug>/` and start with the slug: `<slug>-context.md`, and so on. Get the slug from `python3 <skill-dir>/scripts/check_kickoff.py --slug "<Client Name>"`. Every markdown file's first line is `Client: <Client Name>`.
 
 ## Source tags
 
-Every fact bullet (`- ` line) in `<slug>-context.md` ends with one source tag in square brackets, naming where it came from: `[transcript]`, `[site]`, `[sow]`, `[notes]` (discovery notes, pre-sale audit), `[user]` (what the person running kickoff typed), `[maps]`. Combine with commas when two sources agree: `[site, transcript]`. A bullet with no source starts with `GAP:` instead and has no tag. When two sources disagree, start the bullet with `CONFLICT:`, give both versions with their tags inside the sentence, say which one the build follows, and end with the tags of both: `[sow, transcript]`. The SOW wins on scope; the transcript wins on facts the client stated about the business; the site wins on nothing it contradicts in the other two.
+Every fact bullet (`- ` line) in `<slug>-context.md` ends with one source tag in square brackets, naming where it came from: `[transcript]`, `[site]`, `[sow]`, `[notes]` (discovery notes, pre-sale audit), `[user]` (what the person running kickoff typed), `[maps]`. Combine with commas when two sources agree: `[site, transcript]`. A bullet with no source starts with `GAP:` instead and has no tag. When two sources disagree, start the bullet with `CONFLICT:`, give both versions with their tags inside the sentence, say which one the build follows, and end with the tags of both: `[sow, transcript]`. The SOW wins on scope (with no SOW, the signed deal terms in the notes do); the transcript wins on facts the client stated about the business; the site wins on nothing it contradicts in the other two.
 
 Never write a fact that is not in a source. No invented review counts, ratings, years, team sizes, prices or URLs.
 
@@ -37,6 +37,8 @@ Client: <Client Name>
   - a line `Included services: <comma-separated list from the SOW> [sow]`,
   - a `> ` blockquote copied word for word from the SOW line that states the page count, ending with ` [sow]`,
   - then bullets for exclusions and any conflict with what Sales said (as a `CONFLICT:` bullet).
+- With no SOW, the scope source is the deal block of the discovery notes (the lines under `Deal Details` or `Deal terms`), and Scope Summary changes like this: the three lines end in `[notes]` instead of `[sow]`; `SOW pages:` is the count the deal terms state, or `unknown`; the blockquote is a deal-block line word for word (the page-count line if there is one); and the first bullet is `- GAP: signed SOW; scope comes from the signed deal terms in the discovery notes`. Never take a page count from what Sales or the AM promised on a call; that is a `CONFLICT:` or a note, not the count.
+- Paid media that the deal block lists only as an interest or as not included (interested, considering, open to, maybe, might, would like, not included; the `--paid-media` check decides) is not in scope, and neither is paid media mentioned only outside the deal block, such as past ad history. When the deal block lists it as an interest, add the bullet `- GAP: paid media is listed as an interest, not signed scope; confirm with Sales` to Scope Summary and write no paid media brief.
 - `## Open Items`: one bullet per `R` item that is not `covered`, naming the item id (`R6`), and whether it was asked or left for the call. No source tags needed here.
 - `## Sources`: one bullet per file read, with its path, plus the site pages read, plus `Kickoff request` (what the person running kickoff typed) whenever any bullet carries `[user]`. No tags needed here.
 
@@ -77,12 +79,12 @@ Answer:
 
 ## `<slug>-project-instructions.md`
 
-At most 80 lines. Sections: `## Client` (name, URL, service area, one-paragraph summary), `## Project Files` (each kickoff file and what it holds, plus the Sales transcript(s) and SOW), `## Working Rules` (the SOW is the scope; facts come from Project files, not guesses; flag gaps instead of filling them). Do not list skills or tools.
+At most 80 lines. Sections: `## Client` (name, URL, service area, one-paragraph summary), `## Project Files` (each kickoff file and what it holds, plus the Sales transcript(s) and SOW, or the discovery notes when there is no SOW), `## Working Rules` (the SOW is the scope, or the signed deal terms when there is no SOW; facts come from Project files, not guesses; flag gaps instead of filling them). Do not list skills or tools.
 
 ## `<slug>-setup-checklist.md`
 
 The steps in `week-1-sequence.md`, in order, as `- [ ] ` items.
 
-## `<slug>-paid-media-brief.md` (only when the SOW includes paid media)
+## `<slug>-paid-media-brief.md` (only when the scope source includes paid media)
 
-Write it only when `python3 scripts/check_kickoff.py --paid-media <sow file>` prints `yes`. Sections: `## Paid Media Scope` (quote the SOW's paid media line, including any spend figure, word for word), `## Services and Areas to Target` (from context, with source tags), `## Seed Terms` (search phrases taken from how the client described their services, marked as unverified, with no volumes), `## Open Questions for Paid Media`.
+Write it only when `python3 <skill-dir>/scripts/check_kickoff.py --paid-media <scope file>` prints `yes`. Sections: `## Paid Media Scope` (quote the scope source's paid media line, including any spend figure, word for word), `## Services and Areas to Target` (from context, with source tags), `## Seed Terms` (search phrases taken from how the client described their services, marked as unverified, with no volumes), `## Open Questions for Paid Media`.

@@ -22,8 +22,8 @@
 18. Process client feedback (AM, when it arrives)
 19. Week 1 handoff check (AM/PM)
 
-When the SOW includes paid media, add one item right after step 3: `- [ ] Send the paid media brief to Paid Media (AM)`.
+When the scope source includes paid media (the `--paid-media` check prints `yes`), add one item right after step 3: `- [ ] Send the paid media brief to Paid Media (AM)`.
 
-Under step 2, add these sub-items: name the Project `<Client Name> — New Build`; paste `<slug>-project-instructions.md` as the Project Instructions; upload the other kickoff files, the Sales transcript(s) and the SOW.
+Under step 2, add these sub-items: name the Project `<Client Name> — New Build`; paste `<slug>-project-instructions.md` as the Project Instructions; upload the other kickoff files, the Sales transcript(s) and the SOW (with no SOW, the discovery notes that hold the signed deal terms).
 
 Under step 6, add: anything missing after the intake form goes on the Kickoff Call agenda.

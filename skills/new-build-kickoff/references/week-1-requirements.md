@@ -24,7 +24,7 @@ Each row in the `## Checklist Coverage` table of `<slug>-gap-questions.md` gets 
 - `call` — open, and left for the Kickoff Call because 5 questions are already used, or because only a live conversation can settle it.
 - `n/a` — does not apply (R8 with no website).
 
-R7 comes from the SOW: `covered` when the SOW states a page count, otherwise `call`, and the context says so.
+R7 comes from the scope source (the SOW, or the signed deal terms when there is no SOW): `covered` when it states a page count, otherwise `call`, and the context says so.
 
 ## Never ask (the intake form collects these)
 
