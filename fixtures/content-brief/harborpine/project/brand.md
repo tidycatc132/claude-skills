@@ -1,4 +1,6 @@
-# Harbor & Pine Plumbing: client notes for content
+# Harbor & Pine Plumbing: brand
+
+Industry: residential plumbing (home services). Services: water heater repair, replacement and descaling, tankless installation, drain and sewer.
 
 Account lead: Dana Whitfield. Site: harborpineplumbing.com. Service area: Portland, Beaverton, Lake Oswego, Oregon City, Milwaukie.
 

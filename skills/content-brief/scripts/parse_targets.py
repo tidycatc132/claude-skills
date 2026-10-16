@@ -18,7 +18,10 @@ Output: a JSON list of target objects with the keys `id`, `primary_keyword`,
 `secondary_keywords`, `intent`, `funnel`, `format`, `cluster`, `pillar_url`,
 `geo_candidate`, `geo_answer_format`, `metrics`, `why_now`. Numbers stay
 numbers, `true`/`false` become booleans, `N/A` stays the string "N/A",
-trailing `# comments` are dropped. With --id, only that target is printed
+trailing `# comments` are dropped. The optional `existing_url` key passes through.
+With --normalize each row also gets `format_primary`, `format_embedded`,
+`format_normalized`, `mode` (new | refresh) and `problems` (see
+references/input-contract.md). With --id, only that target is printed
 (exit 2 if it is missing, listing the ids that exist).
 
 --validate checks a JSON list against the same keys and enums and exits 1 on
@@ -155,12 +158,119 @@ def problems(items: list[dict]) -> list[str]:
     return out
 
 
+PRIMARY = {"explainer", "how-to", "comparison", "listicle", "definition", "cost-guide", "buyers-guide",
+           "troubleshooting", "checklist", "service-page", "location-page", "product-page", "faq-page", "pillar-guide"}
+EMBEDDED = {"faq", "comparison-table", "steps", "checklist", "cost-table"}
+# alias -> (as primary, as embedded); None means it cannot sit in that position
+ALIASES = {
+    "explainer": ("explainer", None), "blog post": ("explainer", None), "article": ("explainer", None),
+    "blog article": ("explainer", None), "guide": ("explainer", None),
+    "ultimate guide": ("pillar-guide", None), "complete guide": ("pillar-guide", None),
+    "pillar": ("pillar-guide", None), "pillar guide": ("pillar-guide", None),
+    "comparison": ("comparison", "comparison-table"), "vs": ("comparison", "comparison-table"),
+    "versus": ("comparison", "comparison-table"), "comparison table": ("comparison", "comparison-table"),
+    "how-to": ("how-to", "steps"), "how to": ("how-to", "steps"), "tutorial": ("how-to", "steps"),
+    "step-by-step": ("how-to", "steps"), "steps": ("how-to", "steps"),
+    "listicle": ("listicle", None), "best": ("listicle", None), "top": ("listicle", None),
+    "list": ("listicle", None), "roundup": ("listicle", None),
+    "definition": ("definition", None), "what is": ("definition", None), "glossary": ("definition", None),
+    "cost guide": ("cost-guide", "cost-table"), "pricing guide": ("cost-guide", "cost-table"),
+    "price": ("cost-guide", "cost-table"), "cost table": ("cost-guide", "cost-table"),
+    "buyer's guide": ("buyers-guide", None), "buyers guide": ("buyers-guide", None),
+    "troubleshooting": ("troubleshooting", None), "problem": ("troubleshooting", None),
+    "signs": ("troubleshooting", None),
+    "checklist": ("checklist", "checklist"),
+    "service page": ("service-page", None), "service": ("service-page", None), "landing page": ("service-page", None),
+    "location page": ("location-page", None), "city page": ("location-page", None),
+    "product page": ("product-page", None),
+    "faq": ("faq-page", "faq"), "faq page": ("faq-page", "faq"), "q&a": ("faq-page", "faq"),
+    "faq block": ("faq-page", "faq"),
+}
+
+
+def normalize_format(raw) -> tuple[str | None, list[str], bool, str | None]:
+    """Return (primary, embedded, changed, problem)."""
+    text = str(raw or "").strip().lower()
+    if not text:
+        return None, [], False, "format is empty"
+    parts = [p.strip() for p in re.split(r"\s*(?:\+|,|/|\band\b)\s*", text) if p.strip()]
+    primary, embedded = None, []
+    for i, p in enumerate(parts):
+        key = p.replace("-", " ") if p.replace("-", " ") in ALIASES else p
+        if p in PRIMARY and i == 0:
+            hit = (p, None)
+        elif p in EMBEDDED and i > 0:
+            hit = (None, p)
+        else:
+            hit = ALIASES.get(key) or ALIASES.get(p)
+        if not hit:
+            return None, [], False, f"unknown format value {p!r} in {raw!r}"
+        if i == 0:
+            if not hit[0]:
+                return None, [], False, f"{p!r} cannot be a primary format"
+            primary = hit[0]
+        else:
+            if not hit[1]:
+                return None, [], False, f"{p!r} cannot be embedded in another format"
+            embedded.append(hit[1])
+    changed = len(parts) > 1  # a combo; a plain alias ("blog post" -> explainer) is not a concern
+    return primary, list(dict.fromkeys(embedded)), changed, None
+
+
+def infer_existing_url(t: dict, report: str) -> tuple[str | None, str | None]:
+    """keyword-research marks refreshes in prose, not in the row: a Content Calendar row whose page cell
+    reads '/path/ refresh', a Topic Clusters member '"keyword" ... exists (/path/)', or a pillar line
+    'Pillar: "keyword" ... refresh'. Return (url, where) or (None, None)."""
+    kw = str(t.get("primary_keyword") or "").strip().lower()
+    if not kw:
+        return None, None
+    for line in report.splitlines():
+        s = line.strip()
+        if s.startswith("|"):
+            cells = [c.strip() for c in s.strip("|").split("|")]
+            if any(c.lower() == kw for c in cells):
+                for c in cells:
+                    m = re.match(r"^(/\S*)\s+refresh\b", c, re.I)
+                    if m:
+                        return m.group(1), "content calendar"
+        elif f'"{kw}"' in s.lower():
+            m = re.search(r"exists \((/[^)\s]+)\)", s)
+            if m:
+                return m.group(1), "topic clusters"
+            if re.match(r"(?i)^pillar:", s) and re.search(r"(?i)\brefresh\b", s):
+                pu = str(t.get("pillar_url") or "")
+                if pu.startswith("/"):
+                    return pu, "topic clusters (pillar refresh)"
+    return None, None
+
+
+def normalize(t: dict, report: str = "") -> dict:
+    out = dict(t)
+    prim, emb, changed, prob = normalize_format(t.get("format"))
+    out["format_primary"], out["format_embedded"], out["format_normalized"] = prim, emb, changed
+    if not t.get("existing_url") or t.get("existing_url") == "N/A":
+        url, where = infer_existing_url(t, report)
+        if url:
+            out["existing_url"], out["existing_url_source"] = url, where
+    eu = out.get("existing_url")
+    out["mode"] = "refresh" if eu and eu != "N/A" else "new"
+    probs = []
+    if not str(t.get("primary_keyword") or "").strip():
+        probs.append("primary_keyword is missing")
+    if prob:
+        probs.append(prob)
+    out["problems"] = probs
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("report", nargs="?")
     ap.add_argument("--id")
     ap.add_argument("--out")
     ap.add_argument("--validate", metavar="TARGETS_JSON")
+    ap.add_argument("--normalize", action="store_true",
+                    help="add format_primary, format_embedded, format_normalized, mode and problems to each row")
     a = ap.parse_args()
 
     if a.validate:
@@ -174,12 +284,15 @@ def main() -> int:
     if not a.report:
         ap.error("REPORT.md is required unless --validate is given")
     try:
-        items = parse(Path(a.report).read_text(encoding="utf-8"))
+        report_text = Path(a.report).read_text(encoding="utf-8")
+        items = parse(report_text)
     except (OSError, ValueError) as e:
         print(f"ERROR {e}", file=sys.stderr)
         return 2
     for b in problems(items):
         print(f"WARN {b}", file=sys.stderr)
+    if a.normalize:
+        items = [normalize(t, report_text) for t in items]
     if a.id:
         hit = [t for t in items if t.get("id") == a.id]
         if not hit:

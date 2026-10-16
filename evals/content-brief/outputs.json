@@ -1,228 +1,273 @@
 {
   "cases": [
     {
-      "id": "harborpine-target-with-client-notes",
-      "prompt": "Use the content-brief skill to create the brief for target how-long-does-a-tankless-water-heater-last from our keyword research at `research/keyword-research/2026-10-14-water-heaters.md`. The client's notes are in `project/client-notes.md`. There is no WebFetch, WebSearch or internet access in this session. Save the brief under `briefs/`.",
+      "id": "harborpine-web-research-default-voice",
+      "prompt": "Use the content-brief skill to brief target how-long-does-a-tankless-water-heater-last from research/keyword-research/2026-10-14-water-heaters.md. Client files are in project/. WebSearch and WebFetch are available; there is no SE Ranking or Search Console connector. Save the brief only; do not ask questions.",
       "fixtures": [
         {
           "src": "fixtures/content-brief/harborpine/research/keyword-research/2026-10-14-water-heaters.md",
           "dest": "research/keyword-research/2026-10-14-water-heaters.md"
         },
         {
-          "src": "fixtures/content-brief/harborpine/project/client-notes.md",
-          "dest": "project/client-notes.md"
+          "src": "fixtures/content-brief/harborpine/project/brand.md",
+          "dest": "project/brand.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine/project/style.md",
+          "dest": "project/style.md"
         }
       ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *),PowerShell(ls *),PowerShell(cat *),PowerShell(mkdir *),WebSearch,WebFetch",
       "assertions": [
         {
           "type": "file_exists",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.json"
-        },
-        {
-          "type": "file_exists",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md"
-        },
-        {
-          "type": "json_has_keys",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.json",
-          "keys": [
-            "id",
-            "client",
-            "page_url",
-            "page_type",
-            "primary_keyword",
-            "secondary_keywords",
-            "search_intent",
-            "funnel",
-            "metrics",
-            "primary_question",
-            "sub_questions",
-            "entities",
-            "banned_aliases",
-            "evidence",
-            "expert_quotes",
-            "author",
-            "first_hand",
-            "internal_links",
-            "answer_format",
-            "format_directives",
-            "word_range",
-            "cta",
-            "ymyl",
-            "source_report"
-          ]
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md"
         },
         {
           "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "Brief status: (READY|NEEDS_INPUT) ",
-          "label": "build_brief ran with no FAIL"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "\\A---\\n.*?\\n---\\n",
+          "label": "front-matter block"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^primary_keyword: how long does a tankless water heater last\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^status: DONE_WITH_CONCERNS\\s*$",
+          "label": "concerns status (default voice, normalized combo)"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^voice_source: default/home-services\\s*$",
+          "label": "default voice when voice.md is missing"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^style_source: client\\s*$",
+          "label": "client style.md wins"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^format: explainer\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^format_embedded: \\[faq\\]\\s*$",
+          "label": "combo normalized"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?s)## Page Goal.*## Reader and Search Intent.*## Answer Target.*## Outline.*## Entities and Naming.*## Evidence.*## Author, Experience and Trust.*## Internal Links.*## Voice and Style.*## Format Requirements.*## Title and Meta Direction.*## Client Inputs Needed.*## Concerns.*## Writer QA Checklist.*## Research Log",
+          "label": "sections in template order"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?i)grade 7 to 9",
+          "label": "default voice directives embedded"
         },
         {
           "type": "contains",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "text": "- Primary: how long does a tankless water heater last",
-          "label": "keyword line the writer's QA script reads"
-        },
-        {
-          "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "(?m)^Client: Harbor & Pine",
-          "label": "client line"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "text": "PB-1188",
+          "label": "author license from brand.md"
         },
         {
           "type": "contains",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "text": "volume 1,600/mo, KD 19 (Measured",
-          "label": "metrics copied from the target"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "text": "$3,850",
+          "label": "approved price from brand.md"
         },
         {
           "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "(?m)^## Sub-questions[^\\n]*\\n(?:\\d\\. [^\\n]*\\?\\n){5,8}\\n",
-          "label": "5-8 numbered sub-questions"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^\\| /water-heaters/ \\|",
+          "label": "pillar in links from this page"
         },
         {
           "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "Marcus Delgado[^\\n]*PB-1188",
-          "label": "approved author with license"
-        },
-        {
-          "type": "contains",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "text": "$3,850"
-        },
-        {
-          "type": "contains",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "text": "11.6"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^\\| E\\d+ \\|[^\\n]*\\| https?://[^\\s|]+ \\|",
+          "label": "evidence row with a live URL"
         },
         {
           "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "heat exchanger pays for it",
-          "label": "approved quote verbatim"
-        },
-        {
-          "type": "regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "(?m)^- Pillar: /water-heaters/",
-          "label": "pillar link from the target"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^- First sentence must state:",
+          "label": "first-sentence instructions"
         },
         {
           "type": "not_regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "(?i)illustrative|hypothetical|typical industry|json-?ld|schema markup|\\[CLIENT:",
-          "label": "no invented-figure, schema or foreign-flag directives"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?i)seo-content-writer|\\bskills?\\b|illustrative|hypothetical|typical industry|json-?ld|schema markup",
+          "label": "writer-agnostic, no banned instructions"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?m)^next_step:",
+          "label": "handoff block"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?m)^cannibalization: clear \\(unverified\\)\\s*$",
+          "label": "no ranking data, so cannibalization unverified"
         },
         {
           "type": "not_regex",
-          "path": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
-          "pattern": "\\d\\s?%",
-          "label": "no percentage figures (none exist in the source files)"
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "(?i)\\[CLIENT INPUT NEEDED #\\d+:[^\\]]*(author|byline|license|starting price|replacement price)",
+          "label": "facts brand.md supplies are not slotted"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "pattern": "[\\w-]+/style\\.md",
+          "label": "client style file named with its path"
         },
         {
           "type": "rubric",
-          "target": "briefs/how-long-does-a-tankless-water-heater-last/brief.md",
+          "target": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
           "criteria": [
-            "The sub-questions are questions a Portland homeowner would actually ask about tankless water heater lifespan, and together they cover at least three of the how much, how often, why and what if variants",
-            "Every evidence item names a specific source (a government page, manufacturer, or Harbor & Pine's own records, pricing or interview) and says which part of the page it supports; any gap is written as a NEEDS SOURCE flag rather than a guessed figure"
+            "Each Outline section's 'First sentence must state' line is specific enough that two writers would open the section with the same fact (it may carry the figures that fact needs, each with its evidence id)",
+            "Every figure in the Evidence table has a named source, a URL and a date, comes from a primary or established source (government, standards body, manufacturer, trade association or established publication, or the client's own records) rather than a statistics roundup, and supports the section it is assigned to"
           ],
-          "label": "rubric: sub-questions and evidence mapping"
+          "label": "rubric: first sentences and evidence quality"
         }
       ]
     },
     {
-      "id": "cedarline-thin-ymyl-target",
-      "prompt": "Use the content-brief skill to write the brief for target what-is-a-heloc from `2026-10-14-home-equity.md`, our keyword research for a credit union client. There is no WebFetch, WebSearch or internet access in this session and nothing else about the client is on file. Save it under `briefs/`. We need it today.",
+      "id": "cedarline-ymyl-no-client-files",
+      "prompt": "Use the content-brief skill to brief targets what-is-a-heloc and heloc-payment-calculator from 2026-10-14-home-equity.md, our keyword research for a credit union client. No client files exist yet. WebSearch and WebFetch are available; there is no SE Ranking or Search Console connector. Save the briefs only; do not ask questions.",
       "fixtures": [
         {
           "src": "fixtures/content-brief/cedarline/2026-10-14-home-equity.md",
           "dest": "2026-10-14-home-equity.md"
         }
       ],
+      "allowed_tools": "Skill,Read,Write,Edit,Glob,Grep,Bash(python3 *),Bash(ls *),Bash(cat *),Bash(mkdir *),PowerShell(python3 *),PowerShell(ls *),PowerShell(cat *),PowerShell(mkdir *),WebSearch,WebFetch",
       "assertions": [
         {
           "type": "file_exists",
-          "path": "briefs/what-is-a-heloc/brief.json"
+          "path": "research/content-briefs/what-is-a-heloc.md"
         },
         {
-          "type": "file_exists",
-          "path": "briefs/what-is-a-heloc/brief.md"
-        },
-        {
-          "type": "contains",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "text": "Brief status: NEEDS_INPUT",
-          "label": "not READY with no client facts"
-        },
-        {
-          "type": "contains",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "text": "- Primary: what is a heloc"
+          "type": "file_absent",
+          "path": "research/content-briefs/heloc-payment-calculator.md",
+          "label": "unknown format writes no brief"
         },
         {
           "type": "regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?m)^## Sub-questions[^\\n]*\\n(?:\\d\\. [^\\n]*\\?\\n){5,8}\\n",
-          "label": "sub-questions built out to 5-8 from 2 secondary keywords"
+          "path": "stdout",
+          "pattern": "(?is)heloc-payment-calculator.{0,300}NEEDS_INPUT|NEEDS_INPUT.{0,300}heloc-payment-calculator",
+          "label": "calculator row reported NEEDS_INPUT"
         },
         {
           "type": "regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?m)^## Author\n\\[NEEDS INPUT:",
-          "label": "missing author flagged"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?m)^ymyl: true\\s*$"
         },
         {
           "type": "regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "\\[NEEDS SOURCE:",
-          "label": "missing evidence flagged"
-        },
-        {
-          "type": "contains",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "text": "## YMYL review",
-          "label": "YMYL routing"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?m)^voice_source: default/financial-services\\s*$"
         },
         {
           "type": "regex",
-          "path": "briefs/what-is-a-heloc/brief.json",
-          "pattern": "\"ymyl\":\\s*true"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?m)^style_source: default/financial-services\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "\\A---\\n.*?\\n---\\s*# Content Brief:[^\\n]*\\n+## Author, Experience and Trust",
+          "label": "YMYL puts Author first"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?m)^- Reviewer:",
+          "label": "reviewer line"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "\\[CLIENT INPUT NEEDED #1: [^\\]]+\\]",
+          "label": "numbered slot"
+        },
+        {
+          "type": "regex",
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "## Client Inputs Needed\\s*\\n+1\\. ",
+          "label": "slot list starts at 1"
         },
         {
           "type": "not_regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?m)^(?![^\\n]*NEEDS (SOURCE|INPUT))[^\\n]*(\\d\\s?%|\\$\\s?\\d)",
-          "label": "no unsourced percentages or dollar figures"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?i)\\bslot #\\d",
+          "label": "no shorthand slot references"
         },
         {
           "type": "not_regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?i)illustrative|hypothetical|typical industry|json-?ld|schema markup|\\[CLIENT:",
-          "label": "no invented-figure, schema or foreign-flag directives"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?i)seo-content-writer|\\bskills?\\b|illustrative|hypothetical|typical industry|json-?ld|schema markup",
+          "label": "writer-agnostic, no banned instructions"
         },
         {
           "type": "regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?m)^- Pillar: /home-equity/",
-          "label": "pillar link from the target"
-        },
-        {
-          "type": "not_regex",
-          "path": "briefs/what-is-a-heloc/brief.md",
-          "pattern": "(?im)^- [a-z-]+: /[^\\n]*apply",
-          "label": "no invented application URL"
+          "path": "research/content-briefs/what-is-a-heloc.md",
+          "pattern": "(?m)^\\| /home-equity/ \\|",
+          "label": "pillar link"
         },
         {
           "type": "rubric",
-          "target": "briefs/what-is-a-heloc/brief.md",
+          "target": "research/content-briefs/what-is-a-heloc.md",
           "criteria": [
-            "The sub-questions are ones a first-time borrower would ask about a HELOC (for example how it works, how much can be borrowed, what happens when the draw period ends, how it differs from a home equity loan), not keyword variants restated as questions",
-            "The brief states no draw period length, repayment length, loan-to-value limit, rate, fee or other lending figure; every such fact the page needs appears as a NEEDS SOURCE or NEEDS INPUT flag"
+            "No Cedarline-specific rate, borrowing limit, fee, draw period or repayment term is stated as fact; each one the page needs is a numbered CLIENT INPUT NEEDED slot, and every general figure in the Evidence table has a URL from a government, regulator, or established financial or trade source and supports the section it is assigned to",
+            "The author, reviewer and required lending disclosures are client-input slots or named from a source, never invented names or credentials"
           ],
-          "label": "rubric: borrower questions, no invented lending figures"
+          "label": "rubric: no invented lending facts or people"
+        }
+      ]
+    },
+    {
+      "id": "harborpine-no-research-tools-blocked",
+      "prompt": "Use the content-brief skill to brief target how-long-does-a-tankless-water-heater-last from research/keyword-research/2026-10-14-water-heaters.md. Client files are in project/. Do not ask questions.",
+      "fixtures": [
+        {
+          "src": "fixtures/content-brief/harborpine/research/keyword-research/2026-10-14-water-heaters.md",
+          "dest": "research/keyword-research/2026-10-14-water-heaters.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine/project/brand.md",
+          "dest": "project/brand.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine/project/style.md",
+          "dest": "project/style.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md",
+          "label": "no brief without any research tool"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "BLOCKED",
+          "label": "run reported BLOCKED"
         }
       ]
     }

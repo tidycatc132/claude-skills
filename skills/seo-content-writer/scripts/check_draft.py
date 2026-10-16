@@ -66,7 +66,8 @@ BAD_ANCHOR = re.compile(
     r"\[(click here|here|learn more|read more|this page|this article|this link|more)\]\(", re.I
 )
 PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|lorem ipsum|XX%|\$XX)\b|\[insert", re.I)
-FLAG = re.compile(r"\[NEEDS (SOURCE|INPUT):[^\]]*\]")
+# open gaps: the writer's own flags, and the numbered client-input slots a content brief carries
+FLAG = re.compile(r"\[(?:NEEDS (?:SOURCE|INPUT)|CLIENT INPUT NEEDED #\d+):[^\]]*\]")
 BYLINE_BAD = re.compile(r"\b(admin|staff writer|editorial team|our team|guest author)\b", re.I)
 LINK = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
 NUMBER = re.compile(r"(?<![\w.])\$?\d[\d,]*(?:\.\d+)?%?")
@@ -153,22 +154,16 @@ def is_numbered(title: str) -> bool:
     return bool(re.match(r"^(step\s+\d+|\d+[.):]?)\s", title, re.I))
 
 
-def brief_from_json(text: str) -> str:
-    """Turn a content-brief `brief.json` into the lines the checks read from a brief.md."""
-    import json
-    b = json.loads(text)
-    client = b.get("client")
-    links = [l.get("url") for l in b.get("internal_links", []) if isinstance(l, dict) and isinstance(l.get("url"), str)]
-    return "\n".join([
-        f"Client: {client if isinstance(client, str) else ''}",
-        f"- Primary: {b.get('primary_keyword', '')}",
-        "## Internal links", *[f"- {u}" for u in links],
-        # only fields whose figures content-brief's build_brief.py traced to a source file (plus the questions),
-        # so the number-trace check never trusts an unchecked figure
-        "## Brief data", json.dumps({k: b.get(k) for k in (
-            "evidence", "expert_quotes", "first_hand", "author", "cta", "metrics",
-            "sub_questions", "format_directives", "notes")}, ensure_ascii=False),
-    ])
+def brief_link_targets(brief: str) -> list[str]:
+    """Paths the page must link to. A content-brief brief lists them under '### Links from this page'
+    (its '### Links to this page' rows are for other pages, not this one); other briefs under any
+    heading that contains 'internal link'."""
+    sec = re.search(r"(?ims)^#+\s*links from this page[^\n]*\n(.*?)(?=^#|\Z)", brief) \
+        or re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
+    text = sec.group(1) if sec else ""
+    if re.search(r"(?m)^\|", text):  # table: the URL is the first cell of each row
+        text = "\n".join(l.strip().strip("|").split("|")[0] for l in text.splitlines() if l.strip().startswith("|"))
+    return list(dict.fromkeys(re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", text)))
 
 
 def main() -> int:
@@ -183,19 +178,16 @@ def main() -> int:
     a = ap.parse_args()
 
     brief = Path(a.brief).read_text(encoding="utf-8") if a.brief and Path(a.brief).is_file() else ""
-    if a.brief and a.brief.endswith(".json") and brief:
-        brief = brief_from_json(brief)
 
     keyword = a.keyword
     if not keyword and brief:
-        m = re.search(r"(?im)^(?:-\s*)?(?:primary(?: keyword)?|keyword|target keyword)\s*:\s*(.+)$", brief)
+        m = re.search(r"(?im)^(?:-\s*)?(?:primary(?:[ _]keyword)?|keyword|target keyword)\s*:\s*(.+)$", brief)
         if m:
             keyword = m.group(1).strip()
 
     if a.brief_only:
         cm = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*]+)", brief)
-        sec = re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
-        links = list(dict.fromkeys(re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", sec.group(1) if sec else "")))
+        links = brief_link_targets(brief)
         print(f"keyword: {keyword or 'NOT FOUND'}\nclient: {cm.group(1).strip() if cm else 'NOT FOUND'}\n"
               f"internal links: {', '.join(links) or 'NOT FOUND'}")
         return 0 if keyword and links else 1
@@ -349,7 +341,17 @@ def main() -> int:
             h2_text[cur_h2] += " " + " ".join(t for _, t in s["blocks"])
     nostat = [t for t, txt in h2_text.items()
               if t.lower() not in UTILITY_H2 and not re.search(r"\d", txt) and not FLAG.search(txt)]
+    # a content brief that found no verifiable statistic for a section says so ("- Evidence: none verifiable")
+    # and tells the writer to explain without a number; those sections are a WARN, not a FAIL
+    exempt_titles = [m.group(1) for m in re.finditer(r"(?m)^### H2: ([^\n]+?)\s*\n((?:(?!### )[^\n]*\n)*)", brief)
+                     if re.search(r"(?m)^- Evidence:[^\n]*none verifiable", m.group(2))] if brief else []
+    exempt = [t for t in nostat if any(heading_coverage(e, re.findall(r"[a-z0-9]+", t.lower())) >= 0.8
+                                       for e in exempt_titles)]
+    nostat = [t for t in nostat if t not in exempt]
     add("A statistic or evidence flag per major section", not nostat, "; ".join(f"'{t[:40]}'" for t in nostat[:6]))
+    if exempt:
+        add("Sections the brief marks 'none verifiable' carry no number", False,
+            "explained without a figure, as the brief says: " + "; ".join(f"'{t[:40]}'" for t in exempt[:4]), warn=True)
 
     # 10. sources section when the page states figures
     has_figures = bool(re.search(r"\d\s?%|\$\d|\bppm\b", md))
@@ -404,15 +406,16 @@ def main() -> int:
     bad_anchor = BAD_ANCHOR.findall(md)
     add("Descriptive anchor text", not bad_anchor, ", ".join(sorted(set(b.lower() for b in bad_anchor))))
     if brief:
-        sec = re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
-        targets = re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", sec.group(1) if sec else "")
+        targets = brief_link_targets(brief)
         hrefs = {h.rstrip("/") for _, h in LINK.findall(md)}
         missing = [t for t in dict.fromkeys(targets) if t.rstrip("/") not in hrefs
                    and not any(h.endswith(t.rstrip("/")) for h in hrefs)]
         add("Every internal link from the brief is placed", not missing, ", ".join(missing))
 
-    # 13. a table when the brief asks for one
-    if brief and re.search(r"(?i)\btable\b", brief):
+    # 13. a table when the brief asks for one (a content brief's own Evidence and naming tables don't count:
+    # only its Format Requirements section says what the page needs)
+    fr = re.search(r"(?ims)^## Format Requirements\s*$(.*?)(?=^## |\Z)", brief) if brief else None
+    if brief and re.search(r"(?i)\btable\b", fr.group(1) if fr else brief):
         add("Comparison table present", bool(re.search(r"(?m)^\|.*\|\s*$", md)), "brief asks for a table")
 
     # 14. FAQ answers are full statements

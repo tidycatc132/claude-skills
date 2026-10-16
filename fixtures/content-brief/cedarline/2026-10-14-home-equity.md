@@ -48,3 +48,15 @@ targets:
     geo_answer_format: comparison table
     metrics: {volume: 6600, kd: 47, source: Measured}
     why_now: rate-cut coverage raises comparison searches
+  - id: heloc-payment-calculator
+    primary_keyword: heloc payment calculator
+    secondary_keywords: [heloc calculator, heloc interest only payment calculator]
+    intent: Transactional
+    funnel: BOFU
+    format: interactive calculator
+    cluster: Home equity
+    pillar_url: /home-equity/
+    geo_candidate: false
+    geo_answer_format: N/A
+    metrics: {volume: 8100, kd: 44, source: Measured}
+    why_now: calculator traffic converts to applications

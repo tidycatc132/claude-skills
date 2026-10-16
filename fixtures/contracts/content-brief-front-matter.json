@@ -1,0 +1,43 @@
+{
+  "id": "how-long-does-a-tankless-water-heater-last",
+  "brief_version": 1,
+  "status": "DONE_WITH_CONCERNS",
+  "date": "2026-10-16",
+  "client": "Harbor & Pine Plumbing",
+  "client_domain": "harborpineplumbing.com",
+  "market": "en-us, Portland, Oregon metro",
+  "language": "en",
+  "page_url": "/blog/how-long-does-a-tankless-water-heater-last/",
+  "mode": "new",
+  "existing_url": "N/A",
+  "primary_keyword": "how long does a tankless water heater last",
+  "secondary_keywords": [
+    "tankless water heater lifespan",
+    "tankless vs tank water heater lifespan",
+    "tankless water heater maintenance"
+  ],
+  "intent": "Informational",
+  "funnel": "TOFU",
+  "format": "explainer",
+  "format_embedded": [
+    "faq"
+  ],
+  "format_source": "explainer + FAQ",
+  "metrics": {
+    "volume": 1600,
+    "kd": 19,
+    "source": "Measured"
+  },
+  "geo_candidate": true,
+  "geo_answer_format": "direct answer",
+  "cluster": "Water heaters",
+  "pillar_url": "/water-heaters/",
+  "ymyl": false,
+  "local": true,
+  "cannibalization": "clear (unverified)",
+  "voice_source": "default/home-services",
+  "style_source": "client",
+  "word_range": "1200-1800",
+  "client_inputs_open": 1,
+  "source_report": "research/keyword-research/2026-10-14-water-heaters.md"
+}
