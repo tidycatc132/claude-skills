@@ -1,6 +1,6 @@
 ---
 name: keyword-research
-description: Keyword research that ends in a prioritized keyword brief with metrics. Use when the user asks for keywords or keyword ideas for a topic, product, business or client, asks which long-tail keywords a site could realistically rank for wants search volume or keyword difficulty, striking-distance keywords from Search Console, keyword clusters, or what keywords to write about for a client domain. Uses SE Ranking and SEOGets when connected, else local scripts or a user export, and never invents a number. Delivers intent labels, scripted scores, GEO candidates, cluster hubs, a 3-month calendar and a handoff block. Do NOT use for competitor gap analysis (use content-gap-analysis or competitor-analysis), SERP-overlap clustering of a finished seed list (use seo-keyword-cluster), choosing seed topics from a business URL alone (use topic-research), a full site topical map (use topical-map-generator), comparing SEO over time (use seo-drift-monitor), or a SERP teardown of a single query (use serp-analysis).
+description: Keyword research that ends in a prioritized keyword report with metrics. Use when the user asks for keywords or keyword ideas for a topic, product, business or client, asks which long-tail keywords a site could rank for, wants search volume or keyword difficulty, striking-distance keywords from Search Console, keyword clusters, or what keywords to write about for a client domain. Uses SE Ranking and SEOGets when connected, else scripts or a user export, never inventing a number. Delivers intent labels, scores, GEO candidates, cluster hubs, a 3-month calendar and a targets block. Do NOT use for turning a saved report's targets into writer-ready content briefs (use content-brief), competitor gap analysis (use content-gap-analysis or competitor-analysis), SERP-overlap clustering (use seo-keyword-cluster), choosing seed topics from a URL (use topic-research), a full site topical map (use topical-map-generator), SEO over time (use seo-drift-monitor), or a SERP teardown of a single query (use serp-analysis).
 argument-hint: "<topic or seed keyword> [market/language] [client domain]"
 ---
 
@@ -78,7 +78,7 @@ key_findings: <2 to 4 items>
 evidence: <type, source, date for each data set>
 assumptions: <what was inferred>
 open_loops: <what is unverified or missing>
-next_skill: competitor-research (competitor gap analysis) | content-brief (write briefs from the targets block) | none
+next_skill: competitor-analysis (competitor gap analysis) | content-brief (write briefs from the targets block) | none
 ```
 
 Ask once before writing anything to disk, unless the user already gave approval in the request. On approval, save the report to `./research/keyword-research/YYYY-MM-DD-<topic-slug>.md` and the scored CSV next to it as `YYYY-MM-DD-<topic-slug>-scored.csv`, or to the exact paths the user named.
@@ -103,11 +103,11 @@ targets:
     why_now: seasonal peak in January
 ```
 
-Fields: `intent` is Informational, Navigational, Commercial or Transactional; `funnel` is TOFU, MOFU or BOFU; `cluster` is the cluster name or `none`; `pillar_url` is the pillar page path or `N/A`; `geo_answer_format` is one of direct answer, steps, comparison table, definition plus example, FAQ block, or `N/A` when `geo_candidate` is false; `source` is Measured, User-provided, Calculated or Estimated.
+Every row carries all twelve keys: `id`, `primary_keyword`, `secondary_keywords` (an inline list), `intent`, `funnel`, `format`, `cluster`, `pillar_url`, `geo_candidate`, `geo_answer_format`, `metrics` (an inline mapping of volume, kd and source) and `why_now`; the content-brief skill reads them with its `parse_targets.py`. Fields: `intent` is Informational, Navigational, Commercial or Transactional; `funnel` is TOFU, MOFU or BOFU; `cluster` is the cluster name or `none`; `pillar_url` is the pillar page path or `N/A`; `geo_answer_format` is one of direct answer, steps, comparison table, definition plus example, FAQ block, or `N/A` when `geo_candidate` is false; `source` is Measured, User-provided, Calculated or Estimated.
 
 ## Advanced modes
 
-Intent mapping of an existing list, seasonal analysis, single-competitor keyword mode (`DATA_getDomainKeywords`, then score; a multi-competitor gap analysis belongs to competitor-research) and local keywords for a business in a city. Each is described in `references/workflow-detail.md`.
+Intent mapping of an existing list, seasonal analysis, single-competitor keyword mode (`DATA_getDomainKeywords`, then score; a multi-competitor gap analysis belongs to competitor-analysis) and local keywords for a business in a city. Each is described in `references/workflow-detail.md`.
 
 ## Scripts
 

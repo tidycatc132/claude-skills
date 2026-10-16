@@ -90,7 +90,7 @@ Build order: pillar refresh, then 5, 6, 4 (lowest KD), then 1, 8 (volume), then 
 
 1. Approve the three striking-distance refreshes; they need copy, not new pages.
 2. Supply photos and job counts for the water heater pillar (original data is the viability condition).
-3. Run competitor-research against the two domains that rank above the client for "plumber denver" to size the link gap.
+3. Run competitor-analysis against the two domains that rank above the client for "plumber denver" to size the link gap.
 
 ---
 status: DONE_WITH_CONCERNS
@@ -99,7 +99,7 @@ key_findings: 3 striking-distance P0 queries; water heater and drains clusters v
 evidence: SE Ranking keyword metrics (Measured, 2026-10-12); Search Console via SEOGets, last 3 months (Measured, 2026-10-12); scores Calculated by score_keywords.py; relevance and trend Estimated
 assumptions: DR 18 is the current figure; the client can install tankless units; no paid search data considered
 open_loops: trend for 3 keywords is Estimated, confirm with 12-month history; cluster volumes include 2 keywords without KD
-next_skill: competitor-research (link gap for "plumber denver")
+next_skill: competitor-analysis (link gap for "plumber denver")
 
 targets:
   - id: frozen-pipes-what-to-do

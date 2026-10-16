@@ -153,29 +153,62 @@ def is_numbered(title: str) -> bool:
     return bool(re.match(r"^(step\s+\d+|\d+[.):]?)\s", title, re.I))
 
 
+def brief_from_json(text: str) -> str:
+    """Turn a content-brief `brief.json` into the lines the checks read from a brief.md."""
+    import json
+    b = json.loads(text)
+    client = b.get("client")
+    links = [l.get("url") for l in b.get("internal_links", []) if isinstance(l, dict) and isinstance(l.get("url"), str)]
+    return "\n".join([
+        f"Client: {client if isinstance(client, str) else ''}",
+        f"- Primary: {b.get('primary_keyword', '')}",
+        "## Internal links", *[f"- {u}" for u in links],
+        # only fields whose figures content-brief's build_brief.py traced to a source file (plus the questions),
+        # so the number-trace check never trusts an unchecked figure
+        "## Brief data", json.dumps({k: b.get(k) for k in (
+            "evidence", "expert_quotes", "first_hand", "author", "cta", "metrics",
+            "sub_questions", "format_directives", "notes")}, ensure_ascii=False),
+    ])
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("article")
+    ap.add_argument("article", nargs="?")
     ap.add_argument("--brief")
     ap.add_argument("--keyword")
     ap.add_argument("--metadata")
     ap.add_argument("--out")
+    ap.add_argument("--brief-only", action="store_true",
+                    help="only read the brief and print what the checks will use (keyword, client, link targets)")
     a = ap.parse_args()
 
-    art = Path(a.article)
-    if not art.is_file():
-        print(f"article not found: {art}", file=sys.stderr)
-        return 2
-    md = art.read_text(encoding="utf-8")
     brief = Path(a.brief).read_text(encoding="utf-8") if a.brief and Path(a.brief).is_file() else ""
-    meta_path = Path(a.metadata) if a.metadata else art.with_name("metadata.md")
-    meta = meta_path.read_text(encoding="utf-8") if meta_path.is_file() else ""
+    if a.brief and a.brief.endswith(".json") and brief:
+        brief = brief_from_json(brief)
 
     keyword = a.keyword
     if not keyword and brief:
         m = re.search(r"(?im)^(?:-\s*)?(?:primary(?: keyword)?|keyword|target keyword)\s*:\s*(.+)$", brief)
         if m:
             keyword = m.group(1).strip()
+
+    if a.brief_only:
+        cm = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*]+)", brief)
+        sec = re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
+        links = list(dict.fromkeys(re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", sec.group(1) if sec else "")))
+        print(f"keyword: {keyword or 'NOT FOUND'}\nclient: {cm.group(1).strip() if cm else 'NOT FOUND'}\n"
+              f"internal links: {', '.join(links) or 'NOT FOUND'}")
+        return 0 if keyword and links else 1
+
+    if not a.article:
+        ap.error("ARTICLE is required unless --brief-only is given")
+    art = Path(a.article)
+    if not art.is_file():
+        print(f"article not found: {art}", file=sys.stderr)
+        return 2
+    md = art.read_text(encoding="utf-8")
+    meta_path = Path(a.metadata) if a.metadata else art.with_name("metadata.md")
+    meta = meta_path.read_text(encoding="utf-8") if meta_path.is_file() else ""
     if not keyword and meta:
         m = re.search(r"(?im)^\|\s*Target keyword\s*\|\s*(.+?)\s*\|", meta)
         if m:

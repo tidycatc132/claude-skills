@@ -47,3 +47,19 @@ When `client-reference/<client-slug>/` exists, read before drafting:
 ## When there is no brief
 
 If the user gives only a topic or keyword, recommend running the brief step first. If they want the page anyway, fill this intake table yourself, mark every row `built` or `FLAG`, and title the section in `handoff.md` "Working brief (not approved)".
+
+## Briefs from the content-brief skill
+
+The content-brief skill writes `briefs/<target-id>/brief.md` (read this as the brief) and `brief.json` beside it. Pass `brief.json` to `check_draft.py --brief` when it exists; the script reads the keyword, client and link targets from it. The intake items map to its keys:
+
+| Intake item | `brief.json` key |
+| --- | --- |
+| 1 Primary question | `primary_question` |
+| 2 Sub-questions (already 5-8) | `sub_questions` |
+| 3 Entities and 4 primary names | `entities`, `banned_aliases` |
+| 5 Evidence | `evidence` (items with `needs` are already `[NEEDS SOURCE: ...]` flags), `expert_quotes` |
+| 6 Author | `author` |
+| 7 First-hand material | `first_hand` |
+| 8 Internal links and anchors | `internal_links` (each has `url`, `anchor`, `role`) |
+
+Also from the brief: `id`, `client`, `page_url`, `page_type`, `primary_keyword`, `secondary_keywords`, `search_intent`, `funnel`, `metrics` (keyword data, not page facts), `answer_format` (how the opening answer is shaped), `format_directives`, `word_range`, `cta`, `ymyl` (true means route to compliance review) and `source_report`. A `needs` value anywhere is a gap the brief could not fill; carry it into the page as a flag, never fill it from memory. The brief's `Brief status:` line is READY or NEEDS_INPUT; a brief marked FIX is not finished, so ask for it to be rerun.

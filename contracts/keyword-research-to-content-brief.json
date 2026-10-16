@@ -1,0 +1,12 @@
+{
+  "name": "keyword-research-to-content-brief",
+  "version": 1,
+  "producer": "keyword-research",
+  "consumer": "content-brief",
+  "format": "json",
+  "fixture": "fixtures/contracts/keyword-research-targets.json",
+  "keys": ["id", "primary_keyword", "secondary_keywords", "intent", "funnel", "format", "cluster", "pillar_url", "geo_candidate", "geo_answer_format", "metrics", "why_now"],
+  "producer_cmd": "python3 skills/content-brief/scripts/parse_targets.py fixtures/contracts/keyword-research-report.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/content-brief/scripts/parse_targets.py --validate {fixture}"
+}

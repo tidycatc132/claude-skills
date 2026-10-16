@@ -127,5 +127,5 @@ Confirm seasonality with SE Ranking history or `scripts/wiki_pageviews.py "<Arti
 
 - **Intent mapping**: the user already has a list and wants it classified. Run Phases 4 and 5 only; deliver the scored CSV plus an intent summary table.
 - **Seasonal analysis**: the user asks when to publish. Run Phase 2 on the topic, then the seasonal table above with monthly series from SE Ranking or Wikipedia pageviews.
-- **Competitor keyword mode**: the user names one competitor and asks what it ranks for. Use `DATA_getDomainKeywords` for that domain, score the result, and stop there. A full gap analysis across several competitors is the competitor-research skill's job; say so and hand off.
+- **Competitor keyword mode**: the user names one competitor and asks what it ranks for. Use `DATA_getDomainKeywords` for that domain, score the result, and stop there. A full gap analysis across several competitors is the competitor-analysis skill's job; say so and hand off.
 - **Local keywords for [business] in [city]**: seed with service + city, service + "near me", service + neighbourhoods, and emergency / same-day variants. Check the map pack in the SERP. Quick Wins here are usually service-area pages, not blog posts.
