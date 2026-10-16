@@ -237,7 +237,10 @@
             "Every number on the page (lifespans, percentages, ppm, warranty years, job counts, prices) is attributed in its sentence or table cell to a named source (U.S. Department of Energy, Portland Water Bureau, Rinnai, Harbor & Pine records, pricing or interview, or the named first-hand case), and each of those sources appears in the Sources list",
             "All six sub-questions from the brief are answered under their own question headings"
           ],
-          "label": "rubric: sourced numbers, sub-questions"
+          "label": "rubric: sourced numbers, sub-questions",
+          "context": [
+            "briefs/tankless-lifespan-brief.md"
+          ]
         },
         {
           "type": "rubric",
@@ -353,7 +356,10 @@
             "No figure for draw period length, repayment period length, loan-to-value limit, rates or costs is stated as fact without a named source; any such figure the page needs is replaced by a visible [NEEDS SOURCE: ...] or [NEEDS INPUT: ...] flag",
             "The comparison with a home equity loan names both 'HELOC' and 'home equity loan' in each sentence that states a difference"
           ],
-          "label": "rubric: definition, no fabricated YMYL figures, comparison naming"
+          "label": "rubric: definition, no fabricated YMYL figures, comparison naming",
+          "context": [
+            "heloc-brief.md"
+          ]
         },
         {
           "type": "rubric",
@@ -361,7 +367,10 @@
           "criteria": [
             "handoff.md routes the page to a compliance or lending expert reviewer (named, or flagged as NEEDS INPUT because the brief names none) and lists the lending disclosures or member-specific terms the brief did not supply"
           ],
-          "label": "rubric: YMYL routing in handoff"
+          "label": "rubric: YMYL routing in handoff",
+          "context": [
+            "heloc-brief.md"
+          ]
         }
       ]
     },

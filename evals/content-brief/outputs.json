@@ -142,7 +142,10 @@
             "Each Outline section's 'First sentence must state' line is specific enough that two writers would open the section with the same fact (it may carry the figures that fact needs, each with its evidence id)",
             "Every figure in the Evidence table has a named source, a URL and a date, comes from a primary or established source (government, standards body, manufacturer, trade association or established publication, or the client's own records) rather than a statistics roundup, and supports the section it is assigned to"
           ],
-          "label": "rubric: first sentences and evidence quality"
+          "label": "rubric: first sentences and evidence quality",
+          "context": [
+            "project/brand.md"
+          ]
         }
       ]
     },
@@ -236,7 +239,10 @@
             "No Cedarline-specific rate, borrowing limit, fee, draw period or repayment term is stated as fact; each one the page needs is a numbered CLIENT INPUT NEEDED slot, and every general figure in the Evidence table has a URL from a government, regulator, or established financial or trade source and supports the section it is assigned to",
             "The author, reviewer and required lending disclosures are client-input slots or named from a source, never invented names or credentials"
           ],
-          "label": "rubric: no invented lending facts or people"
+          "label": "rubric: no invented lending facts or people",
+          "context": [
+            "2026-10-14-home-equity.md"
+          ]
         }
       ]
     },

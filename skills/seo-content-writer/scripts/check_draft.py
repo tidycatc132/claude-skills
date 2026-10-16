@@ -476,6 +476,16 @@ def main() -> int:
         h1t = {t for t in re.findall(r"[a-z0-9]+", h1.lower()) if t not in STOP}
         overlap = len([t for t in h1t if t in mt]) / max(1, len(h1t))
         add("Meta title built from the H1", overlap >= 0.6, f"{overlap:.0%} of H1 terms in meta title", warn=True)
+        # the recipe is the H1 wording, optionally followed by the brand; words beyond those are an added
+        # topic list or slogan (no character limit applies, but the title must keep the H1's single intent)
+        brand = {w for w in re.findall(r"[a-z0-9]+", (client or "").lower()) if len(w) > 2} | {"plumbing", "inc", "llc"}
+        cm2 = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*|]+)", brief + "\n" + meta)
+        if cm2:
+            brand |= {w for w in re.findall(r"[a-z0-9]+", cm2.group(1).lower()) if len(w) > 2}
+        h1w = set(re.findall(r"[a-z0-9]+", h1.lower()))
+        extra = [w for w in re.findall(r"[a-z0-9]+", mt) if w not in h1w and w not in brand and w not in STOP]
+        add("Meta title is the H1 plus at most the brand", len(extra) <= 3,
+            f"added words: {' '.join(extra[:10])}")
     else:
         add("Metadata table complete", False, f"{meta_path.name} not found")
 

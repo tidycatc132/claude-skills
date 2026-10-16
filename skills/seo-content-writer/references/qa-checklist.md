@@ -24,6 +24,7 @@ Two layers. The script checks what can be checked mechanically; you check the re
 | Comparison table present | Brief asks for a table, none on the page | Add it |
 | FAQ answers are complete statements | Answer under 15 words or bare yes/no | 2-4 sentences with a specific |
 | No placeholder text | Unfinished-work markers or filler text | Replace with content or a NEEDS flag |
+| Meta title is the H1 plus at most the brand | More than 3 words beyond the H1 and the client name | Use the H1, optionally " | Brand" |
 | Metadata table complete, 3-7 key takeaways, summary 3-4 sentences | Field missing or wrong count | Fix `metadata.md` |
 | No mechanical keyword repetition | Exact keyword over the limit | Replace repeats with specific language |
 
