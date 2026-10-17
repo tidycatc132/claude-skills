@@ -75,6 +75,7 @@ Answer:
 ```
 
 - 3 to 5 questions, numbered `1.` to `5.`, each followed on the next line by `Answer:` with nothing after it, then a blank line. This block is pasted into the intake form's gap field, so nothing else goes between the questions.
+- welcome-email reads this block (with its `scripts/open_questions.py`) as items of `number`, `question` and `answer`; an `Answer:` line the AM fills in marks the question answered, so it stays out of the email. Keep the layout exact.
 - The coverage table has one row per item R1 to R10, with the statuses defined in `week-1-requirements.md`. Every question number appears once as `asked Qn`.
 
 ## `<slug>-project-instructions.md`
