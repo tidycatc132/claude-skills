@@ -369,6 +369,99 @@
           "label": "no paid media step when the SOW excludes it"
         }
       ]
+    },
+    {
+      "id": "brightwater-no-sow",
+      "prompt": "Use the new-build-kickoff skill. Kick off Brightwater Physical Therapy, no website, Bend and Redmond OR. There is no WebFetch, WebSearch or internet access in this session. The Sales transcript is in `sales/` and the discovery notes are `discovery-notes.md`. No SOW came over.",
+      "fixtures": [
+        {
+          "src": "fixtures/new-build-kickoff/brightwater/sales/sales-call-2026-10-02.txt",
+          "dest": "sales/sales-call-2026-10-02.txt"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/brightwater/discovery-notes.md",
+          "dest": "discovery-notes.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-gap-questions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-setup-checklist.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-paid-media-brief.md",
+          "label": "no brief for paid media that is only being considered"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^SOW pages: 10\\b[^\\n]*\\[notes\\]",
+          "label": "page count from the signed deal terms, tagged notes"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^SOW pages: 15\\b",
+          "label": "Sales' fifteen pages is not the count"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^> [^\\n]*10 pages",
+          "label": "quotes the deal terms' page-count line"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^- GAP: signed SOW",
+          "label": "missing SOW flagged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?mi)^- GAP: paid media is listed as an interest",
+          "label": "interest-only paid media flagged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?mi)^- CONFLICT:[^\\n]*(fifteen|15)[^\\n]*",
+          "label": "Sales page promise recorded as a conflict"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-gap-questions.md",
+          "pattern": "(?m)^\\|\\s*R7\\s*\\|[^\\n]*\\|\\s*covered\\s*\\|",
+          "label": "R7 covered from the deal terms"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-setup-checklist.md",
+          "pattern": "(?i)send the paid media brief",
+          "label": "no paid media hand-off"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "not_regex",
+          "target": "stdout",
+          "pattern": "(?i)(please (provide|send|share) the (signed )?SOW|can you (send|share) the SOW)",
+          "label": "did not stop to ask for an SOW"
+        }
+      ]
     }
   ]
 }
