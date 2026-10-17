@@ -1,0 +1,12 @@
+{
+  "name": "new-build-kickoff-to-kickoff-call-brief",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "kickoff-call-brief",
+  "format": "json",
+  "fixture": "fixtures/contracts/new-build-kickoff-brief-outline.json",
+  "keys": ["## Scope Summary", "## Open Items", "## Checklist Coverage", "SOW pages:", "GAP:", "CONFLICT:", "Answer:"],
+  "producer_cmd": "python3 skills/kickoff-call-brief/scripts/kickoff_call_brief.py outline fixtures/contracts/new-build-kickoff-brief-sample/maple-row-bakery",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/kickoff-call-brief/scripts/kickoff_call_brief.py outline --validate {fixture}"
+}
