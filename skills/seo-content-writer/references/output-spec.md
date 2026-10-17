@@ -49,7 +49,7 @@ One table, these eight rows in this order, field names exact:
 ```
 | Field | Value |
 | --- | --- |
-| Meta title | <built from the H1, same intent; may add the brand> |
+| Meta title | <the H1 wording, optionally followed by " | <Brand>"; nothing else: no added topic list, slogan or location string> |
 | Meta description | <the direct answer plus what else the page covers, with one specific> |
 | H1 | <exactly the article's H1> |
 | URL slug | <from the brief, else /<url-slug>/> |

@@ -12,7 +12,8 @@ evals/<skill>/outputs.json
       "assertions": [
         {"type": "file_exists", "path": "topic_map.csv"},
         {"type": "csv_columns", "path": "topic_map.csv", "columns": ["topic", "keyword", "page_type", "priority"]},
-        {"type": "rubric", "target": "topic_map.csv", "criteria": ["every keyword is a plausible search query"]}
+        {"type": "rubric", "target": "topic_map.csv", "criteria": ["every keyword is a plausible search query"],
+         "context": ["seeds.txt"]}
       ]
     }
   ]
@@ -21,6 +22,9 @@ evals/<skill>/outputs.json
 Assertion types: file_exists, file_absent, contains, not_contains, regex, not_regex,
 max_words, min_words, max_lines (target = a file path or "stdout"), csv_columns, csv_min_rows,
 csv_enum, csv_no_empty, json_valid, json_has_keys, rubric (LLM judge, only with --judge).
+A rubric may list `context` files (paths in the output folder, or a fixture's `dest`): the judge
+reads them as reference material, for example the brief an article was written from, but only the
+`target` is under review.
 
 Modes
   (default)   run claude in a sandbox, assert on the outputs
@@ -28,6 +32,8 @@ Modes
   --golden    no model call: evaluate the assertions against the recorded golden outputs.
               Cheap CI check that the assertions themselves still pass on approved output.
   --judge     evaluate rubric assertions with a separate tool-less claude session
+  --judge-runs N  judge each rubric up to N times; the majority of valid votes decides (a tie fails,
+              an errored call is not a vote, and judging stops once one side has a majority)
 """
 from __future__ import annotations
 
@@ -89,6 +95,25 @@ def run_case(skill_dir: Path, case: dict, args) -> tuple[list[E.Check], str, Pat
     return checks, "run", sandbox, sandbox
 
 
+def read_context(assertion: dict, case: dict, outdir: Path) -> tuple[str, list[str]]:
+    """Reference files for a rubric's judge (`"context": ["brief.md", ...]`).
+
+    Each path is looked up in the case's output folder (the sandbox, or the golden folder), then, for a
+    path that is a fixture's `dest`, in that fixture's `src` under the repo root (goldens do not keep
+    seeded fixtures). Returns the joined text and any paths that could not be found."""
+    by_dest = {f["dest"]: f["src"] for f in case.get("fixtures", [])}
+    parts, missing = [], []
+    for rel in assertion.get("context", []) or []:
+        p = outdir / rel
+        if not p.exists() and rel in by_dest:
+            p = C.ROOT / by_dest[rel]
+        if p.exists():
+            parts.append(f"=== {rel} ===\n{C.read_text(p)}")
+        else:
+            missing.append(rel)
+    return "\n\n".join(parts), missing
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--skill", action="append")
@@ -99,6 +124,8 @@ def main() -> int:
     ap.add_argument("--all-skills", action="store_true", help="put every skill in the sandbox, not only the target")
     ap.add_argument("--model")
     ap.add_argument("--judge-model")
+    ap.add_argument("--judge-runs", type=int, default=1,
+                    help="judge each rubric up to N times and decide by majority of valid votes (odd N avoids ties)")
     ap.add_argument("--budget", type=float)
     ap.add_argument("--timeout", type=int, default=420)
     ap.add_argument("--dry-run", action="store_true")
@@ -136,7 +163,11 @@ def main() -> int:
                                 material = C.read_text(sf) if sf.exists() else ""
                             else:
                                 material = C.read_text(outdir / tgt) if (outdir / tgt).exists() else ""
-                            ok, why = E.judge(crit, material, args.judge_model)
+                            context, missing_ctx = read_context(ck.assertion or {}, case, outdir)
+                            if missing_ctx:
+                                ck.ok, ck.detail = False, "rubric context file(s) not found: " + ", ".join(missing_ctx)
+                                continue
+                            ok, why = E.judge_majority(crit, material, args.judge_runs, args.judge_model, context)
                             ck.ok, ck.detail = ok, why
                         else:
                             skipped += 1

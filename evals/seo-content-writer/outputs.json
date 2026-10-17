@@ -237,7 +237,10 @@
             "Every number on the page (lifespans, percentages, ppm, warranty years, job counts, prices) is attributed in its sentence or table cell to a named source (U.S. Department of Energy, Portland Water Bureau, Rinnai, Harbor & Pine records, pricing or interview, or the named first-hand case), and each of those sources appears in the Sources list",
             "All six sub-questions from the brief are answered under their own question headings"
           ],
-          "label": "rubric: sourced numbers, sub-questions"
+          "label": "rubric: sourced numbers, sub-questions",
+          "context": [
+            "briefs/tankless-lifespan-brief.md"
+          ]
         },
         {
           "type": "rubric",
@@ -353,7 +356,10 @@
             "No figure for draw period length, repayment period length, loan-to-value limit, rates or costs is stated as fact without a named source; any such figure the page needs is replaced by a visible [NEEDS SOURCE: ...] or [NEEDS INPUT: ...] flag",
             "The comparison with a home equity loan names both 'HELOC' and 'home equity loan' in each sentence that states a difference"
           ],
-          "label": "rubric: definition, no fabricated YMYL figures, comparison naming"
+          "label": "rubric: definition, no fabricated YMYL figures, comparison naming",
+          "context": [
+            "heloc-brief.md"
+          ]
         },
         {
           "type": "rubric",
@@ -361,7 +367,112 @@
           "criteria": [
             "handoff.md routes the page to a compliance or lending expert reviewer (named, or flagged as NEEDS INPUT because the brief names none) and lists the lending disclosures or member-specific terms the brief did not supply"
           ],
-          "label": "rubric: YMYL routing in handoff"
+          "label": "rubric: YMYL routing in handoff",
+          "context": [
+            "heloc-brief.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "content-brief-format-brief",
+      "prompt": "Use the seo-content-writer skill to write the page from the brief at research/content-briefs/how-long-does-a-tankless-water-heater-last.md. The client's files are in project/. There is no WebFetch, WebSearch or internet access in this session. Save the outputs in content/tankless-lifespan/.",
+      "fixtures": [
+        {
+          "src": "fixtures/contracts/content-brief-sample.md",
+          "dest": "research/content-briefs/how-long-does-a-tankless-water-heater-last.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine/project/style.md",
+          "dest": "project/style.md"
+        },
+        {
+          "src": "fixtures/content-brief/harborpine/project/brand.md",
+          "dest": "project/brand.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/handoff.md"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "text": "VERDICT: NEEDS_INPUT",
+          "label": "open client slot keeps the page at NEEDS_INPUT"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\[CLIENT INPUT NEEDED #1: [^\\]]+\\]",
+          "label": "brief slot carried onto the page verbatim"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| A statistic or evidence flag per major section \\| PASS",
+          "label": "none-verifiable section not failed"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| Every internal link from the brief is placed \\| PASS",
+          "label": "links from this page placed"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "\\| Every figure names its source in the same sentence \\| PASS"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^## [^\\n]*signs[^\\n]*failing[^\\n]*\\?",
+          "label": "outline H2 kept: failure signs"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^## [^\\n]*warranty[^\\n]*\\?",
+          "label": "outline H2 kept: warranty"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?im)^## [^\\n]*descal[^\\n]*\\?",
+          "label": "outline H2 kept: descaling interval"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article.md",
+          "text": "$189",
+          "label": "FAQ fact from the evidence table"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "\\]\\(/schedule/?\\)"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)on-demand unit|the new model",
+          "label": "naming table aliases avoided"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article.md",
+          "pattern": "(?i)(?<!\\[)\\bslot #\\d",
+          "label": "no shorthand slot references"
         }
       ]
     }

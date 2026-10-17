@@ -523,9 +523,22 @@ if "--tools" in argv:  # judge session: the prompt must come on stdin, never arg
         result("prompt was passed as an argv", True)
     prompt = sys.stdin.read()
     crit, material = prompt.split("OUTPUT UNDER REVIEW:", 1)
-    needs = [l.split("needs ", 1)[1].strip() for l in crit.splitlines() if l.startswith("- needs ")]
-    ok = all(n in material for n in needs)
-    result(json.dumps({"verdict": "pass" if ok else "fail", "reasons": ["checked " + ",".join(needs)]}))
+    ref = crit.split("REFERENCE MATERIAL", 1)[1] if "REFERENCE MATERIAL" in crit else ""
+    lines = crit.split("REFERENCE MATERIAL", 1)[0].splitlines()
+    # "- votes PFE": the Nth judge call in this run votes P(ass), F(ail) or E(rror), counted in a file
+    votes = [l.split("votes ", 1)[1].strip() for l in lines if l.startswith("- votes ")]
+    if votes:
+        counter = os.environ["FAKE_JUDGE_COUNTER"]
+        n = int(open(counter).read() or 0) if os.path.exists(counter) else 0
+        open(counter, "w").write(str(n + 1))
+        v = votes[0][n] if n < len(votes[0]) else "E"
+        if v == "E":
+            result("not json at all")
+        result(json.dumps({"verdict": "pass" if v == "P" else "fail", "reasons": [f"vote {n + 1} {v}"]}))
+    needs = [l.split("needs ", 1)[1].strip() for l in lines if l.startswith("- needs ")]
+    needs_ref = [l.split("needs-ref ", 1)[1].strip() for l in lines if l.startswith("- needs-ref ")]
+    ok = all(n in material for n in needs) and all(n in ref and n not in material for n in needs_ref)
+    result(json.dumps({"verdict": "pass" if ok else "fail", "reasons": ["checked " + ",".join(needs + needs_ref)]}))
 open("a.md", "w").write("MARK-A " + "x" * 20000 + "\n")
 open("b.md", "w").write("MARK-B\n")
 result("wrote a.md and b.md")
@@ -560,6 +573,48 @@ def t_judge() -> None:
     outputs([{"type": "rubric", "target": "a.md", "criteria": ["needs MARK-A"]},
              {"type": "rubric", "target": "b.md", "criteria": ["needs MARK-A"]}])
     expect("judge: a rubric that does not hold on its own target fails", run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env), 1, "[FAIL]")
+
+    # --judge-runs: majority of valid votes, early stop, errors are not votes
+    counter = r / "judge_calls.txt"
+    venv = dict(env, FAKE_JUDGE_COUNTER=str(counter))
+
+    def voted(seq: str, runs: int) -> tuple[int, str, int]:
+        outputs([{"type": "rubric", "target": "b.md", "criteria": [f"votes {seq}"]}])
+        if counter.exists():
+            counter.unlink()
+        code, out = run("run_output_evals.py", "--skill", PRODUCER, "--judge", "--judge-runs", str(runs), root=r, env=venv)
+        return code, out, int(counter.read_text() or 0) if counter.exists() else 0
+
+    code, out, calls = voted("FPP", 3)
+    check("judge-runs: 2 of 3 passing votes pass", code == 0 and "[PASS]" in out and calls == 3, f"{out} calls={calls}")
+    code, out, calls = voted("PFF", 3)
+    check("judge-runs: 1 of 3 passing votes fails and reports the tally", code == 1 and "1/3 judge votes pass" in out, out)
+    code, out, calls = voted("PPF", 3)
+    check("judge-runs: stops once a majority is reached", code == 0 and calls == 2, f"calls={calls}")
+    code, out, calls = voted("EPF", 3)
+    check("judge-runs: an errored call is not a vote, and a tie fails", code == 1 and "1/2 judge votes pass, 1 errored" in out, out)
+    code, out, calls = voted("EEE", 3)
+    check("judge-runs: no valid votes fails", code == 1 and "no valid judge votes" in out, out)
+    code, out, calls = voted("F", 1)
+    check("judge-runs: default of one call keeps the old behavior", code == 1 and calls == 1, f"{out} calls={calls}")
+
+    # rubric context: reference files reach the judge, apart from the output under review
+    write(r, f"fixtures/{PRODUCER}/ref-brief.md", "the brief says REFMARK\n")
+    fx = [{"src": f"fixtures/{PRODUCER}/ref-brief.md", "dest": "brief.md"}]
+
+    def ctx_case(rubric: dict) -> None:
+        write(r, f"evals/{PRODUCER}/outputs.json",
+              {"cases": [{"id": "ctx", "prompt": "write the files", "fixtures": fx, "assertions": [rubric]}]})
+
+    ctx_case({"type": "rubric", "target": "b.md", "criteria": ["needs-ref REFMARK"], "context": ["brief.md"]})
+    expect("judge context: a context file reaches the judge as reference material",
+           run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env), 0, "[PASS]")
+    ctx_case({"type": "rubric", "target": "b.md", "criteria": ["needs-ref REFMARK"]})
+    expect("judge context: without `context` the judge never sees the reference",
+           run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env), 1, "[FAIL]")
+    ctx_case({"type": "rubric", "target": "b.md", "criteria": ["needs MARK-B"], "context": ["no-such-file.md"]})
+    expect("judge context: a missing context file fails the rubric instead of judging blind",
+           run("run_output_evals.py", "--skill", PRODUCER, "--judge", root=r, env=env), 1, "context file(s) not found")
 
 
 def t_package() -> None:

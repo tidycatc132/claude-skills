@@ -47,3 +47,29 @@ When `client-reference/<client-slug>/` exists, read before drafting:
 ## When there is no brief
 
 If the user gives only a topic or keyword, recommend running the brief step first. If they want the page anyway, fill this intake table yourself, mark every row `built` or `FLAG`, and title the section in `handoff.md` "Working brief (not approved)".
+
+## Briefs from the content-brief step
+
+A content brief from the brief step is one markdown file, usually `research/content-briefs/<id>.md`: YAML front-matter, then fixed sections. Pass the file itself to `check_draft.py --brief`; the script reads `primary_keyword`, `client` and the "Links from this page" table from it.
+
+Status: `status: DONE` or `DONE_WITH_CONCERNS` means write the page (read Concerns first; each carries its fallback instruction). There is never a file for a NEEDS_INPUT or BLOCKED row.
+
+The intake items are already done in this brief. Map them instead of rebuilding:
+
+| Intake item | Where it is in the brief |
+| --- | --- |
+| 1 Primary question | the `# Content Brief:` title and Answer Target |
+| 2 Sub-questions | Outline: every `### H2:` is a sub-question; write them as the page's H2s in that order |
+| 3 Entities and 4 primary names | Entities and Naming table ("Use this name", "Never call it") |
+| 5 Evidence | Evidence table (`E1`, `E2`...; each Outline section lists its ids). These are the only figures; a section marked `none verifiable` follows its concern's fallback, with no number |
+| 6 Author | Author, Experience and Trust (`- Author:`, `- Reviewer:` on YMYL pages) |
+| 7 First-hand material | Author, Experience and Trust (`- First-hand experience to include:`) |
+| 8 Internal links and anchors | Internal Links, "Links from this page" (place these); "Links to this page" is for the site editor, not this draft |
+
+Writing from it:
+- Each Outline section's `- First sentence must state:` is the fact the section's first sentence states; write it as a complete answer in the writer's own words, with its source named.
+- `[CLIENT INPUT NEEDED #n: ...]` slots are copied onto the page in exactly that form wherever the brief places them. They count as open flags, so the verdict is NEEDS_INPUT until the client answers. Never fill one from memory and never renumber it.
+- Voice and Style: when the source is `client`, read the named `voice.md` / `style.md`; when it is a default, the directives are embedded in the brief and are the voice to follow.
+- Format Requirements, Title and Meta Direction and the Writer QA Checklist apply on top of this skill's own rules; where they conflict, the brief's compliance and claim restrictions win.
+
+Front-matter keys (all present in every brief): `id`, `brief_version`, `status`, `date`, `client`, `client_domain`, `market`, `language`, `page_url`, `mode`, `existing_url`, `primary_keyword`, `secondary_keywords`, `intent`, `funnel`, `format`, `format_embedded`, `format_source`, `metrics`, `geo_candidate`, `geo_answer_format`, `cluster`, `pillar_url`, `ymyl`, `local`, `cannibalization`, `voice_source`, `style_source`, `word_range`, `client_inputs_open`, `source_report`. The ones that change the writing: `primary_keyword` and `secondary_keywords` (keyword use), `intent` and `funnel` (depth and CTA), `format`, `format_embedded` and `format_source` (which format rules apply), `geo_candidate` and `geo_answer_format` (the opening answer's shape), `ymyl` (credentials first, compliance review in handoff.md), `local` (name the service area), `page_url`, `pillar_url` and `cluster` (links), `word_range`, `voice_source` and `style_source`, `client_inputs_open` (open slots at the start), `cannibalization` (a `risk` value comes with a concern saying how this page must differ). `id`, `brief_version`, `status`, `date`, `client`, `client_domain`, `market`, `language`, `mode`, `existing_url`, `metrics` and `source_report` are bookkeeping; `metrics` is keyword data, never a figure for the page.

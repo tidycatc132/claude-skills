@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Create the content brief for target how-long-does-a-tankless-water-heater-last from research/keyword-research/2026-10-14-water-heaters.md.",
+    "Keyword research is done (research/keyword-research/2026-10-14-home-equity.md). Write the brief for 'what is a heloc' so the writer can start.",
+    "Brief the November items from the content calendar in our keyword research report for Harbor & Pine.",
+    "Turn the targets block in 2026-10-12-frozen-pipes.md into writer-ready content briefs with sub-questions, entities, evidence and internal links.",
+    "Next step after the keyword report: build a content brief for 'tankless water heater vs tank' that seo-content-writer can use.",
+    "Prepare a writing brief for the keyword 'how much does a roof replacement cost in denver' from the keyword research we saved yesterday, using the client notes in project/.",
+    "Make the brief for target id best-standing-desks-for-small-spaces in research/keyword-research/2026-10-10-desks.md, author is Kim Ortega.",
+    "We have the keyword research for Cedarline. Spec out the 'heloc vs home equity loan' page for the writer: primary question, sub-questions, sources needed, internal links.",
+    "Write a content brief for 'best running shoes for flat feet'; we haven't done keyword research yet."
+  ],
+  "should_not_trigger": [
+    "Do keyword research for a Portland plumber's water heater pages with volume and difficulty.",
+    "Write the article from the approved brief in briefs/how-long-does-a-tankless-water-heater-last/brief.md.",
+    "Build a topical map for home equity lending for cedarlinecu.org.",
+    "What topics do our competitors cover that we have no page on?",
+    "Audit this published article for E-E-A-T and tell me if it's ready to publish.",
+    "Analyze the SERP for 'tankless water heater lifespan' and tell me who holds the featured snippet.",
+    "Build the brand, voice, style and compliance reference files for Harbor & Pine Plumbing.",
+    "Plan the site structure and navigation for harborpineplumbing.com.",
+    "Write JSON-LD schema for this blog URL.",
+    "Give me a keyword brief for water heater services in Portland: search volumes, KD and keyword clusters."
+  ]
+}

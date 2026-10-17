@@ -43,6 +43,7 @@ These rules make each passage quotable by an answer engine and still pleasant to
 
 - At least one concrete figure per major section: a percentage, dollar amount, duration, quantity or measurement, in place of "significantly", "much faster" or "a lot".
 - Attribute every claim to a named, checkable source in the sentence: "according to the U.S. Department of Energy", "Harbor & Pine's 2025 service records show". Ban "studies show", "experts say", "research suggests", "many people believe".
+- Quantities written in words ("more than a decade", "twice as long", "half the cost") are figures too, and so is every quantity in a first-hand case: each sentence that carries one names its source or the client ("Harbor & Pine's records show...").
 - Attribute a figure every time it appears, not only the first time: Key Takeaways bullets, table cells, the FAQ and later sections each name the source in the same sentence or cell, even as a short tag ("starts at $3,850 installed (Harbor & Pine pricing)"). A passage lifted out of the page must still say where its number came from.
 - Use real quotations from the brief verbatim, in quotation marks, with name, role and context. Do not paraphrase an approved quote into the page's own voice, and never write a quote nobody said.
 - Copy numbers exactly as the source states them, including the qualifier ("more than 20 years", "around 3 to 8 ppm"). Never round up, combine two sources into a new number, or strengthen "some" into "most".

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "water-heater-repair-portland",
+    "primary_keyword": "water heater repair portland",
+    "secondary_keywords": [
+      "water heater repair near me",
+      "water heater service portland"
+    ],
+    "intent": "Transactional",
+    "funnel": "BOFU",
+    "format": "service page",
+    "cluster": "Water heaters",
+    "pillar_url": "/water-heaters/",
+    "geo_candidate": false,
+    "geo_answer_format": "N/A",
+    "metrics": {
+      "volume": 590,
+      "kd": 27,
+      "source": "Measured"
+    },
+    "why_now": "ranking 14.2 with a thin page"
+  },
+  {
+    "id": "how-long-does-a-tankless-water-heater-last",
+    "primary_keyword": "how long does a tankless water heater last",
+    "secondary_keywords": [
+      "tankless water heater lifespan",
+      "tankless vs tank water heater lifespan",
+      "tankless water heater maintenance"
+    ],
+    "intent": "Informational",
+    "funnel": "TOFU",
+    "format": "explainer + FAQ",
+    "cluster": "Water heaters",
+    "pillar_url": "/water-heaters/",
+    "geo_candidate": true,
+    "geo_answer_format": "direct answer",
+    "metrics": {
+      "volume": 1600,
+      "kd": 19,
+      "source": "Measured"
+    },
+    "why_now": "lowest KD in the cluster and an AI Overview answers it with one figure"
+  },
+  {
+    "id": "tankless-water-heater-vs-tank",
+    "primary_keyword": "tankless water heater vs tank",
+    "secondary_keywords": [
+      "tankless vs tank water heater cost",
+      "is a tankless water heater worth it"
+    ],
+    "intent": "Commercial",
+    "funnel": "MOFU",
+    "format": "comparison",
+    "cluster": "Water heaters",
+    "pillar_url": "/water-heaters/",
+    "geo_candidate": true,
+    "geo_answer_format": "comparison table",
+    "metrics": {
+      "volume": 2400,
+      "kd": 38,
+      "source": "Measured"
+    },
+    "why_now": "winter replacement season"
+  }
+]

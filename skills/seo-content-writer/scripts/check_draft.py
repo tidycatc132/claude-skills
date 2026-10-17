@@ -66,7 +66,8 @@ BAD_ANCHOR = re.compile(
     r"\[(click here|here|learn more|read more|this page|this article|this link|more)\]\(", re.I
 )
 PLACEHOLDER = re.compile(r"\b(TODO|TBD|FIXME|lorem ipsum|XX%|\$XX)\b|\[insert", re.I)
-FLAG = re.compile(r"\[NEEDS (SOURCE|INPUT):[^\]]*\]")
+# open gaps: the writer's own flags, and the numbered client-input slots a content brief carries
+FLAG = re.compile(r"\[(?:NEEDS (?:SOURCE|INPUT)|CLIENT INPUT NEEDED #\d+):[^\]]*\]")
 BYLINE_BAD = re.compile(r"\b(admin|staff writer|editorial team|our team|guest author)\b", re.I)
 LINK = re.compile(r"\[([^\]]+)\]\(([^)\s]+)\)")
 NUMBER = re.compile(r"(?<![\w.])\$?\d[\d,]*(?:\.\d+)?%?")
@@ -135,6 +136,16 @@ def parse(md: str):
     return h1s, sections
 
 
+MONTHS = r"(?:jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec)[a-z]*\.?"
+
+
+def undated(text: str) -> str:
+    """Remove URLs and dates (ISO and written) so their digits are not read as figures."""
+    text = re.sub(r"https?://\S+|\b[\w.-]+\.(?:gov|com|org|net|us|edu)/\S*", " ", text)
+    text = re.sub(r"\b\d{4}-\d{2}(?:-\d{2})?\b", " ", text)
+    return re.sub(rf"(?i)\b{MONTHS}\s+\d{{1,2}},?\s+\d{{4}}\b|\b\d{{1,2}}\s+{MONTHS}\s+\d{{4}}\b", " ", text)
+
+
 def heading_coverage(title: str, words: list[str]) -> float:
     """Share of the heading's content terms found (by stem prefix) in `words`."""
     terms = [t for t in dict.fromkeys(re.findall(r"[a-z0-9]+", title.lower())) if t not in STOP and len(t) > 2]
@@ -153,29 +164,53 @@ def is_numbered(title: str) -> bool:
     return bool(re.match(r"^(step\s+\d+|\d+[.):]?)\s", title, re.I))
 
 
+def brief_link_targets(brief: str) -> list[str]:
+    """Paths the page must link to. A content-brief brief lists them under '### Links from this page'
+    (its '### Links to this page' rows are for other pages, not this one); other briefs under any
+    heading that contains 'internal link'."""
+    sec = re.search(r"(?ims)^#+\s*links from this page[^\n]*\n(.*?)(?=^#|\Z)", brief) \
+        or re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
+    text = sec.group(1) if sec else ""
+    if re.search(r"(?m)^\|", text):  # table: the URL is the first cell of each row
+        text = "\n".join(l.strip().strip("|").split("|")[0] for l in text.splitlines() if l.strip().startswith("|"))
+    return list(dict.fromkeys(re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", text)))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("article")
+    ap.add_argument("article", nargs="?")
     ap.add_argument("--brief")
     ap.add_argument("--keyword")
     ap.add_argument("--metadata")
     ap.add_argument("--out")
+    ap.add_argument("--brief-only", action="store_true",
+                    help="only read the brief and print what the checks will use (keyword, client, link targets)")
     a = ap.parse_args()
 
+    brief = Path(a.brief).read_text(encoding="utf-8") if a.brief and Path(a.brief).is_file() else ""
+
+    keyword = a.keyword
+    if not keyword and brief:
+        m = re.search(r"(?im)^(?:-\s*)?(?:primary(?:[ _]keyword)?|keyword|target keyword)\s*:\s*(.+)$", brief)
+        if m:
+            keyword = m.group(1).strip()
+
+    if a.brief_only:
+        cm = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*]+)", brief)
+        links = brief_link_targets(brief)
+        print(f"keyword: {keyword or 'NOT FOUND'}\nclient: {cm.group(1).strip() if cm else 'NOT FOUND'}\n"
+              f"internal links: {', '.join(links) or 'NOT FOUND'}")
+        return 0 if keyword and links else 1
+
+    if not a.article:
+        ap.error("ARTICLE is required unless --brief-only is given")
     art = Path(a.article)
     if not art.is_file():
         print(f"article not found: {art}", file=sys.stderr)
         return 2
     md = art.read_text(encoding="utf-8")
-    brief = Path(a.brief).read_text(encoding="utf-8") if a.brief and Path(a.brief).is_file() else ""
     meta_path = Path(a.metadata) if a.metadata else art.with_name("metadata.md")
     meta = meta_path.read_text(encoding="utf-8") if meta_path.is_file() else ""
-
-    keyword = a.keyword
-    if not keyword and brief:
-        m = re.search(r"(?im)^(?:-\s*)?(?:primary(?: keyword)?|keyword|target keyword)\s*:\s*(.+)$", brief)
-        if m:
-            keyword = m.group(1).strip()
     if not keyword and meta:
         m = re.search(r"(?im)^\|\s*Target keyword\s*\|\s*(.+?)\s*\|", meta)
         if m:
@@ -289,6 +324,16 @@ def main() -> int:
 
     # 6b. comparison stand-ins that hide which entity is meant
     standin = sorted({m.group(0).lower() for m in STANDIN.finditer(strip_md(md))})
+    # "The difference is how you receive the money." names neither side
+    for s in sections:
+        for kind, text in s["blocks"]:
+            for u in ([text] if kind == "row" else sentences(text)):
+                m = re.match(r"(?i)^the (main |key |biggest |big |real |core )?differences? (is|are|comes? down to|lies)\b",
+                             strip_md(u))
+                # a sentence that goes on to contrast two things ("... while ...", "X and Y") is fine
+                if m and not re.search(r"(?i)\b(and|while|whereas|than|versus|vs\.?|compared with|but)\b", strip_md(u)):
+                    standin.append(m.group(0).lower())
+    standin = sorted(set(standin))
     add("Comparisons name both entities", not standin, ("replace with the entity names: " + ", ".join(standin)) if standin else "")
 
     # 7. paragraph length 2-4 sentences
@@ -316,7 +361,17 @@ def main() -> int:
             h2_text[cur_h2] += " " + " ".join(t for _, t in s["blocks"])
     nostat = [t for t, txt in h2_text.items()
               if t.lower() not in UTILITY_H2 and not re.search(r"\d", txt) and not FLAG.search(txt)]
+    # a content brief that found no verifiable statistic for a section says so ("- Evidence: none verifiable")
+    # and tells the writer to explain without a number; those sections are a WARN, not a FAIL
+    exempt_titles = [m.group(1) for m in re.finditer(r"(?m)^### H2: ([^\n]+?)\s*\n((?:(?!### )[^\n]*\n)*)", brief)
+                     if re.search(r"(?m)^- Evidence:[^\n]*none verifiable", m.group(2))] if brief else []
+    exempt = [t for t in nostat if any(heading_coverage(e, re.findall(r"[a-z0-9]+", t.lower())) >= 0.8
+                                       for e in exempt_titles)]
+    nostat = [t for t in nostat if t not in exempt]
     add("A statistic or evidence flag per major section", not nostat, "; ".join(f"'{t[:40]}'" for t in nostat[:6]))
+    if exempt:
+        add("Sections the brief marks 'none verifiable' carry no number", False,
+            "explained without a figure, as the brief says: " + "; ".join(f"'{t[:40]}'" for t in exempt[:4]), warn=True)
 
     # 10. sources section when the page states figures
     has_figures = bool(re.search(r"\d\s?%|\$\d|\bppm\b", md))
@@ -330,6 +385,11 @@ def main() -> int:
     cm = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*]+)", brief + "\n" + meta)
     client = re.sub(r"\s+(plumbing|inc\.?|llc|ltd|co\.?|corp\.?|community credit union|credit union)$", "",
                     cm.group(1).strip(), flags=re.I) if cm else ""
+    # figures the brief's evidence supplies ("10 to 15 years", "41 gallons") need a source in their sentence
+    # too, even without a %, $ or decimal; years and evidence ids do not count
+    ev_sec = re.search(r"(?ims)^#+\s*evidence[^\n]*\n(.*?)(?=^#|\Z)", brief) if brief else None
+    ev_figs = {n.replace(",", "") for n in re.findall(r"(?<![\w.#E])\d[\d,]*(?:\.\d+)?", undated(ev_sec.group(1) if ev_sec else ""))
+               if len(n.replace(",", "")) >= 2 and not re.fullmatch(r"(19|20)\d\d", n)}
     unattributed = []
     in_sources = False
     for s in sections:
@@ -341,7 +401,10 @@ def main() -> int:
             units = [text] if kind == "row" else sentences(text)
             for u in units:
                 plain = strip_md(FLAG.sub("", u))
-                if FIGURE.search(plain) and not ATTRIBUTION.search(plain) \
+                if re.match(r"^\**by\b", plain, re.I):  # the byline: credentials and date, not claims
+                    continue
+                nums = {n.replace(",", "") for n in re.findall(r"(?<![\w.])\$?(\d[\d,]*(?:\.\d+)?)", undated(plain))}
+                if (FIGURE.search(plain) or nums & ev_figs) and not ATTRIBUTION.search(plain) \
                         and not (client and client.lower() in plain.lower()):
                     unattributed.append(plain[:70])
     add("Every figure names its source in the same sentence", not unattributed, "; ".join(unattributed[:5]))
@@ -371,15 +434,16 @@ def main() -> int:
     bad_anchor = BAD_ANCHOR.findall(md)
     add("Descriptive anchor text", not bad_anchor, ", ".join(sorted(set(b.lower() for b in bad_anchor))))
     if brief:
-        sec = re.search(r"(?ims)^#+[^\n]*internal link[^\n]*\n(.*?)(?=^#|\Z)", brief)
-        targets = re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", sec.group(1) if sec else "")
+        targets = brief_link_targets(brief)
         hrefs = {h.rstrip("/") for _, h in LINK.findall(md)}
         missing = [t for t in dict.fromkeys(targets) if t.rstrip("/") not in hrefs
                    and not any(h.endswith(t.rstrip("/")) for h in hrefs)]
         add("Every internal link from the brief is placed", not missing, ", ".join(missing))
 
-    # 13. a table when the brief asks for one
-    if brief and re.search(r"(?i)\btable\b", brief):
+    # 13. a table when the brief asks for one (a content brief's own Evidence and naming tables don't count:
+    # only its Format Requirements section says what the page needs)
+    fr = re.search(r"(?ims)^## Format Requirements\s*$(.*?)(?=^## |\Z)", brief) if brief else None
+    if brief and re.search(r"(?i)\btable\b", fr.group(1) if fr else brief):
         add("Comparison table present", bool(re.search(r"(?m)^\|.*\|\s*$", md)), "brief asks for a table")
 
     # 14. FAQ answers are full statements
@@ -412,6 +476,16 @@ def main() -> int:
         h1t = {t for t in re.findall(r"[a-z0-9]+", h1.lower()) if t not in STOP}
         overlap = len([t for t in h1t if t in mt]) / max(1, len(h1t))
         add("Meta title built from the H1", overlap >= 0.6, f"{overlap:.0%} of H1 terms in meta title", warn=True)
+        # the recipe is the H1 wording, optionally followed by the brand; words beyond those are an added
+        # topic list or slogan (no character limit applies, but the title must keep the H1's single intent)
+        brand = {w for w in re.findall(r"[a-z0-9]+", (client or "").lower()) if len(w) > 2} | {"plumbing", "inc", "llc"}
+        cm2 = re.search(r"(?im)^\**client\**\s*:\s*\**([^(\n*|]+)", brief + "\n" + meta)
+        if cm2:
+            brand |= {w for w in re.findall(r"[a-z0-9]+", cm2.group(1).lower()) if len(w) > 2}
+        h1w = set(re.findall(r"[a-z0-9]+", h1.lower()))
+        extra = [w for w in re.findall(r"[a-z0-9]+", mt) if w not in h1w and w not in brand and w not in STOP]
+        add("Meta title is the H1 plus at most the brand", len(extra) <= 3,
+            f"added words: {' '.join(extra[:10])}")
     else:
         add("Metadata table complete", False, f"{meta_path.name} not found")
 
