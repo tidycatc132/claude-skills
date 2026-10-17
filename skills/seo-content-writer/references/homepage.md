@@ -70,6 +70,8 @@ Run `check_draft.py` with `--page-type homepage` (it also switches on its own wh
 | Check | FAIL means | Fix |
 | --- | --- | --- |
 | Homepage sections in order | A marker is missing, repeated or out of order | Add or move the section |
-| Client facts trace to the brief or client files | A phone, address, hours, quoted testimonial, rating, review count, founding year, warranty, guarantee or credential word is on the page but in no file. Open slots, flags and a file's prohibited or banned lists do not count as stating a fact | Delete it or replace it with a `[NEEDS INPUT: ...]` flag |
+| Client facts trace to the brief or client files | A phone, address, hours, quoted testimonial, rating, review count, founding year, warranty, guarantee or credential word is on the page but in no file. Open slots, flags, a file's prohibited or banned lists, and a brief's Client Inputs Needed, Concerns, Format Requirements, Writer QA Checklist and Research Log sections do not count as stating a fact | Delete it or replace it with a `[NEEDS INPUT: ...]` flag |
 | Proof section carries proof or a flag | The Proof section has no quote, figure or flag | Add the files' proof, or flag what is needed |
 | Final CTA gives a route | The Final CTA section has no link, phone or flag | Add the conversion link or phone |
+
+`scripts/selftest_homepage.py` checks this rule on small cases; run it after changing `check_draft.py`.

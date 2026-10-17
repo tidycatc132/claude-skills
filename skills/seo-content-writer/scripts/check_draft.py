@@ -104,12 +104,15 @@ CREDENTIAL = re.compile(
     r"woman[- ]owned|locally owned|guarantee[ds]?|warrant(?:y|ies)|since (?:19|20)\d\d|founded in (?:19|20)\d\d)")
 
 
-NOT_FACTS = re.compile(r"(?i)prohibit|banned|never|avoid|do not|don't|not allowed|unapproved")
+# sections that say what must NOT be said, or what is still missing or to be checked, never vouch for a fact:
+# a compliance file's Prohibited Claims, a voice file's Banned Words, and a content brief's Client Inputs
+# Needed, Concerns, Format Requirements, Writer QA Checklist and Research Log
+NOT_FACTS = re.compile(r"(?i)prohibit|banned|never|avoid|do not|don't|not allowed|unapproved|"
+                       r"client inputs? needed|concerns?|format requirements|qa checklist|research log")
 
 
 def fact_text(text: str) -> str:
-    """Text that states client facts: open slots and flags removed, and sections that list what must NOT
-    be said (a compliance file's Prohibited Claims, a voice file's Banned Words) dropped."""
+    """Text that states client facts: open slots and flags removed, and NOT_FACTS sections dropped."""
     out, skip, level = [], False, 0
     for line in text.splitlines():
         m = re.match(r"^(#{1,6})\s+(.*)$", line)
