@@ -1,0 +1,17 @@
+{
+  "content/<url-slug>/": "home/",
+  "[CLIENT INPUT NEEDED #n: ...]": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "[NEEDS INPUT: ...]": 1,
+  "flags": [
+    "The phone number to show",
+    "Two or three client reviews, word for word, with the name each client approves",
+    "Dr. Ruiz's veterinary license and any certifications to show",
+    "What new clients should bring to the first visit (records, stool sample)",
+    "Office hours"
+  ]
+}

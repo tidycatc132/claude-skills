@@ -1,0 +1,12 @@
+{
+  "name": "seo-content-writer-to-week-1-client-email",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "week-1-client-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/seo-content-writer-to-week-1-client-email.json",
+  "keys": ["content/<url-slug>/", "[CLIENT INPUT NEEDED #n: ...]", "[NEEDS INPUT: ...]"],
+  "producer_cmd": "python3 skills/week-1-client-email/scripts/week1_email.py contract fixtures/contracts/seo-content-writer-homepage-flags/home/article.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-1-client-email/scripts/week1_email.py contract --validate {fixture}"
+}
