@@ -4,6 +4,7 @@
 Usage:
   python3 check_draft.py ARTICLE.md [--brief BRIEF.md] [--keyword "target keyword"]
                          [--metadata METADATA.md] [--out QA_REPORT.md]
+                         [--page-type homepage] [--client-dir DIR] [--facts FILE ...]
 
 Reads `article.md` (and `metadata.md` beside it unless --metadata is given),
 runs the mechanical checks from references/qa-checklist.md, prints a
@@ -14,6 +15,13 @@ VERDICT: FIX          one or more checks FAILed; fix the draft and rerun
 VERDICT: NEEDS_INPUT  no FAILs, but the draft carries [NEEDS SOURCE: ...] or
                       [NEEDS INPUT: ...] flags a human must resolve
 VERDICT: READY        no FAILs and no open flags
+
+Homepage mode (--page-type homepage, or a brief saying `Page type: homepage` or
+`format: homepage`): no byline check, the per-section statistic is a WARN, and
+the page must carry the eight `<!-- section: ... -->` markers in order, a Proof
+section with proof or a flag, a Final CTA with a route, and no client fact
+(phone, address, hours, quoted testimonial, rating, review count, founding year,
+credential word) that the brief, --client-dir files or --facts files do not state.
 
 Exit code 1 on FIX, else 0. Standard library only.
 """
@@ -75,6 +83,127 @@ STOP = {"a", "an", "the", "of", "to", "for", "in", "on", "and", "or", "is", "do"
         # question words: "how long" / "how much" / "how often" are carried by the H1, not repeated in prose
         "long", "much", "often", "many", "when", "where", "which", "who", "should", "are", "will", "my", "it", "if",
         "with", "be", "need", "there", "than", "your", "you", "get", "at", "by", "from", "that", "this"}
+HOMEPAGE_SECTIONS = ["Hero", "Why Us", "Services Overview", "Proof", "About Snapshot",
+                     "Service Area", "Process", "Final CTA"]
+MARKER = re.compile(r"(?im)^\s*<!--\s*section:\s*([^>]+?)\s*-->\s*$")
+PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b")
+HOURS = re.compile(r"(?i)\b\d{1,2}(?::\d{2})?\s?(?:a\.?m\.?|p\.?m\.?)(?![a-z])|"
+                   r"\b(?:mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun)(?:day)?s?\s?(?:-|–|to|through)\s?"
+                   r"(?:mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun)(?:day)?\b")
+STREET = re.compile(r"\b\d{2,6}\s+(?:[NSEW]\.?\s+)?(?:[A-Z0-9][\w.'-]*\s+){1,4}?"
+                    r"(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Drive|Dr|Lane|Ln|Way|Court|Ct|"
+                    r"Parkway|Pkwy|Place|Pl|Highway|Hwy|Circle|Cir|Trail|Suite|Ste)\b\.?")
+QUOTE = re.compile(r"[\"“]([^\"”\n]{20,})[\"”]")
+# credential and proof words: each one on the page must also appear in the brief or client files
+CREDENTIAL = re.compile(
+    r"(?i)\b(licensed|licen[cs]e (?:no\.?|number|#)|certified|certification|accredited|accreditation|insured|bonded|"
+    r"award[- ]winning|awards?|top[- ]rated|best[- ]rated|five[- ]star|5[- ]star|\d(?:\.\d)?[- ]star|stars?\b|★|"
+    r"\d+\+? (?:google |online |verified )?review(?:s|ers?)|\d(?:\.\d)?\s*(?:out of 5|/\s?5)|rated \d(?:\.\d)?|"
+    r"bbb|better business bureau|a\+ rating|board member|"
+    r"enrolled agent|proadvisor|chamber of commerce|years of experience|family[- ]owned|veteran[- ]owned|"
+    r"woman[- ]owned|locally owned|guarantee[ds]?|warrant(?:y|ies)|since (?:19|20)\d\d|founded in (?:19|20)\d\d)")
+
+
+NOT_FACTS = re.compile(r"(?i)prohibit|banned|never|avoid|do not|don't|not allowed|unapproved")
+
+
+def fact_text(text: str) -> str:
+    """Text that states client facts: open slots and flags removed, and sections that list what must NOT
+    be said (a compliance file's Prohibited Claims, a voice file's Banned Words) dropped."""
+    out, skip, level = [], False, 0
+    for line in text.splitlines():
+        m = re.match(r"^(#{1,6})\s+(.*)$", line)
+        if m:
+            if skip and len(m.group(1)) > level:
+                continue
+            skip, level = bool(NOT_FACTS.search(m.group(2))), len(m.group(1))
+        if not skip:
+            out.append(line)
+    return FLAG.sub(" ", "\n".join(out))
+
+
+def norm_text(s: str) -> str:
+    s = s.replace("’", "'").replace("‘", "'").replace("“", '"').replace("”", '"').replace("–", "-").replace("—", "-")
+    return re.sub(r"\s+", " ", re.sub(r"[^\w$%+★'\- ]+", " ", s.lower())).strip()
+
+
+def homepage_checks(md: str, sections: list, facts: str, add) -> None:
+    """The homepage rules from references/homepage.md that a script can check."""
+    found = [m.group(1).strip() for m in MARKER.finditer(md)]
+    want = [x.lower() for x in HOMEPAGE_SECTIONS]
+    core = [f for f in found if f.lower() in want]
+    missing = [x for x in HOMEPAGE_SECTIONS if x.lower() not in [c.lower() for c in core]]
+    dupes = sorted({c for c in core if [x.lower() for x in core].count(c.lower()) > 1})
+    in_order = [c.lower() for c in core] == [w for w in want if w in [c.lower() for c in core]]
+    detail = "; ".join(filter(None, [
+        f"missing: {', '.join(missing)}" if missing else "",
+        f"repeated: {', '.join(dupes)}" if dupes else "",
+        "" if in_order else "out of order: " + " > ".join(core)]))
+    add("Homepage sections in order", not missing and not dupes and in_order, detail)
+
+    # the page text by section marker, flags removed (a flag is the right way to name a missing fact)
+    by_sec: dict[str, str] = {}
+    cur = ""
+    for line in md.splitlines():
+        m = MARKER.match(line)
+        if m:
+            cur = m.group(1).strip().lower()
+            continue
+        if re.match(r"(?i)^##\s+(sources|references|sources and references)\s*$", line.strip()):
+            cur = "sources"
+        by_sec[cur] = by_sec.get(cur, "") + line + "\n"
+    page = "\n".join(t for k, t in by_sec.items() if k != "sources")
+    page_noflag = FLAG.sub(" ", page)
+
+    nfacts = norm_text(facts)
+    fact_digits = re.sub(r"\D", "", facts)
+    untraced = []
+    for m in PHONE.finditer(page_noflag):
+        if re.sub(r"\D", "", m.group(0)) not in fact_digits:
+            untraced.append(f"phone {m.group(0)}")
+    for rx, label in ((HOURS, "hours"), (STREET, "address")):
+        for m in rx.finditer(page_noflag):
+            if norm_text(m.group(0)) not in nfacts:
+                untraced.append(f"{label} '{m.group(0)}'")
+    for m in QUOTE.finditer(page_noflag):
+        q = norm_text(m.group(1))
+        if len(q.split()) >= 5 and q not in nfacts:
+            untraced.append(f"quote '{m.group(1)[:50]}'")
+    # blockquotes, joined across lines: the quoted words (or the whole quote when unmarked) must be in a file
+    for bq in re.findall(r"(?m)(?:^\s*>.*\n?)+", page_noflag):
+        text = " ".join(l.strip().lstrip(">").strip() for l in bq.splitlines())
+        qm = re.search(r"[\"“](.+?)[\"”]", text)
+        q = norm_text(qm.group(1) if qm else re.split(r"\s[-—–]\s", text)[0])
+        if len(q.split()) >= 5 and q not in nfacts:
+            untraced.append(f"blockquote '{text[:50]}'")
+    fact_nums = set(re.findall(r"\d+(?:\.\d+)?", facts))
+    for m in CREDENTIAL.finditer(page_noflag):
+        w = m.group(0)
+        nums = re.findall(r"\d+(?:\.\d+)?", w)
+        if nums and re.search(r"(?i)star|review|rat|out of|/", w):
+            # a rating or review count: the number must sit next to star/rating/review in a file
+            ok = all(re.search(rf"(?is)(?<![\d.]){re.escape(n)}(?![\d.]).{{0,40}}(star|rating|review)|"
+                               rf"(star|rating|review).{{0,40}}(?<![\d.]){re.escape(n)}(?![\d.])", facts) for n in nums)
+        elif nums:  # "since 2015": the year must be in a file
+            ok = all(n in fact_nums for n in nums)
+        else:     # a word: its stem must be in a file ("licensed" is backed by "License #...")
+            key = norm_text(w)
+            ok = (key if " " in key or len(key) <= 6 else key[:6]) in nfacts
+        if not ok:
+            untraced.append(f"'{w}'")
+    untraced = list(dict.fromkeys(untraced))
+    add("Client facts trace to the brief or client files", not untraced,
+        "not in any file (delete or flag): " + "; ".join(untraced[:10]) if untraced else "")
+
+    proof = by_sec.get("proof", "")
+    add("Proof section carries proof or a flag",
+        bool(re.search(r"\d|[\"“]|^\s*>", proof, re.M) or FLAG.search(proof)),
+        "" if proof.strip() else "no Proof section")
+    cta = by_sec.get("final cta", "")
+    has_route = bool(LINK.search(cta) or PHONE.search(cta) or FLAG.search(cta))
+    add("Final CTA gives a route", has_route, "" if has_route else "no link, phone or flag in the Final CTA section")
+
+
 META_FIELDS = ["Meta title", "Meta description", "H1", "URL slug", "Primary question",
                "Target keyword", "Key takeaways", "Article summary"]
 
@@ -183,6 +312,9 @@ def main() -> int:
     ap.add_argument("--keyword")
     ap.add_argument("--metadata")
     ap.add_argument("--out")
+    ap.add_argument("--page-type", help="homepage switches on the homepage checks (else read from the brief)")
+    ap.add_argument("--client-dir", help="client reference folder; its .md files count as client facts (homepage)")
+    ap.add_argument("--facts", action="append", default=[], help="another client file that states facts (homepage)")
     ap.add_argument("--brief-only", action="store_true",
                     help="only read the brief and print what the checks will use (keyword, client, link targets)")
     a = ap.parse_args()
@@ -216,6 +348,19 @@ def main() -> int:
         if m:
             keyword = m.group(1).strip()
 
+    homepage = (a.page_type or "").lower() == "homepage" or bool(
+        re.search(r"(?im)^\W*(?:page[ _]type|format)\W*\s*:\s*\**\s*home\s?page\b", brief)
+        or re.search(r"(?im)^\W*(?:url|page_url)\W*\s*:\s*\**\s*/\s*$", brief))
+    facts = brief
+    if homepage:
+        facts = fact_text(brief)
+        fact_files = [Path(f) for f in a.facts]
+        if a.client_dir and Path(a.client_dir).is_dir():
+            fact_files += sorted(Path(a.client_dir).rglob("*.md"))
+        facts += "\n" + "\n".join(fact_text(f.read_text(encoding="utf-8")) for f in fact_files if f.is_file())
+        md_full = md
+        md = MARKER.sub("", md)
+
     rows: list[tuple[str, str, str]] = []
 
     def add(check: str, ok: bool, detail: str, warn: bool = False):
@@ -228,11 +373,13 @@ def main() -> int:
     add("One H1", len(h1s) == 1, f"found {len(h1s)}")
     h1 = h1s[0] if h1s else ""
 
-    # 2. byline
+    # 2. byline (articles only; a homepage has none)
     after = md.split(f"# {h1}", 1)[-1] if h1 else md
     head = [l.strip() for l in after.splitlines() if l.strip()][:4]
     by = next((l for l in head if re.match(r"^\**by\b", l, re.I)), "")
-    if not by:
+    if homepage:
+        add("No article byline on a homepage", not by, f"remove the byline: {strip_md(by)[:60]}" if by else "")
+    elif not by:
         add("Named author byline", False, "no line starting 'By ' under the H1")
     elif BYLINE_BAD.search(by):
         add("Named author byline", False, f"generic byline: {strip_md(by)[:80]}")
@@ -368,7 +515,8 @@ def main() -> int:
     exempt = [t for t in nostat if any(heading_coverage(e, re.findall(r"[a-z0-9]+", t.lower())) >= 0.8
                                        for e in exempt_titles)]
     nostat = [t for t in nostat if t not in exempt]
-    add("A statistic or evidence flag per major section", not nostat, "; ".join(f"'{t[:40]}'" for t in nostat[:6]))
+    add("A statistic or evidence flag per major section", not nostat, "; ".join(f"'{t[:40]}'" for t in nostat[:6]),
+        warn=homepage)
     if exempt:
         add("Sections the brief marks 'none verifiable' carry no number", False,
             "explained without a figure, as the brief says: " + "; ".join(f"'{t[:40]}'" for t in exempt[:4]), warn=True)
@@ -415,7 +563,8 @@ def main() -> int:
         src_m = re.search(r"(?ims)^##\s+(?:sources|references|sources and references)\s*$(.*?)(?=^##\s|\Z)", md)
         sources_txt = src_m.group(1) if src_m else ""
         norm = lambda n: n.replace(",", "").lstrip("$").rstrip("%")
-        known = {norm(n) for n in NUMBER.findall(brief + "\n" + sources_txt)}
+        # a homepage's numbers must come from the brief or client files; its own Sources list does not vouch
+        known = {norm(n) for n in NUMBER.findall(facts + ("" if homepage else "\n" + sources_txt))}
         body = md.replace(sources_txt, "") if sources_txt else md
         body = "\n".join(l for l in body.splitlines() if not re.match(r"^\**by\b", l.strip(), re.I))  # byline/date
         body = re.sub(r"(?m)^\s*\d+[.)]\s", "", body)                 # list markers
@@ -488,6 +637,10 @@ def main() -> int:
             f"added words: {' '.join(extra[:10])}")
     else:
         add("Metadata table complete", False, f"{meta_path.name} not found")
+
+    # 16b. homepage sections and the client-fact rule
+    if homepage:
+        homepage_checks(md_full, sections, facts, add)
 
     # 17. open evidence / input flags
     flags = FLAG.findall(md) + FLAG.findall(meta)
