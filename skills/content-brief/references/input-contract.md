@@ -28,14 +28,14 @@ python3 scripts/parse_targets.py <report.md> --normalize [--id <id>] [--out <fil
 
 ## Format enum
 
-Primary formats (one per page): `explainer`, `how-to`, `comparison`, `listicle`, `definition`, `cost-guide`, `buyers-guide`, `troubleshooting`, `checklist`, `service-page`, `location-page`, `product-page`, `faq-page`, `pillar-guide`.
+Primary formats (one per page): `explainer`, `how-to`, `comparison`, `listicle`, `definition`, `cost-guide`, `buyers-guide`, `troubleshooting`, `checklist`, `service-page`, `location-page`, `product-page`, `faq-page`, `pillar-guide`, `homepage`.
 
 Embedded formats (zero or more, inside the primary): `faq`, `comparison-table`, `steps`, `checklist`, `cost-table`.
 
 ## Normalization (done by the script)
 
 1. Lowercase, trim, and split combos on `+`, `,`, `/` or ` and `. The first part is the primary format; the rest are embedded.
-2. Map aliases: blog post, article, blog article, guide, explainer -> `explainer`; ultimate guide, complete guide, pillar -> `pillar-guide`; vs, versus, comparison -> `comparison` (primary) or `comparison-table` (embedded); how-to, tutorial, step-by-step -> `how-to` or `steps`; best, top, list, roundup -> `listicle`; what is, definition, glossary -> `definition`; cost guide, pricing guide, price -> `cost-guide` or `cost-table`; buyer's guide -> `buyers-guide`; troubleshooting, problem, signs -> `troubleshooting`; checklist -> `checklist`; service page, service, landing page -> `service-page`; location page, city page -> `location-page`; product page -> `product-page`; faq, faq page, q&a -> `faq-page` or `faq`.
+2. Map aliases: blog post, article, blog article, guide, explainer -> `explainer`; ultimate guide, complete guide, pillar -> `pillar-guide`; vs, versus, comparison -> `comparison` (primary) or `comparison-table` (embedded); how-to, tutorial, step-by-step -> `how-to` or `steps`; best, top, list, roundup -> `listicle`; what is, definition, glossary -> `definition`; cost guide, pricing guide, price -> `cost-guide` or `cost-table`; buyer's guide -> `buyers-guide`; troubleshooting, problem, signs -> `troubleshooting`; checklist -> `checklist`; service page, service, landing page -> `service-page`; location page, city page -> `location-page`; product page -> `product-page`; faq, faq page, q&a -> `faq-page` or `faq`; homepage, home page, front page, home -> `homepage`.
 3. A combo (more than one part) sets `format_normalized: true`: record the original value in the brief's front-matter `format_source` and list the normalization under Concerns. A plain alias ("blog post" -> `explainer`) is not a concern; still record `format_source`.
 4. An unknown value (anything not mapped, for example "interactive calculator" or "webinar landing") is `NEEDS_INPUT`: write no brief and ask which format to use.
 

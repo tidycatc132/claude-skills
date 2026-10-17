@@ -159,7 +159,8 @@ def problems(items: list[dict]) -> list[str]:
 
 
 PRIMARY = {"explainer", "how-to", "comparison", "listicle", "definition", "cost-guide", "buyers-guide",
-           "troubleshooting", "checklist", "service-page", "location-page", "product-page", "faq-page", "pillar-guide"}
+           "troubleshooting", "checklist", "service-page", "location-page", "product-page", "faq-page", "pillar-guide",
+           "homepage"}
 EMBEDDED = {"faq", "comparison-table", "steps", "checklist", "cost-table"}
 # alias -> (as primary, as embedded); None means it cannot sit in that position
 ALIASES = {
@@ -185,6 +186,8 @@ ALIASES = {
     "product page": ("product-page", None),
     "faq": ("faq-page", "faq"), "faq page": ("faq-page", "faq"), "q&a": ("faq-page", "faq"),
     "faq block": ("faq-page", "faq"),
+    "homepage": ("homepage", None), "home page": ("homepage", None), "front page": ("homepage", None),
+    "home": ("homepage", None),
 }
 
 
