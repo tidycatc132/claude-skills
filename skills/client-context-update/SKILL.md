@@ -12,6 +12,8 @@ Folds one new source of client information into the kickoff folder that new-buil
 - The client's kickoff folder `kickoff/<slug>/`, holding at least `<slug>-context.md` (headings and source tags as new-build-kickoff writes them) and `<slug>-gap-questions.md`. If the context is missing, say new-build-kickoff runs first and stop.
 - Exactly one new source, of one of these kinds:
   - `intake`: an intake form submission (ClickUp form fields prefixed `CON`, `NAP`, `ACC`, `BRD`, `CNT`, `GAP`, `PRF`, including the `GAP Answers` field), pasted or as a file.
+  - `call`: a `<slug>-call-updates.md` file (written by the planned kickoff-call-processing skill).
+  - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the client-feedback skill), or a client email pasted into chat.
   - `call`: a `<slug>-call-updates.md` file (written by kickoff-call-processing).
   - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the planned client-feedback skill), or a client email pasted into chat.
   - `user`: a note from the team, typically that platform access arrived ("Dev verified the GA4 invite").
