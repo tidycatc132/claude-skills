@@ -1,0 +1,13 @@
+{
+  "name": "new-build-kickoff-to-week-1-handoff-check",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "week-1-handoff-check",
+  "format": "csv",
+  "fixture": "fixtures/contracts/new-build-kickoff-url-inventory.csv",
+  "columns": ["url", "title", "page_type", "status", "source"],
+  "required_non_empty": ["url", "page_type"],
+  "enums": {"page_type": ["home", "about", "service", "location", "contact", "blog", "post", "legal", "other"]},
+  "min_rows": 1,
+  "consumer_cmd": "python3 skills/week-1-handoff-check/scripts/handoff_check.py inventory {fixture}"
+}
