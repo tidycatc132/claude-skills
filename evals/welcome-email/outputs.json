@@ -1,0 +1,236 @@
+{
+  "cases": [
+    {
+      "id": "larkspur-open-questions",
+      "prompt": "Use the welcome-email skill. Write the welcome email for Larkspur Family Dental. The kickoff files are in `kickoff/larkspur-family-dental/` and I've already reviewed the gap questions. I'm Jordan Ellis, their Account Manager. Intake form: https://forms.clickup.com/9001/f/abc12-345/LARKSPUR and the Kickoff Call booking page is https://calendly.com/wise-jordan/kickoff",
+      "fixtures": [
+        {
+          "src": "fixtures/welcome-email/larkspur/kickoff/larkspur-family-dental/larkspur-family-dental-context.md",
+          "dest": "kickoff/larkspur-family-dental/larkspur-family-dental-context.md"
+        },
+        {
+          "src": "fixtures/welcome-email/larkspur/kickoff/larkspur-family-dental/larkspur-family-dental-gap-questions.md",
+          "dest": "kickoff/larkspur-family-dental/larkspur-family-dental-gap-questions.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md"
+        },
+        {
+          "type": "regex",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "pattern": "\\AClient: Larkspur Family Dental\\nSubject: \\S[^\\n]{5,}\\n\\n"
+        },
+        {
+          "type": "regex",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "pattern": "^Jordan Ellis\\nAccount Manager, WISE Digital Partners\\s*\\Z"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "When someone new finds you online, should the site push them to book online, call the office, or request an aligner consultation first?"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "Is there a date the new site needs to be live by, such as a school-year checkup push or an aligner promotion?"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "Do you have results you can share, such as how many aligner cases you have finished or before-and-after photos patients agreed to share?"
+        },
+        {
+          "type": "not_contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "Which pages on your current site do patients use most"
+        },
+        {
+          "type": "regex",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "pattern": "^1\\. When someone new finds you online.*^2\\. Is there a date.*^3\\. Do you have results"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "https://forms.clickup.com/9001/f/abc12-345/LARKSPUR"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "https://calendly.com/wise-jordan/kickoff"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "Jordan"
+        },
+        {
+          "type": "not_regex",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "pattern": "(?i)thrilled|excited to (partner|work)|delighted|world-class|cutting-edge|don't hesitate|do not hesitate|synergy|game-changer"
+        },
+        {
+          "type": "not_contains",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "text": "Smile big"
+        },
+        {
+          "type": "not_regex",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "pattern": "\\[[A-Za-z][^\\]]*\\]"
+        },
+        {
+          "type": "max_words",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "n": 400
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "RESULT: PASS"
+        },
+        {
+          "type": "rubric",
+          "target": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md",
+          "label": "agency voice, specific, sourced",
+          "context": [
+            "kickoff/larkspur-family-dental/larkspur-family-dental-context.md",
+            "kickoff/larkspur-family-dental/larkspur-family-dental-gap-questions.md"
+          ],
+          "criteria": [
+            "The email is written by the Account Manager in a plain, warm, professional agency voice: no exclamation-heavy copy, no tooth puns, and none of the practice's own marketing style (its 'Smile big, Larkspur!' tagline and punning posts belong to the client's voice, not the agency's).",
+            "It is specific to this client: it mentions at least one real detail from the client context (such as growing aligner consultations, the online booking push, or same-day crowns) and states no fact about the practice that neither the client context nor the gap questions file (including the AM's answers on its Answer: lines) contains.",
+            "It tells the client what happens next: fill in the intake form (access by invitation rather than sending passwords, business details, brand files, and the questions), book the Kickoff Call, and what the team works on after the call, without promising a specific calendar date."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tidewater-no-open-questions",
+      "prompt": "Use the welcome-email skill. Welcome email for Tidewater Roofing please; kickoff files are in `kickoff/tidewater-roofing/` and I've answered the gap questions myself. I'm Sam Ortiz, AM. Intake form link: https://forms.clickup.com/9001/f/def67-890/TIDEWATER. We don't have a booking link for the Kickoff Call yet.",
+      "fixtures": [
+        {
+          "src": "fixtures/welcome-email/tidewater/kickoff/tidewater-roofing/tidewater-roofing-context.md",
+          "dest": "kickoff/tidewater-roofing/tidewater-roofing-context.md"
+        },
+        {
+          "src": "fixtures/welcome-email/tidewater/kickoff/tidewater-roofing/tidewater-roofing-gap-questions.md",
+          "dest": "kickoff/tidewater-roofing/tidewater-roofing-gap-questions.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md"
+        },
+        {
+          "type": "regex",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "pattern": "\\AClient: Tidewater Roofing\\nSubject: \\S[^\\n]{5,}\\n\\n"
+        },
+        {
+          "type": "regex",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "pattern": "^Sam Ortiz\\nAccount Manager, WISE Digital Partners\\s*\\Z"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "text": "https://forms.clickup.com/9001/f/def67-890/TIDEWATER"
+        },
+        {
+          "type": "not_contains",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "text": "Is there a date the new site needs to be live by"
+        },
+        {
+          "type": "not_contains",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "text": "Which pages on your current site should we keep"
+        },
+        {
+          "type": "not_contains",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "text": "Do you have project photos or numbers"
+        },
+        {
+          "type": "not_regex",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "pattern": "calendly|https?://\\S*book"
+        },
+        {
+          "type": "contains",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "text": "Sam"
+        },
+        {
+          "type": "not_regex",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "pattern": "(?i)thrilled|excited to (partner|work)|delighted|world-class|cutting-edge|don't hesitate|do not hesitate|synergy|game-changer"
+        },
+        {
+          "type": "not_regex",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "pattern": "\\[[A-Za-z][^\\]]*\\]"
+        },
+        {
+          "type": "max_words",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "n": 350
+        },
+        {
+          "type": "contains",
+          "target": "stdout",
+          "text": "RESULT: PASS"
+        },
+        {
+          "type": "rubric",
+          "target": "welcome-email/tidewater-roofing/tidewater-roofing-welcome-email.md",
+          "label": "no questions, no booking link",
+          "context": [
+            "kickoff/tidewater-roofing/tidewater-roofing-context.md",
+            "kickoff/tidewater-roofing/tidewater-roofing-gap-questions.md"
+          ],
+          "criteria": [
+            "The email asks no project questions of its own (all gap questions were already answered) and does not invent a booking link; instead it asks the client to reply with a few times that suit them for the Kickoff Call.",
+            "It is written by the Account Manager in a plain, warm agency voice, mentions at least one real detail from the client context (such as free inspection requests, the insurance claim help, or storm damage), and states no fact about the business that neither the client context nor the gap questions file (including the AM's answers on its Answer: lines) contains."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "larkspur-no-form-link",
+      "prompt": "Use the welcome-email skill. Write the welcome email for Larkspur Family Dental; the kickoff files are in `kickoff/larkspur-family-dental/`. I'm Jordan Ellis, their Account Manager. Booking page: https://calendly.com/wise-jordan/kickoff",
+      "fixtures": [
+        {
+          "src": "fixtures/welcome-email/larkspur/kickoff/larkspur-family-dental/larkspur-family-dental-context.md",
+          "dest": "kickoff/larkspur-family-dental/larkspur-family-dental-context.md"
+        },
+        {
+          "src": "fixtures/welcome-email/larkspur/kickoff/larkspur-family-dental/larkspur-family-dental-gap-questions.md",
+          "dest": "kickoff/larkspur-family-dental/larkspur-family-dental-gap-questions.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "welcome-email/larkspur-family-dental/larkspur-family-dental-welcome-email.md"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)intake form"
+        },
+        {
+          "type": "not_regex",
+          "target": "stdout",
+          "pattern": "forms\\.clickup\\.com"
+        }
+      ]
+    }
+  ]
+}
