@@ -1,0 +1,100 @@
+[00:00:05] Dana Pruitt: Ray, Keisha, thanks for making the time. I know November is still busy for you.
+
+[00:00:11] Ray Okafor: It's fine, the mosquitoes finally gave up. laughs
+
+[00:00:15] Keisha Okafor: Happy to be here.
+
+[00:00:18] Dana Pruitt: Great. So today I want to confirm a few things from your call with Ben in Sales, and then fill the gaps before our SEO team starts the Growth Blueprint. First thing: services. Which one do you most want the new site to sell?
+
+[00:00:34] Ray Okafor: Termites, no question. Termite work is where the money is and it's where we're best. Every house in the older parts of Wilmington has had termites at some point, the people just don't know it yet.
+
+[00:00:49] Keisha Okafor: And mosquito control second. That one's grown every summer since we started it, and it renews by itself.
+
+[00:00:58] Dana Pruitt: And the commercial side, the restaurants?
+
+[00:01:02] Ray Okafor: Honestly we're getting out of restaurants by next spring. The overnight calls are killing my guys. I don't want the new site pushing commercial at all.
+
+[00:01:14] Dana Pruitt: That's really useful. Who's the customer you want more of?
+
+[00:01:19] Ray Okafor: Homeowners in the older neighborhoods, Forest Hills, Carolina Heights, the houses from the twenties and thirties. And people buying a house. Every closing here needs a wood destroying insect report, and a lot of those buyers become quarterly customers after.
+
+[00:01:38] Keisha Okafor: The realtors send us those. We've got maybe a dozen agents who call us every time.
+
+[00:01:45] Dana Pruitt: So home buyers and their realtors are a real audience. Let me ask about area. The Sales notes say Wilmington, Leland and Wrightsville Beach. What about Hampstead and Southport?
+
+[00:01:57] Ray Okafor: Hampstead yes, we've got a truck up there twice a week now. Southport too, but it's a drive, so second tier. Wilmington, Leland and Wrightsville Beach are the core.
+
+[00:02:10] Keisha Okafor: We don't go to Jacksonville. People call from there and we have to say no.
+
+[00:02:16] Dana Pruitt: Got it. Now, how should the site sound?
+
+[00:02:20] Ray Okafor: Like me talking to you on your porch. Plain, honest, no scare tactics. I hate those sites with the cartoon bug and the giant red BOOK NOW button. We're not that.
+
+[00:02:34] Keisha Okafor: And please no chat bot popping up. Our customers are older, they find that annoying.
+
+[00:02:41] Dana Pruitt: Any website you like the look of, any industry?
+
+[00:02:45] Keisha Okafor: Cape Fear Coffee Roasters. It's clean, lots of real photos of their people, nothing fake.
+
+[00:02:53] Dana Pruitt: Great reference. Competitors, who do you lose jobs to?
+
+[00:02:58] Ray Okafor: Coastal Shield Pest, mostly. They're the big one, they've got the TV ads. And Bugaway Wilmington on price.
+
+[00:03:07] Dana Pruitt: We looked at Coastal Shield. Their site has about forty pages, one for every bug and every town, and that's a big part of why they show up first.
+
+[00:03:16] Ray Okafor: Figures.
+
+[00:03:18] Dana Pruitt: What should people know about you that Coastal Shield can't say?
+
+[00:03:23] Ray Okafor: We've done over three thousand termite inspections, and if termites come back within a year of a treatment we retreat for free. And the person who inspects your house is the person who treats it.
+
+[00:03:37] Dana Pruitt: That's strong. Topics you want to be the expert on?
+
+[00:03:41] Ray Okafor: Termite swarm season. Every March and April people see wings on the windowsill and panic. Nobody explains what it means.
+
+[00:03:50] Keisha Okafor: And the wood destroying insect report for closings. Buyers have no idea what it is or why their lender wants it.
+
+[00:03:58] Ray Okafor: Mosquito treatments being safe for kids and dogs, too. That's the first question every mom asks me.
+
+[00:04:06] Dana Pruitt: Perfect. So on scope: with service pages for termites, mosquitoes and general pest control, location pages and a few guides, we're looking at around twenty pages for the build.
+
+[00:04:19] Ray Okafor: Twenty pages, that's great.
+
+[00:04:22] Keisha Okafor: And the monthly email newsletter, you'll handle that too?
+
+[00:04:26] Dana Pruitt: Sure, we can set that up for you.
+
+[00:04:30] Dana Pruitt: Next: you'll get the Growth Blueprint next Friday, and then we start building after you review it.
+
+[00:04:37] Dana Pruitt: Platform access. Where's the domain?
+
+[00:04:40] Keisha Okafor: Namecheap. I'll send you the invite this afternoon.
+
+[00:04:44] Dana Pruitt: And Google Analytics, you sent that one already?
+
+[00:04:47] Keisha Okafor: Yesterday, yes.
+
+[00:04:49] Dana Pruitt: Our developer Marco just confirmed the Analytics invite came through, so that one's done.
+
+[00:04:55] Ray Okafor: Search Console, I don't think we ever set that up.
+
+[00:04:59] Ray Okafor: And the Google Business Profile is mine, I'll add you.
+
+[00:05:03] Dana Pruitt: Great. Hosting?
+
+[00:05:05] Keisha Okafor: Our nephew built the site, he hosts it somewhere. I'll ask him.
+
+[00:05:10] Dana Pruitt: Perfect. That's everything. I'll send a summary today.
+
+[00:05:14] Ray Okafor: Thanks Dana.
+
+---
+
+Dialpad AI Summary:
+- Termites first, mosquito second, exiting commercial
+- Audiences: older-home owners, home buyers and realtors
+- Service area: Wilmington, Leland, Wrightsville Beach core; Hampstead, Southport secondary; not Jacksonville
+- Client wants Spanish-language pages for part of the market
+- Pricing will be shown on the new site
+- Around 20 pages; monthly newsletter
+- Access: Namecheap domain, GA confirmed, GSC not set up, GBP Ray, hosting with nephew

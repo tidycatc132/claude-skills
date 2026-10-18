@@ -1,0 +1,333 @@
+{
+ "cases": [
+  {
+   "id": "tidewater-conflicts",
+   "prompt": "Use the kickoff-call-processing skill. Today's Kickoff Call with Tidewater Pest Control is in `kickoff-call-2026-11-05.txt`; their kickoff folder is `kickoff/tidewater-pest-control/`. Process the call.",
+   "fixtures": [
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control/tidewater-pest-control-context.md",
+     "dest": "kickoff/tidewater-pest-control/tidewater-pest-control-context.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control/tidewater-pest-control-gap-questions.md",
+     "dest": "kickoff/tidewater-pest-control/tidewater-pest-control-gap-questions.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control/tidewater-pest-control-setup-checklist.md",
+     "dest": "kickoff/tidewater-pest-control/tidewater-pest-control-setup-checklist.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control/tidewater-pest-control-project-instructions.md",
+     "dest": "kickoff/tidewater-pest-control/tidewater-pest-control-project-instructions.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control/tidewater-pest-control-url-inventory.csv",
+     "dest": "kickoff/tidewater-pest-control/tidewater-pest-control-url-inventory.csv"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff-call-2026-11-05.txt",
+     "dest": "kickoff-call-2026-11-05.txt"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-quote-bank.md"
+    },
+    {
+     "type": "contains",
+     "path": "stdout",
+     "text": "RESULT: PASS"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "client-context-update",
+     "label": "tells the user to run client-context-update next"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^Source: call\\s*$",
+     "label": "updates header Source: call"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^Date: 2026-11-05\\s*$",
+     "label": "call date taken from the file name"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| # \\| Section \\| Fact \\| Evidence \\|\\s*$",
+     "label": "updates table header"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Scope Summary \\| CONFLICT:[^\\n]*(twenty|20)[^\\n]*12",
+     "label": "page promise flagged against the 12-page SOW"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?im)^\\| \\d+ \\| Scope Summary \\| CONFLICT:[^\\n]*newsletter",
+     "label": "newsletter promise flagged (email marketing excluded)"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?im)^\\|[^\\n]*CONFLICT:[^\\n]*(blueprint)",
+     "label": "Blueprint delivery date is not a scope conflict"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?im)^\\|[^\\n]*CONFLICT:[^\\n]*(forty|40)",
+     "label": "competitor's forty pages is not a promise"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?s)(\\| Scope Summary \\| CONFLICT:.*){3}",
+     "label": "exactly two conflicts: no third CONFLICT row (client repeating twenty is not one)"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Platform Access \\| Google Search Console: not set up",
+     "label": "GSC never set up"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Intake Items \\| Sites they like: received[^\\n]*Cape Fear Coffee",
+     "label": "design reference recorded as an intake item"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Platform Access \\| Google Analytics: confirmed",
+     "label": "GA confirmed by WISE on the call"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Platform Access \\| Domain: no answer",
+     "label": "domain: client will send an invite, so no answer yet"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?ms)^## Services Priority\\n.*^## Audiences\\n.*^## Service Area Tiers\\n.*^## Voice and Design Direction\\n.*^## Competitors\\n.*^## Topics to Own\\n.*^## Goals and Success Measures\\n.*^## Scope Decisions\\n.*^## Open Items\\n",
+     "label": "package sections in order"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?s)## Scope Decisions\\n(?:(?!\\n## ).)*CONFLICT:",
+     "label": "Scope Decisions carries the CONFLICT"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?s)## Scope Decisions\\n(?:(?!\\n## ).)*SOW pages: 12",
+     "label": "Scope Decisions states the scope source count"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?s)## Services Priority\\n(?:(?!\\n## ).)*[Tt]ermite",
+     "label": "termites in services priority"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?s)## Service Area Tiers\\n(?:(?!\\n## ).)*Southport",
+     "label": "Southport in service area tiers"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?s)## Competitors\\n(?:(?!\\n## ).)*Coastal Shield",
+     "label": "competitor named"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "pattern": "(?i)spanish",
+     "label": "AI-summary-only claim not used"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md",
+     "pattern": "(?i)spanish|pricing will be shown",
+     "label": "AI-summary-only claims not in updates"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-quote-bank.md",
+     "pattern": "(?m)^\\| # \\| Quote \\| Speaker \\| Timestamp \\| Use for \\|\\s*$",
+     "label": "quote bank header"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-quote-bank.md",
+     "pattern": "(?m)^\\|[^\\n]*\\| Dana Pruitt \\|",
+     "label": "no quotes from the AM"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-quote-bank.md",
+     "pattern": "(?m)^\\| 8 \\|",
+     "label": "at least 8 quotes"
+    },
+    {
+     "type": "rubric",
+     "target": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md",
+     "context": [
+      "kickoff-call-2026-11-05.txt"
+     ],
+     "criteria": [
+      "Every statement in the package is supported by what was said in the transcript's timestamped turns (the Dialpad AI Summary at the end is not evidence); nothing is invented or exaggerated",
+      "The package would let an SEO strategist plan the Growth Blueprint without opening the transcript: it says termites first, mosquito second and commercial being dropped, names home buyers and realtors as an audience, gives core and secondary areas and says Jacksonville is out, and lists the three topics the client wants to own"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "bramble-no-conflict",
+   "prompt": "Use the kickoff-call-processing skill on `kickoff-call-transcript.txt`, the Kickoff Call with Bramble and Oak Bakery. Their kickoff files are in `kickoff/bramble-and-oak-bakery/`.",
+   "fixtures": [
+    {
+     "src": "fixtures/kickoff-call-processing/bramble/kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-context.md",
+     "dest": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-context.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/bramble/kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-gap-questions.md",
+     "dest": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-gap-questions.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/bramble/kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-project-instructions.md",
+     "dest": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-project-instructions.md"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/bramble/kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-url-inventory.csv",
+     "dest": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-url-inventory.csv"
+    },
+    {
+     "src": "fixtures/kickoff-call-processing/bramble/kickoff-call-transcript.txt",
+     "dest": "kickoff-call-transcript.txt"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-blueprint-input-package.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-quote-bank.md"
+    },
+    {
+     "type": "contains",
+     "path": "stdout",
+     "text": "RESULT: PASS"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md",
+     "pattern": "(?m)^Date: 2026-11-12\\s*$",
+     "label": "call date from the transcript's first line"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-blueprint-input-package.md",
+     "pattern": "CONFLICT:",
+     "label": "no conflict when the call restates the 8-page scope"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md",
+     "pattern": "CONFLICT:",
+     "label": "no conflict rows"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Platform Access \\| Domain: no answer",
+     "label": "domain invite promised but not sent, so no answer yet"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md",
+     "pattern": "(?m)^\\| \\d+ \\| Customers and Service Area \\|[^\\n]*Buncombe",
+     "label": "delivery area answered"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-call-updates.md",
+     "pattern": "(?im)^\\| \\d+ \\| Goals and Conversion \\|[^\\n]*form",
+     "label": "cake orders through a form on the site"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-blueprint-input-package.md",
+     "pattern": "(?ms)^## Services Priority\\n.*^## Audiences\\n.*^## Service Area Tiers\\n.*^## Voice and Design Direction\\n.*^## Competitors\\n.*^## Topics to Own\\n.*^## Goals and Success Measures\\n.*^## Scope Decisions\\n.*^## Open Items\\n",
+     "label": "package sections in order"
+    },
+    {
+     "type": "not_regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-quote-bank.md",
+     "pattern": "(?m)^\\|[^\\n]*\\| Lena Ortiz \\|",
+     "label": "no quotes from the AM"
+    },
+    {
+     "type": "regex",
+     "path": "kickoff/bramble-and-oak-bakery/bramble-and-oak-bakery-quote-bank.md",
+     "pattern": "(?m)^\\| \\d+ \\| [^|]+ \\| Hollis Grant \\| 00:00:\\d\\d \\|",
+     "label": "quote rows with speaker and HH:MM:SS timestamp"
+    }
+   ]
+  },
+  {
+   "id": "no-kickoff-folder",
+   "prompt": "Use the kickoff-call-processing skill. Process `kickoff-call-2026-11-05.txt`, our Kickoff Call with Tidewater Pest Control.",
+   "fixtures": [
+    {
+     "src": "fixtures/kickoff-call-processing/tidewater/kickoff-call-2026-11-05.txt",
+     "dest": "kickoff-call-2026-11-05.txt"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_absent",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-call-updates.md"
+    },
+    {
+     "type": "file_absent",
+     "path": "kickoff/tidewater-pest-control/tidewater-pest-control-blueprint-input-package.md"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "new-build-kickoff",
+     "label": "says new-build-kickoff runs first"
+    }
+   ]
+  }
+ ]
+}

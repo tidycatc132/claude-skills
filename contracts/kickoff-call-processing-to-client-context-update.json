@@ -1,0 +1,18 @@
+{
+  "name": "kickoff-call-processing-to-client-context-update",
+  "version": 1,
+  "producer": "kickoff-call-processing",
+  "consumer": "client-context-update",
+  "format": "json",
+  "fixture": "fixtures/contracts/kickoff-call-processing-updates.json",
+  "keys": [
+    "Client",
+    "Source",
+    "Date",
+    "From",
+    "rows"
+  ],
+  "producer_cmd": "python3 skills/kickoff-call-processing/scripts/process_call.py render fixtures/kickoff-call-processing/tidewater/kickoff/tidewater-pest-control --transcript fixtures/kickoff-call-processing/tidewater/kickoff-call-2026-11-05.txt --plan fixtures/contracts/kickoff-call-processing-plan.json",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-context-update/scripts/update_context.py updates fixtures/contracts/kickoff-call-processing-call-updates.md"
+}

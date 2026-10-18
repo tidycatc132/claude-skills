@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Tom from Quarry Ridge Electric replied to the Week 1 email with his notes on the homepage and the designs. Sort his feedback and draft my reply.",
+    "The client came back on the homepage copy and design options. Here's their email: they like Option B, want the headline changed, and asked for 8 town pages. What do we do with each point?",
+    "Process the client's feedback on the Week 1 deliverables for Linden & Rowe and write the reply. Their email is in feedback-email.txt and the kickoff folder is kickoff/linden-rowe-family-law/.",
+    "Triage this client reply on the homepage: who owns each change, is anything out of scope, and give me a response I can send.",
+    "Mark sent his thoughts on the three homepage designs and the copy. Turn it into a feedback table with types and owners and flag anything that goes beyond the SOW.",
+    "Here's the client's response to our homepage review email. Pull out the facts they told us for the client context and draft a reply in our voice.",
+    "Client feedback just landed for Atlas Physio's homepage options. Categorize it as content, design, scope, question or approval and write back to them.",
+    "Grace approved Option A and the copy and asked one question about photos. Log the feedback and draft the response."
+  ],
+  "should_not_trigger": [
+    "Draft the end-of-Week-1 email that sends Quarry Ridge Electric the three homepage design options and the copy.",
+    "Merge this feedback-updates file into the Quarry Ridge Electric client context and refresh the missing items.",
+    "Write the welcome email for Linden & Rowe Family Law with the intake form link and the gap questions.",
+    "Here's the Kickoff Call transcript for Quarry Ridge Electric. Process it into the call updates, Blueprint Input Package and quote bank.",
+    "Write the homepage design brief for Quarry Ridge Electric now that the copy passed editorial review.",
+    "Rewrite the Quarry Ridge Electric homepage copy from the content brief.",
+    "Audit this homepage draft for E-E-A-T and tell me if it's ready to publish.",
+    "Analyze the Google reviews for Quarry Ridge Electric and summarize what customers complain about.",
+    "Post this progress update to the ClickUp task for the Quarry Ridge build.",
+    "Prepare the AM's brief for tomorrow's Kickoff Call with Linden & Rowe.",
+    "Tom at Quarry Ridge emailed: they actually opened in 2009 and they've added EV charger installation. Update the client context with that."
+  ]
+}
