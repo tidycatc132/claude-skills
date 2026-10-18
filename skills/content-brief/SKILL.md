@@ -1,6 +1,6 @@
 ---
 name: content-brief
-description: Use when rows of a saved keyword-research report must become writer-ready content briefs, the step between keyword research and drafting. Trigger on "create the content brief for target X", "brief the November calendar items", "turn the keyword research into briefs", "spec out the page for the writer". Researches each row (cannibalization, SERP, questions, entities, sourced evidence, links, YMYL), reads the client's brand.md, voice.md, style.md, audience.md and compliance.md (industry defaults for missing voice or style), and writes one gated brief per row to research/content-briefs with numbered client-input slots instead of guesses. Do NOT use for finding keywords (use keyword-research), writing the page from a brief (use seo-content-writer), a SERP teardown of one query (use serp-analysis), topics competitors cover that the site lacks (use content-gap-analysis), internal-link plans for existing pages (use site-structure-optimizer), or building the client voice and style kit (use client-reference-kit).
+description: Use when rows of a saved keyword-research report must become writer-ready content briefs, the step between keyword research and drafting. Trigger on "create the content brief for target X", "brief the November calendar items", "turn the keyword research into briefs", "spec out the page for the writer". Researches each row (cannibalization, SERP, questions, entities, sourced evidence, links, YMYL), reads the client's brand.md, voice.md, style.md, audience.md and compliance.md, and writes one gated brief per row, homepage included, to research/content-briefs with numbered client-input slots instead of guesses. Do NOT use for finding keywords (use keyword-research), writing the page from a brief (use seo-content-writer), a SERP teardown of one query (use serp-analysis), topics competitors cover that the site lacks (use content-gap-analysis), internal-link plans for existing pages (use site-structure-optimizer), or building the client voice and style kit (use client-reference-kit).
 ---
 
 # Content Brief
@@ -57,7 +57,7 @@ Look in Project knowledge (or, outside a Project, the attached files and the wor
 | `audience.md` | Who the page is for, what they already know, what worries them |
 | `compliance.md` | Claim restrictions, regulated language, required disclaimers, whether the client is YMYL |
 
-Facts the keyword-research report states about the client (domain, service area, market) may be used and attributed to the report; the client's own files win when they disagree. No missing file stops a run.
+Client files the user names (a kickoff context, call notes, a quote bank) are read too, for the facts they state; cite them as `file:` evidence. Facts the keyword-research report states about the client (domain, service area, market) may be used and attributed to the report; the client's own files win when they disagree. No missing file stops a run.
 
 - `brand.md`, `audience.md`, `compliance.md` missing: every fact the brief would have taken from the file becomes a numbered `[CLIENT INPUT NEEDED #n]` slot where the page needs it.
 - `voice.md` or `style.md` missing: determine the industry (from `brand.md`, else from the client domain, services and topic), read `references/defaults/README.md`, and use the matching industry default for the missing file only: `references/defaults/home-services-voice.md` and `references/defaults/home-services-style.md`, `references/defaults/financial-services-voice.md` and `references/defaults/financial-services-style.md`, `references/defaults/legal-voice.md` and `references/defaults/legal-style.md`, or `references/defaults/b2b-saas-voice.md` and `references/defaults/b2b-saas-style.md`. A client's own file always wins, file by file.
@@ -90,6 +90,8 @@ Voice and style: when the source is `client`, point the writer to the file by na
 A brief only ships after it passes the gate. Run:
 
 `python3 <skill-folder>/scripts/check_brief.py <brief.md>`
+
+For a homepage add `--client-dir <client folder>` and `--facts <file>` for each other client file the brief took facts from, so the gate can trace every phone, hour, review and credential to a file. When the client files live only in Project knowledge, save copies to a folder first and pass that. A fact the gate cannot trace becomes a slot; never pass the brief or the keyword report as a client file.
 
 It checks the structure deterministically: front-matter fields, format values, required sections and their order, question headings, sub-question and entity counts, evidence rows with URLs and dates, banned instructions, slot accounting and status consistency. Then check what a script cannot, reading the brief as the writer would:
 
