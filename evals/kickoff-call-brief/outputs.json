@@ -1,0 +1,263 @@
+{
+  "cases": [
+    {
+      "id": "quarryhill-after-intake",
+      "prompt": "Use the kickoff-call-brief skill. The Kickoff Call with Quarry Hill Landscaping is tomorrow; their kickoff folder is `kickoff/quarry-hill-landscaping/` (the intake form has already been merged). Write the brief for the AM.",
+      "fixtures": [
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-context.md",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-context.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-gap-questions.md",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-gap-questions.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-missing-items.md",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-missing-items.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-url-inventory.csv",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-project-instructions.md",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-project-instructions.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/quarryhill/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-change-log.md",
+          "dest": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-change-log.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "\\AClient: Quarry Hill Landscaping\\n",
+          "label": "Client line first"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?ms)^## Call Goals\\n.*^## What We Know\\n.*^## Questions to Settle\\n.*^## Scope to Confirm\\n.*^## Access to Confirm\\n.*^## Relationship Notes\\s*\\Z",
+          "label": "six sections in order, Relationship Notes blank at the end"
+        },
+        {
+          "type": "max_lines",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "n": 120
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(R4, Q1\\) ",
+          "label": "R4 and Q1 asked together"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(R9, Q3\\) ",
+          "label": "R9 and Q3 together"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(R8\\) ",
+          "label": "R8 left for the call is asked"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(G1\\) [^\\n]*Coeur d'Alene",
+          "label": "open GAP bullet becomes a question"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(C1\\) [^\\n]*(2009[^\\n]*2011|2011[^\\n]*2009)",
+          "label": "founding-year conflict to confirm with both years"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "\\b(R6|Q2)\\b",
+          "label": "answered items (R6, Q2) left out"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^- Page count in scope: 12 \\[sow\\]$",
+          "label": "scope source page count"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?m)^- Paid media: not in scope$",
+          "label": "paid media status"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?s)## Scope to Confirm\\n((?!## Access to Confirm).)*\\(C2\\)[^\\n]*twenty posts",
+          "label": "Sales blog promise is a scope item, not a question"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?s)## Access to Confirm\\n((?!## Relationship Notes).)*Google Search Console: not sure",
+          "label": "unconfirmed platform listed"
+        },
+        {
+          "type": "not_contains",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "text": "Google Analytics",
+          "label": "confirmed access not listed"
+        },
+        {
+          "type": "not_contains",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "text": "Gap question answers",
+          "label": "gap answers item not repeated as access"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "pattern": "(?s)## What We Know\\n((?!## Questions to Settle).)*(GAP:|CONFLICT:)",
+          "label": "What We Know holds no gaps or conflicts"
+        },
+        {
+          "type": "rubric",
+          "target": "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md",
+          "context": [
+            "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-context.md",
+            "kickoff/quarry-hill-landscaping/quarry-hill-landscaping-missing-items.md"
+          ],
+          "criteria": [
+            "Every fact stated in Call Goals and What We Know appears in the reference client context or the reference missing items file; nothing about the client is invented (no new numbers, names, dates or services).",
+            "Each numbered line under Questions to Settle, after its ids, is something the account manager can say or ask the client on the call in plain words, not a copy of internal notes such as 'asked in Q1' or 'left for the call'."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tidewater-before-intake",
+      "prompt": "Use the kickoff-call-brief skill. We have the Tidewater Mobile Vet kickoff call on Monday and the intake form hasn't come back yet. Their files are in `kickoff/tidewater-mobile-vet/`. Write the Kickoff Call brief.",
+      "fixtures": [
+        {
+          "src": "fixtures/kickoff-call-brief/tidewater/kickoff/tidewater-mobile-vet/tidewater-mobile-vet-context.md",
+          "dest": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-context.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/tidewater/kickoff/tidewater-mobile-vet/tidewater-mobile-vet-gap-questions.md",
+          "dest": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-gap-questions.md"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/tidewater/kickoff/tidewater-mobile-vet/tidewater-mobile-vet-url-inventory.csv",
+          "dest": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/kickoff-call-brief/tidewater/kickoff/tidewater-mobile-vet/tidewater-mobile-vet-paid-media-brief.md",
+          "dest": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-paid-media-brief.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?ms)^## Call Goals\\n.*^## What We Know\\n.*^## Questions to Settle\\n.*^## Scope to Confirm\\n.*^## Access to Confirm\\n.*^## Relationship Notes\\s*\\Z",
+          "label": "six sections in order, Relationship Notes blank at the end"
+        },
+        {
+          "type": "max_lines",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "n": 120
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?m)^- Page count in scope: 8 \\[sow\\]$",
+          "label": "SOW page count"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?m)^- Paid media: in scope$",
+          "label": "paid media in scope from the brief file"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?m)^\\d+\\. \\(R3, Q3\\) [^\\n]*Portsmouth",
+          "label": "confirmation question asked with its R item"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "\\bR8\\b",
+          "label": "n/a requirement left out"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?m)^- Google Ads: no record yet$",
+          "label": "ad platform listed when paid media is in scope"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md",
+          "pattern": "(?m)^- Website login:",
+          "label": "no website login line when there is no website"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/tidewater-mobile-vet/tidewater-mobile-vet-missing-items.md",
+          "label": "does not write client-context-update's file"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)intake",
+          "label": "answer says access is unknown until the intake form is merged"
+        }
+      ]
+    },
+    {
+      "id": "no-kickoff-folder",
+      "prompt": "Use the kickoff-call-brief skill. Write the Kickoff Call brief for Larch Street Pilates; the call is this afternoon.",
+      "fixtures": [],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "kickoff/larch-street-pilates/larch-street-pilates-kickoff-call-brief.md",
+          "label": "no brief without kickoff files"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "new-build-kickoff",
+          "label": "points to new-build-kickoff"
+        }
+      ]
+    }
+  ]
+}

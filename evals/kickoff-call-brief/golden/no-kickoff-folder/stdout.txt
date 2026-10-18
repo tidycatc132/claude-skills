@@ -1,0 +1,14 @@
+I couldn't write the brief. There's no kickoff folder for Larch Street Pilates here, so nothing was written.
+
+I searched the working directory (`/tmp/harness-eval-sa1x6svu`) for `kickoff/larch-street-pilates/` and for anything with "larch" in its name. The search found neither the folder nor `larch-street-pilates-context.md`.
+
+The skill says that when the context file is missing, `new-build-kickoff` has to run first. So I stopped there and didn't make anything up.
+
+My Bash call was also denied in this session. That means I couldn't run the skill's `items` and `check` script even if the folder existed. It would have to be allowed before I could finish the run.
+
+Before the call this afternoon, you could do one of these:
+- **Folder exists elsewhere:** tell me its path, or copy it into the working directory.
+- **Kickoff not run yet:** run `new-build-kickoff` for Larch Street Pilates first. I'd need the SOW, or the Sales discovery notes if there's no SOW, to do that.
+- **Bash permission:** allow Bash so the script can list the open items and run the final check.
+
+If you want a brief right now without the folder, I can write a rough call-prep outline from whatever you paste in. It wouldn't be the skill's format and wouldn't pass the checker.
