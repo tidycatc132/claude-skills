@@ -1,0 +1,11 @@
+{
+  "<!-- section: Hero -->": "the H1",
+  "<!-- section: Why Us -->": "question H2",
+  "<!-- section: Services Overview -->": "question H2",
+  "<!-- section: Proof -->": "question H2",
+  "<!-- section: About Snapshot -->": "question H2",
+  "<!-- section: Service Area -->": "question H2",
+  "<!-- section: Process -->": "question H2",
+  "<!-- section: FAQ -->": "optional, between Process and Final CTA",
+  "<!-- section: Final CTA -->": "question H2"
+}

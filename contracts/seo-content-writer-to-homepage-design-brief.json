@@ -1,0 +1,20 @@
+{
+  "name": "seo-content-writer-to-homepage-design-brief",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "homepage-design-brief",
+  "format": "json",
+  "fixture": "fixtures/contracts/seo-content-writer-homepage-sections.json",
+  "keys": [
+    "<!-- section: Hero -->",
+    "<!-- section: Why Us -->",
+    "<!-- section: Services Overview -->",
+    "<!-- section: Proof -->",
+    "<!-- section: About Snapshot -->",
+    "<!-- section: Service Area -->",
+    "<!-- section: Process -->",
+    "<!-- section: FAQ -->",
+    "<!-- section: Final CTA -->"
+  ],
+  "consumer_cmd": "python3 skills/homepage-design-brief/scripts/section_map.py --known {fixture}"
+}
