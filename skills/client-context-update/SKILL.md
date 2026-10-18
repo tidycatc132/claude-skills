@@ -13,7 +13,7 @@ Folds one new source of client information into the kickoff folder that new-buil
 - Exactly one new source, of one of these kinds:
   - `intake`: an intake form submission (ClickUp form fields prefixed `CON`, `NAP`, `ACC`, `BRD`, `CNT`, `GAP`, `PRF`, including the `GAP Answers` field), pasted or as a file.
   - `call`: a `<slug>-call-updates.md` file (written by the planned kickoff-call-processing skill).
-  - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the planned client-feedback skill), or a client email pasted into chat.
+  - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the client-feedback skill), or a client email pasted into chat.
   - `user`: a note from the team, typically that platform access arrived ("Dev verified the GA4 invite").
 
   Updates files follow [Updates Format](references/updates-format.md). A raw call transcript is not a source for this skill; say it must first become a call-updates file in that format. If several sources arrive at once, run the steps once per source, oldest first.
