@@ -1,0 +1,40 @@
+{
+  "id": "landscaping-bend-oregon",
+  "brief_version": 1,
+  "status": "DONE_WITH_CONCERNS",
+  "date": "2026-10-17",
+  "client": "Fernhollow Landscaping",
+  "client_domain": "fernhollowlandscaping.com",
+  "market": "en-us, Bend, Oregon",
+  "language": "en",
+  "page_url": "/",
+  "mode": "new",
+  "existing_url": "N/A",
+  "primary_keyword": "landscaping bend oregon",
+  "secondary_keywords": [
+    "landscaper bend",
+    "landscaping company bend oregon"
+  ],
+  "intent": "Transactional",
+  "funnel": "BOFU",
+  "format": "homepage",
+  "format_embedded": [],
+  "format_source": "home page",
+  "metrics": {
+    "volume": 880,
+    "kd": 21,
+    "source": "Measured"
+  },
+  "geo_candidate": true,
+  "geo_answer_format": "direct answer",
+  "cluster": "Landscaping services",
+  "pillar_url": "N/A",
+  "ymyl": false,
+  "local": true,
+  "cannibalization": "clear (no site)",
+  "voice_source": "default/home-services",
+  "style_source": "default/home-services",
+  "word_range": "450-900",
+  "client_inputs_open": 2,
+  "source_report": "research/keyword-research/2026-10-16-new-site.md"
+}

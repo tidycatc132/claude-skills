@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "Here's the Dialpad transcript from today's Kickoff Call with Tidewater Pest Control (kickoff-call-2026-11-05.txt). Process it into the Blueprint inputs for SEO.",
+    "Process the kickoff call transcript for Bramble and Oak Bakery against their kickoff folder and write the call-updates file.",
+    "We just finished the orientation call with Copperline Plumbing. Turn the transcript into the Blueprint Input Package and a quote bank.",
+    "Pull 8 to 12 verbatim client quotes with timestamps out of the Ridgeview Roofing kickoff call transcript and save the quote bank, plus the rest of the post-call files.",
+    "The AM promised more pages on the kickoff call than the SOW allows, I think. Process the Atlas Physio call transcript and flag anything that conflicts with scope.",
+    "Kickoff call recording transcript for Summit Auto Glass is attached. Write the call updates for the client context and the handoff package SEO needs to start the Growth Blueprint.",
+    "Allison's call with Maple Row Bakery is done, transcript is maple-row-kickoff.txt. Do the post-call processing: services priority, service area tiers, voice, competitors, topics to own.",
+    "Turn this orientation call transcript into the Blueprint input package for Lakeside Pediatrics. Their kickoff folder is kickoff/lakeside-pediatrics/."
+  ],
+  "should_not_trigger": [
+    "Kick off Copperline Plumbing, copperlineplumbing.com, Tacoma metro. The Sales transcript and the signed SOW are in this folder.",
+    "Here's the call-updates file from the Ridgeview Roofing kickoff call. Fold it into ridgeview-roofing-context.md and log every change.",
+    "Fernhill Veterinary Clinic just submitted the intake form. Merge it into their kickoff context.",
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Tidewater Pest Control from their site and our project files.",
+    "Prepare the AM's pre-call brief for tomorrow's Kickoff Call with Tidewater Pest Control from their kickoff folder.",
+    "Summarize this Zoom transcript of our internal sprint retro into action items for the dev team.",
+    "Plan the sitemap and page hierarchy for tidewaterpest.com within the 12 pages in the SOW.",
+    "Do keyword research for termite inspection in Wilmington, NC.",
+    "Sync the kickoff call action items for Tidewater Pest Control to ClickUp as tasks."
+  ]
+}
