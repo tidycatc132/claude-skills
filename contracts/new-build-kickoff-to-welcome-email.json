@@ -1,0 +1,12 @@
+{
+  "name": "new-build-kickoff-to-welcome-email",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "welcome-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/new-build-kickoff-gap-questions.json",
+  "keys": ["number", "question", "answer"],
+  "producer_cmd": "python3 skills/welcome-email/scripts/open_questions.py fixtures/contracts/new-build-kickoff-gap-questions.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/welcome-email/scripts/open_questions.py --validate {fixture}"
+}

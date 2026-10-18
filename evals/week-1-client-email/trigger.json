@@ -1,0 +1,20 @@
+{
+  "should_trigger": [
+    "Draft the Week 1 email to Fernbrook Veterinary Clinic sending Dr. Ruiz the three homepage design options and the homepage copy.",
+    "The homepage designs for Oakhurst Landscape Co. are ready: Ridgeline https://figma.com/a and Creekside https://figma.com/b. Write the email to Marcus that sends them with the copy.",
+    "Write the end-of-week-1 client email for Hill Street Dental with the design variant links and ask for feedback by Friday.",
+    "We're sending Copperline Plumbing their homepage calibration package. Draft the email with both design links, the content doc and what we need back from them.",
+    "Design signed off internally on the 3 homepage variants for Larkspur Family Dental. Put together the client email that delivers them with the homepage content and lists what they still owe us.",
+    "Send-out email for the homepage options: client Tidewater Roofing, contact Dana, options Coastal and Summit, copy is attached. Reply-by next Wednesday."
+  ],
+  "should_not_trigger": [
+    "Write the welcome email for Copperline Plumbing with the intake form link and the gap questions.",
+    "Dr. Ruiz replied about the homepage designs: she likes Meadow but wants a warmer photo and the hours are wrong. Sort the feedback and draft our reply.",
+    "Write the homepage design brief for Fernbrook Veterinary Clinic from the reviewed copy.",
+    "Write the homepage copy for Oakhurst Landscape Co. from this brief.",
+    "Merge the intake form answers into the Fernbrook client context and update the missing items.",
+    "Prepare the AM's brief for the Fernbrook Kickoff Call.",
+    "Post a progress update on the Fernbrook build to ClickUp.",
+    "Check that Week 1 is complete for Fernbrook before we move to Week 2."
+  ]
+}

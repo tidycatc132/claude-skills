@@ -1,0 +1,18 @@
+{
+  "name": "client-feedback-to-client-context-update",
+  "version": 1,
+  "producer": "client-feedback",
+  "consumer": "client-context-update",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-updates.json",
+  "keys": [
+    "Client",
+    "Source",
+    "Date",
+    "From",
+    "rows"
+  ],
+  "producer_cmd": "python3 skills/client-feedback/scripts/feedback.py updates-json fixtures/client-feedback/quarry-ridge/kickoff/quarry-ridge-electric --feedback fixtures/client-feedback/quarry-ridge/feedback-email.txt --plan fixtures/contracts/client-feedback-plan.json",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-context-update/scripts/update_context.py updates fixtures/contracts/client-feedback-feedback-updates.md"
+}

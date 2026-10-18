@@ -1,0 +1,12 @@
+{
+  "name": "new-build-kickoff-to-client-context-update",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "client-context-update",
+  "format": "json",
+  "fixture": "fixtures/contracts/new-build-kickoff-context-outline.json",
+  "keys": ["## Snapshot", "## Website Today", "## Scope Summary", "## Open Items", "## Sources", "SOW pages:", "GAP:", "CONFLICT:"],
+  "producer_cmd": "python3 skills/client-context-update/scripts/update_context.py outline fixtures/contracts/new-build-kickoff-context-sample.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-context-update/scripts/update_context.py outline --validate {fixture}"
+}

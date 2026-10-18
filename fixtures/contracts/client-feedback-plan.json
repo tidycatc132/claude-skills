@@ -1,0 +1,21 @@
+{"date":"2026-11-17","from":"feedback-email.txt","contact":"Tom Haugen","am":"Dana Whitcomb",
+"items":[
+{"feedback":"the messaging sounds like us, especially the part about flat-rate pricing.","type":"approval","affects":"homepage copy","impact":"none","action":"Record approval of the messaging","owner":"AM"},
+{"feedback":"It says we started in 2011 but we actually opened in 2009","type":"content","affects":"homepage copy","impact":"low","action":"Change the founding year to 2009","owner":"Content"},
+{"feedback":"we've added EV charger installation since we talked, that's become a big chunk of our calls this fall, so it should be on the homepage somewhere near the generator section.","type":"content","affects":"homepage copy","impact":"medium","action":"Add EV charger installation near the generator section","owner":"Content"},
+{"feedback":"The headline \"Rochester's Panel Upgrade Experts\" feels a little stiff. Can it say something more like we're the electricians your neighbors already call?","type":"content","affects":"homepage copy: hero","impact":"low","action":"Rewrite the H1 around neighbors","owner":"Content"},
+{"feedback":"we like Option B the best.","type":"design","affects":"homepage design: Option B","impact":"none","action":"Go with Option B","owner":"Design"},
+{"feedback":"Could you swap the navy for our green though? The green from the trucks.","type":"design","affects":"homepage design: Option B","impact":"low","action":"Swap navy for truck green; ask for the color code","owner":"Design"},
+{"feedback":"we'd really like a page for each town we work in. Rochester, Byron, Stewartville, Kasson, Pine Island, Oronoco, Chatfield and Eyota. That's 8 town pages. Is that doable?","type":"scope","affects":"site scope","impact":"high","action":"Explain town pages beyond 2 need a change order","owner":"AM","verdict":"outside","pages":8,"basis":"Eight town pages against an SOW allowing up to 2 location pages."},
+{"feedback":"Also, when do we get to see the service pages? We have a big generator promo planned for January and want the site up before then.","type":"question","affects":"timeline","impact":"low","action":"Confirm the schedule","owner":"AM"},
+{"feedback":"I sent the Google Analytics invite to dana@wisedigitalpartners.com this morning.","type":"content","affects":"platform access","impact":"none","action":"Accept GA invite","owner":"Dev"},
+{"feedback":"Logo files are attached to this email.","type":"content","affects":"intake items","impact":"none","action":"File the logos","owner":"AM"}
+],
+"facts":[
+{"section":"Business Overview","fact":"Opened in 2009; ran out of a garage for two years before the shop","evidence":"we actually opened in 2009, Tom Sr. ran it out of the garage for two years before we got the shop"},
+{"section":"Services","fact":"EV charger installation, added since the sales call and now a big share of calls this fall","evidence":"we've added EV charger installation since we talked, that's become a big chunk of our calls this fall"},
+{"section":"Platform Access","fact":"Google Analytics: invite sent, to Dana on 2026-11-17","evidence":"I sent the Google Analytics invite to dana@wisedigitalpartners.com this morning."},
+{"section":"Intake Items","fact":"Logo files: received, attached to the feedback email","evidence":"Logo files are attached to this email."},
+{"section":"Scope Summary","fact":"CONFLICT: Tom Haugen asked for 8 town pages; the SOW allows up to 2 location pages within 12 pages (SOW pages: 12); the build follows the SOW until a signed change","evidence":"we'd really like a page for each town we work in."}
+],
+"reply":{"subject":"Re: Quarry Ridge Electric: your homepage is ready to review","body":"Hi Tom,\n\nThanks to you and Jen for going through everything. We'll fix the year to 2009, add EV chargers near generators, and soften the headline. Option B in your truck green it is.\n\nThe 8 town pages go beyond what our current agreement covers, which includes up to 2 location pages. I'll send you a quote for adding the others.\n\nOn the service pages, I'll confirm timing with the team.\n\nPlease don't send logins by email; invite us as a user instead, and I'd suggest changing that GoDaddy password.\n\nThanks for the logo files and the Analytics invite."}}

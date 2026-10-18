@@ -1,0 +1,467 @@
+{
+  "cases": [
+    {
+      "id": "copperline-full-kickoff",
+      "prompt": "Use the new-build-kickoff skill. Kick off Copperline Plumbing, copperlineplumbing.com, Tacoma metro. There is no WebFetch, WebSearch or internet access in this session. The Sales transcript is in `sales/`, the signed SOW is `sow.md`, and the client's website was saved yesterday to `site/` (one HTML file per page plus `sitemap.xml`); treat those files as the site crawl.",
+      "fixtures": [
+        {
+          "src": "fixtures/new-build-kickoff/copperline/sales/sales-call-2026-09-30.txt",
+          "dest": "sales/sales-call-2026-09-30.txt"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/sow.md",
+          "dest": "sow.md"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/site/index.html",
+          "dest": "site/index.html"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/site/about.html",
+          "dest": "site/about.html"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/site/services.html",
+          "dest": "site/services.html"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/site/contact.html",
+          "dest": "site/contact.html"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/copperline/site/sitemap.xml",
+          "dest": "site/sitemap.xml"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-url-inventory.csv"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-project-instructions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-setup-checklist.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-paid-media-brief.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-brand-brief-draft.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-review-baseline.md"
+        },
+        {
+          "type": "csv_columns",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-url-inventory.csv",
+          "columns": [
+            "url",
+            "title",
+            "page_type",
+            "status",
+            "source"
+          ]
+        },
+        {
+          "type": "csv_min_rows",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-url-inventory.csv",
+          "n": 7
+        },
+        {
+          "type": "csv_enum",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-url-inventory.csv",
+          "column": "page_type",
+          "values": [
+            "home",
+            "about",
+            "service",
+            "location",
+            "contact",
+            "blog",
+            "post",
+            "legal",
+            "other"
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-context.md",
+          "pattern": "(?m)^SOW pages: 12\\b",
+          "label": "page count taken from the SOW"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-context.md",
+          "pattern": "(?i)\\b(15|fifteen)\\b[^\\n]{0,120}(page|transcript|sales|call)|(transcript|sales|call)[^\\n]{0,120}\\b(15|fifteen)\\b",
+          "label": "Sales call's fifteen pages flagged against the SOW"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-context.md",
+          "pattern": "(?i)tankless",
+          "label": "growth priority captured"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-context.md",
+          "pattern": "(?i)Rooter Bros",
+          "label": "competitor from the transcript captured"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?ms)^\\s*1\\.\\s.*^\\s*2\\.\\s.*^\\s*3\\.\\s",
+          "label": "at least 3 numbered questions"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?m)^\\s*6\\.\\s",
+          "label": "no more than 5 questions"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?m)^Answer:\\s*$",
+          "label": "blank Answer lines for the intake form"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?im)^\\s*[1-5]\\.\\s[^\\n]*(competitor|compet|rank above)",
+          "label": "does not ask what the transcript answered (competitors)"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?im)^\\s*[1-5]\\.\\s[^\\n]*(service area|which cities|areas do you serve|main conversion|how do customers contact)",
+          "label": "does not ask what the transcript answered (area, conversion)"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?im)^\\s*[1-5]\\.\\s[^\\n]*(?<!web )\\b(address|phone number|business hours|opening hours|login|password|access to|logo|fonts?|colou?r palette|photos?|testimonials?|reviews?|team bios?|bios|certifications?|awards?|licen[cs]es?|disclaimers?|websites? you like)\\b",
+          "label": "does not ask what the intake form collects"
+        },
+        {
+          "type": "max_lines",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-project-instructions.md",
+          "n": 80
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-project-instructions.md",
+          "pattern": "(?i)keyword-research|site-structure-optimizer|seo-content-writer|content-quality-auditor|client-reference-kit",
+          "label": "no skill list in the instructions"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-setup-checklist.md",
+          "pattern": "(?i)kickoff call",
+          "label": "checklist names the Kickoff Call"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-setup-checklist.md",
+          "pattern": "(?i)handoff check",
+          "label": "checklist ends with the handoff check"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-paid-media-brief.md",
+          "pattern": "2,500",
+          "label": "paid media brief quotes the managed spend from the SOW"
+        },
+        {
+          "type": "rubric",
+          "target": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "label": "gaps are real gaps",
+          "criteria": [
+            "Every numbered question asks about something the Sales transcript, the website and the SOW together leave unanswered for planning the build (for example launch timing, URLs that must be kept, residential versus commercial mix, concrete proof points, what 'honest' means in practice, or which of the four cities named in the transcript get the SOW's three location pages). No question re-asks which services they offer, which areas they serve in general, who their competitors are, or how customers contact them, which the transcript answers."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "kickoff/copperline-plumbing/copperline-plumbing-context.md",
+          "label": "context is sourced",
+          "criteria": [
+            "Facts in the context document are attributed to where they came from (transcript, site, SOW, or [user] for what the kickoff request itself states: client name, URL, Tacoma metro, kickoff date), and nothing appears that is not in those sources: no invented review counts, ratings, years, team sizes or prices. Founded 2006 and nine trucks are acceptable because the transcript and site state them."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?ms)^## Checklist Coverage.*^\\|\\s*R1\\s*\\|.*^\\|\\s*R10\\s*\\|",
+          "label": "coverage table R1 to R10"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?m)^\\|\\s*R7\\s*\\|[^\\n]*\\|\\s*covered\\s*\\|",
+          "label": "R7 covered from the SOW"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-setup-checklist.md",
+          "pattern": "(?i)send the paid media brief to paid media",
+          "label": "checklist sends the paid media brief"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/copperline-plumbing/copperline-plumbing-gap-questions.md",
+          "pattern": "(?m)^\\|\\s*R6\\s*\\|[^\\n]*\\|\\s*covered\\s*\\|",
+          "label": "R6 competitors covered by the transcript"
+        }
+      ]
+    },
+    {
+      "id": "juniper-no-website",
+      "prompt": "Use the new-build-kickoff skill. Kick off Juniper Ledger Bookkeeping, no website, Boise and Meridian. There is no WebFetch, WebSearch or internet access in this session. The Sales transcript is in `sales/` and the signed SOW is `sow.md`.",
+      "fixtures": [
+        {
+          "src": "fixtures/new-build-kickoff/juniper/sales/sales-call-2026-10-06.txt",
+          "dest": "sales/sales-call-2026-10-06.txt"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/juniper/sow.md",
+          "dest": "sow.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-url-inventory.csv"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-project-instructions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-setup-checklist.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-paid-media-brief.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-brand-brief-draft.md"
+        },
+        {
+          "type": "csv_columns",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-url-inventory.csv",
+          "columns": [
+            "url",
+            "title",
+            "page_type",
+            "status",
+            "source"
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-context.md",
+          "pattern": "(?m)^SOW pages: 6\\b",
+          "label": "page count taken from the SOW"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-context.md",
+          "pattern": "(?i)no (existing )?website|does not have a website|no current site",
+          "label": "no-website case stated"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?ms)^\\s*1\\.\\s.*^\\s*2\\.\\s.*^\\s*3\\.\\s",
+          "label": "at least 3 numbered questions"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?m)^\\s*6\\.\\s",
+          "label": "no more than 5 questions"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?m)^Answer:\\s*$",
+          "label": "blank Answer lines for the intake form"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?im)^\\s*[1-5]\\.\\s[^\\n]*(?<!web )\\b(address|phone number|business hours|opening hours|login|password|access to|logo|fonts?|colou?r palette|photos?|testimonials?|reviews?|team bios?|bios|certifications?|awards?|licen[cs]es?|disclaimers?|websites? you like)\\b",
+          "label": "does not ask what the intake form collects"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?im)^\\s*[1-5]\\.\\s[^\\n]*(book a|consult|calendly|who are your (main )?clients|what services)",
+          "label": "does not ask what the transcript answered"
+        },
+        {
+          "type": "rubric",
+          "target": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-context.md",
+          "label": "no-website context is sourced",
+          "criteria": [
+            "The context document is built from the transcript, the SOW and what the request itself states (client name, no website, Boise and Meridian, which may be tagged [user]). It says the business has no website, does not invent a URL, address, review count, pricing or years beyond 'four years' of referrals, and records that paid advertising is excluded by the SOW."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?ms)^## Checklist Coverage.*^\\|\\s*R1\\s*\\|.*^\\|\\s*R10\\s*\\|",
+          "label": "coverage table R1 to R10"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-gap-questions.md",
+          "pattern": "(?m)^\\|\\s*R7\\s*\\|[^\\n]*\\|\\s*covered\\s*\\|",
+          "label": "R7 covered from the SOW"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-url-inventory.csv",
+          "pattern": "(?m)^https?://",
+          "label": "no website means header only"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/juniper-ledger-bookkeeping/juniper-ledger-bookkeeping-setup-checklist.md",
+          "pattern": "(?i)paid media",
+          "label": "no paid media step when the SOW excludes it"
+        }
+      ]
+    },
+    {
+      "id": "brightwater-no-sow",
+      "prompt": "Use the new-build-kickoff skill. Kick off Brightwater Physical Therapy, no website, Bend and Redmond OR. There is no WebFetch, WebSearch or internet access in this session. The Sales transcript is in `sales/` and the discovery notes are `discovery-notes.md`. No SOW came over.",
+      "fixtures": [
+        {
+          "src": "fixtures/new-build-kickoff/brightwater/sales/sales-call-2026-10-02.txt",
+          "dest": "sales/sales-call-2026-10-02.txt"
+        },
+        {
+          "src": "fixtures/new-build-kickoff/brightwater/discovery-notes.md",
+          "dest": "discovery-notes.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-gap-questions.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-setup-checklist.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-paid-media-brief.md",
+          "label": "no brief for paid media that is only being considered"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^SOW pages: 10\\b[^\\n]*\\[notes\\]",
+          "label": "page count from the signed deal terms, tagged notes"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^SOW pages: 15\\b",
+          "label": "Sales' fifteen pages is not the count"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^> [^\\n]*10 pages",
+          "label": "quotes the deal terms' page-count line"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?m)^- GAP: signed SOW",
+          "label": "missing SOW flagged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?mi)^- GAP: paid media is listed as an interest",
+          "label": "interest-only paid media flagged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-context.md",
+          "pattern": "(?mi)^- CONFLICT:[^\\n]*(fifteen|15)[^\\n]*",
+          "label": "Sales page promise recorded as a conflict"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-gap-questions.md",
+          "pattern": "(?m)^\\|\\s*R7\\s*\\|[^\\n]*\\|\\s*covered\\s*\\|",
+          "label": "R7 covered from the deal terms"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/brightwater-physical-therapy/brightwater-physical-therapy-setup-checklist.md",
+          "pattern": "(?i)send the paid media brief",
+          "label": "no paid media hand-off"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "not_regex",
+          "target": "stdout",
+          "pattern": "(?i)(please (provide|send|share) the (signed )?SOW|can you (send|share) the SOW)",
+          "label": "did not stop to ask for an SOW"
+        }
+      ]
+    }
+  ]
+}

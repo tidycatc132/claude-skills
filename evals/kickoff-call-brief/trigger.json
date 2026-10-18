@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "The Kickoff Call with Quarry Hill Landscaping is tomorrow morning. Prep me a brief from their kickoff folder so I know what to ask.",
+    "Write the pre-call brief for the Tidewater Mobile Vet kickoff call: what we know, the open questions, scope and access still to confirm.",
+    "I'm the AM on Copperline Plumbing and the kickoff call is at 2pm. Pull together a one-page call prep from kickoff/copperline-plumbing/.",
+    "Make the Kickoff Call brief for Maple Row Bakery: every unanswered gap question and open requirement, plus the access we still don't have.",
+    "Before I get on the phone with Brightwater Dental for kickoff, give me a call agenda brief from their context, gap questions and missing items.",
+    "Generate maple-row-bakery-kickoff-call-brief.md for Allison ahead of the client kickoff meeting.",
+    "Our kickoff meeting with Juniper Law is Thursday. What do we still need to settle on the call, and what scope should I confirm? Write it up as the call brief.",
+    "Prep the account manager for the Fernhill Veterinary Clinic kickoff call: goals for the call, what we already know, and what's still missing."
+  ],
+  "should_not_trigger": [
+    "Kick off Copperline Plumbing, copperlineplumbing.com, Tacoma metro. The Sales transcript and the signed SOW are in this folder.",
+    "Here's the Kickoff Call transcript for Quarry Hill Landscaping. Pull out the decisions, the quotes and the scope changes for the Blueprint.",
+    "Quarry Hill Landscaping submitted the intake form; merge it into their kickoff context and update the missing items.",
+    "Write the welcome email to Dana at Quarry Hill Landscaping introducing the team and the intake form.",
+    "Build brand.md, voice.md, audience.md and compliance.md for Tidewater Mobile Vet from their site and the Sales call.",
+    "Write the 3 to 5 gap questions for a new client's intake form from the Sales transcript and the SOW.",
+    "Sync this week's completed build tasks for Maple Row Bakery to ClickUp and post a progress comment.",
+    "Write a content brief for the Tidewater Mobile Vet in-home euthanasia page.",
+    "Draft talking points for my quarterly business review call with our biggest SEO retainer client."
+  ]
+}

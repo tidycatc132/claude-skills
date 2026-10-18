@@ -1,0 +1,14 @@
+The Quarry Hill Landscaping brief is written, and the check passes.
+
+**Brief:** `/tmp/harness-eval-yrx50i03/kickoff/quarry-hill-landscaping/quarry-hill-landscaping-kickoff-call-brief.md`
+
+- **Questions to settle:** 6. They are the conversion action (call, form or consultation), which of the current 9 Wix pages to keep or redirect, whether to target Coeur d'Alene, the launch date, the 2009 vs 2011 founding year, and results and numbers.
+- **Scope items:** 1. Dana was told on the Sales call that the site could "add a blog with twenty posts", but the SOW says up to 12 pages and excludes blog writing. The brief tells you to confirm the SOW decides and not to agree to more. Paid media is not in scope.
+- **Access list:** It comes from the missing items file, so the intake form is already reflected. Testimonials and sites they like are missing, Search Console is "not sure", and Tag Manager is not set up. The Wix domain is held by someone else, so ask who manages it.
+- **Relationship Notes:** Left blank for you to fill in.
+
+| Check | Result |
+|---|---|
+| All 19 checks (layout, goals, facts, open items, scope lines, access list, blank notes) | PASS |
+
+RESULT: PASS
