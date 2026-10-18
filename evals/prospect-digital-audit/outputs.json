@@ -1,0 +1,87 @@
+{
+  "cases": [
+    {
+      "id": "build-sheet-from-audit-json",
+      "prompt": "Use the prospect-digital-audit skill. The run date is 2026-10-18. Data collection for Harbor Plumbing (https://harborplumbing.com) is already finished and saved in audit.json in the skill's audit.json shape; there is no network and no SE Ranking in this environment, so do not try to collect anything. Build the WISE Digital Audit sheet from it with the skill's script, writing out/harbor-plumbing-digital-audit.xlsx, and tell me the directory error rate, the total monthly searches and the Top 3 Maps and Top 10 Organic counts the sheet shows.",
+      "fixtures": [
+        {"src": "fixtures/prospect-digital-audit/harbor-plumbing/audit.json", "dest": "audit.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "out/harbor-plumbing-digital-audit.xlsx"},
+        {"type": "file_exists", "path": "out/harbor-plumbing-digital-audit.csv", "label": "CSV copy next to the XLSX"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^,,DIGITAL AUDIT  10/18/26,,Harbor Plumbing,,$", "label": "header row keeps the template layout with date and company"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^,,,,https://harborplumbing\\.com,,$"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Website Platform,,WordPress,,SSL Secured ?,,Yes$", "label": "left and right result tables filled in place"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Domain Authority,,18 \\(SE Ranking scale\\),,- Mobile Page Optimization,,38%$"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Domain Age,,7 years,,- Mobile Speed \\(4G load time in seconds\\),,5\\.9$"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^7,3,No,,No,No,No$", "label": "core pages, blog posts, AI blogs and AI visibility under their headers"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Yes,Yes,1,,Yes,No,No$", "label": "analytics and ads row"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^4\\.8 - Stars,3\\.0 - Stars,Unknown,,3/21,8/21,52%$", "label": "reviews with Unknown kept, error rate (3+8)/21 rounded"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^142 - Reviews,9 - Reviews,Unknown,,,,$"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Total Monthly Searches:,3250,"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^tankless water heater installation,320,Pflugerville,"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^water heater repair,Austin,1,,4,,3$", "label": "first rankings row carries maps 1, organic 4 and the Top 3 Maps count 3"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^emergency plumber,Austin,2,,-,,$", "label": "no organic position prints as a dash"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^water heater repair,Round Rock,-,,-,,2$", "label": "Top 10 Organic count 2 sits in its template cell"},
+        {"type": "regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "^Keyword Groups,Searches/Month,Location & Nearby Cities,,\"Mobile pages take about 6 seconds", "label": "first observation sits beside the Keyword Groups header, one per row"},
+        {"type": "not_regex", "path": "out/harbor-plumbing-digital-audit.csv", "pattern": "\\[Company Name\\]|\\[url\\]|Observations about stuff go here|^1,1,A,", "label": "no template placeholders left"},
+        {"type": "regex", "target": "stdout", "pattern": "52\\s*%"},
+        {"type": "regex", "target": "stdout", "pattern": "3,?250"}
+      ]
+    },
+    {
+      "id": "transcript-to-sheet-offline",
+      "prompt": "Use the prospect-digital-audit skill for Harbor Plumbing, https://harborplumbing.com. The run date is 2026-10-18 and the slug is harbor-plumbing. call-transcript.csv is the sales manager's call transcript. There is no network, no SE Ranking and no web search here, so every value the data sources would have returned is already in audit-data.json, in the skill's audit.json shape, with the observations left empty and no sales notes written yet. Finish the audit: write the prospect-facing observations, the internal sales notes, build the sheet, and deliver the run folder.",
+      "fixtures": [
+        {"src": "fixtures/prospect-digital-audit/harbor-plumbing/call-transcript.csv", "dest": "call-transcript.csv"},
+        {"src": "fixtures/prospect-digital-audit/harbor-plumbing/audit-data.json", "dest": "audit-data.json"}
+      ],
+      "assertions": [
+        {"type": "file_exists", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.xlsx"},
+        {"type": "file_exists", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv"},
+        {"type": "file_exists", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md"},
+        {"type": "file_exists", "path": "prospect-audits/harbor-plumbing-2026-10-18/audit.json"},
+        {"type": "json_has_keys", "path": "prospect-audits/harbor-plumbing-2026-10-18/audit.json", "keys": ["prospect", "seo", "ui", "content", "ai_visibility", "tracking", "reviews", "directories", "keyword_groups", "observations", "rankings"]},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv", "pattern": "^,,DIGITAL AUDIT  10/18/26,,Harbor Plumbing,,$"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv", "pattern": "^4\\.8 - Stars,3\\.0 - Stars,Unknown,,3/21,8/21,52%$", "label": "collected values reach the sheet unchanged"},
+        {"type": "not_regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv", "pattern": "Observations about stuff go here", "label": "observation placeholder replaced"},
+        {"type": "not_regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv", "pattern": "(?i)\\$|budget|ceiling|bluebonnet|maria|burned|agency|\\brick\\b|\\bcontract\\b", "label": "nothing internal leaks into the prospect-facing sheet"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "INTERNAL"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "\\$?2,?500", "label": "budget signal recorded in the notes"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "Bluebonnet", "label": "competitor named in the notes"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "(?i)maria", "label": "decision maker recorded"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "(?i)(row\\s*\\d+|\\b00:0\\d:\\d\\d\\b)", "label": "quotes carry a row number or timestamp"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "(?is)#+\\s*Gaps.*Facebook", "label": "Unknown Facebook review cells listed under Gaps"},
+        {"type": "regex", "path": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "pattern": "(?i)national", "label": "says keyword volumes are national"},
+        {"type": "regex", "target": "stdout", "pattern": "prospect-audits[/\\\\]+harbor-plumbing-2026-10-18"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)unknown", "label": "final reply lists the Unknown cells"},
+        {"type": "rubric", "target": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-digital-audit.csv", "context": ["call-transcript.csv", "audit-data.json"], "criteria": [
+          "The Key Observations column holds 3 to 5 observations, each one or two plain sentences a business owner understands, stating a problem and its effect on leads or calls rather than prescribing the fix.",
+          "At least one observation ties an audit finding to something the prospect said on the call, such as the slow site or wanting more work from Round Rock and Cedar Park, and at least one uses a number that appears in audit-data.json.",
+          "No observation mentions budget, the prospect's objections or past agency, the competitor Bluebonnet Plumbing, Maria, or any opinion about the prospect's staff."
+        ]},
+        {"type": "rubric", "target": "prospect-audits/harbor-plumbing-2026-10-18/harbor-plumbing-sales-notes.md", "context": ["call-transcript.csv"], "criteria": [
+          "Every claim about what the prospect said is backed by a quote that actually appears in the transcript, with its row number or timestamp.",
+          "The notes record the budget ceiling, the objection about the previous agency and contract length, the decision maker, the Google Ads spend and the competitor, and they state that the Google Ads tag detection agrees with the prospect while the Facebook ads were stopped.",
+          "The Gaps section lists the Facebook stars and review count as Unknown and says what would fill them."
+        ]}
+      ]
+    },
+    {
+      "id": "parse-serp-positions",
+      "prompt": "Use the prospect-digital-audit skill's SERP parser on the two saved SE Ranking SERP results in serp/ for the domain harborplumbing.com (business name Harbor Plumbing) and save its JSON output as positions.json. Then tell me the Maps and organic position for each keyword.",
+      "fixtures": [
+        {"src": "fixtures/prospect-digital-audit/harbor-plumbing/serp/water-heater-repair-austin.json", "dest": "serp/water-heater-repair-austin.json"},
+        {"src": "fixtures/prospect-digital-audit/harbor-plumbing/serp/drain-cleaning-round-rock.json", "dest": "serp/drain-cleaning-round-rock.json"}
+      ],
+      "assertions": [
+        {"type": "json_valid", "path": "positions.json"},
+        {"type": "json_has_keys", "path": "positions.json", "keys": ["keyword", "location_id", "maps_position", "organic_position", "best_organic_anywhere"]},
+        {"type": "regex", "path": "positions.json", "pattern": "\"keyword\": \"water heater repair\",\\s*\"location_id\": 1026201,\\s*\"maps_position\": 2,\\s*\"organic_position\": 4,\\s*\"best_organic_anywhere\": 4", "label": "wrapped result: second local-pack entry and organic rank 4"},
+        {"type": "regex", "path": "positions.json", "pattern": "\"keyword\": \"drain cleaning\",\\s*\"location_id\": 1026681,\\s*\"maps_position\": null,\\s*\"organic_position\": null,\\s*\"best_organic_anywhere\": 14", "label": "bare result: absent from the pack, rank 14 is not page one"},
+        {"type": "regex", "target": "stdout", "pattern": "(?i)water heater repair[^\\n]*\\b2\\b[^\\n]*\\b4\\b"},
+        {"type": "not_regex", "target": "stdout", "pattern": "(?i)drain cleaning[^\\n]*(page one|top 10|position 14 in the top)", "label": "does not call rank 14 a page-one result"}
+      ]
+    }
+  ]
+}

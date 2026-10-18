@@ -1,0 +1,77 @@
+{
+ "results": {
+  "request_metadata": {
+   "keyword": "water heater repair",
+   "location_id": 1026201,
+   "location_name": "Austin,Texas,United States",
+   "device": "desktop",
+   "language": "en"
+  },
+  "items": [
+   {
+    "type": "local_pack",
+    "rank_group": 1,
+    "links": [
+     {
+      "title": "Bluebonnet Plumbing",
+      "url": "https://bluebonnetplumbing.com/",
+      "rating": 4.7,
+      "reviews": 512
+     },
+     {
+      "title": "Harbor Plumbing",
+      "url": "https://www.harborplumbing.com/",
+      "rating": 4.8,
+      "reviews": 142
+     },
+     {
+      "title": "Radiant Plumbing & Air Conditioning",
+      "url": "https://radiantplumbing.com/",
+      "rating": 4.9,
+      "reviews": 3100
+     }
+    ]
+   },
+   {
+    "type": "organic",
+    "rank_group": 1,
+    "rank_absolute": 2,
+    "domain": "bluebonnetplumbing.com",
+    "url": "https://bluebonnetplumbing.com/water-heater-repair-austin/",
+    "title": "Water Heater Repair Austin TX | Bluebonnet Plumbing"
+   },
+   {
+    "type": "organic",
+    "rank_group": 2,
+    "rank_absolute": 3,
+    "domain": "radiantplumbing.com",
+    "url": "https://radiantplumbing.com/services/water-heaters/",
+    "title": "Water Heater Repair & Installation Austin"
+   },
+   {
+    "type": "organic",
+    "rank_group": 3,
+    "rank_absolute": 4,
+    "domain": "www.yelp.com",
+    "url": "https://www.yelp.com/search?find_desc=Water+Heater+Repair&find_loc=Austin%2C+TX",
+    "title": "Top 10 Best Water Heater Repair in Austin, TX"
+   },
+   {
+    "type": "organic",
+    "rank_group": 4,
+    "rank_absolute": 5,
+    "domain": "www.harborplumbing.com",
+    "url": "https://www.harborplumbing.com/water-heaters/",
+    "title": "Water Heaters | Harbor Plumbing"
+   },
+   {
+    "type": "organic",
+    "rank_group": 5,
+    "rank_absolute": 6,
+    "domain": "www.angi.com",
+    "url": "https://www.angi.com/companylist/us/tx/austin/water-heater-repair.htm",
+    "title": "Water Heater Repair Austin"
+   }
+  ]
+ }
+}

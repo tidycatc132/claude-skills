@@ -1,0 +1,75 @@
+{
+ "request_metadata": {
+  "keyword": "drain cleaning",
+  "location_id": 1026681,
+  "location_name": "Round Rock,Texas,United States",
+  "device": "desktop",
+  "language": "en"
+ },
+ "items": [
+  {
+   "type": "local_pack",
+   "rank_group": 1,
+   "links": [
+    {
+     "title": "Bluebonnet Plumbing",
+     "url": "https://bluebonnetplumbing.com/",
+     "rating": 4.7,
+     "reviews": 512
+    },
+    {
+     "title": "Round Rock Plumbing Pros",
+     "url": "https://roundrockplumbingpros.com/",
+     "rating": 4.6,
+     "reviews": 88
+    },
+    {
+     "title": "Mr. Rooter Plumbing of Round Rock",
+     "url": "https://www.mrrooter.com/round-rock/",
+     "rating": 4.8,
+     "reviews": 940
+    }
+   ]
+  },
+  {
+   "type": "organic",
+   "rank_group": 1,
+   "rank_absolute": 2,
+   "domain": "roundrockplumbingpros.com",
+   "url": "https://roundrockplumbingpros.com/drain-cleaning/",
+   "title": "Drain Cleaning Round Rock TX"
+  },
+  {
+   "type": "organic",
+   "rank_group": 2,
+   "rank_absolute": 3,
+   "domain": "www.mrrooter.com",
+   "url": "https://www.mrrooter.com/round-rock/drain-cleaning/",
+   "title": "Drain Cleaning Services in Round Rock"
+  },
+  {
+   "type": "organic",
+   "rank_group": 3,
+   "rank_absolute": 4,
+   "domain": "bluebonnetplumbing.com",
+   "url": "https://bluebonnetplumbing.com/drain-cleaning-round-rock/",
+   "title": "Drain Cleaning Round Rock | Bluebonnet Plumbing"
+  },
+  {
+   "type": "organic",
+   "rank_group": 9,
+   "rank_absolute": 10,
+   "domain": "www.yelp.com",
+   "url": "https://www.yelp.com/search?find_desc=Drain+Cleaning&find_loc=Round+Rock%2C+TX",
+   "title": "Best Drain Cleaning in Round Rock, TX"
+  },
+  {
+   "type": "organic",
+   "rank_group": 14,
+   "rank_absolute": 15,
+   "domain": "harborplumbing.com",
+   "url": "https://harborplumbing.com/services/",
+   "title": "Plumbing Services | Harbor Plumbing"
+  }
+ ]
+}
