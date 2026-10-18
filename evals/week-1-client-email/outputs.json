@@ -1,0 +1,232 @@
+{
+  "cases": [
+    {
+      "id": "fernbrook-three-options",
+      "prompt": "Use the week-1-client-email skill. Draft the Week 1 email for Fernbrook Veterinary Clinic. The contact is Dr. Alana Ruiz and I'm Priya Nair, the AM. Today is 2026-10-16. The three homepage design options are Meadow https://www.figma.com/proto/fern-meadow, Harbor https://www.figma.com/proto/fern-harbor and Cedar https://www.figma.com/proto/fern-cedar. The homepage copy is in content/home/ and its shared doc is https://docs.google.com/document/d/fern-home-copy. The missing items are in kickoff/fernbrook-veterinary-clinic/.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/kickoff/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-missing-items.md",
+          "dest": "kickoff/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-missing-items.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^Client: Fernbrook Veterinary Clinic$",
+          "label": "client line"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^Hi Dr\\. Ruiz,$",
+          "label": "greets Dr. Ruiz"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^Design options:\\nMeadow: https://www\\.figma\\.com/proto/fern-meadow\\nHarbor: https://www\\.figma\\.com/proto/fern-harbor\\nCedar: https://www\\.figma\\.com/proto/fern-cedar$",
+          "label": "one line per option, in order"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^Homepage copy: https://docs\\.google\\.com/document/d/fern-home-copy$",
+          "label": "content link"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^What we'd like from you by Wednesday, October 21:$",
+          "label": "reply-by is 3 business days after Friday 2026-10-16"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- Photos\\b",
+          "label": "photos asked for"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- Business name, address, phone and hours",
+          "label": "partial item asked for"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- Answers to our open questions",
+          "label": "gap answers asked in client words"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- Access to: Hosting; Google Business Profile; Google Tag Manager; CRM, forms or call tracking",
+          "label": "open platforms in one access line"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- Access to[^\\n]*(Domain|Google Analytics|Search Console|Google Ads|Meta)",
+          "label": "confirmed, invite sent, not set up and n/a platforms left out"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^- (Logo files|Brand guidelines|Team members|Websites you like|Legal or compliance|Who approves)",
+          "label": "received, none and n/a items left out"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "text": "Pawsitively",
+          "label": "client slogan not copied"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "CLIENT INPUT NEEDED|NEEDS INPUT|\\bR6\\b|open item|Gap question",
+          "label": "no raw flags or internal labels"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "pattern": "(?m)^Priya Nair\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "sign-off"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS"
+        },
+        {
+          "type": "rubric",
+          "target": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "label": "calibration email in WISE voice",
+          "criteria": [
+            "The email is a plain, warm note from the Account Manager in WISE's own voice (no slogans, puns or exclamation-heavy client marketing style, no generic agency phrases). It frames the review as a direction check before the remaining pages are produced, not as final approval, and says what happens if Dr. Ruiz has not replied by Wednesday, October 21.",
+            "Under 'Details the copy still needs:' there are exactly five lines, one per distinct detail flagged in the homepage copy (the phone number to show; client reviews with the names each client approves; Dr. Ruiz's license and certifications; what new clients bring to the first visit; office hours), each in plain words a client understands, with no internal labels such as open item numbers."
+          ],
+          "context": [
+            "content/home/article.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "oakhurst-attached-user-date",
+      "prompt": "Use the week-1-client-email skill. Week 1 email for Oakhurst Landscape Co., to Marcus Bell, from me, Jordan Ellis (AM). Today is 2026-10-19. Two homepage options: Ridgeline https://www.figma.com/proto/oak-ridgeline and Creekside https://www.figma.com/proto/oak-creekside. Design recommends Ridgeline. I'll attach the homepage copy as a PDF, there's no link. Ask for feedback by 2026-10-27. Files are in content/home/ and kickoff/oakhurst-landscape-co/.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-client-email/oakhurst/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-client-email/oakhurst/kickoff/oakhurst-landscape-co/oakhurst-landscape-co-missing-items.md",
+          "dest": "kickoff/oakhurst-landscape-co/oakhurst-landscape-co-missing-items.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "pattern": "(?m)^Hi Marcus,$"
+        },
+        {
+          "type": "regex",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "pattern": "(?i)\\battached\\b",
+          "label": "copy attached"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "pattern": "(?m)docs\\.google|^Homepage copy: http",
+          "label": "no invented content link"
+        },
+        {
+          "type": "regex",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "pattern": "(?m)^What we'd like from you by Tuesday, October 27:$",
+          "label": "user's date kept"
+        },
+        {
+          "type": "regex",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "pattern": "(?i)(hear|heard)[^\\n]*Ridgeline|Ridgeline[^\\n]*(hear|heard)",
+          "label": "recommended option named in the fallback"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "text": "Still needed for the build:",
+          "label": "nothing missing, no list"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "text": "Details the copy still needs:",
+          "label": "no flags, no list"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/oakhurst-landscape-co/oakhurst-landscape-co-week-1-email.md",
+          "text": "Tag Manager",
+          "label": "not set up platform not asked for"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS"
+        }
+      ]
+    },
+    {
+      "id": "fernbrook-no-design-links",
+      "prompt": "Use the week-1-client-email skill. Write the Week 1 email for Fernbrook Veterinary Clinic to Dr. Alana Ruiz from Priya Nair. Today is 2026-10-16. Files are in content/home/ and kickoff/fernbrook-veterinary-clinic/. Design hasn't sent me the option links yet.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-client-email/fernbrook/kickoff/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-missing-items.md",
+          "dest": "kickoff/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-missing-items.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "emails/fernbrook-veterinary-clinic/fernbrook-veterinary-clinic-week-1-email.md",
+          "label": "no email without the design links"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)(design|option)[^\\n]{0,80}(link|url)|(link|url)[^\\n]{0,80}(design|option)",
+          "label": "asks for the design links"
+        }
+      ]
+    }
+  ]
+}
