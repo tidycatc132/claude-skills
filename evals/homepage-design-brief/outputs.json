@@ -1,0 +1,316 @@
+{
+  "cases": [
+    {
+      "id": "tidewater-full-kit-with-wireframe",
+      "prompt": "Use the homepage-design-brief skill. Dana signed off the Tidewater Tree Care homepage in editorial review today (2026-10-14); the edited page is content/home/article.md. The client reference kit is in client-reference/tidewater-tree-care/ and the kickoff files are in kickoff/tidewater-tree-care/. Write the homepage design brief, and the wireframe too, we bring it into Figma with HTML-to-Figma.",
+      "fixtures": [
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/client-reference/tidewater-tree-care/brand.md",
+          "dest": "client-reference/tidewater-tree-care/brand.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/client-reference/tidewater-tree-care/voice.md",
+          "dest": "client-reference/tidewater-tree-care/voice.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/client-reference/tidewater-tree-care/audience.md",
+          "dest": "client-reference/tidewater-tree-care/audience.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/client-reference/tidewater-tree-care/compliance.md",
+          "dest": "client-reference/tidewater-tree-care/compliance.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/kickoff/tidewater-tree-care/tidewater-tree-care-context.md",
+          "dest": "kickoff/tidewater-tree-care/tidewater-tree-care-context.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/tidewater/kickoff/tidewater-tree-care/tidewater-tree-care-blueprint-input-package.md",
+          "dest": "kickoff/tidewater-tree-care/tidewater-tree-care-blueprint-input-package.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-wireframe.html"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?ms)^## Goals\\s*$.*^## Audience\\s*$.*^## Brand Cues\\s*$.*^## Design References\\s*$.*^## Section Map\\s*$.*^## Imagery\\s*$.*^## Must-Haves\\s*$.*^## Do-Nots\\s*$.*^## Open Questions\\s*$",
+          "label": "fixed sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?im)^Content review: confirmed",
+          "label": "editorial sign-off recorded"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?ms)^\\|\\s*1\\s*\\|\\s*Hero\\s*\\|.*^\\|\\s*2\\s*\\|\\s*Why Us\\s*\\|.*^\\|\\s*3\\s*\\|\\s*Services Overview\\s*\\|.*^\\|\\s*4\\s*\\|\\s*Proof\\s*\\|.*^\\|\\s*5\\s*\\|\\s*About Snapshot\\s*\\|.*^\\|\\s*6\\s*\\|\\s*Service Area\\s*\\|.*^\\|\\s*7\\s*\\|\\s*Process\\s*\\|.*^\\|\\s*8\\s*\\|\\s*FAQ\\s*\\|.*^\\|\\s*9\\s*\\|\\s*Final CTA\\s*\\|",
+          "label": "one Section Map row per article section, in order, FAQ included"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?m)^\\|\\s*10\\s*\\|",
+          "label": "no extra Section Map rows"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*Fernway Gardens",
+          "label": "client-named reference 1"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*Harbor Light",
+          "label": "client-named reference 2"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*Arborline",
+          "label": "AM-suggested site the client did not name is not a reference"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*Coastal Tree",
+          "label": "disliked competitor is not a reference"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Do-Nots\\b(?:(?!\\n## ).)*(flashing|coupon|pop-up|car dealership)",
+          "label": "competitor look the client rejected is a do-not"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## (Imagery|Do-Nots)\\b(?:(?!\\n## ).)*stock",
+          "label": "no stock photos of people"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## (Imagery|Must-Haves|Do-Nots)\\b(?:(?!\\n## ).)*(helmet|eye protection|hearing protection|PPE|safety gear|Z133)",
+          "label": "compliance photo rule carried into imagery"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Brand Cues\\b(?:(?!\\n## ).)*forest green",
+          "label": "brand colour cue from context"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*(rating|review count)",
+          "label": "open flag: reviews"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*certification number",
+          "label": "open flag: ISA number"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*permit",
+          "label": "open flag: permit FAQ"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*insur",
+          "label": "open flag: insurance"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*hours",
+          "label": "open flag: office hours"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "pattern": "\\b(TODO|TBD|FIXME)\\b",
+          "label": "no placeholders"
+        },
+        {
+          "type": "max_lines",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "n": 160
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-wireframe.html",
+          "pattern": "(?s)data-section=\"Hero\".*data-section=\"Why Us\".*data-section=\"Services Overview\".*data-section=\"Proof\".*data-section=\"About Snapshot\".*data-section=\"Service Area\".*data-section=\"Process\".*data-section=\"FAQ\".*data-section=\"Final CTA\"",
+          "label": "wireframe has every section in order"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-wireframe.html",
+          "pattern": "(?i)https?://|<script|<link|url\\(|<img|<iframe",
+          "label": "wireframe is static with no external assets"
+        },
+        {
+          "type": "regex",
+          "path": "design/tidewater-tree-care/tidewater-tree-care-homepage-wireframe.html",
+          "pattern": "(?i)<style",
+          "label": "inline CSS"
+        },
+        {
+          "type": "rubric",
+          "target": "design/tidewater-tree-care/tidewater-tree-care-homepage-design-brief.md",
+          "criteria": [
+            "The brief writes no new marketing copy: no headline, tagline, button text or body sentence appears in it unless that wording is already in the article or a source file; layout ideas describe layout, not wording.",
+            "Every brand cue, design reference, must-have and do-not is backed by the article, the client reference kit, the client context or the blueprint input package, or is clearly labelled as a recommendation or a gap; nothing about the client is invented."
+          ],
+          "context": [
+            "content/home/article.md",
+            "client-reference/tidewater-tree-care/brand.md",
+            "client-reference/tidewater-tree-care/voice.md",
+            "client-reference/tidewater-tree-care/audience.md",
+            "client-reference/tidewater-tree-care/compliance.md",
+            "kickoff/tidewater-tree-care/tidewater-tree-care-context.md",
+            "kickoff/tidewater-tree-care/tidewater-tree-care-blueprint-input-package.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "odell-no-kit-not-reviewed",
+      "prompt": "Use the homepage-design-brief skill for Odell Lock & Key. The homepage draft is content/home/article.md and the kickoff context is in kickoff/odell-lock-and-key/. Write the design brief.",
+      "fixtures": [
+        {
+          "src": "fixtures/homepage-design-brief/odell/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/homepage-design-brief/odell/kickoff/odell-lock-and-key/odell-lock-and-key-context.md",
+          "dest": "kickoff/odell-lock-and-key/odell-lock-and-key-context.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-wireframe.html"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?ms)^## Goals\\s*$.*^## Audience\\s*$.*^## Brand Cues\\s*$.*^## Design References\\s*$.*^## Section Map\\s*$.*^## Imagery\\s*$.*^## Must-Haves\\s*$.*^## Do-Nots\\s*$.*^## Open Questions\\s*$",
+          "label": "fixed sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?im)^Content review: not confirmed",
+          "label": "missing sign-off recorded"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\s*\\n(?:(?!\\s*\\d+\\.)[^\\n]*\\n)*\\s*1\\.[^\\n]*(review|sign-?off)",
+          "label": "first open question is the editorial review"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?ms)^\\|\\s*1\\s*\\|\\s*Hero\\s*\\|.*^\\|\\s*2\\s*\\|\\s*Why Us\\s*\\|.*^\\|\\s*3\\s*\\|\\s*Services Overview\\s*\\|.*^\\|\\s*4\\s*\\|\\s*Proof\\s*\\|.*^\\|\\s*5\\s*\\|\\s*About Snapshot\\s*\\|.*^\\|\\s*6\\s*\\|\\s*Service Area\\s*\\|.*^\\|\\s*7\\s*\\|\\s*Process\\s*\\|.*^\\|\\s*8\\s*\\|\\s*Final CTA\\s*\\|",
+          "label": "one Section Map row per article section, in order"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?m)^\\|\\s*9\\s*\\|",
+          "label": "no extra Section Map rows"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*GAP:",
+          "label": "no client-named references is a gap"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Design References\\b(?:(?!\\n## ).)*(https?://|www\\.|\\.com\\b)",
+          "label": "no invented reference sites"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Brand Cues\\b(?:(?!\\n## ).)*GAP:",
+          "label": "no kit, so visual brand cues are gaps"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*phone",
+          "label": "open flag: phone"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*testimonial",
+          "label": "open flag: testimonials"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*licen[cs]e",
+          "label": "open flag: license"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*arrival",
+          "label": "open flag: arrival time"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*address",
+          "label": "open flag: address"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*hours",
+          "label": "open flag: hours"
+        },
+        {
+          "type": "regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "(?is)^## Open Questions\\b(?:(?!\\n## ).)*(client reference kit|client-reference|brand\\.md|kit)",
+          "label": "missing kit raised"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/odell-lock-and-key/odell-lock-and-key-homepage-design-brief.md",
+          "pattern": "\\b(TODO|TBD|FIXME)\\b",
+          "label": "no placeholders"
+        }
+      ]
+    }
+  ]
+}

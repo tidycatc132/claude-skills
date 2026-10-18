@@ -11,7 +11,7 @@ Read "Common to every format", then the section for the row's `format_primary` a
 - Every figure carries its source in the same sentence. No "studies show", "experts say".
 - One name per entity, as in the naming table; restate it at the start of paragraphs, list items and table rows instead of "it" or "this".
 - Descriptive anchor text naming the destination; never "click here" or "learn more".
-- A visible byline with a real name and verifiable credentials, and at least one first-hand experience marker from the client.
+- A visible byline with a real name and verifiable credentials, and at least one first-hand experience marker from the client. A homepage has no byline (see homepage below).
 - Never prescribe an illustrative example with invented numbers, "typical industry" figures, schema markup or character counts in the brief.
 
 ## Primary formats
@@ -57,6 +57,29 @@ Skeleton: first sentence states what the product is, who it is for and the price
 
 ### faq-page
 Skeleton: answer paragraph; 8 to 15 question H2s grouped by theme, each with a 2 to 4 sentence complete answer containing a specific; links to the deeper page for each theme. Word range 1,200 to 2,000.
+
+### homepage
+The client's home page (`page_url: /`). The writer builds it from eight fixed sections, so the Outline maps onto them and each `### H2:` block carries a `- Section:` line naming its section. The Answer Target is the Hero: what the client does, for whom and where, then the primary call to action; Title direction gives the H1. Then, in this order:
+
+| `- Section:` | `### H2:` (a question) | First sentence must state |
+|---|---|---|
+| Why Us | why people in the area choose the client | the main reason, from the client's positioning; 3-5 reasons under Cover |
+| Services Overview | what the client offers | the services in the client's lead order, each with its service page in Links from this page |
+| Proof | why the client can be trusted | only proof a client file states (reviews with their exact count and qualifier, quoted testimonials word for word with the name given, credentials, results); everything else is a slot |
+| About Snapshot | who runs the business | the owner or team and since when, from the client files |
+| Service Area | where the client works | the towns the client files list, core first; no "surrounding areas" |
+| Process | what happens after the first contact | the client's steps from first contact to finished job |
+
+An embedded FAQ goes after Process with `- Section: FAQ`. The `### H2 (CTA):` block carries `- Section: Final CTA` and names the next action and the phone, address and hours, each from a client file or a slot (a client with no public address says so).
+
+Rules that differ from other formats:
+- Client facts (phone, street address, hours, credentials, licenses, memberships, awards, ratings, review counts, testimonials, warranties, founding year) come only from client files: `brand.md`, the client folder, or files the user names. Copy them exactly, qualifiers included ("about 47 reviews" stays "about 47"). Anything a file lists as not yet available, pending or not to publish is a slot, never a fact. Where the business is located is a client fact too: say it serves the towns the files list ("serving Bend, Redmond and Sisters") unless a file says where it is based. Run the gate with `--client-dir` or `--facts` so it checks this.
+- No statistic per section: `- Evidence:` may say `none needed` for Services Overview, Service Area, Process and Final CTA. Why Us, Proof and About use the client's own evidence (`file:` rows) where it exists.
+- Author, Experience and Trust: `- Author: none (a homepage has no byline)`; the trust elements are the Proof facts.
+- Every planned or live service page is in Links from this page; Links to this page is the site navigation (every page links home), so one row `| site navigation | <client name> home | planned |` is enough.
+- Cannibalization: on a live site the current homepage is this page, not a conflict (refresh mode); with no site, `clear (no site)`.
+- `ymyl` describes the page, not the industry: a homepage that describes services and gives no advice is `false` even for a tax firm or a clinic (say so in one line); it is `true` when the page itself explains a rate, risk, dose or legal right.
+- Word range 450 to 900 unless the client asks otherwise. `geo_answer_format` is `direct answer`.
 
 ## Embedded formats
 

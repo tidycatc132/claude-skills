@@ -1,0 +1,12 @@
+The Tidewater Mobile Vet Kickoff Call brief is written and the check prints `RESULT: PASS`.
+
+**Brief:** `/tmp/harness-eval-1wge3w8d/kickoff/tidewater-mobile-vet/tidewater-mobile-vet-kickoff-call-brief.md`
+
+- **Questions to settle (3):**
+  - Whether they also visit Portsmouth (R3, Q3).
+  - Launch date (R9, Q1).
+  - Concrete results to share (R10, Q2).
+- **Scope to confirm:** The only items are the two fixed lines: 8 pages per the SOW, and paid media in scope. The SOW covers Google Ads management at $1,200 a month in ad spend. The scope list printed no page-count or scope conflicts to add.
+- **Access to confirm:** Every intake item and platform is `no record yet`, because there is no missing-items file. `client-context-update` fills this in once the intake form is merged. The website login is left off the list because they have no website.
+
+The context lists the sales call as 2026-10-27, which is ten days after today's date (2026-10-17). It's probably a typo, but check it before you rely on that date.

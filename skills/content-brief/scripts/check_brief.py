@@ -2,7 +2,7 @@
 """Structural gate for a content brief written to references/brief-template.md.
 
 Usage:
-  python3 check_brief.py BRIEF.md
+  python3 check_brief.py BRIEF.md [--client-dir DIR] [--facts FILE ...]
   python3 check_brief.py BRIEF.md --front-matter-json     print the front-matter as JSON, nothing else
 
 Checks: front-matter fields and values, format values, required sections and
@@ -11,7 +11,16 @@ Outline, 5-8 sub-question sections, 8-15 entities, evidence rows with ids,
 URLs, dates and labels, evidence ids used by the Outline, banned
 instructions (invented-example wording, schema markup, character counts, tool
 or skill names), client-input slot accounting, link tables, and status
-consistency with the concerns. Prints a `| Check | Result | Detail |` table and
+consistency with the concerns.
+
+Homepage briefs (`format: homepage`) also need `page_url: /`, the Outline's
+`- Section:` lines in the homepage order (Why Us, Services Overview, Proof,
+About Snapshot, Service Area, Process, then the CTA as Final CTA), proof or a
+slot in Proof, phone, address and hours (or slots) in Final CTA, and every
+client fact in the brief (phone, address, hours, quoted testimonial, rating,
+review count, founding year, credential word) found in a client file passed
+with --client-dir or --facts. A writer takes the brief's facts as true, so an
+untraced one would reach the page. Prints a `| Check | Result | Detail |` table and
 `GATE: PASS` or `GATE: FAIL`. Exit code 1 on FAIL. Standard library only.
 """
 from __future__ import annotations
@@ -48,6 +57,28 @@ BANNED = re.compile(
     r"\b(writing|drafting|content|SEO) (skill|agent|bot)\b|\bAI (writer|drafting tool)\b"
 )
 UNSCANNED = {"Research Log", "Evidence", "Voice and Style"}
+HOME_SECTIONS = ["Why Us", "Services Overview", "Proof", "About Snapshot", "Service Area", "Process"]
+PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b")
+STREET = re.compile(r"\b\d{2,6}\s+(?:[A-Z0-9][\w.'-]*\s+){1,4}?(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|"
+                    r"Drive|Dr|Lane|Ln|Way|Court|Ct|Parkway|Pkwy|Place|Pl|Highway|Hwy|Suite|Ste)\b")
+DAY = r"(?:mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun)(?:day)?s?"
+HOURS = re.compile(r"(?i)\b\d{1,2}(?::\d{2})?\s?[ap]\.?m\b\.?|\b" + DAY + r"\s?(?:-|–|to|through)\s?" + DAY + r"\b")
+QUOTED = re.compile(r"[\"“]([^\"”\n]{25,})[\"”]")
+# proof and credential claims; each must also be in a client file
+CLAIM = re.compile(
+    r"(?i)\b(licensed|licen[cs]e (?:no\.?|number|#)\s*[a-z]*-?\d[\w-]*|(?:ccb|lic)\s*#?\s*[a-z]*-?\d[\w-]*|insured|bonded|certified|"
+    r"certifications?|accredited|accreditation|award[- ]winning|awards?|top[- ]rated|best[- ]rated|five[- ]star|"
+    r"\d(?:\.\d)?[- ]stars?|stars?\b|★|rated \d(?:\.\d)?|\d(?:\.\d)?\s*(?:out of 5|/\s?5)|"
+    r"\d+\+? (?:google |online |verified )?reviews?|bbb|better business bureau|a\+ rating|enrolled agent|proadvisor|"
+    r"board[- ]certified|member of|chamber of commerce|family[- ]owned|veteran[- ]owned|woman[- ]owned|"
+    r"locally owned|guarantee[ds]?|warrant(?:y|ies)|since (?:19|20)\d\d|founded in (?:19|20)\d\d|"
+    r"(?:\d+\+?|\w+) years (?:of experience|in business)|years of experience)")
+# a number in a rating or review claim must sit next to star/rating/review in a client file
+RATING_WORD = re.compile(r"(?i)star|review|rat|out of|/|★")
+# headings and lines that say what must NOT be claimed are not facts
+NOT_A_FACT = re.compile(r"(?i)\bnot yet\b|do not|don't|never|not available|prohibit|banned|avoid|pending|unapproved")
+# homepage sections that may go without a statistic
+NO_STAT_SECTIONS = {"services overview", "service area", "process", "final cta"}
 GENERIC_ANCHOR = re.compile(r"^(click here|here|learn more|read more|more|this page|this article|link)$", re.I)
 
 
@@ -93,10 +124,73 @@ def bullets(text: str) -> list[str]:
             if re.match(r"^\s*(?:[-*]|\d+[.)])\s+", l)]
 
 
+def flat(s: str) -> str:
+    s = s.replace("’", "'").replace("“", '"').replace("”", '"').replace("–", "-").replace("—", "-")
+    return re.sub(r"\s+", " ", re.sub(r"[^\w$%+'\- ]+", " ", s.lower())).strip()
+
+
+def stated(text: str) -> str:
+    """The lines of a client file or brief that state facts: lines, and headed parts, that say what must
+    not be published (a 'Not yet available' list, prohibited claims) are dropped, and so are slots."""
+    out, skip, level = [], False, 0
+    for line in text.split("\n"):
+        m = re.match(r"^(#{1,6})\s+(.*)$", line)
+        if m:
+            if not (skip and len(m.group(1)) > level):
+                skip, level = bool(NOT_A_FACT.search(m.group(2))), len(m.group(1))
+            continue
+        if not skip and not NOT_A_FACT.search(line):
+            out.append(line)
+    return SLOT.sub(" ", "\n".join(out))
+
+
+def is_pipeline_file(f: Path) -> bool:
+    """A content brief or a keyword-research report is not a client file, wherever it sits."""
+    try:
+        t = f.read_text(encoding="utf-8")
+    except (OSError, UnicodeDecodeError):
+        return False
+    return bool(re.search(r"(?m)^# Content Brief:|^targets:\s*$", t))
+
+
+def untraced_facts(text: str, facts: str, quotes: str = "") -> list[str]:
+    """Client facts stated in `text` that the client files (`facts`, already passed through stated()) lack."""
+    nf = flat(facts)
+    phones = {re.sub(r"\D", "", m.group(0)) for m in PHONE.finditer(facts)}
+    bad = []
+    for m in PHONE.finditer(text):
+        if re.sub(r"\D", "", m.group(0)) not in phones:
+            bad.append(f"phone {m.group(0)}")
+    for rx, label in ((STREET, "address"), (HOURS, "hours")):
+        for m in rx.finditer(text):
+            if flat(m.group(0)) not in nf:
+                bad.append(f"{label} '{m.group(0)}'")
+    for m in QUOTED.finditer(quotes):
+        if flat(m.group(1)) not in nf:
+            bad.append(f"quote '{m.group(1)[:40]}'")
+    for m in CLAIM.finditer(text):
+        w = m.group(0)
+        n = re.findall(r"\d+(?:\.\d+)?", w)
+        if n and RATING_WORD.search(w):  # "4.9 stars", "30 Google reviews": number beside the word in a file
+            ok = all(re.search(rf"(?is)(?<![\d.]){re.escape(x)}(?![\d.]).{{0,40}}(star|rating|review)|"
+                               rf"(star|rating|review).{{0,40}}(?<![\d.]){re.escape(x)}(?![\d.])", facts) for x in n)
+        elif n and re.search(r"(?i)since|founded", w):  # the year beside since/founded/started/in a file
+            ok = all(re.search(rf"(?i)(since|founded|started|opened|established|in)\b[^.\n]{{0,40}}\b{x}\b", facts) for x in n)
+        elif n:  # a license number or "12 years in business": the whole claim must be in a file
+            ok = flat(w) in nf
+        else:  # a word: the whole word must be in a file ("member of" needs "member of", not "member")
+            ok = re.search(rf"\b{re.escape(flat(w))}", nf) is not None
+        if not ok:
+            bad.append(f"'{w}'")
+    return list(dict.fromkeys(bad))
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("brief")
     ap.add_argument("--front-matter-json", action="store_true")
+    ap.add_argument("--client-dir", help="client file folder; its .md files are where a homepage brief's client facts come from")
+    ap.add_argument("--facts", action="append", default=[], help="another client file a homepage brief took facts from")
     a = ap.parse_args()
     p = Path(a.brief)
     if not p.is_file():
@@ -175,12 +269,18 @@ def main() -> int:
     bad_h, no_first, no_ev, ev_ids, none_ver = [], [], [], set(), False
     subq = 0
     cta = 0
+    home = g("format") == "homepage"
+    labels, home_blocks = [], {}
     for mm, b in h2:
         if not mm:
             bad_h.append(b.split("\n")[0][:60])
             continue
         kind, title = mm.group(1), mm.group(2)
         faq = title.lower() == "frequently asked questions"
+        sec = re.search(r"(?m)^- Section:\s*(.+?)\s*$", b)
+        if sec:
+            labels.append(sec.group(1))
+            home_blocks[sec.group(1).lower()] = b
         if kind == "H2 (CTA)":
             cta += 1
         elif not faq:
@@ -208,12 +308,37 @@ def main() -> int:
             ev_ids.update(ids)
             if "none verifiable" in ev.group(1).lower():
                 none_ver = True
+            elif home and "none needed" in ev.group(1).lower():
+                lab = re.search(r"(?m)^- Section:\s*(.+?)\s*$", b)
+                if not (lab and lab.group(1).lower() in NO_STAT_SECTIONS):
+                    no_ev.append(f"{title[:40]} ('none needed' only for {', '.join(sorted(NO_STAT_SECTIONS))})")
             elif not ids and kind != "H2 (CTA)":
                 no_ev.append(title[:50])
     add("Outline headings are questions", not bad_h, "; ".join(bad_h[:5]))
     add("5-8 sub-question sections plus one CTA", 5 <= subq <= 8 and cta == 1, f"{subq} sub-question sections, {cta} CTA")
     add("Every section says what its first sentence must state", not no_first, "; ".join(no_first[:5]))
     add("Every section lists evidence ids or 'none verifiable'", not no_ev, "; ".join(no_ev[:5]))
+
+    # --- homepage: the writer's section map, proof and contact route
+    if home:
+        add("Homepage page_url is /", str(g("page_url", "")).strip() == "/", f"page_url {g('page_url')!r}")
+        want_l = HOME_SECTIONS + (["FAQ"] if "faq" in [x.lower() for x in labels] else []) + ["Final CTA"]
+        add("Homepage sections in order", [x.lower() for x in labels] == [x.lower() for x in want_l],
+            f"'- Section:' lines {labels}; want {want_l}")
+        cta_b = next((b for mm, b in h2 if mm and mm.group(1) == "H2 (CTA)"), "")
+        add("Homepage CTA is the Final CTA", bool(re.search(r"(?m)^- Section:\s*Final CTA\s*$", cta_b)),
+            "the '### H2 (CTA):' block needs '- Section: Final CTA'")
+        proof = home_blocks.get("proof", "")
+        add("Proof section has evidence or a slot", bool(re.search(r"\bE\d+\b", proof) or SLOT.search(proof)),
+            "cite the client's proof (E-ids) or slot what is missing")
+        fin = home_blocks.get("final cta", "")
+        slots = " ".join(x.group(0) for x in SLOT.finditer(fin)).lower()
+        gaps = [w for w, rx, words in (("phone", PHONE, ("phone", "call")), ("address", STREET, ("address",)),
+                                       ("hours", HOURS, ("hours",)))
+                if not rx.search(SLOT.sub(" ", fin)) and not any(x in slots for x in words)
+                and not re.search(rf"(?i)\bno (?:public |street )*{w}\b", fin)]
+        add("Final CTA covers phone, address and hours", not gaps,
+            "give each from a client file, or a slot, or say there is none ('no public street address'): " + ", ".join(gaps))
 
     # --- entities
     ents = [r for r in table_rows(S.get("Entities and Naming", "")) if r and r[0]]
@@ -302,6 +427,32 @@ def main() -> int:
     add("Author section names an author or a slot", bool(re.search(r"(?m)^- Author:\s*\S", auth)), "no '- Author:' line")
     if g("ymyl") is True:
         add("YMYL brief names a reviewer or a slot", bool(re.search(r"(?m)^- Reviewer:\s*\S", auth)), "no '- Reviewer:' line")
+
+    # --- homepage: client facts trace to client files
+    if home:
+        files = [Path(f) for f in a.facts]
+        bad_dir = a.client_dir and not Path(a.client_dir).is_dir()
+        if a.client_dir and not bad_dir:
+            # the brief and the keyword report are not client files, even when they sit in the folder
+            files += [f for f in sorted(Path(a.client_dir).rglob("*.md"))
+                      if f.resolve() != p.resolve() and "research" not in f.resolve().relative_to(
+                          Path(a.client_dir).resolve()).parts and not is_pipeline_file(f)]
+        missing_f = [str(f) for f in files if not f.is_file()] + ([f"--client-dir {a.client_dir}"] if bad_dir else [])
+        facts = "\n".join(stated(f.read_text(encoding="utf-8")) for f in files if f.is_file())
+        # a web Evidence row vouches for a client fact only when it is the client's own site
+        dom = str(g("client_domain", "")).lower().removeprefix("www.")
+        if dom and dom != "n/a":
+            facts += "\n" + "\n".join(r[1] for r in ev_rows if len(r) >= 4 and re.match(
+                rf"https?://(?:www\.)?{re.escape(dom)}(?:/|$)", r[3], re.I))
+        # every section a writer reads, slots removed; the instruction-only parts are left out
+        # Voice and Style holds directives ("don't promise guaranteed results"): its don't-lines are not facts
+        scan = SLOT.sub(" ", "\n".join(
+            "\n".join(l for l in t.split("\n") if not NOT_A_FACT.search(l)) if n == "Voice and Style" else t
+            for n, t in secs if n not in {"Research Log", "Writer QA Checklist"}))
+        bad_f = untraced_facts(scan, facts, scan)
+        add("Homepage client facts trace to client files", not bad_f and not missing_f,
+            ("not found: " + ", ".join(missing_f) + "; " if missing_f else "")
+            + ("in no client file (slot it or pass the file with --facts): " + "; ".join(bad_f[:8]) if bad_f else ""))
 
     # --- status consistency
     concerns = [c for c in bullets(S.get("Concerns", "")) if c.lower().rstrip(".") != "none"]

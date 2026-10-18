@@ -1,0 +1,32 @@
+{
+ "client": "Tidewater Pest Control",
+ "call_date": "2026-11-05",
+ "agency_speakers": ["Dana Pruitt"],
+ "updates": [
+  {"section": "Services", "fact": "Termite work is the service they most want the site to sell", "speaker": "Ray Okafor", "timestamp": "00:00:34", "quote": "Termites, no question. Termite work is where the money is and it's where we're best."},
+  {"section": "Platform Access", "fact": "Google Analytics: confirmed, the developer verified the invite during the call", "speaker": "Dana Pruitt", "timestamp": "00:04:49", "quote": "Our developer Marco just confirmed the Analytics invite came through"},
+  {"section": "Platform Access", "fact": "Domain: no answer, registered at Namecheap; Keisha will send the invite", "speaker": "Keisha Okafor", "timestamp": "00:04:40", "quote": "Namecheap. I'll send you the invite this afternoon."}
+ ],
+ "package": {
+  "Services Priority": [{"text": "1. Termite inspections and treatment", "timestamps": ["00:00:34"]}],
+  "Service Area Tiers": [{"text": "Secondary: Southport", "timestamps": ["00:01:57"]}]
+ },
+ "quotes": [
+  {"quote": "Termite work is where the money is", "speaker": "Ray Okafor", "timestamp": "00:00:34", "use_for": ["services"]},
+  {"quote": "That one's grown every summer since we started it", "speaker": "Keisha Okafor", "timestamp": "00:00:49", "use_for": ["services"]},
+  {"quote": "I don't want the new site pushing commercial at all.", "speaker": "Ray Okafor", "timestamp": "00:01:02", "use_for": ["services"]},
+  {"quote": "Like me talking to you on your porch.", "speaker": "Ray Okafor", "timestamp": "00:02:20", "use_for": ["voice"]},
+  {"quote": "please no chat bot popping up", "speaker": "Keisha Okafor", "timestamp": "00:02:34", "use_for": ["design"]},
+  {"quote": "lots of real photos of their people, nothing fake", "speaker": "Keisha Okafor", "timestamp": "00:02:45", "use_for": ["design"]},
+  {"quote": "if termites come back within a year of a treatment we retreat for free", "speaker": "Ray Okafor", "timestamp": "00:03:23", "use_for": ["proof"]},
+  {"quote": "Every March and April people see wings on the windowsill and panic.", "speaker": "Ray Okafor", "timestamp": "00:03:41", "use_for": ["topics"]}
+ ],
+ "page_mentions": [
+  {"timestamp": "00:03:07", "kind": "other", "note": "competitor"},
+  {"timestamp": "00:04:06", "kind": "promise", "low": 20, "high": 20, "said": "the build would be around twenty pages", "speaker": "Dana Pruitt", "quote": "we're looking at around twenty pages for the build"},
+  {"timestamp": "00:04:19", "kind": "other", "note": "client repeats"}
+ ],
+ "deliverables": [
+  {"said": "a monthly email newsletter", "in_scope": false, "speaker": "Dana Pruitt", "timestamp": "00:04:26", "quote": "Sure, we can set that up for you."}
+ ]
+}

@@ -14,6 +14,10 @@ Structure produced (no JavaScript, every fact in the initial HTML):
     <section class="sources">     the `## Sources` section
   </article>
 
+A homepage's `<!-- section: Name -->` markers are never printed: each becomes a
+`data-section="name"` attribute on the section it opens (Hero goes on <header>
+and the intro), so the design brief can map content sections to layout.
+
 Handles paragraphs, ordered and unordered lists, pipe tables, blockquotes,
 links, bold, italics and inline code. Leaves [NEEDS ...] flags visible so a
 draft with open flags cannot be published silently. Standard library only.
@@ -114,14 +118,21 @@ def main() -> int:
     title = cells.get("Meta title") or h1
     desc = cells.get("Meta description", "")
 
-    # split into chunks by H2
+    # split into chunks by H2; a homepage section marker tags the H1 or H2 that follows it
     pre, chunks, cur = [], [], None
+    pending, hero = "", ""
     for l in lines:
+        mk = re.match(r"^\s*<!--\s*section:\s*([^>]+?)\s*-->\s*$", l)
+        if mk:
+            pending = slug(mk.group(1))
+            continue
         if re.match(r"^#\s+", l):
+            hero, pending = pending, ""
             continue
         m = re.match(r"^##\s+(.*)$", l)
         if m:
-            cur = (m.group(1).strip(), [])
+            cur = (m.group(1).strip(), [], pending)
+            pending = ""
             chunks.append(cur)
         elif cur is None:
             pre.append(l)
@@ -137,13 +148,14 @@ def main() -> int:
          f"<title>{html.escape(title)}</title>"]
     if desc:
         o.append(f'<meta name="description" content="{html.escape(desc)}">')
-    o += ["</head>", "<body>", "<main>", "<article>", "<header>", f"<h1>{inline(h1)}</h1>"]
+    ds = lambda name: f' data-section="{name}"' if name else ""
+    o += ["</head>", "<body>", "<main>", "<article>", f"<header{ds(hero)}>", f"<h1>{inline(h1)}</h1>"]
     if byline:
         o.append(f'<p class="byline">{inline(byline[0].strip().strip("*").strip())}</p>')
     o.append("</header>")
     if any(l.strip() for l in intro):
-        o += ['<section class="intro">', *blocks_to_html(intro), "</section>"]
-    for heading, body in chunks:
+        o += [f'<section class="intro"{ds(hero)}>', *blocks_to_html(intro), "</section>"]
+    for heading, body, marker in chunks:
         key = heading.lower()
         if key == "key takeaways":
             o += ['<aside class="key-takeaways" aria-labelledby="key-takeaways">',
@@ -153,7 +165,7 @@ def main() -> int:
                   f'<h2 id="sources">{inline(heading)}</h2>', *blocks_to_html(body), "</section>"]
         else:
             sid = slug(heading)
-            o += [f'<section id="{sid}" aria-labelledby="{sid}-h">',
+            o += [f'<section id="{sid}" aria-labelledby="{sid}-h"{ds(marker)}>',
                   f'<h2 id="{sid}-h">{inline(heading)}</h2>', *blocks_to_html(body), "</section>"]
     o += ["</article>", "</main>", "</body>", "</html>"]
     dest = Path(a.out) if a.out else art.with_suffix(".html")

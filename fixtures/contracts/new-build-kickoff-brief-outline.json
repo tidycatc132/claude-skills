@@ -1,0 +1,38 @@
+{
+  "Client:": "Maple Row Bakery",
+  "## Scope Summary": [
+    "SOW pages: 10 [sow]",
+    "Included services: Website design, website development [sow]",
+    "> The website will include up to 10 pages. [sow]",
+    "- CONFLICT: page count: the SOW states up to 10 pages [sow]; Sales mentioned \"a page for every cake style\" [transcript]; the build follows the SOW [sow, transcript]"
+  ],
+  "## Open Items": [
+    "R6: competitors asked in Q1",
+    "R9: launch timing asked in Q2",
+    "R10: proof points asked in Q3"
+  ],
+  "## Checklist Coverage": {
+    "R1": "covered",
+    "R2": "covered",
+    "R3": "covered",
+    "R4": "covered",
+    "R5": "covered",
+    "R6": "asked Q1",
+    "R7": "covered",
+    "R8": "covered",
+    "R9": "asked Q2",
+    "R10": "asked Q3"
+  },
+  "SOW pages:": "10 [sow]",
+  "GAP:": [
+    "GAP: two or three competitors"
+  ],
+  "CONFLICT:": [
+    "CONFLICT: page count: the SOW states up to 10 pages [sow]; Sales mentioned \"a page for every cake style\" [transcript]; the build follows the SOW [sow, transcript]"
+  ],
+  "Answer:": {
+    "1": "",
+    "2": "",
+    "3": ""
+  }
+}
