@@ -475,6 +475,174 @@
           "label": "no shorthand slot references"
         }
       ]
+    },
+    {
+      "id": "juniperridge-homepage",
+      "prompt": "Use the seo-content-writer skill to write the homepage for Juniper Ridge Roofing from the brief at briefs/homepage-brief.md. The client's files are in client-reference/juniperridgeroofing/. There is no WebFetch, WebSearch or internet access in this session. Save the outputs in content/home/.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/juniperridge/briefs/homepage-brief.md",
+          "dest": "briefs/homepage-brief.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/juniperridge/client-reference/juniperridgeroofing/brand.md",
+          "dest": "client-reference/juniperridgeroofing/brand.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/home/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/home/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/home/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/home/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/home/handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/qa_report.md",
+          "pattern": "VERDICT: NEEDS_INPUT",
+          "label": "QA ran, nothing FAILs, and missing client facts are open flags"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/qa_report.md",
+          "pattern": "\\| Homepage sections in order \\| PASS \\|",
+          "label": "the homepage checks ran (homepage mode)"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/qa_report.md",
+          "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
+          "label": "no credential, rating, testimonial, phone, address or hours beyond the files"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "(?s)<!-- section: Hero -->.*<!-- section: Why Us -->.*<!-- section: Services Overview -->.*<!-- section: Proof -->.*<!-- section: About Snapshot -->.*<!-- section: Service Area -->.*<!-- section: Process -->.*<!-- section: Final CTA -->",
+          "label": "all eight homepage sections, in order"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/home/article.md",
+          "pattern": "(?im)^\\**by\\s",
+          "label": "no article byline on a homepage"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/home/article.md",
+          "pattern": "(?im)^##\\s+key takeaways",
+          "label": "no Key Takeaways block on a homepage"
+        },
+        {
+          "type": "contains",
+          "path": "content/home/article.md",
+          "text": "(208) 555-0187",
+          "label": "phone from brand.md, exact"
+        },
+        {
+          "type": "contains",
+          "path": "content/home/article.md",
+          "text": "showed me photos of every soft spot",
+          "label": "approved testimonial quoted verbatim"
+        },
+        {
+          "type": "contains",
+          "path": "content/home/article.md",
+          "text": "Marisol Ortega",
+          "label": "testimonial attributed to its named client"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "(?i)\\[NEEDS INPUT:[^\\]]*(licen|registration|certif|insur)",
+          "label": "missing credentials are a flag"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "(?i)\\[NEEDS INPUT:[^\\]]*hours",
+          "label": "missing hours are a flag"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/home/article.md",
+          "pattern": "(?i)\\d(\\.\\d)?[- ]star|★|\\b\\d+\\+? (google |online |five-star |5-star )?reviews\\b|\\bA\\+ rating|\\bGAF\\b|Owens Corning|CertainTeed|Master Elite",
+          "label": "no invented ratings, review counts or manufacturer certifications"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "\\]\\(/roof-replacement/?\\)",
+          "label": "service link roof replacement"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "\\]\\(/roof-repair/?\\)",
+          "label": "service link roof repair"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "\\]\\(/storm-damage-roof-repair/?\\)",
+          "label": "service link storm damage"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "\\]\\(/gutters/?\\)",
+          "label": "service link gutters"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "\\]\\(/free-inspection/?\\)",
+          "label": "conversion link"
+        },
+        {
+          "type": "regex",
+          "path": "content/home/article.md",
+          "pattern": "(?s)<!-- section: Service Area -->.*Boise.*(Meridian.*Eagle|Eagle.*Meridian)",
+          "label": "service area names the core cities"
+        },
+        {
+          "type": "contains",
+          "path": "content/home/article.html",
+          "text": "data-section=\"why-us\"",
+          "label": "HTML keeps the section map for design"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/home/article.html",
+          "pattern": "&lt;!--",
+          "label": "section markers are not printed as visible text"
+        },
+        {
+          "type": "rubric",
+          "target": "content/home/article.md",
+          "criteria": [
+            "Nothing about Juniper Ridge Roofing's licenses, registration, insurance, certifications, awards, ratings, reviews, warranties, founding, owner, contact details or customers is stated as fact unless the brief or brand.md states it with the same strength; missing ones appear only as [NEEDS INPUT: ...] flags or not at all. The testimonial is word for word from brand.md with its named client, and no service, town or region beyond the brief's lists is claimed.",
+            "The page reads as a homepage for a local roofer: the opening under the H1 says what the company does, where, and the next step; each section does its job (why choose them, services with links, proof, about, area, process, final call to action) in plain, calm language without scare tactics or urgency."
+          ],
+          "context": [
+            "briefs/homepage-brief.md",
+            "client-reference/juniperridgeroofing/brand.md"
+          ]
+        }
+      ]
     }
   ]
 }
