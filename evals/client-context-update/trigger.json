@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "Fernhill Veterinary Clinic just submitted the intake form. The submission is intake-submission.md; merge it into their kickoff context in kickoff/fernhill-veterinary-clinic/.",
+    "Update the client context for Brightwater Dental with the answers they put in the GAP Answers field of the intake form, and tell me what's still missing for the Kickoff Call.",
+    "Here's the call-updates file from the Ridgeview Roofing kickoff call. Fold it into ridgeview-roofing-context.md and log every change.",
+    "The client emailed: 'We also serve Lake Oswego now, and we no longer do gutter cleaning.' Add that to Copperline Plumbing's context without losing the old facts.",
+    "Merge the feedback-updates file for Atlas Physio into the kickoff context and update the change log.",
+    "Process Summit Auto Glass's intake form submission against their kickoff folder: resolve the gap questions they answered and list which platform access we still don't have.",
+    "Allison says the GA4 and Search Console invites for Maple Row Bakery came through today. Update the missing items list and the client context.",
+    "The intake form for Lakeside Pediatrics came back. Some answers contradict the Sales call. Update the client context, flag the conflicts and give me the Kickoff Call agenda of what's still missing."
+  ],
+  "should_not_trigger": [
+    "Kick off Copperline Plumbing, copperlineplumbing.com, Tacoma metro. The Sales transcript and the signed SOW are in this folder.",
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Fernhill Veterinary Clinic from their site and our project files.",
+    "Sync this week's completed build tasks for Fernhill Veterinary Clinic to ClickUp and post a progress comment.",
+    "Write the gap questions for a new client's intake form from the Sales transcript and the SOW.",
+    "Plan the sitemap and page hierarchy for fernhillvet.com within the 10 pages in the SOW.",
+    "Do keyword research for a vet clinic in Salem, Oregon: dental cleaning, vaccinations, spay and neuter.",
+    "Draft a content brief for the Fernhill Veterinary Clinic dental care page.",
+    "Merge these two CSV exports of contacts into one file and remove the duplicate emails.",
+    "Here's the raw Kickoff Call transcript for Fernhill Veterinary Clinic. Pull out the best client quotes with timestamps for the Blueprint."
+  ]
+}
