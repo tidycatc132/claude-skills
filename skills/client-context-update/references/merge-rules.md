@@ -25,7 +25,7 @@ How to turn one source into the plan that `update_context.py apply` writes. The 
 
 - `source`: `intake`, `call`, `client` or `user` (the kinds in SKILL.md). `source_file`: the file name, or `client-email-<date>` / `team-note-<date>` for pasted text. `date`: when the source was written (submission, call or email date), `YYYY-MM-DD`; today's date only when the source has none.
 - `section`: a context heading without `## `, for example `Services`. Never `Sources`: the script adds the source's bullet there itself.
-- `before`: enough of the existing bullet's text to match exactly one bullet in that section.
+- `before`: enough of the existing bullet's text to match exactly one bullet in that section. For `updated` it may be a list of bullets in that section that one settled fact replaces (each is logged with the same After), so a section never repeats the same fact.
 - `fact`: one line, no leading `- `. Leave the tag off and the script appends `[<source>]`; write tags yourself only when two sources agree (`[transcript, intake]`) or for a `CONFLICT:`.
 - `answers`, `intake`, `access`: optional; include only what this source settles. Statuses not mentioned keep their current value (or the default on the first run).
 
@@ -36,9 +36,11 @@ How to turn one source into the plan that `update_context.py apply` writes. The 
 | `added` | A new fact with no bullet on that topic yet. | none |
 | `updated` | The source changes or adds to an existing fact and the source is the better authority (see below), or confirms it (then keep the text and merge the tags, `[transcript, intake]`). | the old bullet |
 | `resolved-gap` | The source answers a `GAP:` bullet. The fact states the answer, never "answered". | the `GAP:` bullet |
-| `conflict` | The source disagrees with an existing fact and neither clearly wins, or the topic is scope. | the old bullet |
+| `conflict` | The source disagrees with an existing fact and neither clearly wins, or the topic is scope. | the old bullet; none when the fact it disagrees with is not a bullet (the `SOW pages:` line), then the conflict is added |
 
 A fact says only what the source says, in its terms. Do not borrow the gap question's framing ("wants to reach", "plans to") when the source only lists something, and do not write about the source itself ("listed on the form", "X is not listed"): a form that lists Independence under service areas gives `Serves Independence`, not `Wants to reach Independence`.
+
+An `updated` fact states the current fact only, tagged with the source that states it; the old version lives in the change log, not in the new bullet (no "previously ..."). Merge tags only when both sources state the whole sentence.
 
 When a source changes a fact, change every bullet that states the old version (Snapshot often repeats a section), so the context never says both.
 
@@ -50,7 +52,7 @@ When an `R` item in `## Open Items` is now answered, add an `updated` change to 
 
 - **Scope never moves.** The scope source (SOW, or the signed deal terms) owns `## Scope Summary`. A page count, deliverable or service promised on a call, asked for by the client or written on the form is a `conflict` bullet in `## Scope Summary` that quotes it, names who said it, and says the build follows the scope source until a signed change. The `SOW pages:` line stays as it is.
 - **Business facts: the client's own, newer word wins** over the Sales transcript and the site, when it is direct and specific (the form, the client on the Kickoff Call, a client email). Use `updated` when the change is plainly a change over time ("we stopped doing X in September"); use `conflict` when it reads like a contradiction (a different founding year, a different count) so the AM confirms it. A `CONFLICT:` bullet keeps every other detail of the old bullet, gives both versions with their tags inside the sentence, says which one the build follows for now, and ends with both tags.
-- **Team notes** (`user`) win on what WISE itself has checked: access that arrived, whether a website exists, what the scope source says. On anything else about the business they are a `conflict` for the AM to confirm.
+- **Team notes** (`user`) win on what WISE itself has checked: access that arrived, whether a website exists, what the scope source says. A winning note settles the question: use `updated` (or `resolved-gap`) on every bullet that says otherwise, including any open `CONFLICT:` on it, and never leave or add a `CONFLICT:` about it. The new bullet states only the settled fact with the note's tag; the change log keeps the old version. On anything else about the business a team note is a `conflict` for the AM to confirm.
 - **A later source can settle an open `CONFLICT:`**: use `updated` with the `CONFLICT:` bullet as `before` and the settled fact (tagged with every source that supports it) as `fact`; the change log keeps the conflict.
 - **Only a real difference is a scope conflict.** A page count or deliverable that differs from the scope source is a `conflict`; a remark that does not contradict it (a delivery date for an interim deliverable, a restated scope) is no change, or an `added` bullet if it is a new fact.
 - **Second-hand statements** (the AM's summary of what the client meant, "I think they said") do not override anything; add them only if no bullet covers the topic, tagged with their source.

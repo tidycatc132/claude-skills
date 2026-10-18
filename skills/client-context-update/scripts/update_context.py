@@ -297,7 +297,7 @@ def apply(folder: Path, plan_path: Path, dry: bool) -> int:
             errors.append(f"{where}: a CONFLICT: bullet uses change 'conflict'")
             continue
         lines = secs[sec]
-        if c == "added":
+        if c == "added" or (c == "conflict" and not ch.get("before")):
             if any(squash(ln[2:]) == fact for ln in lines if ln.startswith("- ")):
                 errors.append(f"{where}: that bullet is already in {sec}")
                 continue
@@ -305,19 +305,31 @@ def apply(folder: Path, plan_path: Path, dry: bool) -> int:
             log_rows.append([date, label, sec, c, "", fact])
             continue
         before = ch.get("before", "")
-        if not before:
+        befores = before if isinstance(before, list) else [before]
+        if not all(befores):
             errors.append(f"{where}: '{c}' needs 'before', the existing bullet it replaces")
             continue
-        i, why = find_bullet(lines, before)
-        if i is None:
-            errors.append(f"{where}: before '{before[:60]}': {why} in {sec}")
+        if len(befores) > 1 and c != "updated":
+            errors.append(f"{where}: only 'updated' may replace several bullets with one")
             continue
-        old = squash(lines[i][2:])
-        if c == "resolved-gap" and not old.startswith("GAP:"):
-            errors.append(f"{where}: resolved-gap replaces a GAP: bullet, but the match is '{old[:60]}'")
+        hits, bad = [], False
+        for b in befores:
+            i, why = find_bullet(lines, b)
+            if i is None or i in hits:
+                errors.append(f"{where}: before '{b[:60]}': {why or 'matches the same bullet twice'} in {sec}")
+                bad = True
+                break
+            hits.append(i)
+        if bad:
             continue
-        lines[i] = f"- {fact}"
-        log_rows.append([date, label, sec, c, old, fact])
+        olds = [squash(lines[i][2:]) for i in hits]
+        if c == "resolved-gap" and not olds[0].startswith("GAP:"):
+            errors.append(f"{where}: resolved-gap replaces a GAP: bullet, but the match is '{olds[0][:60]}'")
+            continue
+        lines[hits[0]] = f"- {fact}"
+        for i in sorted(hits[1:], reverse=True):
+            del lines[i]
+        log_rows += [[date, label, sec, c, old, fact] for old in olds]
     # gap question answers
     answers = plan.get("answers", {}) or {}
     gtext = read(p["gaps"]) if p["gaps"].exists() else None
