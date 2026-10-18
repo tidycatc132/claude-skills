@@ -1,6 +1,6 @@
 ---
 name: client-context-update
-description: Merges new client information into an existing new-build kickoff client context. Use when an intake form submission (with its GAP Answers), a call-updates file, a feedback-updates file, a pasted client email or a note that platform access arrived needs folding into kickoff/[slug]/[slug]-context.md, for example "merge the intake form into the client context" or "GA access came through, update the missing items". Keeps headings and source tags, adds [intake], [call] and [client] facts, resolves answered GAP bullets, flags conflicts, never deletes a fact, logs every change and rewrites the missing-items Kickoff Call agenda. Do NOT use for the Day 1 kickoff files or gap questions (use new-build-kickoff), the welcome email (use welcome-email), brand, voice or audience files (use client-reference-kit), syncing progress to ClickUp (use clickup-progress-sync), or a raw Kickoff Call transcript, which must first become a call-updates file (planned kickoff-call-processing skill).
+description: Merges new client information into an existing new-build kickoff client context. Use when an intake form submission (with its GAP Answers), a call-updates file, a feedback-updates file, a pasted client email or a note that platform access arrived needs folding into kickoff/[slug]/[slug]-context.md, for example "merge the intake form into the client context" or "GA access came through, update the missing items". Keeps headings and source tags, adds [intake], [call] and [client] facts, resolves answered GAP bullets, flags conflicts, never deletes a fact, logs every change and rewrites the missing-items Kickoff Call agenda. Do NOT use for the Day 1 kickoff files or gap questions (use new-build-kickoff), the welcome email (use welcome-email), brand, voice or audience files (use client-reference-kit), syncing progress to ClickUp (use clickup-progress-sync), or a raw Kickoff Call transcript, which must first become a call-updates file (use kickoff-call-processing).
 ---
 
 # Client Context Update
@@ -14,6 +14,8 @@ Folds one new source of client information into the kickoff folder that new-buil
   - `intake`: an intake form submission (ClickUp form fields prefixed `CON`, `NAP`, `ACC`, `BRD`, `CNT`, `GAP`, `PRF`, including the `GAP Answers` field), pasted or as a file.
   - `call`: a `<slug>-call-updates.md` file (written by the planned kickoff-call-processing skill).
   - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the client-feedback skill), or a client email pasted into chat.
+  - `call`: a `<slug>-call-updates.md` file (written by kickoff-call-processing).
+  - `client`: a `feedback/<slug>/<date>-feedback-updates.md` file (written by the planned client-feedback skill), or a client email pasted into chat.
   - `user`: a note from the team, typically that platform access arrived ("Dev verified the GA4 invite").
 
   Updates files follow [Updates Format](references/updates-format.md). A raw call transcript is not a source for this skill; say it must first become a call-updates file in that format. If several sources arrive at once, run the steps once per source, oldest first.
