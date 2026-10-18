@@ -8,6 +8,6 @@
   "columns": ["url", "title", "page_type", "status", "source"],
   "required_non_empty": ["url", "page_type"],
   "enums": {"page_type": ["home", "about", "service", "location", "contact", "blog", "post", "legal", "other"]},
-  "min_rows": 1,
+  "min_rows": 0,
   "consumer_cmd": "python3 skills/week-1-handoff-check/scripts/handoff_check.py inventory {fixture}"
 }

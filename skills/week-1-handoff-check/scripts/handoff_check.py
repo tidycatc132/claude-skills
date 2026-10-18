@@ -36,7 +36,6 @@ DESIGN_HEADINGS = ["Goals", "Audience", "Brand Cues", "Design References", "Sect
 MISSING_HEADINGS = ["Intake Items", "Platform Access", "Kickoff Call Agenda"]
 KIT_FILES = ["brand.md", "voice.md", "style.md", "audience.md", "compliance.md"]
 CONTENT_FILES = ["article.md", "metadata.md", "article.html", "qa_report.md", "handoff.md"]
-PAID_RE = re.compile(r"\b(paid media|ppc|google ads|meta ads|microsoft ads|paid search|paid social)\b", re.I)
 CAP_RE = re.compile(r"countable pages\W*(\d+)\s*/\s*SOW cap\W*(\d+|unknown)", re.I)
 MARKER_RE = re.compile(r"<!--\s*section:\s*(.+?)\s*-->")
 OPTION_RE = re.compile(r"^\s*[^:\n]{1,60}:\s*https?://\S+\s*$")
@@ -90,11 +89,12 @@ def lacking(text: str, wanted: list[str]) -> list[str]:
     return [h for h in wanted if h.lower() not in have]
 
 
-def table_rows(text: str, header_start: str) -> list[list[str]]:
-    """Data rows of the first markdown table whose header line starts with header_start."""
+def table_rows(text: str, *first_cells: str) -> list[list[str]]:
+    """Data rows of the first markdown table whose header starts with these cells (spacing ignored)."""
+    pat = re.compile(r"^\|" + "".join(r"\s*" + re.escape(c) + r"\s*\|" for c in first_cells), re.I)
     lines = text.splitlines()
     for i, line in enumerate(lines):
-        if line.strip().startswith(header_start):
+        if pat.match(line.strip()):
             out = []
             for row in lines[i + 2:]:
                 if not row.strip().startswith("|"):
@@ -179,7 +179,7 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
     client = m.group(1) if m else slug
     rows: list[Row] = []
     log_text = read(k / f"{slug}-change-log.md")
-    log_rows = table_rows(log_text, "| Date | Source |")
+    log_rows = table_rows(log_text, "Date", "Source")
     log_sources = [r[1].lower() for r in log_rows if len(r) > 1]
 
     # 1. Kickoff files (new-build-kickoff)
@@ -208,13 +208,13 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
     rows.append(file_row(root, "Project instructions", True, k / f"{slug}-project-instructions.md", OWNERS["kickoff"]))
     rows.append(file_row(root, "Setup checklist", True, k / f"{slug}-setup-checklist.md", OWNERS["kickoff"]))
     pm = k / f"{slug}-paid-media-brief.md"
-    inc = re.search(r"^Included services:\s*(.+)$", ctx, re.M)
-    paid_in_scope = bool(inc and PAID_RE.search(inc.group(1)))
+    # new-build-kickoff adds this checklist item only when its --paid-media check says the scope includes it
+    paid_in_scope = bool(re.search(r"paid media brief", read(k / f"{slug}-setup-checklist.md"), re.I))
     if paid_in_scope or pm.is_file():
         rows.append(file_row(root, "Paid media brief", paid_in_scope, pm, OWNERS["kickoff"]))
     else:
         rows.append(Row("Paid media brief", False, rel(root, pm), OWNERS["kickoff"])
-                    .set("n/a", "paid media not in the scope source's `Included services:`"))
+                    .set("n/a", "paid media not in scope (no paid media brief item in the setup checklist)"))
 
     # 2. Welcome email
     rows.append(file_row(root, "Welcome email", True, root / "welcome-email" / slug / f"{slug}-welcome-email.md",
@@ -232,7 +232,7 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
 
     # 4. Platform access (not blocking)
     r = Row("Platform access confirmed", False, rel(root, mi_p), OWNERS["access"])
-    plat = table_rows(read(mi_p), "| Platform |")
+    plat = table_rows(read(mi_p), "Platform")
     if not plat:
         r.set("missing", "no `| Platform | Status | Note |` table to read")
     else:
@@ -335,9 +335,12 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
     r = file_row(root, "Homepage design brief", True, dbrief_p, OWNERS["design"], DESIGN_HEADINGS)
     if r.status == "present" and article and article.is_file():
         page = MARKER_RE.findall(read(article))
-        mapped = [row[1] for row in table_rows(dbrief, "| # | Section |") if len(row) > 1]
+        mapped = [row[1] for row in table_rows(dbrief, "#", "Section") if len(row) > 1]
         low_page, low_mapped = [s.lower() for s in page], [s.lower() for s in mapped]
-        if page and mapped and low_page != low_mapped:
+        if not page or not mapped:
+            r.note = "Section Map not compared: " + ("no section markers in the article" if not page
+                                                     else "no `| # | Section |` table in the brief")
+        elif low_page != low_mapped:
             gone = [s for s in page if s.lower() not in low_mapped]
             extra = [s for s in mapped if s.lower() not in low_page]
             detail = "; ".join(x for x in (
@@ -353,9 +356,9 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
     # 9. Week 1 email
     em_p = root / "emails" / slug / f"{slug}-week-1-email.md"
     r = file_row(root, "Week 1 client email", True, em_p, OWNERS["email"],
-                 need_text=[("`Subject:` line", r"^Subject:\s*\S"), ("`Design options:` block", r"^Design options:")])
+                 need_text=[("`Subject:` line", r"^Subject:\s*\S"), ("`Design options:` line", r"^Design options:\s*$")])
     if r.status == "present":
-        em = read(em_p).split("Design options:", 1)[1].lstrip("\n").splitlines()
+        em = re.split(r"^Design options:\s*$", read(em_p), maxsplit=1, flags=re.M)[-1].lstrip("\n").splitlines()
         opts = []
         for line in em:
             if not OPTION_RE.match(line):
@@ -392,7 +395,8 @@ def sitemap_row(root: Path, ctx: str) -> Row:
             rel(root, p) if p else "seo-reports/site-structure-optimizer/<date>-<site>.md", OWNERS["sitemap"])
     if not p:
         return r.set("missing", f"no saved architecture report; owner {OWNERS['sitemap']}")
-    m = CAP_RE.search(read(p))
+    caps = list(CAP_RE.finditer(read(p)))
+    m = caps[-1] if caps else None  # the last line is the final count, after any trimming
     if not m:
         return r.set("missing", "incomplete, no `countable pages N / SOW cap M` line (architecture mode); "
                                 f"owner {OWNERS['sitemap']}")

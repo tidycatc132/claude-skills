@@ -15,6 +15,7 @@ Optional, from the user only:
 - `--slug <slug>` when there are several kickoff folders.
 - `--kit <folder>` when there are several `client-reference/` folders.
 - `--content <folder>` when the homepage copy is not in `content/home/`.
+- `--date YYYY-MM-DD` for the report's `Checked:` date (default today); `--dry-run` prints the report without writing it.
 - `--signoff "<who>, <date>"` when the user says the editor signed off the homepage copy and the design brief does not record it. Pass exactly what they said; never infer a sign-off.
 
 ## Output

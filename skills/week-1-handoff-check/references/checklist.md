@@ -9,7 +9,7 @@ What `scripts/handoff_check.py run` checks, in report order. Paths are relative 
 | Gap questions | yes | `kickoff/<slug>/<slug>-gap-questions.md` | not empty | |
 | Project instructions | yes | `kickoff/<slug>/<slug>-project-instructions.md` | not empty | |
 | Setup checklist | yes | `kickoff/<slug>/<slug>-setup-checklist.md` | not empty | |
-| Paid media brief | only when the context's `Included services:` names paid media (paid media, PPC, Google Ads, Meta ads, Microsoft Ads, paid search, paid social); else `n/a` | `kickoff/<slug>/<slug>-paid-media-brief.md` | not empty | |
+| Paid media brief | only when the setup checklist has new-build-kickoff's `Send the paid media brief to Paid Media` item (added only when paid media is signed scope); else `n/a` | `kickoff/<slug>/<slug>-paid-media-brief.md` | not empty | |
 | Welcome email | yes | `welcome-email/<slug>/<slug>-welcome-email.md` | has a `Subject:` line | |
 | Change log | yes | `kickoff/<slug>/<slug>-change-log.md` | has the `| Date | Source | Section | Change | Before | After |` table with at least one row (gap responses were processed) | |
 | Missing items | yes | `kickoff/<slug>/<slug>-missing-items.md` | has `## Intake Items`, `## Platform Access`, `## Kickoff Call Agenda` | |
@@ -20,11 +20,11 @@ What `scripts/handoff_check.py run` checks, in report order. Paths are relative 
 | Quote bank | yes | `kickoff/<slug>/<slug>-quote-bank.md` | has the `| # | Quote | Speaker | Timestamp | Use for |` table | |
 | Reference Kit (one row per file) | yes | `client-reference/<client-slug>/` `brand.md`, `voice.md`, `style.md`, `audience.md`, `compliance.md`; the only folder there, or `--kit` | each has `## Sources` | |
 | Keyword research | yes | the last-named `research/keyword-research/*.md` | has a `targets:` block | |
-| Sitemap within scope page cap | yes | the last-named `seo-reports/site-structure-optimizer/*.md` with a `countable pages N / SOW cap M` line | that line exists and N is at most M; over the cap is reported `missing` | the cap differs from the context's `SOW pages:` number, or the report's cap is `Unknown` while the context now has a number |
+| Sitemap within scope page cap | yes | the last-named `seo-reports/site-structure-optimizer/*.md` with a `countable pages N / SOW cap M` line | that line exists (the last one counts, after any trimming) and N is at most M; over the cap is reported `missing` | the cap differs from the context's `SOW pages:` number, or the report's cap is `Unknown` while the context now has a number |
 | Homepage content brief | yes | `research/content-briefs/*.md` with front-matter `format: homepage` (older `.vN.md` copies skipped) | `status` is `DONE` or `DONE_WITH_CONCERNS` | |
 | Homepage content | yes | `content/home/`, else the one `content/*/` whose `article.md` has `<!-- section: Hero -->`, or `--content` | `article.md`, `metadata.md`, `article.html`, `qa_report.md`, `handoff.md` all exist and the `VERDICT:` is `READY` or `NEEDS_INPUT`; the note counts open client flags | |
 | Editorial sign-off | yes | the design brief's `Content review:` line, or `--signoff` from the user | the line starts `confirmed` | |
-| Homepage design brief | yes | `design/<slug>/<slug>-homepage-design-brief.md` | has its ten sections, `## Goals` to `## Sources` | its Section Map rows do not match the article's `<!-- section: ... -->` markers, in order |
+| Homepage design brief | yes | `design/<slug>/<slug>-homepage-design-brief.md` | has its ten sections, `## Goals` to `## Sources` | its Section Map rows do not match the article's `<!-- section: ... -->` markers, in order (when either side has none, the note says the map was not compared) |
 | Homepage wireframe | no | `design/<slug>/<slug>-homepage-wireframe.html` | exists; else `n/a` (optional) | |
 | Week 1 client email | yes | `emails/<slug>/<slug>-week-1-email.md` | has `Subject:` and a `Design options:` block with at least 2 `<name>: <link>` lines | |
 | Client feedback | no | the last-named `feedback/<slug>/*-feedback.md` | exists; absent is listed but never blocks | a `*-feedback-updates.md` file is not named in any change log Source |
