@@ -4,20 +4,20 @@
 Website Audit,,,,,,
 Getting Found: SEO & Content ,,Result,,Converting Visitors: UI & Performance ,,Result
 Website Platform,,,,SSL Secured ,,Yes
-URL Structure,,Incorrect,,ADA Compliant ,,No
+URL Structure,,Incorrect,,ADA Compliant / ADA Software,,Fail
 Meta Titles,,Incorrect,,Privacy/Consent Compliance,,No
-Meta Descriptions,,Incorrect,,Look & Feel,,Incorrect
-Headers / H Tags,,Incorrect,,Tone & Voice,,Incorrect
-Structured Data,,Incorrect,,"Original Content (Photos, Videos, etc)",,Yes
-Page Word Count,,Incorrect,,Clear Customer Journey,,Yes
-New Content Monthly ,,No,,Clear Conversion Path (CTAs),,Yes
-Duplicate Websites,,Yes,,Effective Conversion Pages,,Yes
-Duplicate Content ,,Yes,,Google Core Web Vitals:,,Result
-Backlinks,,No,,Overall Test Results,,Pass
-Internal Link Building,,No,,- Desktop Page Optimization,,91%
-External Link Building,,No,,- Desktop Speed (load time in seconds),,100%
-Domain Authority,,1,,- Mobile Page Optimization,,99%
-Domain Age,,,,- Mobile Speed (4G load time in seconds),,1.8
+Meta Descriptions,,Incorrect,,Tone & Voice,,Incorrect
+Headers / H Tags,,Incorrect,,"Original Content (Photos, Videos, etc)",,Yes
+Structured Data,,Incorrect,,Clear Customer Journey,,Yes
+Page Word Count,,Incorrect,,Clear Conversion Path (CTAs),,Yes
+New Content Monthly ,,No,,Google Core Web Vitals:,,Result
+Duplicate Websites,,Yes,,Overall Test Results,,Pass
+Duplicate Content ,,Yes,,- Desktop Page Optimization,,91%
+Backlinks,,No,,- Desktop Speed (Speed Index in seconds),,1.2
+Internal Link Building,,No,,- Desktop LCP (seconds),,1.1
+External Link Building,,No,,- Mobile Page Optimization,,99%
+Domain Authority,,1,,- Mobile Speed (4G Speed Index in seconds),,1.8
+Domain Age,,,,- Mobile LCP (4G seconds),,1.9
 ,,,,,Generative AI Visibility,
 # of Core Pages,# of Blog Posts,AI-Written Blogs,,Google (Gemini),ChatGPT,Other
 0,0,Yes,,No,No,No

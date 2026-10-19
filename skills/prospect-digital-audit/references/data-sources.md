@@ -5,7 +5,7 @@ SE Ranking tool names below are the `mcp__SE_Ranking__*` tools. Before the first
 ## Site crawl (SEO and UI cells)
 
 - Start an SE Ranking standard audit on the URL (`DATA_createStandardAudit`), poll `DATA_getAuditStatus`, then read `DATA_getAuditReport` and `DATA_getAuditPagesByIssue` for meta titles, meta descriptions, headings, duplicate content, word count, internal links and structured data.
-- Also fetch every key page. Judgment cells (Look & Feel, Tone & Voice, customer journey, CTAs, conversion pages, original content) need the page itself. Direct requests to the prospect site may be blocked in the sandbox and a summarizing page fetch cannot see raw HTML or JSON-LD. When that happens use `DATA_getCrawledPages` for per-page `title_len`, `description_len`, `h1_len`, `words_count`, `canonical` and `indexable`, and mark cells that need raw HTML or rendering (Structured Data, ADA, Look & Feel, Internal Link Building, Effective Conversion Pages, AI-Written Blogs) as `Unknown`.
+- Also fetch every key page and save its HTML to `<run-folder>/pages/`. Judgment cells (Tone & Voice, customer journey, CTAs, original content) need the page itself, and the ADA check runs on the saved files. Direct requests to the prospect site may be blocked in the sandbox and a summarizing page fetch cannot see raw HTML or JSON-LD. When that happens use `DATA_getCrawledPages` for per-page `title_len`, `description_len`, `h1_len`, `words_count`, `canonical` and `indexable`, and mark cells that need raw HTML or rendering (Structured Data, ADA, Internal Link Building, AI-Written Blogs) as `Unknown`.
 - If the audit has not finished after about 10 minutes, use the page fetches alone and note it.
 - `words_count` in the crawl includes repeated header, footer and menu text. Estimate the site's boilerplate from a thin page (for example a thank-you page) and subtract it to get unique words.
 
@@ -23,7 +23,7 @@ SE Ranking tool names below are the `mcp__SE_Ranking__*` tools. Before the first
 | Domain Authority | `DATA_getDomainAuthority` (SE Ranking's score, 0 to 100). Write it as "N (SE Ranking scale)"; other tools use other scales, so mention any figure quoted on the call in the notes. |
 | Domain Age | RDAP: fetch `https://rdap.org/domain/<domain>` and read the registration event date. Write it as "N years". |
 | SSL Secured | HTTPS loads with a valid certificate and HTTP redirects to it. |
-| ADA Compliant | Rubric checks on key page HTML. |
+| ADA Compliant / ADA Software | `scripts/check_ada.py` on the saved key-page HTML; see the section below. |
 | Privacy/Consent Compliance | Privacy policy linked in the footer, and a consent banner if any tracking tag fires. |
 | # of Core Pages | Sitemap URLs that are services, locations, industries, pricing or about pages. Exclude blog and resources articles, partner pages, offers, events, legal and thank-you pages. |
 | # of Blog Posts | Post sitemap count; mention separate article sections (for example /resources/) in the notes. |
@@ -37,8 +37,15 @@ Fetch PageSpeed Insights for the homepage, once per strategy. The keyless API is
 | Cell | Value |
 |---|---|
 | Overall Test Results | `Pass` if the field-data Core Web Vitals assessment passes on mobile; if there is no field data, `Pass` only if mobile LCP is 2.5 s or less, CLS 0.1 or less and TBT 200 ms or less in lab data. Otherwise `Fail`. |
-| Desktop / Mobile Page Optimization | Lighthouse performance score as a percentage. |
-| Desktop / Mobile Speed | Lab Largest Contentful Paint in seconds, one decimal. |
+| Desktop / Mobile Page Optimization | Lighthouse performance score (`lighthouseResult.categories.performance.score` x 100) as a percentage. |
+| Desktop / Mobile Speed | Lab Speed Index (`lighthouseResult.audits.speed-index.numericValue`, ms to seconds), one decimal. |
+| Desktop / Mobile LCP | Largest Contentful Paint in seconds, one decimal: the field value `loadingExperience.metrics.LARGEST_CONTENTFUL_PAINT_MS.percentile` when PageSpeed returns one (Google's 28-day 75th percentile), otherwise the lab value `lighthouseResult.audits.largest-contentful-paint.numericValue`. Say in `evidence` which one it was. Under 2.5 s is good, 2.5 to 4.0 needs improvement, over 4.0 is poor. |
+
+Run mobile and desktop as separate requests; each gives its own LCP.
+
+## ADA Compliant / ADA Software
+
+Save the HTML of every key page and run `python3 -I <skill folder>/scripts/check_ada.py <files...> --out <run-folder>/ada.json`. The result is `Pass` when accessibility software (overlay or widget) is detected or the quick screen is clean on every page, else `Fail`; the rubric has the rule. If the page HTML cannot be fetched at all, the cell is `Unknown`.
 
 ## Generative AI visibility
 

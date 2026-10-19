@@ -23,19 +23,19 @@
   },
   "ui": {
     "ssl_secured": "Yes",
-    "ada_compliant": "No",
+    "ada_compliant": "Fail",
     "privacy_consent": "No",
-    "look_and_feel": "Incorrect",
     "tone_and_voice": "Correct",
     "original_content": "No",
     "clear_customer_journey": "No",
     "clear_conversion_path": "Yes",
-    "effective_conversion_pages": "No",
     "cwv_overall": "Fail",
     "desktop_optimization": "78%",
     "desktop_speed_seconds": 2.4,
+    "desktop_lcp_seconds": 2.9,
     "mobile_optimization": "41%",
-    "mobile_speed_seconds": 6.8
+    "mobile_speed_seconds": 6.8,
+    "mobile_lcp_seconds": 6.8
   },
   "content": {
     "core_pages": 9,
@@ -268,7 +268,10 @@
   ],
   "evidence": {
     "meta_titles": "/services/drain-cleaning/ title is 74 characters",
-    "mobile_speed_seconds": "PageSpeed Insights mobile LCP 6.8 s"
+    "ada_compliant": "no accessibility software and the quick screen fails: pages/home.html: 6 images without alt, 2 unlabelled fields",
+    "mobile_lcp_seconds": "PageSpeed Insights field LCP (28-day p75) 6.8 s on mobile",
+    "desktop_lcp_seconds": "PageSpeed Insights lab LCP 2.9 s on desktop (no field data)",
+    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.8 s"
   },
   "sources": {
     "meta_titles": "SE Ranking audit report, Pages with long titles",
@@ -276,7 +279,7 @@
     "domain_age": "https://rdap.org/domain/exampleplumbing.com"
   },
   "observation_basis": [
-    "ui.mobile_speed_seconds 6.8 s, ui.cwv_overall Fail",
+    "ui.mobile_lcp_seconds 6.8 s, ui.cwv_overall Fail",
     "rankings: Round Rock row has no Maps or page-one result for any keyword; transcript row 7",
     "reviews.gbp 4.6/87; directories 9 not found"
   ]
