@@ -23,19 +23,19 @@
   },
   "ui": {
     "ssl_secured": "Yes",
-    "ada_compliant": "No",
+    "ada_compliant": "Fail",
     "privacy_consent": "No",
-    "look_and_feel": "Correct",
     "tone_and_voice": "Correct",
     "original_content": "Yes",
     "clear_customer_journey": "No",
     "clear_conversion_path": "Yes",
-    "effective_conversion_pages": "No",
     "cwv_overall": "Fail",
     "desktop_optimization": "82%",
     "desktop_speed_seconds": 2.1,
+    "desktop_lcp_seconds": 2.3,
     "mobile_optimization": "38%",
-    "mobile_speed_seconds": 5.9
+    "mobile_speed_seconds": 6.4,
+    "mobile_lcp_seconds": 5.9
   },
   "content": {
     "core_pages": 7,
@@ -391,10 +391,11 @@
     "page_word_count": "/water-heaters/ has about 280 unique words",
     "internal_link_building": "/water-heaters/ is linked only from the menu",
     "clear_customer_journey": "sewer line repair and tankless installs are not reachable from the homepage in one click",
-    "effective_conversion_pages": "/contact/ form has 9 fields and no click-to-call number",
     "privacy_consent": "GA4 and Google Ads tags fire with no consent banner and no privacy policy link",
-    "ada_compliant": "/ has 6 images without alt text",
-    "mobile_speed_seconds": "PageSpeed Insights mobile LCP 5.9 s",
-    "cwv_overall": "PageSpeed Insights field data: mobile Core Web Vitals assessment failed"
+    "ada_compliant": "no accessibility software and the quick screen fails: pages/home.html: 6 images without alt, 1 unlabelled field; pages/water-heaters.html: 2 images without alt",
+    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.4 s",
+    "cwv_overall": "PageSpeed Insights field data: mobile Core Web Vitals assessment failed",
+    "mobile_lcp_seconds": "PageSpeed Insights field LCP (28-day p75) 5.9 s on mobile",
+    "desktop_lcp_seconds": "PageSpeed Insights lab LCP 2.3 s on desktop (no field data)"
   }
 }
