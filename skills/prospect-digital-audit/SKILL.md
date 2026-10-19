@@ -27,11 +27,12 @@ Work through the steps in order. Keep every value you collect, with its source, 
    ```bash
    python3 <skill folder>/scripts/fill_audit.py <run-folder>/audit.json <run-folder>/<slug>-digital-audit.xlsx
    ```
-   `<skill folder>` is where this SKILL.md lives; `<run-folder>` is under the working directory. The script needs `openpyxl` (`pip install openpyxl`). It fills [assets/audit-template.csv](assets/audit-template.csv) by label, writes the XLSX and a CSV copy, and exits non-zero listing missing cells and wrong counts (5 keyword groups, 25 rankings, 3 to 5 observations, directory totals). Fix every listed problem and rerun until it exits 0.
+   `<skill folder>` is where this SKILL.md lives; `<run-folder>` is under the working directory. The script needs `openpyxl` (`pip install openpyxl`). It fills [assets/audit-template.csv](assets/audit-template.csv) by label as the first sheet, adds a second sheet "How We Got These Results" (one row per cell: method, the evidence you recorded, the source), writes the XLSX and a CSV copy of the first sheet, and exits non-zero listing missing cells and wrong counts (5 keyword groups, 25 rankings, 3 to 5 observations, directory totals). Fix every listed problem and rerun until it exits 0.
 9. **Deliver** the run folder `prospect-audits/<slug>-<YYYY-MM-DD>/` containing the XLSX, the CSV copy, `<slug>-sales-notes.md` and `audit.json`. Do not send, upload or post anything; the sales manager reviews first.
 
 ## Rules
 
+- Record what you found for every cell in `audit.json`: `evidence.<key>` (a sentence naming the page and the failing value, or `{"note": ..., "source": ...}`), `sources.<key>` (tool, URL or transcript row), a `url` and `note` on each directory in `directories.detail`, a `reason` on each keyword group, and `observation_basis` (one line per observation naming the cells it rests on). These feed the "How We Got These Results" sheet; a cell with no evidence shows an empty row there, which the sales manager will notice.
 - Never invent a value. `Unknown` is a valid cell value in the sheet. If a source fails and nothing else covers the cell, write `Unknown` and list it under "Gaps" in the sales notes with what would fill it.
 - Nothing from the internal notes (budget, objections, competitor names they mentioned, the rep's opinions) may appear in the sheet.
 - Quote the transcript in the sales notes with its timestamp or row number so the sales manager can check it.

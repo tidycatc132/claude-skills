@@ -85,7 +85,8 @@
     {
       "keyword": "water heater repair",
       "searches_per_month": 880,
-      "city": "Austin"
+      "city": "Austin",
+      "reason": "Prospect said water heaters are their biggest earner (row 5); 880 US searches/month"
     },
     {
       "keyword": "drain cleaning",
@@ -268,5 +269,15 @@
   "evidence": {
     "meta_titles": "/services/drain-cleaning/ title is 74 characters",
     "mobile_speed_seconds": "PageSpeed Insights mobile LCP 6.8 s"
-  }
+  },
+  "sources": {
+    "meta_titles": "SE Ranking audit report, Pages with long titles",
+    "mobile_speed_seconds": "https://pagespeed.web.dev/ mobile run, 10/17/26",
+    "domain_age": "https://rdap.org/domain/exampleplumbing.com"
+  },
+  "observation_basis": [
+    "ui.mobile_speed_seconds 6.8 s, ui.cwv_overall Fail",
+    "rankings: Round Rock row has no Maps or page-one result for any keyword; transcript row 7",
+    "reviews.gbp 4.6/87; directories 9 not found"
+  ]
 }

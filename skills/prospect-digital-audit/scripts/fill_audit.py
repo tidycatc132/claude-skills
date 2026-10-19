@@ -4,10 +4,14 @@
 Usage:
     python3 fill_audit.py audit.json OUTPUT.xlsx [--template assets/audit-template.csv]
 
-Writes OUTPUT.xlsx in the template's exact layout (and OUTPUT.csv next to it).
-Cells are located by their labels in the template, not by fixed coordinates,
-so small template edits do not break the filler. Exits non-zero with a list of
-problems if the JSON is incomplete or inconsistent.
+Writes OUTPUT.xlsx with two sheets: "WISE Digital Audit" in the template's exact
+layout (also written as OUTPUT.csv next to it) and "How We Got These Results",
+one row per cell with the method used, the evidence recorded in audit.json
+(`evidence`, `sources`, directory `detail`, keyword `reason`, ranking `note`,
+`observation_basis`) and the source. Cells are located by their labels in the
+template, not by fixed coordinates, so small template edits do not break the
+filler. Exits non-zero with a list of problems if the JSON is incomplete or
+inconsistent.
 """
 import argparse
 import csv
@@ -246,7 +250,161 @@ def colour(label, value):
     return None
 
 
-def save(grid, out_xlsx):
+# Second sheet: how each result was reached. One fixed method note per cell, plus the
+# page-level evidence and source the model recorded in audit.json under `evidence`
+# (string, or {"note": ..., "source": ...}) and `sources`.
+METHODS = {
+    "prospect.company_name": "Name on the website, cross-checked with the call transcript.",
+    "prospect.url": "URL supplied by the sales manager (or confirmed from the transcript).",
+    "prospect.audit_date": "Date the audit was run.",
+    "seo.website_platform": "Generator meta tag, asset paths (/wp-content/, cdn.shopify.com, wixstatic, squarespace, webflow) and response headers; transcript if undetectable.",
+    "seo.url_structure": "Each key page URL checked for query strings, IDs, uppercase, underscores, file extensions, depth over 3 folders and bare service slugs. Incorrect if any key page fails.",
+    "seo.meta_titles": "Site crawl plus page HTML: missing, duplicated across key pages, over 60 characters, or missing the page's main service. Incorrect if any key page fails.",
+    "seo.meta_descriptions": "Site crawl plus page HTML: missing, duplicated, under 70 or over 160 characters. Incorrect if any key page fails.",
+    "seo.headers": "Page HTML: exactly one H1 naming the main service and no skipped heading levels. Incorrect if any key page fails.",
+    "seo.structured_data": "Homepage JSON-LD checked for a LocalBusiness (or subtype) or Organization schema that parses.",
+    "seo.page_word_count": "Unique main-content words per key page (header, footer and menu text subtracted). Under 500 fails.",
+    "seo.new_content_monthly": "Blog post dates or sitemap lastmod: at least one new post or page in each of the last 3 months.",
+    "seo.duplicate_websites": "http, https, www and non-www variants requested and checked for a redirect to one version; business name searched for a second site with the same content.",
+    "seo.duplicate_content": "Site crawl duplicate-content issues on key pages.",
+    "seo.backlinks": "SE Ranking backlinks summary: 10 or more referring domains is Yes.",
+    "seo.internal_link_building": "Page HTML: every core service page linked from at least one other key page besides the menu.",
+    "seo.external_link_building": "SE Ranking new and lost referring domains over the last 6 months: growth is Yes.",
+    "seo.domain_authority": "SE Ranking Domain Authority (0 to 100 on SE Ranking's own scale).",
+    "seo.domain_age": "Registration date from the RDAP record for the domain.",
+    "ui.ssl_secured": "HTTPS loads with a valid certificate on the key pages.",
+    "ui.ada_compliant": "Quick screen of key page HTML: images without alt text, unlabelled form fields, missing lang attribute, obviously low text contrast. Not a WCAG certification.",
+    "ui.privacy_consent": "Privacy policy link in the footer, and a consent banner or consent tool where tracking tags fire.",
+    "ui.look_and_feel": "Five statements scored on the key pages (consistent colours and fonts, nothing broken on mobile, clear visual hierarchy, design not visibly dated, sharp images). Correct at 3 or more.",
+    "ui.tone_and_voice": "Five statements scored on the key pages (speaks to the customer, plain language, consistent voice, fits the audience from the call, no spelling or grammar errors). Correct at 3 or more.",
+    "ui.original_content": "Key pages checked for own photos or video versus stock-only imagery.",
+    "ui.clear_customer_journey": "Every core service reachable from the homepage in one click, and each service page points to a next step.",
+    "ui.clear_conversion_path": "Every key page has a visible call or form CTA above the fold on mobile.",
+    "ui.effective_conversion_pages": "Contact or quote page has a short form (6 fields or fewer), a click-to-call number and trust signals.",
+    "ui.cwv_overall": "PageSpeed Insights for the homepage: field-data Core Web Vitals assessment on mobile, or lab thresholds (LCP 2.5 s, CLS 0.1, TBT 200 ms) when there is no field data.",
+    "ui.desktop_optimization": "PageSpeed Insights desktop Lighthouse performance score.",
+    "ui.desktop_speed_seconds": "PageSpeed Insights desktop lab Largest Contentful Paint, in seconds.",
+    "ui.mobile_optimization": "PageSpeed Insights mobile Lighthouse performance score.",
+    "ui.mobile_speed_seconds": "PageSpeed Insights mobile lab Largest Contentful Paint, in seconds.",
+    "content.core_pages": "Sitemap URLs that are service, location, industry, pricing or about pages; blog, legal, offer and thank-you pages excluded.",
+    "content.blog_posts": "Post count from the post sitemap.",
+    "content.ai_written_blogs": "The 3 most recent posts judged for generic intros, no first-hand detail, listicle structure and stock phrases; Yes if 2 of 3 show 3 or more signs.",
+    "ai_visibility.gemini": "SE Ranking AI search data: domain cited or brand mentioned for any prompt in Google AI Overviews or AI Mode.",
+    "ai_visibility.chatgpt": "SE Ranking AI search data: domain cited or brand mentioned for any ChatGPT prompt.",
+    "ai_visibility.other": "SE Ranking AI search data for Perplexity and any other engine reported.",
+    "tracking.google_analytics": "GA4 or Universal Analytics tag found in the page HTML or the Tag Manager container.",
+    "tracking.google_tag_manager": "gtm.js container script found in the page HTML.",
+    "tracking.business_locations": "Location pages on the site, cross-checked with the transcript.",
+    "tracking.google_ads": "AW- conversion tag on the site or in the container, or SE Ranking paid-ads history in the last 3 months. Detection wins over the transcript.",
+    "tracking.meta_ads": "Meta Ad Library active ads where reachable; otherwise a Meta pixel plus the prospect saying they run Meta ads.",
+    "tracking.other_ads": "Microsoft UET, TikTok, LinkedIn, Nextdoor or similar pixels, or another paid channel named on the call.",
+    "reviews.gbp": "Stars and review count read from the Google Business Profile found by searching the business name and city.",
+    "reviews.yelp": "Stars and review count read from the Yelp listing.",
+    "reviews.facebook": "Stars and review count read from the Facebook page.",
+    "directories": "21 fixed directories searched by business name, city and site; each listing compared with the website's name, address and phone. Error rate = (Inaccurate + Not Found) / 21; Unchecked directories are not counted as errors.",
+    "keyword_groups": "Services the prospect stressed on the call, phrased as customers search (no city), with SE Ranking US monthly volume. Volumes are national, not per city.",
+    "rankings": "One city-targeted SE Ranking SERP per keyword and city, read for the local pack (positions 1 to 3) and organic page one (positions 1 to 10) by domain or business name.",
+    "observations": "Written from the findings above, tied to what the prospect said on the call where possible, biggest business impact first.",
+}
+
+HOW_SHEET = "How We Got These Results"
+HOW_HEADER = ("Section", "Item", "Result", "How it was checked", "What we found (evidence)", "Source")
+
+
+def _evidence(data, key):
+    """Return (note, source) for a dotted key, reading both evidence[key] and sources[key]."""
+    ev = data.get("evidence", {}) or {}
+    src = data.get("sources", {}) or {}
+    short = key.split(".", 1)[-1]
+    raw = ev.get(key, ev.get(short, ""))
+    note, source = raw, ""
+    if isinstance(raw, dict):
+        note, source = raw.get("note", ""), raw.get("source", "")
+    source = source or src.get(key, src.get(short, ""))
+    return str(note or ""), str(source or "")
+
+
+def _label_for(section_rows, key):
+    return next((label for label, k in section_rows.items() if k == key), key)
+
+
+def how_rows(data):
+    rows = []
+
+    def add(section, item, result, key, note="", source=""):
+        n, s = _evidence(data, key)
+        rows.append((section, item, "" if result is None else str(result), METHODS.get(key, ""), note or n, source or s))
+
+    p = data.get("prospect", {})
+    for k in ("company_name", "url", "audit_date"):
+        add("Header", k.replace("_", " ").title(), p.get(k, ""), f"prospect.{k}")
+    for label, key in SEO_ROWS.items():
+        add("Getting Found: SEO & Content", label, data.get("seo", {}).get(key), f"seo.{key}")
+    for label, key in UI_ROWS.items():
+        add("Converting Visitors: UI & Performance", label.lstrip("- "), data.get("ui", {}).get(key), f"ui.{key}")
+    for label, (section, key) in UNDER_HEADER.items():
+        title = {"content": "Content", "ai_visibility": "Generative AI Visibility", "tracking": "Analytics & Ads"}[section]
+        add(title, label, data.get(section, {}).get(key), f"{section}.{key}")
+    add("Generative AI Visibility", "Other", data.get("ai_visibility", {}).get("other"), "ai_visibility.other")
+    for label, key in REVIEW_COLUMNS.items():
+        rev = data.get("reviews", {}).get(key, {})
+        unknown = "unknown" in (str(rev.get("stars")).lower(), str(rev.get("count")).lower())
+        add("GBP & Reviews", label, "Unknown" if unknown else f"{rev.get('stars', '')} stars, {rev.get('count', '')} reviews", f"reviews.{key}",
+            note=str(rev.get("note", "")), source=str(rev.get("url", "")))
+
+    d = data.get("directories", {})
+    inaccurate, not_found = d.get("inaccurate") or 0, d.get("not_found") or 0
+    add("Directory Listings", "Summary",
+        f"{inaccurate} inaccurate, {not_found} not found, {round(100 * (inaccurate + not_found) / DIRECTORY_TOTAL)}% error rate",
+        "directories")
+    for item in d.get("detail", []):
+        rows.append(("Directory Listings", item.get("directory", ""), item.get("status", ""),
+                     "Listing searched and compared with the website's name, address and phone.",
+                     item.get("note", ""), item.get("url", "")))
+
+    for i, g in enumerate(data.get("keyword_groups", []), start=1):
+        rows.append(("Keyword Groups", f"{i}. {g.get('keyword', '')}",
+                     f"{g.get('searches_per_month', '')} searches/month, paired with {g.get('city', '')}",
+                     METHODS["keyword_groups"], g.get("reason", ""), g.get("source", "SE Ranking keyword metrics, US")))
+
+    for row in data.get("rankings", []):
+        m, o = row.get("maps_position"), row.get("organic_position")
+        rows.append(("Search Rankings", f"{row.get('keyword', '')} / {row.get('city', '')}",
+                     f"Maps {m if m else '-'}, Organic {o if o else '-'}", METHODS["rankings"],
+                     row.get("note", ""), row.get("source", "")))
+
+    basis = data.get("observation_basis", []) or []
+    for i, text in enumerate(data.get("observations", []), start=1):
+        rows.append(("Key Observations", f"Observation {i}", text, METHODS["observations"],
+                     basis[i - 1] if i - 1 < len(basis) else "", ""))
+    return rows
+
+
+def add_how_sheet(wb, data):
+    ws = wb.create_sheet(HOW_SHEET)
+    ws.append(HOW_HEADER)
+    for cell in ws[1]:
+        cell.font = Font(bold=True)
+        cell.alignment = Alignment(wrap_text=True, vertical="top")
+    last_section = None
+    for row in how_rows(data):
+        ws.append(row)
+        r = ws.max_row
+        for cell in ws[r]:
+            cell.alignment = Alignment(wrap_text=True, vertical="top")
+        if row[0] != last_section:
+            ws.cell(row=r, column=1).font = Font(bold=True)
+            last_section = row[0]
+        fill_ = colour(row[1], row[2])
+        if fill_:
+            ws.cell(row=r, column=3).fill = fill_
+    for col, width in zip("ABCDEF", (28, 34, 30, 60, 60, 40)):
+        ws.column_dimensions[col].width = width
+    ws.freeze_panes = "A2"
+    return ws
+
+
+def save(grid, out_xlsx, data=None):
     wb = Workbook()
     ws = wb.active
     ws.title = "WISE Digital Audit"
@@ -267,6 +425,8 @@ def save(grid, out_xlsx):
                 cell.font = Font(bold=True)
     for col, width in zip("ABCDEFG", (34, 16, 18, 4, 40, 16, 18)):
         ws.column_dimensions[col].width = width
+    if data is not None:
+        add_how_sheet(wb, data)
     Path(out_xlsx).parent.mkdir(parents=True, exist_ok=True)
     wb.save(out_xlsx)
     with open(Path(out_xlsx).with_suffix(".csv"), "w", newline="", encoding="utf-8") as f:
@@ -283,7 +443,7 @@ def main():
     grid = load_grid(args.template)
     problems = []
     fill(grid, data, problems)
-    save(grid, args.output_xlsx)
+    save(grid, args.output_xlsx, data)
     if problems:
         print("Saved with problems to fix:\n- " + "\n- ".join(problems), file=sys.stderr)
         sys.exit(1)
