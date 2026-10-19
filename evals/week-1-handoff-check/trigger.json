@@ -1,0 +1,21 @@
+{
+  "should_trigger": [
+    "Run the Week 1 handoff check for Tamarack Veterinary Clinic. Are we ready for Week 2?",
+    "Is Week 1 done for Copperline Plumbing? Check that every file is there before SEO starts the Blueprint.",
+    "Go/no-go for Brightwater Dental: verify the Week 1 deliverables are all in the working folder.",
+    "Before I tell SEO to start the Growth Blueprint, check whether anything from Week 1 is missing for Juniper Ridge Roofing.",
+    "Week 1 readiness check for Atlas Physio, kickoff through the Week 1 email. What's still missing and who owns it?",
+    "Can we hand Fernhollow Landscaping off to Week 2? The client hasn't replied to the design email yet.",
+    "Check the Week 1 checklist for Maple Row Bakery: kickoff files, reference kit, keyword research, sitemap, homepage brief and copy, design brief, Week 1 email."
+  ],
+  "should_not_trigger": [
+    "GA access came through for Tamarack Veterinary Clinic, update the missing items.",
+    "Draft the end-of-Week-1 email to Tamarack with the two Figma design options and the homepage copy.",
+    "Here's Elena's reply to the homepage review email. Sort the feedback and draft my answer.",
+    "Prep me for the Kickoff Call with Copperline Plumbing tomorrow.",
+    "Audit this homepage draft for E-E-A-T and tell me if it's ready to publish.",
+    "Plan the sitemap for tamarackvet.com and keep it inside the 12-page SOW.",
+    "Post the Week 1 progress update to the ClickUp task for the Tamarack build.",
+    "Write the homepage design brief for Tamarack now that the copy passed editorial review."
+  ]
+}

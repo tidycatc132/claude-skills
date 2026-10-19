@@ -1,0 +1,607 @@
+{
+  "cases": [
+    {
+      "id": "complete-minus-quote-bank",
+      "prompt": "Use the week-1-handoff-check skill. Run the Week 1 handoff check for Tamarack Veterinary Clinic; the working folder is the current folder. Is Week 1 ready to hand off to Week 2?",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/audience.md",
+          "dest": "client-reference/tamarackvet/audience.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/brand.md",
+          "dest": "client-reference/tamarackvet/brand.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/compliance.md",
+          "dest": "client-reference/tamarackvet/compliance.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/style.md",
+          "dest": "client-reference/tamarackvet/style.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/voice.md",
+          "dest": "client-reference/tamarackvet/voice.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/design/tamarack-vet/tamarack-vet-homepage-design-brief.md",
+          "dest": "design/tamarack-vet/tamarack-vet-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/emails/tamarack-vet/tamarack-vet-week-1-email.md",
+          "dest": "emails/tamarack-vet/tamarack-vet-week-1-email.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-call-updates.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-call-updates.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-change-log.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-change-log.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-context.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-context.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-gap-questions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-gap-questions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-missing-items.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-project-instructions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-project-instructions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-setup-checklist.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-url-inventory.csv",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/content-briefs/vet-bend-oregon.md",
+          "dest": "research/content-briefs/vet-bend-oregon.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/keyword-research/2026-10-11-tamarack-vet.md",
+          "dest": "research/keyword-research/2026-10-11-tamarack-vet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/welcome-email/tamarack-vet/tamarack-vet-welcome-email.md",
+          "dest": "welcome-email/tamarack-vet/tamarack-vet-welcome-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "text": "| Item | Required | Status | Path | Note |"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Quote bank \\| yes \\| missing \\| kickoff/tamarack-vet/tamarack-vet-quote-bank\\.md \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "not_regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| (Client context|Homepage content|Week 1 client email|Reference Kit brand\\.md) \\| yes \\| (missing|stale) \\|"
+        },
+        {
+          "type": "file_absent",
+          "path": "kickoff/tamarack-vet/tamarack-vet-quote-bank.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)quote.bank"
+        }
+      ]
+    },
+    {
+      "id": "complete-go-without-feedback",
+      "prompt": "Use the week-1-handoff-check skill. Week 1 for Tamarack Veterinary Clinic should be done; the client hasn't replied to the Week 1 email yet. Check everything in this folder and tell me if we're a go for Week 2.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/audience.md",
+          "dest": "client-reference/tamarackvet/audience.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/brand.md",
+          "dest": "client-reference/tamarackvet/brand.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/compliance.md",
+          "dest": "client-reference/tamarackvet/compliance.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/style.md",
+          "dest": "client-reference/tamarackvet/style.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/voice.md",
+          "dest": "client-reference/tamarackvet/voice.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/design/tamarack-vet/tamarack-vet-homepage-design-brief.md",
+          "dest": "design/tamarack-vet/tamarack-vet-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/emails/tamarack-vet/tamarack-vet-week-1-email.md",
+          "dest": "emails/tamarack-vet/tamarack-vet-week-1-email.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-call-updates.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-call-updates.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-change-log.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-change-log.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-context.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-context.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-gap-questions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-gap-questions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-missing-items.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-project-instructions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-project-instructions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-quote-bank.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-quote-bank.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-setup-checklist.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-url-inventory.csv",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/content-briefs/vet-bend-oregon.md",
+          "dest": "research/content-briefs/vet-bend-oregon.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/keyword-research/2026-10-11-tamarack-vet.md",
+          "dest": "research/keyword-research/2026-10-11-tamarack-vet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/welcome-email/tamarack-vet/tamarack-vet-welcome-email.md",
+          "dest": "welcome-email/tamarack-vet/tamarack-vet-welcome-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\nGO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Client feedback \\| no \\| missing \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Sitemap within scope page cap \\| yes \\| present \\|[^|]*\\| countable pages 11 / SOW cap 12 \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Platform access confirmed \\| no \\| missing \\|[^\\n]*Google Analytics"
+        },
+        {
+          "type": "not_regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| yes \\| (missing|stale) \\|"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "\\bGO\\b"
+        }
+      ]
+    },
+    {
+      "id": "stale-and-over-cap",
+      "prompt": "Use the week-1-handoff-check skill. Handoff check for Tamarack Veterinary Clinic before we start the Blueprint. Working folder is here.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/audience.md",
+          "dest": "client-reference/tamarackvet/audience.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/brand.md",
+          "dest": "client-reference/tamarackvet/brand.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/compliance.md",
+          "dest": "client-reference/tamarackvet/compliance.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/style.md",
+          "dest": "client-reference/tamarackvet/style.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/voice.md",
+          "dest": "client-reference/tamarackvet/voice.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/stale/design/tamarack-vet/tamarack-vet-homepage-design-brief.md",
+          "dest": "design/tamarack-vet/tamarack-vet-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/emails/tamarack-vet/tamarack-vet-week-1-email.md",
+          "dest": "emails/tamarack-vet/tamarack-vet-week-1-email.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/stale/feedback/tamarack-vet/2026-10-19-feedback-updates.md",
+          "dest": "feedback/tamarack-vet/2026-10-19-feedback-updates.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/stale/feedback/tamarack-vet/2026-10-19-feedback.md",
+          "dest": "feedback/tamarack-vet/2026-10-19-feedback.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-call-updates.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-call-updates.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/stale/kickoff/tamarack-vet/tamarack-vet-change-log.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-change-log.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-context.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-context.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-gap-questions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-gap-questions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-missing-items.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-project-instructions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-project-instructions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-quote-bank.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-quote-bank.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-setup-checklist.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-url-inventory.csv",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/content-briefs/vet-bend-oregon.md",
+          "dest": "research/content-briefs/vet-bend-oregon.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/keyword-research/2026-10-11-tamarack-vet.md",
+          "dest": "research/keyword-research/2026-10-11-tamarack-vet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/stale/seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/welcome-email/tamarack-vet/tamarack-vet-welcome-email.md",
+          "dest": "welcome-email/tamarack-vet/tamarack-vet-welcome-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Client context \\| yes \\| stale \\|[^\\n]*client-context-update"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Sitemap within scope page cap \\| yes \\| missing \\|[^\\n]*countable pages 15 / SOW cap 12"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Editorial sign-off \\| yes \\| missing \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Client feedback \\| no \\| stale \\|[^\\n]*2026-10-19-feedback-updates\\.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Quote bank \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go"
+        }
+      ]
+    },
+    {
+      "id": "design-brief-behind-the-copy",
+      "prompt": "Use the week-1-handoff-check skill. The editor added an FAQ to the Tamarack Veterinary Clinic homepage after the design brief was written. Run the Week 1 handoff check on this folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/audience.md",
+          "dest": "client-reference/tamarackvet/audience.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/brand.md",
+          "dest": "client-reference/tamarackvet/brand.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/compliance.md",
+          "dest": "client-reference/tamarackvet/compliance.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/style.md",
+          "dest": "client-reference/tamarackvet/style.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/client-reference/tamarackvet/voice.md",
+          "dest": "client-reference/tamarackvet/voice.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/sectionmap/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/design/tamarack-vet/tamarack-vet-homepage-design-brief.md",
+          "dest": "design/tamarack-vet/tamarack-vet-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/emails/tamarack-vet/tamarack-vet-week-1-email.md",
+          "dest": "emails/tamarack-vet/tamarack-vet-week-1-email.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-blueprint-input-package.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-call-updates.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-call-updates.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-change-log.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-change-log.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-context.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-context.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-gap-questions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-gap-questions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-kickoff-call-brief.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-missing-items.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-project-instructions.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-project-instructions.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-quote-bank.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-quote-bank.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-setup-checklist.md",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/kickoff/tamarack-vet/tamarack-vet-url-inventory.csv",
+          "dest": "kickoff/tamarack-vet/tamarack-vet-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/content-briefs/vet-bend-oregon.md",
+          "dest": "research/content-briefs/vet-bend-oregon.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/research/keyword-research/2026-10-11-tamarack-vet.md",
+          "dest": "research/keyword-research/2026-10-11-tamarack-vet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-12-tamarackvet.md"
+        },
+        {
+          "src": "fixtures/week-1-handoff-check/full/welcome-email/tamarack-vet/tamarack-vet-welcome-email.md",
+          "dest": "welcome-email/tamarack-vet/tamarack-vet-welcome-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Homepage design brief \\| yes \\| stale \\|[^\\n]*FAQ"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/tamarack-vet/tamarack-vet-week-1-handoff.md",
+          "pattern": "\\| Homepage content \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)design brief"
+        }
+      ]
+    }
+  ]
+}
