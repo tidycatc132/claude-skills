@@ -295,6 +295,20 @@ def edit(root: Path, rel: str, old: str, new: str) -> None:
     p.write_text(s.replace(old, new, 1))
 
 
+def quote_line(root: Path, rel: str, prefix: str, inject: str) -> None:
+    """Wrap the first line starting with `prefix` in double quotes, after replacing 'Turn a plain-text' with `inject`."""
+    p = root / rel
+    lines = p.read_text().split("\n")
+    for i, line in enumerate(lines):
+        if line.startswith(prefix):
+            value = line[len(prefix):].replace("Turn a plain-text", inject, 1).replace('"', '\\"')
+            lines[i] = f'{prefix}"{value}"'
+            break
+    else:
+        raise AssertionError(f"selftest bug: no line starts with {prefix!r} in {rel}")
+    p.write_text("\n".join(lines))
+
+
 def edit_all(root: Path, rels: list[str], old: str, new: str) -> None:
     """Replace every occurrence in each file (docs mention contract columns in several places)."""
     hit = False
@@ -355,6 +369,13 @@ def t_validator() -> None:
     case("name contains 'claude'", lambda r: (edit(r, TM, f"name: {PRODUCER}", "name: claude-producer")), "must not contain 'claude'")
     case("description over 1024 chars", lambda r: edit(r, TM, "Do NOT use for", "x" * 1100 + " Do NOT use for"), "limit is 1024")
     case("angle brackets in description", lambda r: edit(r, TM, "Turn a plain-text", "Turn a <b>plain-text"), "angle brackets")
+    # strict-YAML sensors (the harness parser is forgiving; the skill loaders are not)
+    case("colon-space in unquoted description", lambda r: edit(r, TM, "Turn a plain-text", "Writes parts.csv: a plain-text"), "colon followed by a space")
+    case("space-hash in unquoted description", lambda r: edit(r, TM, "Turn a plain-text", "Turn a #1 plain-text"), "start of a comment")
+    case("description opening with a YAML indicator", lambda r: edit(r, TM, "description: Turn", "description: [Turn"), "YAML indicator")
+    case("frontmatter key given twice", lambda r: edit(r, TM, "description: Turn", "description: an older copy\ndescription: Turn"), "appears twice")
+    case("unclosed quote in description", lambda r: edit(r, TM, "description: Turn", 'description: "Turn'), "does not close")
+    case("quoted description may contain colon-space", lambda r: quote_line(r, TM, "description: ", "Writes parts.csv: a plain-text"), "", rc=0)
     case("missing description", lambda r: edit(r, TM, "description:", "descriptionx:"), "missing 'description'")
     case("no frontmatter", lambda r: (r / TM).write_text("# no frontmatter\n"), "no YAML frontmatter")
     case("reference to a missing file", lambda r: edit(r, TM, "## Rules", "See references/nope.md for more.\n\n## Rules"), "does not exist")
