@@ -159,6 +159,55 @@ def check_evals(skill_dir: Path, r: C.Report, strict: bool) -> None:
             r.error(f"evals/{name}/outputs.json is not valid JSON: {e}")
 
 
+YAML_INDICATORS = "[]{}*&!|>%@`#,"  # a plain scalar may not start with these
+
+
+def check_frontmatter_yaml(text: str, r: C.Report) -> None:
+    """The harness parser is forgiving; the loaders that read a shipped skill use strict YAML.
+
+    Catches what has broken shipped skills before: a colon-space inside an unquoted value
+    (`writes x.md: goals`), a space-hash (` #`), a value opening with a YAML indicator, an
+    unclosed quote, and a key given twice (a merge artifact).
+    """
+    m = re.match(r"\A---[ \t]*\r?\n(.*?)\r?\n---", text, re.S)
+    if not m:
+        return
+    seen: set[str] = set()
+    for line in m.group(1).splitlines():
+        mm = re.match(r"^([A-Za-z0-9_-]+):[ \t]*(.*)$", line)
+        if not mm or line.startswith((" ", "\t")):
+            continue
+        key, val = mm.group(1), mm.group(2).strip()
+        if key in seen:
+            r.error(
+                f"frontmatter key '{key}' appears twice (usually a merge artifact). Strict YAML rejects "
+                f"or silently drops one of them; keep a single '{key}:' line."
+            )
+        seen.add(key)
+        if not val or val in (">", ">-", ">+", "|", "|-", "|+"):
+            continue
+        if val[0] in "\"'":
+            if len(val) < 2 or val[-1] != val[0]:
+                r.error(f"frontmatter '{key}' opens with a quote that does not close on the same line; strict YAML fails on it.")
+            continue
+        if val[0] in YAML_INDICATORS:
+            r.error(
+                f"frontmatter '{key}' starts with '{val[0]}', a YAML indicator, so strict YAML does not read it as plain text. "
+                "Start the value with a letter, or quote the whole value."
+            )
+        if ": " in val or val.endswith(":"):
+            r.error(
+                f"frontmatter '{key}' contains a colon followed by a space. Strict YAML reads that as a nested mapping "
+                "and fails with 'mapping values are not allowed here'. Rephrase (a comma, 'with', 'for example') "
+                "or quote the whole value."
+            )
+        if " #" in val:
+            r.error(
+                f"frontmatter '{key}' contains ' #', which strict YAML treats as the start of a comment and drops the rest "
+                "of the value. Remove the space before '#' or quote the whole value."
+            )
+
+
 def validate(skill_dir: Path, strict: bool = False) -> C.Report:
     name = skill_dir.name
     r = C.Report(name)
@@ -171,6 +220,7 @@ def validate(skill_dir: Path, strict: bool = False) -> C.Report:
     if fm is None:
         r.error("SKILL.md has no YAML frontmatter. Start the file with --- / name: / description: / ---.")
         return r
+    check_frontmatter_yaml(text, r)
 
     # --- name
     fname = fm.get("name", "")

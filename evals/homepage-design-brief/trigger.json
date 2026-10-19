@@ -1,0 +1,19 @@
+{
+  "should_trigger": [
+    "Dana signed off the Tidewater Tree Care homepage copy in editorial review. Write the homepage design brief for the designers from content/home/article.md, the client reference kit and the kickoff files.",
+    "The homepage content for Odell Lock & Key is approved. Turn it into a design brief: section by section layout, imagery, must-haves and do-nots for the design team.",
+    "Write the homepage design brief for Brightwater Dental now that editorial review is done, and give me a static HTML wireframe I can pull into Figma.",
+    "We need the brief the designer works from for the Ridgeview Roofing homepage. The copy is final; map each homepage section to a layout idea and list the open questions.",
+    "Homepage copy passed review for Maple Row Bakery. Prepare the design handover: goals, audience, brand cues, the reference sites the client mentioned, and a section map.",
+    "Create design/atlas-physio/atlas-physio-homepage-design-brief.md from the edited homepage and the kickoff blueprint package.",
+    "Here's the first draft of the Odell Lock & Key homepage in content/home/article.md. Editorial hasn't looked at it yet, but write the homepage design brief from it so the designer can start."
+  ],
+  "should_not_trigger": [
+    "Write the homepage copy for Tidewater Tree Care from the homepage content brief in briefs/homepage-brief.md.",
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Odell Lock & Key from the kickoff files.",
+    "Plan the sitemap and page hierarchy for Ridgeview Roofing's new site: which pages, which URLs, how the navigation nests.",
+    "Create the content brief for the homepage target in the Maple Row Bakery keyword report.",
+    "Audit the Brightwater Dental homepage draft for E-E-A-T and tell me if it is ready to publish.",
+    "Kick off Atlas Physio, atlasphysio.co, Leeds. The Sales transcript and SOW are in this folder."
+  ]
+}

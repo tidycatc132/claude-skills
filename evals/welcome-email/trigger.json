@@ -1,0 +1,23 @@
+{
+  "should_trigger": [
+    "Write the welcome email for Larkspur Family Dental. The kickoff files are in kickoff/larkspur-family-dental/ and I already went through the gap questions.",
+    "I'm the AM on Tidewater Roofing. Draft the Day 1 welcome email to the client with the intake form link and the Kickoff Call booking link.",
+    "Generate the client welcome email for this new build. Use the current gap questions file, skip the ones I answered, and sign it from me, Jordan.",
+    "Kickoff is done for Hollis & Grant Law and I've reviewed the gap questions. Now I need the email that introduces me as their account manager and sends them the intake form.",
+    "Create the welcome email for our new website client Maple Row Bakery: intro from me, what happens this week, intake form link, and the open questions.",
+    "Step 4 of Week 1 for Atlas Physio: write the welcome email that goes out with the intake form. Form link is https://forms.clickup.com/9001/f/xyz and booking is https://calendly.com/wise-sam/kickoff."
+  ],
+  "should_not_trigger": [
+    "Kick off Larkspur Family Dental, larkspurdental.com, Bend OR. The Sales transcript and SOW are in this folder.",
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Larkspur Family Dental.",
+    "Post this progress update to the ClickUp task for the Tidewater Roofing build.",
+    "Write the homepage copy for Tidewater Roofing from this content brief.",
+    "Plan the sitemap for larkspurdental.com and keep it within the 12-page SOW.",
+    "Write a cold outreach email to a dental practice we'd like to pitch a new website to.",
+    "Write the Google Ads search ad copy for Tidewater Roofing's storm damage campaign.",
+    "Audit this homepage draft for E-E-A-T and tell me if it's ready to publish.",
+    "Draft the email sending Larkspur Family Dental their homepage design options and the homepage copy for feedback.",
+    "Here are Tidewater Roofing's intake form answers. Update the client context with them.",
+    "Rewrite the gap questions for Larkspur Family Dental; question 3 is too vague."
+  ]
+}

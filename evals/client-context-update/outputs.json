@@ -1,0 +1,349 @@
+{
+  "cases": [
+    {
+      "id": "fernhill-intake",
+      "prompt": "Use the client-context-update skill. Fernhill Veterinary Clinic submitted the intake form; the submission is `intake-submission.md`. Merge it into their kickoff files in `kickoff/fernhill-veterinary-clinic/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-project-instructions.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-project-instructions.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-setup-checklist.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-url-inventory.csv",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/sources/intake-submission.md",
+          "dest": "intake-submission.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?ms)^## Snapshot\\n.*^## Business Overview\\n.*^## Services\\n.*^## Customers and Service Area\\n.*^## Goals and Conversion\\n.*^## Differentiators and Proof\\n.*^## Competitors\\n.*^## Website Today\\n.*^## Scope Summary\\n.*^## Open Items\\n.*^## Sources\\n",
+          "label": "context keeps its eleven headings in order"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?m)^SOW pages: 10 \\[sow\\]",
+          "label": "SOW page count unchanged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?m)^\\| Date \\| Source \\| Section \\| Change \\| Before \\| After \\|\\s*$",
+          "label": "change log header"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Item \\| Status \\| Note \\|",
+          "label": "intake items table"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Platform \\| Status \\| Note \\|",
+          "label": "platform access table"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^## Kickoff Call Agenda",
+          "label": "agenda section"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "\\[[^\\]\\n]*\\bintake\\b[^\\]\\n]*\\]",
+          "label": "intake facts tagged [intake]"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?s)## Competitors\\n(?:(?!\\n## ).)*Salem Animal Hospital",
+          "label": "competitor gap resolved from the GAP Answers"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?m)^- GAP: two or three clinics",
+          "label": "answered competitor GAP no longer open"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?m)^- CONFLICT:[^\\n]*(2011|2012)[^\\n]*(2011|2012)",
+          "label": "founding year 2011 vs 2012 flagged as a conflict"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?m)^\\|[^\\n]*\\| resolved-gap \\|",
+          "label": "resolved-gap rows logged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?m)^\\|[^\\n]*\\| conflict \\|",
+          "label": "conflict row logged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?im)^\\|[^\\n]*\\| (updated|conflict) \\|[^\\n]*soft-tissue surgery[^\\n]*\\|",
+          "label": "replaced surgery fact kept in the change log"
+        },
+        {
+          "type": "not_contains",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "text": "Fernhill#2024"
+        },
+        {
+          "type": "not_contains",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "text": "Fernhill#2024"
+        },
+        {
+          "type": "not_contains",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "text": "Fernhill#2024"
+        },
+        {
+          "type": "not_contains",
+          "path": "stdout",
+          "text": "Fernhill#2024"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md",
+          "pattern": "(?m)^Answer: [^\\n]*Salem Animal Hospital",
+          "label": "Q1 answer filled in"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md",
+          "pattern": "(?m)^3\\. [^\\n]*\\nAnswer:\\s*$",
+          "label": "unanswered Q3 left blank"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Hosting",
+          "label": "hosting (someone else manages it) on the agenda"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Website login",
+          "label": "website login (needs help) on the agenda"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Team members",
+          "label": "missing team members on the agenda"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Logo files",
+          "label": "received logo files not on the agenda"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Google Ads",
+          "label": "no paid media in scope, so Google Ads not on the agenda"
+        },
+        {
+          "type": "rubric",
+          "target": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "context": [
+            "intake-submission.md"
+          ],
+          "criteria": [
+            "Every fact tagged [intake] says what the intake submission says, with no added numbers, names, credentials or claims that the submission does not contain.",
+            "No fact from before the update has disappeared without a replacement that still records what changed (the old fact may be gone from the context only if a CONFLICT or updated bullet now covers that topic)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fernhill-call-updates",
+      "prompt": "Use the client-context-update skill. Here is the call-updates file from Fernhill Veterinary Clinic's Kickoff Call: `fernhill-veterinary-clinic-call-updates.md`. Update their kickoff files in `kickoff/fernhill-veterinary-clinic/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-gap-questions.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-project-instructions.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-project-instructions.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-setup-checklist.md",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-setup-checklist.md"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-url-inventory.csv",
+          "dest": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/client-context-update/fernhill/sources/fernhill-veterinary-clinic-call-updates.md",
+          "dest": "fernhill-veterinary-clinic-call-updates.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?ms)^## Snapshot\\n.*^## Business Overview\\n.*^## Services\\n.*^## Customers and Service Area\\n.*^## Goals and Conversion\\n.*^## Differentiators and Proof\\n.*^## Competitors\\n.*^## Website Today\\n.*^## Scope Summary\\n.*^## Open Items\\n.*^## Sources\\n",
+          "label": "context keeps its eleven headings in order"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?m)^SOW pages: 10 \\[sow\\]",
+          "label": "SOW page count unchanged"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?m)^\\| Date \\| Source \\| Section \\| Change \\| Before \\| After \\|\\s*$",
+          "label": "change log header"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Item \\| Status \\| Note \\|",
+          "label": "intake items table"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Platform \\| Status \\| Note \\|",
+          "label": "platform access table"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^## Kickoff Call Agenda",
+          "label": "agenda section"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "\\[[^\\]\\n]*\\bcall\\b[^\\]\\n]*\\]",
+          "label": "call facts tagged [call]"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?s)## Scope Summary\\n(?:(?!\\n## ).)*- CONFLICT:[^\\n]*(15|fifteen)",
+          "label": "AM's fifteen pages flagged against the SOW in Scope Summary"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?s)## Competitors\\n(?:(?!\\n## ).)*Cherry City Vet",
+          "label": "competitors from the call added"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-context.md",
+          "pattern": "(?s)## Customers and Service Area\\n(?:(?!\\n## ).)*Monmouth[^\\n]*\\[[^\\]\\n]*call",
+          "label": "service area gap resolved from the call"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-change-log.md",
+          "pattern": "(?im)^\\|[^\\n]*\\| (updated|conflict) \\|[^\\n]*Primary conversion: phone call[^\\n]*\\|",
+          "label": "old primary conversion kept in the change log"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Google Analytics \\| confirmed \\|",
+          "label": "GA confirmed on the call"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?m)^\\| Domain \\| invite sent \\|",
+          "label": "domain invite sent, not confirmed"
+        },
+        {
+          "type": "not_regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Google Analytics",
+          "label": "confirmed GA not on the agenda"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Domain",
+          "label": "unverified domain on the agenda"
+        },
+        {
+          "type": "regex",
+          "path": "kickoff/fernhill-veterinary-clinic/fernhill-veterinary-clinic-missing-items.md",
+          "pattern": "(?s)## Kickoff Call Agenda(?:(?!\\n## ).)*Logo files",
+          "label": "no intake yet, so logo files still on the agenda"
+        }
+      ]
+    }
+  ]
+}

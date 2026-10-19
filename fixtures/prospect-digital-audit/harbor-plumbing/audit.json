@@ -1,0 +1,405 @@
+{
+  "prospect": {
+    "company_name": "Harbor Plumbing",
+    "url": "https://harborplumbing.com",
+    "audit_date": "10/18/26"
+  },
+  "seo": {
+    "website_platform": "WordPress",
+    "url_structure": "Incorrect",
+    "meta_titles": "Incorrect",
+    "meta_descriptions": "Incorrect",
+    "headers": "Incorrect",
+    "structured_data": "Incorrect",
+    "page_word_count": "Incorrect",
+    "new_content_monthly": "No",
+    "duplicate_websites": "No",
+    "duplicate_content": "No",
+    "backlinks": "Yes",
+    "internal_link_building": "No",
+    "external_link_building": "No",
+    "domain_authority": "18 (SE Ranking scale)",
+    "domain_age": "7 years"
+  },
+  "ui": {
+    "ssl_secured": "Yes",
+    "ada_compliant": "Fail",
+    "privacy_consent": "No",
+    "tone_and_voice": "Correct",
+    "original_content": "Yes",
+    "clear_customer_journey": "No",
+    "clear_conversion_path": "Yes",
+    "cwv_overall": "Fail",
+    "desktop_optimization": "82%",
+    "desktop_speed_seconds": 2.1,
+    "desktop_lcp_seconds": 2.3,
+    "mobile_optimization": "38%",
+    "mobile_speed_seconds": 6.4,
+    "mobile_lcp_seconds": 5.9
+  },
+  "content": {
+    "core_pages": 7,
+    "blog_posts": 3,
+    "ai_written_blogs": "No"
+  },
+  "ai_visibility": {
+    "gemini": "No",
+    "chatgpt": "No",
+    "other": "No"
+  },
+  "tracking": {
+    "google_analytics": "Yes",
+    "google_tag_manager": "Yes",
+    "business_locations": 1,
+    "google_ads": "Yes",
+    "meta_ads": "No",
+    "other_ads": "No"
+  },
+  "reviews": {
+    "gbp": {
+      "stars": 4.8,
+      "count": 142
+    },
+    "yelp": {
+      "stars": 3.0,
+      "count": 9
+    },
+    "facebook": {
+      "stars": "Unknown",
+      "count": "Unknown",
+      "note": "Facebook page found but reviews are hidden; reachable only when logged in"
+    }
+  },
+  "directories": {
+    "inaccurate": 3,
+    "not_found": 8,
+    "detail": [
+      {
+        "directory": "Google Business Profile",
+        "status": "Unchecked",
+        "url": "",
+        "note": "search-only check cannot verify address and phone"
+      },
+      {
+        "directory": "Bing Places",
+        "status": "Unchecked",
+        "url": "",
+        "note": "search-only check"
+      },
+      {
+        "directory": "Apple Maps (Apple Business Connect)",
+        "status": "Unchecked",
+        "url": "",
+        "note": "search-only check"
+      },
+      {
+        "directory": "Yelp",
+        "status": "Inaccurate",
+        "url": "https://www.yelp.com/biz/harbor-plumbing-austin",
+        "note": "phone ends 0412, site shows 0421"
+      },
+      {
+        "directory": "Facebook",
+        "status": "Unchecked",
+        "url": "https://www.facebook.com/harborplumbingatx",
+        "note": "search-only check"
+      },
+      {
+        "directory": "Better Business Bureau (bbb.org)",
+        "status": "Accurate",
+        "url": "https://www.bbb.org/us/tx/austin/profile/plumber/harbor-plumbing",
+        "note": ""
+      },
+      {
+        "directory": "Yellow Pages (yellowpages.com)",
+        "status": "Inaccurate",
+        "url": "https://www.yellowpages.com/austin-tx/mip/harbor-plumbing",
+        "note": "old address on Manchaca Rd"
+      },
+      {
+        "directory": "Nextdoor",
+        "status": "Accurate",
+        "url": "https://nextdoor.com/pages/harbor-plumbing-austin-tx",
+        "note": ""
+      },
+      {
+        "directory": "Foursquare",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "MapQuest",
+        "status": "Inaccurate",
+        "url": "https://www.mapquest.com/us/texas/harbor-plumbing",
+        "note": "old phone number"
+      },
+      {
+        "directory": "Manta",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Superpages",
+        "status": "Accurate",
+        "url": "https://www.superpages.com/austin-tx/bpp/harbor-plumbing",
+        "note": ""
+      },
+      {
+        "directory": "Angi",
+        "status": "Accurate",
+        "url": "https://www.angi.com/companylist/us/tx/austin/harbor-plumbing",
+        "note": ""
+      },
+      {
+        "directory": "Thumbtack",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Citysearch",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Hotfrog",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Brownbook",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "EZlocal",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "MerchantCircle",
+        "status": "Accurate",
+        "url": "https://www.merchantcircle.com/harbor-plumbing-austin-tx",
+        "note": ""
+      },
+      {
+        "directory": "Chamber of Commerce (chamberofcommerce.com)",
+        "status": "Accurate",
+        "url": "https://www.chamberofcommerce.com/united-states/texas/austin/plumber/harbor-plumbing",
+        "note": ""
+      },
+      {
+        "directory": "Alignable",
+        "status": "Not Found",
+        "url": "",
+        "note": ""
+      }
+    ]
+  },
+  "keyword_groups": [
+    {
+      "keyword": "water heater repair",
+      "searches_per_month": 590,
+      "city": "Austin"
+    },
+    {
+      "keyword": "drain cleaning",
+      "searches_per_month": 480,
+      "city": "Round Rock"
+    },
+    {
+      "keyword": "emergency plumber",
+      "searches_per_month": 1600,
+      "city": "Cedar Park"
+    },
+    {
+      "keyword": "sewer line repair",
+      "searches_per_month": 260,
+      "city": "Georgetown"
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "searches_per_month": 320,
+      "city": "Pflugerville"
+    }
+  ],
+  "observations": [
+    "Mobile pages take about 6 seconds to load, so many visitors from phone searches leave before they see your services.",
+    "You mentioned wanting more work from Round Rock and Cedar Park, but the site has no page for either city and Harbor Plumbing does not appear in the map pack or on page one for any of the five services there.",
+    "Your Google reviews are strong (4.8 stars from 142 reviews), but 8 of the 21 directories we checked do not list Harbor Plumbing at all and 3 more show an old phone number or address."
+  ],
+  "rankings": [
+    {
+      "keyword": "water heater repair",
+      "city": "Austin",
+      "maps_position": 1,
+      "organic_position": 4
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Austin",
+      "maps_position": 3,
+      "organic_position": 9
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Austin",
+      "maps_position": 2,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Austin",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "city": "Austin",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "tankless water heater installation",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    }
+  ],
+  "evidence": {
+    "url_structure": "/services/ holds all five services on one page; /water-heaters/ is a bare service slug",
+    "meta_titles": "/services/ and / share the title 'Harbor Plumbing | Austin Plumber'",
+    "meta_descriptions": "/water-heaters/ has no meta description",
+    "headers": "/ has two H1s",
+    "structured_data": "no LocalBusiness or Organization JSON-LD on /",
+    "page_word_count": "/water-heaters/ has about 280 unique words",
+    "internal_link_building": "/water-heaters/ is linked only from the menu",
+    "clear_customer_journey": "sewer line repair and tankless installs are not reachable from the homepage in one click",
+    "privacy_consent": "GA4 and Google Ads tags fire with no consent banner and no privacy policy link",
+    "ada_compliant": "no accessibility software and the quick screen fails: pages/home.html: 6 images without alt, 1 unlabelled field; pages/water-heaters.html: 2 images without alt",
+    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.4 s",
+    "cwv_overall": "PageSpeed Insights field data: mobile Core Web Vitals assessment failed",
+    "mobile_lcp_seconds": "PageSpeed Insights field LCP (28-day p75) 5.9 s on mobile",
+    "desktop_lcp_seconds": "PageSpeed Insights lab LCP 2.3 s on desktop (no field data)"
+  }
+}

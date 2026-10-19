@@ -1,0 +1,286 @@
+{
+  "prospect": {
+    "company_name": "Example Plumbing Co.",
+    "url": "https://exampleplumbing.com",
+    "audit_date": "10/17/26"
+  },
+  "seo": {
+    "website_platform": "WordPress",
+    "url_structure": "Correct",
+    "meta_titles": "Incorrect",
+    "meta_descriptions": "Incorrect",
+    "headers": "Incorrect",
+    "structured_data": "Incorrect",
+    "page_word_count": "Incorrect",
+    "new_content_monthly": "No",
+    "duplicate_websites": "No",
+    "duplicate_content": "Yes",
+    "backlinks": "Yes",
+    "internal_link_building": "No",
+    "external_link_building": "No",
+    "domain_authority": 12,
+    "domain_age": "8 years"
+  },
+  "ui": {
+    "ssl_secured": "Yes",
+    "ada_compliant": "Fail",
+    "privacy_consent": "No",
+    "tone_and_voice": "Correct",
+    "original_content": "No",
+    "clear_customer_journey": "No",
+    "clear_conversion_path": "Yes",
+    "cwv_overall": "Fail",
+    "desktop_optimization": "78%",
+    "desktop_speed_seconds": 2.4,
+    "desktop_lcp_seconds": 2.9,
+    "mobile_optimization": "41%",
+    "mobile_speed_seconds": 6.8,
+    "mobile_lcp_seconds": 6.8
+  },
+  "content": {
+    "core_pages": 9,
+    "blog_posts": 4,
+    "ai_written_blogs": "No"
+  },
+  "ai_visibility": {
+    "gemini": "No",
+    "chatgpt": "No",
+    "other": "No"
+  },
+  "tracking": {
+    "google_analytics": "Yes",
+    "google_tag_manager": "No",
+    "business_locations": 1,
+    "google_ads": "Yes",
+    "meta_ads": "No",
+    "other_ads": "No"
+  },
+  "reviews": {
+    "gbp": {
+      "stars": 4.6,
+      "count": 87
+    },
+    "yelp": {
+      "stars": 3.5,
+      "count": 12
+    },
+    "facebook": {
+      "stars": 0,
+      "count": 0
+    }
+  },
+  "directories": {
+    "inaccurate": 4,
+    "not_found": 9,
+    "detail": [
+      {
+        "directory": "Yelp",
+        "status": "Inaccurate",
+        "url": "https://www.yelp.com/biz/example-plumbing-austin",
+        "note": "old phone number"
+      }
+    ]
+  },
+  "keyword_groups": [
+    {
+      "keyword": "water heater repair",
+      "searches_per_month": 880,
+      "city": "Austin",
+      "reason": "Prospect said water heaters are their biggest earner (row 5); 880 US searches/month"
+    },
+    {
+      "keyword": "drain cleaning",
+      "searches_per_month": 720,
+      "city": "Round Rock"
+    },
+    {
+      "keyword": "emergency plumber",
+      "searches_per_month": 1300,
+      "city": "Cedar Park"
+    },
+    {
+      "keyword": "sewer line repair",
+      "searches_per_month": 210,
+      "city": "Georgetown"
+    },
+    {
+      "keyword": "leak detection",
+      "searches_per_month": 170,
+      "city": "Pflugerville"
+    }
+  ],
+  "observations": [
+    "Mobile pages take almost 7 seconds to load, so many visitors from search leave before seeing your services.",
+    "You mentioned most calls come from Round Rock, but the site has no page for Round Rock and does not appear on page one there.",
+    "Your Google reviews are strong (4.6 stars from 87 reviews) but 9 of 21 directories do not list the business at all."
+  ],
+  "rankings": [
+    {
+      "keyword": "water heater repair",
+      "city": "Austin",
+      "maps_position": 2,
+      "organic_position": 7
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Austin",
+      "maps_position": 2,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Austin",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Austin",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "leak detection",
+      "city": "Austin",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "leak detection",
+      "city": "Round Rock",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "leak detection",
+      "city": "Cedar Park",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "leak detection",
+      "city": "Georgetown",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "water heater repair",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "drain cleaning",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "emergency plumber",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "sewer line repair",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    },
+    {
+      "keyword": "leak detection",
+      "city": "Pflugerville",
+      "maps_position": null,
+      "organic_position": null
+    }
+  ],
+  "evidence": {
+    "meta_titles": "/services/drain-cleaning/ title is 74 characters",
+    "ada_compliant": "no accessibility software and the quick screen fails: pages/home.html: 6 images without alt, 2 unlabelled fields",
+    "mobile_lcp_seconds": "PageSpeed Insights field LCP (28-day p75) 6.8 s on mobile",
+    "desktop_lcp_seconds": "PageSpeed Insights lab LCP 2.9 s on desktop (no field data)",
+    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.8 s"
+  },
+  "sources": {
+    "meta_titles": "SE Ranking audit report, Pages with long titles",
+    "mobile_speed_seconds": "https://pagespeed.web.dev/ mobile run, 10/17/26",
+    "domain_age": "https://rdap.org/domain/exampleplumbing.com"
+  },
+  "observation_basis": [
+    "ui.mobile_lcp_seconds 6.8 s, ui.cwv_overall Fail",
+    "rankings: Round Rock row has no Maps or page-one result for any keyword; transcript row 7",
+    "reviews.gbp 4.6/87; directories 9 not found"
+  ]
+}

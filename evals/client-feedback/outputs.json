@@ -1,0 +1,237 @@
+{
+  "cases": [
+    {
+      "id": "quarry-ridge-mixed-feedback",
+      "prompt": "Use the client-feedback skill. Tom Haugen at Quarry Ridge Electric answered my Week 1 email; his reply is in `feedback-email.txt`. The kickoff folder is `kickoff/quarry-ridge-electric/`. I'm the AM, Dana Whitcomb. Sort the feedback and draft my reply.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/quarry-ridge/feedback-email.txt",
+          "dest": "feedback-email.txt"
+        },
+        {
+          "src": "fixtures/client-feedback/quarry-ridge/kickoff/quarry-ridge-electric/quarry-ridge-electric-context.md",
+          "dest": "kickoff/quarry-ridge-electric/quarry-ridge-electric-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/quarry-ridge/kickoff/quarry-ridge-electric/quarry-ridge-electric-gap-questions.md",
+          "dest": "kickoff/quarry-ridge-electric/quarry-ridge-electric-gap-questions.md"
+        },
+        {
+          "src": "fixtures/client-feedback/quarry-ridge/kickoff/quarry-ridge-electric/quarry-ridge-electric-missing-items.md",
+          "dest": "kickoff/quarry-ridge-electric/quarry-ridge-electric-missing-items.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?m)^\\| # \\| Feedback \\| Type \\| Affects \\| Impact \\| Action \\| Owner \\|$",
+          "label": "feedback table header"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|[^\\n]*(town|Pine Island|Oronoco)[^\\n]*\\|\\s*scope\\s*\\|",
+          "label": "town pages request typed scope"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?ims)^## Scope Check\\s*\\n+- #\\d+ outside scope:",
+          "label": "town pages judged outside scope"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*green[^\\n]*\\|\\s*design\\s*\\|",
+          "label": "truck green on Option B typed design"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*service pages[^\\n]*\\|\\s*question\\s*\\|",
+          "label": "service pages timing typed question"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*2009[^\\n]*\\|\\s*content\\s*\\|",
+          "label": "founding year fix typed content"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?ims)^## Reply Draft.*(change order|quote|estimate|not (part of|included in)|outside)",
+          "label": "reply does not simply agree to the town pages"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "pattern": "(?ms)^## Reply Draft.*^Dana Whitcomb\\s*\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "reply signed by the AM"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?m)^Source: client$",
+          "label": "updates file source is client"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?m)^\\| # \\| Section \\| Fact \\| Evidence \\|$",
+          "label": "updates table header"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Business Overview\\s*\\|[^\\n]*2009",
+          "label": "2009 founding as a Business Overview fact"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Services\\s*\\|[^\\n]*EV charg",
+          "label": "EV charger installation as a Services fact"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Platform Access\\s*\\|\\s*Google Analytics: invite sent",
+          "label": "GA invite sent, not confirmed"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Intake Items\\s*\\|\\s*Logo files: received",
+          "label": "logo files received"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Scope Summary\\s*\\|\\s*CONFLICT:",
+          "label": "town pages logged as a scope conflict"
+        },
+        {
+          "type": "not_contains",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "text": "Sparky2024"
+        },
+        {
+          "type": "not_contains",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "text": "Sparky2024"
+        },
+        {
+          "type": "not_contains",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "text": "quarryadmin"
+        },
+        {
+          "type": "not_contains",
+          "path": "feedback/quarry-ridge-electric/2026-11-17-feedback-updates.md",
+          "text": "quarryadmin"
+        },
+        {
+          "type": "not_contains",
+          "path": "stdout",
+          "text": "Sparky2024"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "feedback/quarry-ridge-electric/2026-11-17-feedback.md",
+          "context": [
+            "feedback-email.txt"
+          ],
+          "criteria": [
+            "The reply draft answers Tom's question about when he will see the service pages without promising a specific date or committing to launch before his January promo, and does not agree to build the 8 town pages; it says they go beyond the current agreement and the AM will follow up on what adding them involves.",
+            "The reply draft does not repeat or use the GoDaddy username or password; it asks Tom to give access another way (for example by inviting WISE as a user) and suggests changing that password."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linden-approval-only",
+      "prompt": "Use the client-feedback skill. Grace Linden replied to our Week 1 email, it's in `feedback-email.txt`. Kickoff folder: `kickoff/linden-rowe-family-law/`. AM is Priya Natarajan. Sort it and draft the reply.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/linden/feedback-email.txt",
+          "dest": "feedback-email.txt"
+        },
+        {
+          "src": "fixtures/client-feedback/linden/kickoff/linden-rowe-family-law/linden-rowe-family-law-context.md",
+          "dest": "kickoff/linden-rowe-family-law/linden-rowe-family-law-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/linden/kickoff/linden-rowe-family-law/linden-rowe-family-law-gap-questions.md",
+          "dest": "kickoff/linden-rowe-family-law/linden-rowe-family-law-gap-questions.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback-updates.md"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Option A[^\\n]*\\|\\s*approval\\s*\\|",
+          "label": "Option A approval row"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*photographer[^\\n]*\\|\\s*question\\s*\\|",
+          "label": "photo question row"
+        },
+        {
+          "type": "not_regex",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*\\|\\s*scope\\s*\\|",
+          "label": "no scope rows"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "pattern": "(?ims)^## Scope Check\\s*\\n+- No scope requests",
+          "label": "scope check says none"
+        },
+        {
+          "type": "not_contains",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "text": "CONFLICT"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/linden-rowe-family-law/2026-11-25-feedback.md",
+          "pattern": "(?ms)^## Reply Draft.*^Priya Natarajan\\s*\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "reply signed by the AM"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        }
+      ]
+    }
+  ]
+}

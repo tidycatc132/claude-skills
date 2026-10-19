@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Here's the transcript from my call with Bright Path Dental (brightpathdental.com) as a CSV. Run the WISE digital audit on them.",
+    "Post-call audit for Summit HVAC, summit-hvac.com. The call transcript is in call.csv.",
+    "Fill the digital audit sheet for this prospect. Transcript export attached (fathom-export.csv), their site is https://www.greenleaflandscaping.net.",
+    "I just got off the discovery call with Rivera Law Group. The transcript CSV is in this folder and their site is riveralawgroup.com. Audit this prospect so we can present the sheet next week.",
+    "audit this prospect, here's the transcript: zoom_transcript.csv. URL: https://coastalroofingpros.com",
+    "Build the prospect audit from this call. The sales manager wants the Digital Audit XLSX and his internal notes kept separate. Transcript: notes.csv, prospect: elmstreetvet.com",
+    "We presented an audit to Harbor Plumbing last week; here is that call's transcript as a CSV. Re-run the WISE digital audit against harborplumbing.com and flag where what we said on the call does not match what you find.",
+    "Prospect audit from this call: Pinecrest Bookkeeping, pinecrestbooks.com, transcript export attached.",
+    "Run the WISE digital audit on acmeroofing.com. I don't have the call transcript exported yet."
+  ],
+  "should_not_trigger": [
+    "Run a technical SEO audit on acmeroofing.com: crawlability, indexability, canonicals and Core Web Vitals, with a prioritized fix list.",
+    "Benchmark acmeroofing.com against its three biggest competitors on backlinks, authority and traffic share.",
+    "Analyze the SERP for 'water heater repair austin' and tell me who holds the map pack and the featured snippet.",
+    "Give me keyword ideas with search volumes for a plumbing company in Austin.",
+    "Analyze the backlink profile of harborplumbing.com and flag toxic links we should disavow.",
+    "Audit my Google Ads account for wasted spend and conversion tracking problems.",
+    "Summarize this sales call transcript (CSV) into meeting notes and action items for the CRM.",
+    "Build the brand and voice kit for our new client Harbor Plumbing from their website.",
+    "Audit the content quality and E-E-A-T of this blog post before we publish it.",
+    "Make an Excel sheet of our Q3 sales pipeline from this CRM export CSV."
+  ]
+}
