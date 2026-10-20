@@ -1,0 +1,127 @@
+{
+  "Client": "Larkspur Family Dental",
+  "| Item | Status | Note |": [
+    {
+      "Item": "Primary contact",
+      "Status": "received",
+      "Note": "Jenna Park, office manager"
+    },
+    {
+      "Item": "Website approver",
+      "Status": "received",
+      "Note": "Dr. Maya Okafor"
+    },
+    {
+      "Item": "Business name, address, phone and hours",
+      "Status": "partial",
+      "Note": "address and phone received; Saturday hours still owed"
+    },
+    {
+      "Item": "Logo files",
+      "Status": "received",
+      "Note": "SVG and PNG"
+    },
+    {
+      "Item": "Brand guidelines",
+      "Status": "received",
+      "Note": "one-page colour and font sheet"
+    },
+    {
+      "Item": "Photos",
+      "Status": "partial",
+      "Note": "office photos received; team photos scheduled for November"
+    },
+    {
+      "Item": "Testimonials or reviews",
+      "Status": "received",
+      "Note": "three patient quotes approved for use"
+    },
+    {
+      "Item": "Team members",
+      "Status": "partial",
+      "Note": "dentists listed; hygienist names still owed"
+    },
+    {
+      "Item": "Certifications, awards and memberships",
+      "Status": "missing",
+      "Note": ""
+    },
+    {
+      "Item": "Legal or compliance language",
+      "Status": "missing",
+      "Note": "sedation disclaimer wording"
+    },
+    {
+      "Item": "Sites they like",
+      "Status": "received",
+      "Note": "named on the Kickoff Call"
+    },
+    {
+      "Item": "Things to avoid",
+      "Status": "received",
+      "Note": "no before-and-after photos"
+    },
+    {
+      "Item": "Gap question answers",
+      "Status": "received",
+      "Note": "all answered"
+    }
+  ],
+  "| Platform | Status | Note |": [
+    {
+      "Platform": "Domain",
+      "Status": "confirmed",
+      "Note": ""
+    },
+    {
+      "Platform": "Hosting",
+      "Status": "n/a",
+      "Note": "WISE hosting"
+    },
+    {
+      "Platform": "Website login",
+      "Status": "n/a",
+      "Note": "no current website"
+    },
+    {
+      "Platform": "Google Analytics",
+      "Status": "not set up",
+      "Note": ""
+    },
+    {
+      "Platform": "Google Search Console",
+      "Status": "not set up",
+      "Note": ""
+    },
+    {
+      "Platform": "Google Business Profile",
+      "Status": "invite sent",
+      "Note": "Jenna sent the manager invite"
+    },
+    {
+      "Platform": "Google Tag Manager",
+      "Status": "not set up",
+      "Note": ""
+    },
+    {
+      "Platform": "Google Ads",
+      "Status": "n/a",
+      "Note": "no paid media in scope"
+    },
+    {
+      "Platform": "Meta ads",
+      "Status": "n/a",
+      "Note": "no paid media in scope"
+    },
+    {
+      "Platform": "Microsoft Ads",
+      "Status": "n/a",
+      "Note": "no paid media in scope"
+    },
+    {
+      "Platform": "CRM, forms or call tracking",
+      "Status": "needs help",
+      "Note": "uses Dentrix for booking"
+    }
+  ]
+}

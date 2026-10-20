@@ -1,0 +1,12 @@
+{
+  "name": "client-context-update-to-week-2-client-email",
+  "version": 1,
+  "producer": "client-context-update",
+  "consumer": "week-2-client-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-context-update-missing-items.json",
+  "keys": ["| Item | Status | Note |", "| Platform | Status | Note |"],
+  "producer_cmd": "python3 skills/week-2-client-email/scripts/week2_email.py contract missing fixtures/contracts/client-context-update-missing-items.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-2-client-email/scripts/week2_email.py contract --validate {fixture}"
+}
