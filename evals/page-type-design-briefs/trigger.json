@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "The service, location, About and Contact pages for Bramblewood Plumbing are written in content/. Write the page-type design briefs for the design team.",
+    "Design needs one brief per template for Oakmere Vet's inner pages: service pages, the Ashby location page and About us. The page content is done and the homepage design brief exists.",
+    "Create design/larch-dental/larch-dental-page-type-design-briefs.md from the written pages, the client reference kit and the homepage design brief.",
+    "The client picked homepage Option B in their feedback. Now hand the rest of the templates to Design: what sections each page type has, which blocks repeat, where the CTAs go and the mobile priorities.",
+    "Week 2 for Kestrel HVAC: write the design briefs for each page type (service pages, location pages, contact page) so the designers can build the templates.",
+    "We have 9 service pages and 4 city pages written for Ridgeline Roofing. Map their structure for the designers: what stays the same across pages of a type, what varies per page, and how the template copes with long and short pages.",
+    "Prepare the inner-page template briefs for Fernway Landscaping, content structure and brand constraints only, no visual design."
+  ],
+  "should_not_trigger": [
+    "Write the homepage design brief for Bramblewood Plumbing from content/home/article.md, with a wireframe.",
+    "Write all the briefs in research/content-briefs/ into finished pages for Oakmere Vet.",
+    "Build brand.md, voice.md, style.md, audience.md and compliance.md for Kestrel HVAC from the kickoff files.",
+    "Plan the sitemap for Ridgeline Roofing: which service and location pages the site needs and how the navigation nests.",
+    "Sort Larch Dental's reply to the homepage review email and draft the Account Manager's answer.",
+    "Create content briefs for the About and Contact pages from the Fernway Landscaping keyword report.",
+    "Turn the approved Figma design for the service page template into HTML and CSS.",
+    "Draft the end-of-Week-1 email to Kestrel HVAC that sends the homepage design options and the homepage copy.",
+    "Is Fernway Landscaping ready to move from Week 1 to Week 2? Check the homepage design brief and the other Week 1 files are done."
+  ]
+}
