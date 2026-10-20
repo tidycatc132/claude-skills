@@ -1,0 +1,26 @@
+{
+  "name": "seo-content-writer-to-page-type-design-briefs",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "page-type-design-briefs",
+  "format": "json",
+  "fixture": "fixtures/contracts/seo-content-writer-client-page-sections.json",
+  "keys": [
+    "<!-- section: Hero -->",
+    "<!-- section: Company Story -->",
+    "<!-- section: Mission and Values -->",
+    "<!-- section: Team -->",
+    "<!-- section: Credentials -->",
+    "<!-- section: Contact Form -->",
+    "<!-- section: Phone and Email -->",
+    "<!-- section: Address and Hours -->",
+    "<!-- section: Map -->",
+    "<!-- section: How We Serve -->",
+    "<!-- section: Local Services -->",
+    "<!-- section: Local Proof -->",
+    "<!-- section: Directions -->",
+    "<!-- section: FAQ -->",
+    "<!-- section: Final CTA -->"
+  ],
+  "consumer_cmd": "python3 skills/page-type-design-briefs/scripts/ptdb.py known {fixture}"
+}

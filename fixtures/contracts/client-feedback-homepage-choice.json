@@ -1,0 +1,7 @@
+{
+  "## Feedback Items": "| # | Feedback | Type | Affects | Impact | Action | Owner |\n| --- | --- | --- | --- | --- | --- | --- |\n| 1 | The copy sounds like us. | approval | homepage copy | none | None | AM |\n| 2 | We like the second design best. | design | homepage design: Option B | none | Take Option B forward | Design |\n| 3 | Could Option B use our cream colour? | design | homepage design: Option B | low | Recolour Option B in cream | Design |\n",
+  "homepage design": "Affects prefix for a design item",
+  "approval": "Type for a sign-off",
+  "design": "Type for a pick between options",
+  "chosen": "Option B"
+}
