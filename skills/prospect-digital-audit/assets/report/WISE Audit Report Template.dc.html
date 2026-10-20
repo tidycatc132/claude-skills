@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/wise-digital-partners-design-system-f67978c8-d309-4be9-a18e-fe10c7ae4451/tokens.css">
+<script src="_ds/wise-digital-partners-design-system-f67978c8-d309-4be9-a18e-fe10c7ae4451/_ds_bundle.js"></script>
+<script src="./doc-page.js"></script>
+<style>
+@font-face { font-family: 'Montserrat'; font-style: normal; font-weight: 100 900; src: url('fonts/Montserrat-VariableFont_wght.ttf') format('truetype'); }
+doc-page:not(:defined){visibility:hidden}
+body { margin: 0; font-family: var(--font-body); color: var(--color-text); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+a { color: var(--wise-green); text-decoration: none; }
+a:hover { color: var(--wise-gray-800); text-decoration: underline; }
+</style>
+</helmet>
+<doc-page size="letter">
+<section class="page" id="p1" data-screen-label="01 Page 1">
+<div style="box-sizing: border-box; height: 100%; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 14px; font-family: var(--font-body);">
+
+<div style="display: flex; justify-content: space-between; align-items: center; padding-bottom: 14px; border-bottom: 1px solid var(--wise-gray-200);">
+<img src="assets/wise-logo.png" alt="WISE Digital Partners" style="height: 46px; margin-left: -14px;">
+<div style="text-align: right; font-size: 11px; line-height: 17px; color: var(--wise-gray-400);">
+<div style="font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--wise-gray-800);">Digital Audit</div>
+<div>{{ date }}</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--wise-green);">Prepared for {{ company }} · {{ domain }}</div>
+<h1 style="margin: 0; font-family: var(--font-heading); font-size: 34px; line-height: 40px; font-weight: 600; letter-spacing: -0.01em; color: var(--wise-gray-800);">Search Visibility Audit</h1>
+<p style="margin: 0; max-width: 600px; font-size: 13px; line-height: 21px; color: var(--wise-gray-400); text-wrap: pretty;">A snapshot of how easily customers can find {{ company }} on Google, Google Maps, business directories and AI assistants today, and what on the website is helping or holding that back.</p>
+</div>
+
+<div style="background: var(--wise-gradient-dark); border-radius: 16px; padding: 24px 28px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px;">
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-family: var(--font-heading); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--wise-green-70);">{{ stat.pageOne }}<span style="font-size: 22px; color: var(--wise-white); font-weight: 400;"> / {{ stat.total }}</span></div>
+<div style="font-size: 11px; line-height: 16px; color: var(--wise-white);">City and service searches where {{ company }} reaches page one</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-family: var(--font-heading); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--wise-green-70);">{{ stat.mapsTop3 }}</div>
+<div style="font-size: 11px; line-height: 16px; color: var(--wise-white);">Top 3 Google Maps placements across all {{ stat.total }} searches</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-family: var(--font-heading); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--wise-green-70);">{{ stat.volume }}</div>
+<div style="font-size: 11px; line-height: 16px; color: var(--wise-white);">Monthly US searches for the {{ stat.serviceWord }} services we tracked</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px;">
+<div style="font-family: var(--font-heading); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--wise-green-70);">{{ dir.errPct }}%</div>
+<div style="font-size: 11px; line-height: 16px; color: var(--wise-white);">Business directory listings that are wrong or missing</div>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+<h2 style="margin: 0; font-family: var(--font-heading); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--wise-gray-800);">Where {{ company }} ranks on Google</h2>
+<div style="display: flex; gap: 14px; font-size: 10px; color: var(--wise-gray-400);">
+<div style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--wise-green);"></span>Page one (position shown)</div>
+<div style="display: flex; align-items: center; gap: 6px;"><span style="width: 12px; height: 12px; border-radius: 3px; background: var(--wise-gray-100); border: 1px solid var(--wise-gray-200); box-sizing: border-box;"></span>Not on page one</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: {{ gridCols }}; gap: 4px; font-size: 11px; align-items: center;">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--wise-gray-400); padding-bottom: 4px;">Service</div>
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--wise-gray-400); padding-bottom: 4px;">Searches / mo</div>
+<sc-for list="{{ cities }}" as="c" hint-placeholder-count="5">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--wise-gray-400); padding-bottom: 4px; text-align: center;">{{ c.short }}</div>
+</sc-for>
+<sc-for list="{{ grid }}" as="r" hint-placeholder-count="5">
+<div style="font-weight: 600; color: var(--wise-gray-800);">{{ r.keyword }}</div>
+<div style="display: flex; align-items: center; gap: 6px;"><div style="flex: 1; height: 8px; background: var(--wise-gray-100); border-radius: 999px;"><div style="width: {{ r.barPct }}; height: 8px; background: var(--wise-gray-700); border-radius: 999px;"></div></div><span style="width: 34px; text-align: right; color: var(--wise-gray-800);">{{ r.volume }}</span></div>
+<sc-for list="{{ r.cells }}" as="cell" hint-placeholder-count="5">
+<div style="height: 22px; border-radius: 6px; background: {{ cell.bg }}; color: {{ cell.fg }}; font-weight: {{ cell.weight }}; display: flex; align-items: center; justify-content: center;">{{ cell.label }}</div>
+</sc-for>
+</sc-for>
+</div>
+<sc-if value="{{ showExplainers }}" hint-placeholder-val="{{ true }}">
+<div style="background: var(--wise-green-5); border-radius: 8px; padding: 12px 16px; display: flex; gap: 14px; align-items: baseline;">
+<div style="flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-gray-800);">What this means</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: var(--wise-gray-400); text-wrap: pretty;">{{ summary.rankings }}</p>
+</div>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 10px;">
+<h2 style="margin: 0; font-family: var(--font-heading); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--wise-gray-800);">Key observations</h2>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;">
+<sc-for list="{{ observations }}" as="o" hint-placeholder-count="4">
+<div style="border: 1px solid var(--wise-gray-200); border-radius: 8px; padding: 10px 12px; display: flex; gap: 10px; grid-column: {{ o.span }};">
+<div style="flex: none; font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--wise-green);">{{ o.num }}</div>
+<p style="margin: 0; font-size: 10.5px; line-height: 15px; color: var(--wise-gray-400); text-wrap: pretty;">{{ o.text }}</p>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: var(--wise-gray-300); padding-top: 10px; border-top: 1px solid var(--wise-gray-100);">
+<span>WISE Digital Partners · {{ company }} Digital Audit</span><span>1 / 2</span>
+</div>
+</div>
+</section>
+
+<section class="page" id="p2" data-screen-label="02 Page 2">
+<div style="box-sizing: border-box; height: 100%; padding: 32px 48px 24px; display: flex; flex-direction: column; gap: 14px; font-family: var(--font-body);">
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: var(--font-heading); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--wise-gray-800);">Beyond the website</h2>
+<div style="display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr); gap: 12px;">
+<div style="border: 1px solid var(--wise-gray-200); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-green);">Directory listings</div>
+<div style="display: flex; align-items: center; gap: 16px;">
+<div style="flex: none; width: 92px; height: 92px; border-radius: 50%; background: {{ dir.donut }}; display: flex; align-items: center; justify-content: center;">
+<div style="width: 62px; height: 62px; border-radius: 50%; background: var(--wise-white); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+<div style="font-family: var(--font-heading); font-size: 18px; line-height: 20px; font-weight: 700; color: var(--wise-gray-800);">{{ dir.errPct }}%</div>
+<div style="font-size: 8px; color: var(--wise-gray-400);">error rate</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 11px; color: var(--wise-gray-800);">
+<div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--wise-gray-200);"></span><b>{{ dir.notFound }}</b> not found</div>
+<div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--wise-gray-700);"></span><b>{{ dir.inaccurate }}</b> inaccurate</div>
+<div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--wise-green);"></span><b>{{ dir.correct }}</b> correct</div>
+<sc-if value="{{ dir.hasUnchecked }}" hint-placeholder-val="{{ false }}"><div style="display: flex; align-items: center; gap: 6px;"><span style="width: 10px; height: 10px; border-radius: 2px; background: var(--wise-gray-100); border: 1px solid var(--wise-gray-200); box-sizing: border-box;"></span><b>{{ dir.unchecked }}</b> not checked</div></sc-if>
+<div style="font-size: 10px; color: var(--wise-gray-400);">of {{ dir.total }} directories checked</div>
+</div>
+</div>
+</div>
+<div style="border: 1px solid var(--wise-gray-200); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-green);">Google reviews</div>
+<div style="display: flex; align-items: baseline; gap: 6px;"><span style="font-family: var(--font-heading); font-size: 40px; line-height: 44px; font-weight: 700; color: var(--wise-gray-800);">{{ rev.stars }}</span><span style="font-size: 16px; color: var(--wise-green);">{{ rev.starGlyphs }}</span></div>
+<div style="font-size: 11px; color: var(--wise-gray-800);"><b>{{ rev.count }}</b> reviews on the Google Business Profile</div>
+<div style="font-size: 10px; line-height: 15px; color: var(--wise-gray-400);">{{ rev.other }}</div>
+</div>
+<div style="border: 1px solid var(--wise-gray-200); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 8px;">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-green);">AI assistant visibility</div>
+<div style="display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; color: var(--wise-gray-800);">
+<sc-for list="{{ ai }}" as="a" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; padding-bottom: 6px; border-bottom: {{ a.border }};"><span>{{ a.name }}</span><b style="color: {{ a.color }};">{{ a.label }}</b></div>
+</sc-for>
+</div>
+</div>
+</div>
+<sc-if value="{{ showExplainers }}" hint-placeholder-val="{{ true }}">
+<div style="background: var(--wise-green-5); border-radius: 8px; padding: 12px 16px; display: flex; gap: 14px; align-items: baseline;">
+<div style="flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-gray-800);">What this means</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: var(--wise-gray-400); text-wrap: pretty;">{{ summary.presence }}</p>
+</div>
+</sc-if>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<h2 style="margin: 0; font-family: var(--font-heading); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--wise-gray-800);">Website foundations</h2>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{ foundations }}" as="f" hint-placeholder-count="4">
+<div style="background: var(--wise-gray-100); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column; gap: 4px;">
+<div style="font-family: var(--font-heading); font-size: 30px; line-height: 34px; font-weight: 700; color: var(--wise-gray-800);">{{ f.value }}<span style="font-size: 14px; font-weight: 400; color: var(--wise-gray-400);">{{ f.suffix }}</span></div>
+<div style="font-size: 10.5px; line-height: 15px; color: var(--wise-gray-400);">{{ f.label }}</div>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 12px;">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px;">
+<h2 style="margin: 0; font-family: var(--font-heading); font-size: 20px; line-height: 26px; font-weight: 600; color: var(--wise-gray-800);">Website health check</h2>
+<div style="display: flex; gap: 14px; font-size: 10px; color: var(--wise-gray-400);">
+<div style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: var(--wise-green);"></span>Pass</div>
+<div style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #C8102E;"></span>Needs work</div>
+<div style="display: flex; align-items: center; gap: 5px;"><span style="width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--wise-gray-300); box-sizing: border-box;"></span>Not yet tested</div>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px;">
+<sc-for list="{{ health }}" as="card" hint-placeholder-count="2">
+<div style="border: 1px solid var(--wise-gray-200); border-radius: 8px; padding: 14px 16px; display: flex; flex-direction: column;">
+<div style="display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px;">
+<div style="font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-green); white-space: nowrap;">{{ card.title }}</div>
+<div style="font-size: 10px; color: var(--wise-gray-400);"><b style="color: var(--wise-gray-800);">{{ card.pass }}</b> pass · <b style="color: var(--wise-gray-800);">{{ card.bad }}</b> {{ card.badWord }}</div>
+</div>
+<sc-for list="{{ card.rows }}" as="row" hint-placeholder-count="10">
+<div style="display: flex; justify-content: space-between; align-items: center; padding: 3px 0; border-bottom: {{ row.border }}; font-size: 11px; color: var(--wise-gray-800);"><span>{{ row.name }}</span><span style="display: flex; align-items: center; gap: 5px; font-weight: {{ row.weight }}; color: {{ row.color }};"><span style="width: 8px; height: 8px; border-radius: 50%; box-sizing: border-box; display: {{ row.dotDisplay }}; background: {{ row.dotBg }}; border: {{ row.dotBorder }};"></span>{{ row.label }}</span></div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{ showExplainers }}" hint-placeholder-val="{{ true }}">
+<div style="background: var(--wise-green-5); border-radius: 8px; padding: 12px 16px; display: flex; gap: 14px; align-items: baseline;">
+<div style="flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; color: var(--wise-gray-800);">What this means</div>
+<p style="margin: 0; font-size: 12px; line-height: 18px; color: var(--wise-gray-400); text-wrap: pretty;">{{ summary.health }}</p>
+</div>
+</sc-if>
+</div>
+
+<div style="margin-top: auto; display: flex; justify-content: space-between; font-size: 10px; color: var(--wise-gray-300); padding-top: 10px; border-top: 1px solid var(--wise-gray-100);">
+<span>WISE Digital Partners · <a href="https://wisedigitalpartners.com">wisedigitalpartners.com</a></span><span>2 / 2</span>
+</div>
+</div>
+</section>
+</doc-page>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;dataFile&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;audit-data/audit.json&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Data&quot;},&quot;showExplainers&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Content&quot;}}">
+const RED = '#C8102E';
+const SEO_ROWS = [
+  ['website_platform', 'Website platform', 'text'], ['url_structure', 'URL structure'], ['meta_titles', 'Meta titles'],
+  ['meta_descriptions', 'Meta descriptions'], ['headers', 'Headers / H tags'], ['page_word_count', 'Page word count'],
+  ['duplicate_websites', 'Duplicate websites', 'inverse'], ['duplicate_content', 'Duplicate content', 'inverse'],
+  ['backlinks', 'Backlinks'], ['external_link_building', 'External link building'], ['structured_data', 'Structured data'],
+  ['new_content_monthly', 'New content monthly'], ['internal_link_building', 'Internal link building']
+];
+const UI_ROWS = [
+  ['ssl_secured', 'SSL secured'], ['cwv_overall', 'Google Core Web Vitals'], ['privacy_consent', 'Privacy / consent compliance'],
+  ['tone_and_voice', 'Tone & voice'], ['clear_customer_journey', 'Clear customer journey'],
+  ['clear_conversion_path', 'Clear conversion path (CTAs)'], ['original_content', 'Original content (photos, videos)'],
+  ['ada_compliant', 'ADA compliance'], ['desktop_optimization', 'Desktop optimization'], ['desktop_speed_seconds', 'Desktop load time', 'secs'],
+  ['desktop_lcp_seconds', 'Desktop LCP', 'lcp'], ['mobile_optimization', 'Mobile optimization'],
+  ['mobile_speed_seconds', 'Mobile load time', 'secs'], ['mobile_lcp_seconds', 'Mobile LCP', 'lcp']
+];
+const s = v => (v === null || v === undefined) ? '' : String(v).trim();
+const num = v => { const n = parseFloat(String(v ?? '').replace(/[^0-9.\-]/g, '')); return isNaN(n) ? null : n; };
+const fmt = n => n == null ? '—' : Math.round(n).toLocaleString('en-US');
+const cap = t => t.charAt(0).toUpperCase() + t.slice(1);
+
+function classify(v, mode) {
+  const t = s(v).toLowerCase();
+  if (!t) return null;
+  if (/^(not tested|not yet tested|untested|unknown|n\/a|na|tbd|not checked)/.test(t)) return 'na';
+  if (mode === 'inverse') { if (/^(no\b|none|not found)/.test(t)) return 'pass'; if (/^(yes|found|duplicate)/.test(t)) return 'bad'; }
+  if (/^(incorrect|inaccurate)/.test(t)) return 'bad';
+  if (/^(pass|correct|accurate|yes|good|ok|compliant|secure|visible|none found|strong|present|true|optimi)/.test(t)) return 'pass';
+  if (/^(fail|needs|no\b|poor|missing|weak|not|false|bad|slow|partial)/.test(t)) return 'bad';
+  return 'info';
+}
+function statusRow(name, raw, mode) {
+  let v = s(raw), k, label;
+  if (!v) return null;
+  if (mode === 'text') { k = 'info'; label = v; }
+  else if (mode === 'lcp' || mode === 'secs') {
+    const n = num(v);
+    if (n == null) { k = classify(v); label = k === 'na' ? 'Not yet tested' : v; }
+    else { k = n <= (mode === 'lcp' ? 2.5 : 3) ? 'pass' : 'bad'; label = n + ' seconds'; }
+  } else {
+    k = classify(v, mode);
+    const short = v.split(/\s+[-–—:(]\s*|\.\s/)[0];
+    if (k === 'pass') label = /^(yes|pass|true|ok|correct)$/i.test(short) ? 'Pass' : (short.length <= 16 ? cap(short) : 'Pass');
+    else if (k === 'bad') label = /^fail/i.test(short) ? 'Fail' : (short.length <= 16 && !/^(no|false|incorrect)$/i.test(short) ? cap(short) : 'Needs work');
+    else if (k === 'na') label = 'Not yet tested';
+    else label = short.length <= 18 ? short : 'See notes';
+  }
+  const st = {
+    pass: { color: 'var(--wise-gray-400)', weight: 400, dotBg: 'var(--wise-green)', dotBorder: 'none', dotDisplay: 'block' },
+    bad: { color: RED, weight: 600, dotBg: RED, dotBorder: 'none', dotDisplay: 'block' },
+    na: { color: 'var(--wise-gray-400)', weight: 400, dotBg: 'transparent', dotBorder: '1.5px solid var(--wise-gray-300)', dotDisplay: 'block' },
+    info: { color: 'var(--wise-gray-400)', weight: 400, dotBg: 'transparent', dotBorder: 'none', dotDisplay: 'none' }
+  }[k];
+  return { name, label, kind: k, ...st };
+}
+function card(title, defs, src) {
+  const rows = defs.map(([key, name, mode]) => statusRow(name, src[key], mode)).filter(Boolean);
+  rows.forEach((r, i) => { r.border = i < rows.length - 1 ? '1px solid var(--wise-gray-100)' : 'none'; });
+  const pass = rows.filter(r => r.kind === 'pass').length, bad = rows.filter(r => r.kind === 'bad').length;
+  return { title, rows, pass, bad, badWord: bad === 1 ? 'needs work' : 'need work' };
+}
+function shortCity(c) {
+  let t = s(c).replace(/,\s*[A-Z]{2}$/, '').replace(/^Fort\s/i, 'Ft. ').replace(/^Saint\s/i, 'St. ').replace(/^Mount\s/i, 'Mt. ');
+  if (t.length > 12) { const w = t.split(' '); t = w[0] + ' ' + w.slice(1).map(x => x.slice(0, 4) + '.').join(' '); }
+  return t;
+}
+function fmtDate(d) {
+  const t = s(d); if (!t) return '';
+  let m = t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})/);
+  if (!m) { const u = t.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/); if (!u) return t; m = [0, u[3].length === 2 ? '20' + u[3] : u[3], u[1], u[2]]; }
+  return new Date(+m[1], +m[2] - 1, +m[3]).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
+class Component extends DCLogic {
+  state = { data: null, error: null };
+  componentDidMount() { this.load(); }
+  componentDidUpdate(prev) { if (prev.dataFile !== this.props.dataFile) this.load(); }
+  load() {
+    const file = this.props.dataFile || 'audit-data/audit.json';
+    fetch(file, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(data => this.setState({ data, error: null }))
+      .catch(e => this.setState({ error: 'Could not load ' + file + ' (' + e.message + ')' }));
+  }
+  renderVals() {
+    const d = this.state.data || {};
+    const p = d.prospect || {}, seo = d.seo || {}, ui = d.ui || {}, content = d.content || {}, tr = d.tracking || {};
+    const company = s(p.company_name) || 'Client';
+    const domain = s(p.url).replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/\/$/, '');
+
+    // rankings
+    const ranks = (d.rankings || []).filter(r => s(r.keyword) && s(r.city));
+    const groups = (d.keyword_groups || []).filter(g => s(g.keyword));
+    const kwList = groups.length ? groups.map(g => ({ keyword: s(g.keyword), vol: num(g.searches_per_month) })) :
+      [...new Set(ranks.map(r => s(r.keyword)))].map(k => ({ keyword: k, vol: null }));
+    const cityNames = [...new Set(ranks.map(r => s(r.city)))];
+    const maxVol = Math.max(1, ...kwList.map(k => k.vol || 0));
+    const find = (k, c) => ranks.find(r => s(r.keyword).toLowerCase() === k.toLowerCase() && s(r.city) === c);
+    const isP1 = r => r && num(r.organic_position) != null && num(r.organic_position) <= 10;
+    const isM3 = r => r && num(r.maps_position) != null && num(r.maps_position) <= 3;
+    const grid = kwList.map(k => ({
+      keyword: k.keyword, volume: fmt(k.vol), barPct: ((k.vol || 0) / maxVol * 100).toFixed(1) + '%',
+      cells: cityNames.map(c => {
+        const r = find(k.keyword, c), on = isP1(r), m = isM3(r);
+        if (!r) return { label: '', bg: 'transparent', fg: 'var(--wise-gray-300)', weight: 400 };
+        const label = on ? '#' + num(r.organic_position) + (m ? ' · Map ' + num(r.maps_position) : '') : (m ? 'Map ' + num(r.maps_position) : '—');
+        return { label, bg: on ? 'var(--wise-green)' : (m ? 'var(--wise-green-40)' : 'var(--wise-gray-100)'),
+          fg: on ? 'var(--wise-white)' : (m ? 'var(--wise-gray-800)' : 'var(--wise-gray-300)'), weight: on || m ? 700 : 400 };
+      })
+    }));
+    const total = ranks.length, pageOne = ranks.filter(isP1).length, mapsTop3 = ranks.filter(isM3).length;
+    const volTotal = kwList.reduce((a, k) => a + (k.vol || 0), 0);
+    const missing = kwList.filter(k => !ranks.some(r => s(r.keyword).toLowerCase() === k.keyword.toLowerCase() && isP1(r)));
+    const missVol = missing.reduce((a, k) => a + (k.vol || 0), 0);
+    const nKw = kwList.length;
+
+    // directories
+    const dd = d.directories || {}, det = (dd.detail || []);
+    const totalDir = Math.max(det.length, 21);
+    const cnt = re => det.filter(x => re.test(s(x.status).toLowerCase())).length;
+    const inaccurate = num(dd.inaccurate) ?? cnt(/^(inaccurate|wrong|incorrect)/);
+    const notFound = num(dd.not_found) ?? cnt(/^(not found|missing|none)/);
+    const dirUnchecked = cnt(/^(unchecked|not checked|unknown)/);
+    const correct = Math.max(0, totalDir - inaccurate - notFound - dirUnchecked);
+    const a = inaccurate / totalDir * 100, b = (inaccurate + notFound) / totalDir * 100, c2 = (totalDir - dirUnchecked) / totalDir * 100;
+    const errPct = Math.round(b);
+    const dir = { inaccurate, notFound, correct, unchecked: dirUnchecked, hasUnchecked: dirUnchecked > 0, total: totalDir, errPct,
+      donut: `conic-gradient(var(--wise-gray-700) 0 ${a.toFixed(2)}%, var(--wise-gray-200) ${a.toFixed(2)}% ${b.toFixed(2)}%, var(--wise-green) ${b.toFixed(2)}% ${c2.toFixed(2)}%, var(--wise-gray-100) ${c2.toFixed(2)}% 100%)` };
+
+    // reviews
+    const rv = d.reviews || {}, g = rv.gbp || {};
+    const stars = num(g.stars);
+    const others = [['Yelp', rv.yelp], ['Facebook', rv.facebook]].map(([n, o]) => ({ n, st: num(o?.stars), c: num(o?.count) }));
+    const checked = others.filter(o => o.st != null), unchecked = others.filter(o => o.st == null);
+    let other = checked.map(o => `${o.n}: ${o.st} ★${o.c != null ? ' (' + fmt(o.c) + ')' : ''}`).join(' · ');
+    if (unchecked.length) other += (other ? '. ' : '') + unchecked.map(o => o.n).join(' and ') + ' reviews could not be checked.';
+    const rev = { stars: stars ?? '—', count: fmt(num(g.count)), starGlyphs: stars == null ? '' : '★'.repeat(Math.round(stars)) + '☆'.repeat(5 - Math.round(stars)), other };
+
+    // AI visibility
+    const av = d.ai_visibility || {};
+    const aiRows = [['chatgpt', 'ChatGPT'], ['claude', 'Claude'], ['gemini', 'Google Gemini'], ['other', 'Other assistants']]
+      .filter(([k]) => s(av[k])).map(([k, name]) => {
+        const c = classify(av[k]);
+        return { name, label: c === 'pass' ? '✓ Visible' : c === 'bad' ? 'Not visible' : c === 'na' ? 'Not checked' : s(av[k]),
+          color: c === 'pass' ? 'var(--wise-green)' : c === 'bad' ? RED : 'var(--wise-gray-400)' };
+      });
+    aiRows.forEach((r, i) => { r.border = i < aiRows.length - 1 ? '1px solid var(--wise-gray-100)' : 'none'; });
+
+    // foundations
+    const aiBlog = s(content.ai_written_blogs), aiBlogN = num(aiBlog);
+    const blogLabel = aiBlogN != null ? `Blog posts (${fmt(aiBlogN)} AI-written)` : classify(aiBlog) === 'pass' ? 'Blog posts (AI-written)' : 'Blog posts';
+    const age = num(seo.domain_age);
+    const locs = num(tr.business_locations);
+    const foundations = [
+      { value: num(seo.domain_authority) ?? '—', suffix: ' / 100', label: 'Domain authority (SE Ranking scale)' },
+      age != null ? { value: age, suffix: ' years', label: 'Domain age' } : { value: locs ?? '—', suffix: '', label: locs === 1 ? 'Business location' : 'Business locations' },
+      { value: fmt(num(content.core_pages)), suffix: '', label: 'Core pages' },
+      { value: fmt(num(content.blog_posts)), suffix: '', label: blogLabel }
+    ];
+
+    const health = [card('Getting found: SEO & content', SEO_ROWS, seo), card('Converting visitors: UI & performance', UI_ROWS, ui)];
+    const hp = health[0].pass + health[1].pass, hb = health[0].bad + health[1].bad;
+
+    const sm = d.summaries || {};
+    const summary = {
+      rankings: s(sm.rankings) || `Most searchers never scroll past page one. ${company} reaches it in ${pageOne} of ${total} searches${missing.length ? `, and ${WORDS[missing.length] || missing.length} of the ${WORDS[nKw] || nKw} services, drawing ${fmt(missVol)} searches a month, never appear there` : ''}. Search volumes are US national totals.`,
+      presence: s(sm.presence) || `Google cross-checks a business’s name, address and phone number across directories. ${inaccurate + notFound} of ${totalDir} listings for ${company} are missing or inaccurate, which makes Google less confident in the business and harder to show in Maps results.`,
+      health: s(sm.health) || `The site passes ${hp} of the ${hp + hb} checks we could test. Items marked in red are the fixes most likely to improve how often ${company} is found and chosen.`
+    };
+
+    const obs = (d.observations || []).map(s).filter(Boolean).slice(0, 5).map((text, i, arr) => ({ text, num: String(i + 1).padStart(2, '0'), span: arr.length % 2 && i === arr.length - 1 ? '1 / -1' : 'auto' }));
+
+    return {
+      showExplainers: this.props.showExplainers ?? true,
+      company, domain, date: fmtDate(p.audit_date) || this.state.error || '',
+      stat: { pageOne, total, mapsTop3, volume: fmt(volTotal), serviceWord: WORDS[nKw] || nKw },
+      cities: cityNames.map(c => ({ short: shortCity(c) })),
+      gridCols: `minmax(0, 1.55fr) minmax(0, 1.25fr) repeat(${Math.max(1, cityNames.length)}, minmax(0, 0.8fr))`,
+      grid, dir, rev, ai: aiRows, foundations, health, summary, observations: obs
+    };
+  }
+}
+</script>
+</body>
+</html>

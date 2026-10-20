@@ -1,0 +1,459 @@
+{
+  "prospect": {
+    "company_name": "",
+    "url": "",
+    "audit_date": ""
+  },
+  "seo": {
+    "website_platform": "",
+    "url_structure": "",
+    "meta_titles": "",
+    "meta_descriptions": "",
+    "headers": "",
+    "structured_data": "",
+    "page_word_count": "",
+    "new_content_monthly": "",
+    "duplicate_websites": "",
+    "duplicate_content": "",
+    "backlinks": "",
+    "internal_link_building": "",
+    "external_link_building": "",
+    "domain_authority": "",
+    "domain_age": ""
+  },
+  "ui": {
+    "ssl_secured": "",
+    "ada_compliant": "",
+    "privacy_consent": "",
+    "tone_and_voice": "",
+    "original_content": "",
+    "clear_customer_journey": "",
+    "clear_conversion_path": "",
+    "cwv_overall": "",
+    "desktop_optimization": "",
+    "desktop_speed_seconds": "",
+    "desktop_lcp_seconds": "",
+    "mobile_optimization": "",
+    "mobile_speed_seconds": "",
+    "mobile_lcp_seconds": ""
+  },
+  "content": {
+    "core_pages": "",
+    "blog_posts": "",
+    "ai_written_blogs": ""
+  },
+  "ai_visibility": {
+    "chatgpt": "",
+    "claude": "",
+    "gemini": "",
+    "other": ""
+  },
+  "tracking": {
+    "google_analytics": "",
+    "google_tag_manager": "",
+    "business_locations": "",
+    "google_ads": "",
+    "meta_ads": "",
+    "other_ads": ""
+  },
+  "reviews": {
+    "gbp": {
+      "stars": "",
+      "count": "",
+      "url": "",
+      "note": ""
+    },
+    "yelp": {
+      "stars": "",
+      "count": "",
+      "url": "",
+      "note": ""
+    },
+    "facebook": {
+      "stars": "",
+      "count": "",
+      "url": "",
+      "note": ""
+    }
+  },
+  "directories": {
+    "inaccurate": null,
+    "not_found": null,
+    "detail": [
+      {
+        "directory": "Google Business Profile",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Bing Places",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Apple Maps (Apple Business Connect)",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Yelp",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Facebook",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Better Business Bureau (bbb.org)",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Yellow Pages (yellowpages.com)",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Nextdoor",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Foursquare",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "MapQuest",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Manta",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Superpages",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Angi",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Thumbtack",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Citysearch",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Hotfrog",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Brownbook",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "EZlocal",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "MerchantCircle",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Chamber of Commerce (chamberofcommerce.com)",
+        "status": "",
+        "url": "",
+        "note": ""
+      },
+      {
+        "directory": "Alignable",
+        "status": "",
+        "url": "",
+        "note": ""
+      }
+    ]
+  },
+  "keyword_groups": [
+    {
+      "keyword": "",
+      "searches_per_month": "",
+      "city": "",
+      "reason": ""
+    },
+    {
+      "keyword": "",
+      "searches_per_month": "",
+      "city": "",
+      "reason": ""
+    },
+    {
+      "keyword": "",
+      "searches_per_month": "",
+      "city": "",
+      "reason": ""
+    },
+    {
+      "keyword": "",
+      "searches_per_month": "",
+      "city": "",
+      "reason": ""
+    },
+    {
+      "keyword": "",
+      "searches_per_month": "",
+      "city": "",
+      "reason": ""
+    }
+  ],
+  "observations": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "observation_basis": [
+    "",
+    "",
+    "",
+    "",
+    ""
+  ],
+  "rankings": [
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    },
+    {
+      "keyword": "",
+      "city": "",
+      "maps_position": null,
+      "organic_position": null,
+      "note": "",
+      "source": ""
+    }
+  ],
+  "evidence": {
+    "website_platform": "",
+    "url_structure": "",
+    "meta_titles": "",
+    "meta_descriptions": "",
+    "headers": "",
+    "structured_data": "",
+    "page_word_count": "",
+    "new_content_monthly": "",
+    "duplicate_websites": "",
+    "duplicate_content": "",
+    "backlinks": "",
+    "internal_link_building": "",
+    "external_link_building": "",
+    "domain_authority": "",
+    "domain_age": "",
+    "ssl_secured": "",
+    "ada_compliant": "",
+    "privacy_consent": "",
+    "tone_and_voice": "",
+    "original_content": "",
+    "clear_customer_journey": "",
+    "clear_conversion_path": "",
+    "cwv_overall": "",
+    "desktop_optimization": "",
+    "desktop_speed_seconds": "",
+    "desktop_lcp_seconds": "",
+    "mobile_optimization": "",
+    "mobile_speed_seconds": "",
+    "mobile_lcp_seconds": "",
+    "core_pages": "",
+    "blog_posts": "",
+    "ai_written_blogs": "",
+    "chatgpt": "",
+    "claude": "",
+    "gemini": "",
+    "other": "",
+    "google_analytics": "",
+    "google_tag_manager": "",
+    "business_locations": "",
+    "google_ads": "",
+    "meta_ads": "",
+    "other_ads": ""
+  },
+  "sources": {
+    "website_platform": "",
+    "url_structure": "",
+    "meta_titles": "",
+    "meta_descriptions": "",
+    "headers": "",
+    "structured_data": "",
+    "page_word_count": "",
+    "new_content_monthly": "",
+    "duplicate_websites": "",
+    "duplicate_content": "",
+    "backlinks": "",
+    "internal_link_building": "",
+    "external_link_building": "",
+    "domain_authority": "",
+    "domain_age": "",
+    "ssl_secured": "",
+    "ada_compliant": "",
+    "privacy_consent": "",
+    "tone_and_voice": "",
+    "original_content": "",
+    "clear_customer_journey": "",
+    "clear_conversion_path": "",
+    "cwv_overall": "",
+    "desktop_optimization": "",
+    "desktop_speed_seconds": "",
+    "desktop_lcp_seconds": "",
+    "mobile_optimization": "",
+    "mobile_speed_seconds": "",
+    "mobile_lcp_seconds": "",
+    "core_pages": "",
+    "blog_posts": "",
+    "ai_written_blogs": "",
+    "chatgpt": "",
+    "claude": "",
+    "gemini": "",
+    "other": "",
+    "google_analytics": "",
+    "google_tag_manager": "",
+    "business_locations": "",
+    "google_ads": "",
+    "meta_ads": "",
+    "other_ads": ""
+  }
+}

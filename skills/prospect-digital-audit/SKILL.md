@@ -28,7 +28,12 @@ Work through the steps in order. Keep every value you collect, with its source, 
    python3 <skill folder>/scripts/fill_audit.py <run-folder>/audit.json <run-folder>/<slug>-digital-audit.xlsx
    ```
    `<skill folder>` is where this SKILL.md lives; `<run-folder>` is under the working directory. The script needs `openpyxl` (`pip install openpyxl`). It fills [assets/audit-template.csv](assets/audit-template.csv) by label as the first sheet, adds a second sheet "How We Got These Results" (one row per cell: method, the evidence you recorded, the source), writes the XLSX and a CSV copy of the first sheet, and exits non-zero listing missing cells and wrong counts (5 keyword groups, 25 rankings, 3 to 5 observations, directory totals). Fix every listed problem and rerun until it exits 0.
-9. **Deliver** the run folder `prospect-audits/<slug>-<YYYY-MM-DD>/` containing the XLSX, the CSV copy, `<slug>-sales-notes.md` and `audit.json`. Do not send, upload or post anything; the sales manager reviews first.
+9. **Render the client PDF** (2 pages, WISE branding, from the same `audit.json`):
+   ```bash
+   node <skill folder>/scripts/render_report.mjs <run-folder>/audit.json <run-folder>/<slug>-client-audit.pdf
+   ```
+   Needs Node 18+, the `playwright` package and a Chromium build (set `CHROME_PATH` to use an installed Chrome); React and Babel are bundled in [assets/report/](assets/report/), so no network is needed. The script exits non-zero unless the PDF is exactly 2 pages; if it is not, shorten the observations. Every count in an observation must come from the final data (for example "X of 14 searches"). The optional `summaries` object in `audit.json` (`rankings`, `presence`, `health`) replaces the template's default sentence under that section, so keep it client-safe. `directories.detail` must carry a `status` (Accurate, Inaccurate, Not Found or Unchecked) for all 21 directories. [assets/audit-empty.json](assets/audit-empty.json) is a blank `audit.json` with every key.
+10. **Deliver** the run folder `prospect-audits/<slug>-<YYYY-MM-DD>/` containing the XLSX, the CSV copy, `<slug>-client-audit.pdf`, `<slug>-sales-notes.md` and `audit.json`. Do not send, upload or post anything; the sales manager reviews first.
 
 ## Rules
 

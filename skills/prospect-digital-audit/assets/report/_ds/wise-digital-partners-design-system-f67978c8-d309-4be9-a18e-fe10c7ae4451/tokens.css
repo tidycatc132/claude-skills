@@ -1,0 +1,146 @@
+/* =========================================================
+   WISE Digital Partners — Design Tokens
+   Single source of truth for colors, type, spacing.
+   Import this file from every design artifact.
+   ========================================================= */
+
+/* Fonts — Montserrat (variable, local) + Proxima Nova substitute.
+   Montserrat is loaded from the brand-supplied variable font files.
+   Proxima Nova is a paid typeface (Mark Simonson); Montserrat is the
+   approved fallback for mocks. If you have a Proxima Nova license in
+   a real build, swap the --font-body stack. */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype-variations'),
+       url('/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype-variations'),
+       url('/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+:root {
+  /* -------- Color: Grayscale -------- */
+  --wise-white:     #ffffff;
+  --wise-gray-100:  #f7f7f7;
+  --wise-gray-200:  #cccccc;
+  --wise-gray-300:  #7a7a7a;  /* default body copy */
+  --wise-gray-400:  #505858;
+  --wise-gray-700:  #051011;  /* near-black, cool */
+  --wise-gray-800:  #111111;  /* default heading color */
+  --wise-black:     #000000;
+
+  /* -------- Color: Primary (Green) -------- */
+  /* NOTE: the style guide labels these "Blue" but the hex values
+     are green. We've renamed to match the actual color. */
+  --wise-green:        #019f44;  /* 100% — primary brand green */
+  --wise-green-70:     #4dbc7c;
+  --wise-green-40:     #99d9b4;
+  --wise-green-10:     #e5f5ec;
+  --wise-green-5:      #f2faf6;
+
+  /* -------- Gradient (dark) -------- */
+  --wise-gradient-dark: linear-gradient(180deg, #020506 0%, #061012 100%);
+
+  /* -------- Semantic aliases -------- */
+  --color-bg:          var(--wise-white);
+  --color-bg-subtle:   var(--wise-gray-100);
+  --color-bg-tint:     var(--wise-green-5);
+  --color-bg-dark:     var(--wise-gray-700);
+  --color-text:        var(--wise-gray-800);
+  --color-text-muted:  var(--wise-gray-300);
+  --color-text-invert: var(--wise-white);
+  --color-border:      var(--wise-gray-200);
+  --color-accent:      var(--wise-green);
+  --color-accent-soft: var(--wise-green-10);
+
+  /* -------- Type families -------- */
+  --font-heading: 'Montserrat', system-ui, -apple-system, Segoe UI, sans-serif;
+  --font-body:    'Montserrat', system-ui, -apple-system, Segoe UI, sans-serif;
+  /* Proxima Nova stand-in: use Montserrat 400 for body, Montserrat 700 for
+     decorative caps. If licensing Proxima Nova, change --font-body to:
+     'Proxima Nova', 'Mark Pro', system-ui, sans-serif; */
+
+  /* -------- Type scale (desktop) -------- */
+  --fs-h1:       56px;  --lh-h1:  69px;  --fw-h1: 600;
+  --fs-h2:       40px;  --lh-h2:  52px;  --fw-h2: 600;
+  --fs-h3:       34px;  --lh-h3:  44px;  --fw-h3: 600;
+  --fs-h4:       28px;  --lh-h4:  39px;  --fw-h4: 600;
+  --fs-h5:       22px;  --lh-h5:  30px;  --fw-h5: 600;
+  --fs-h6:       16px;  --lh-h6:  24px;  --fw-h6: 700;
+  --fs-subtitle: 20px;  --lh-subtitle: 33px;
+  --fs-decor:    14px;  --lh-decor: 17px;  /* tracking 3.38px, uppercase */
+  --fs-body-lg:  22px;  --lh-body-lg: 34px;
+  --fs-body:     16px;  --lh-body: 26px;
+
+  /* -------- Radii (derived from site conventions) -------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* -------- Spacing (8pt) -------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  16px;
+  --space-4:  24px;
+  --space-5:  32px;
+  --space-6:  48px;
+  --space-7:  64px;
+  --space-8:  96px;
+  --space-9:  128px;
+
+  /* -------- Elevation -------- */
+  --shadow-sm: 0 1px 2px rgba(5, 16, 17, 0.06);
+  --shadow-md: 0 8px 24px rgba(5, 16, 17, 0.08);
+  --shadow-lg: 0 24px 60px rgba(5, 16, 17, 0.12);
+
+  /* -------- Motion -------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 420ms;
+}
+
+/* ---------- Mobile type overrides ---------- */
+@media (max-width: 768px) {
+  :root {
+    --fs-h1: 35px; --lh-h1: 46px;
+    --fs-h2: 30px; --lh-h2: 40px;
+    --fs-h3: 26px; --lh-h3: 36px;
+    --fs-h4: 22px; --lh-h4: 32px;
+    --fs-h5: 19px; --lh-h5: 25px;
+    --fs-body-lg: 20px; --lh-body-lg: 30px;
+  }
+}
+
+/* ---------- Type helpers ---------- */
+.wise-h1 { font-family: var(--font-heading); font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: 600; color: var(--color-text); letter-spacing: -0.01em; }
+.wise-h2 { font-family: var(--font-heading); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 600; color: var(--color-text); letter-spacing: -0.01em; }
+.wise-h2-light { font-family: var(--font-heading); font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: 300; color: var(--color-text); }
+.wise-h3 { font-family: var(--font-heading); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 600; color: var(--color-text); }
+.wise-h3-light { font-family: var(--font-heading); font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: 300; color: var(--color-text); }
+.wise-h4 { font-family: var(--font-heading); font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: 600; color: var(--color-text); }
+.wise-h5 { font-family: var(--font-heading); font-size: var(--fs-h5); line-height: var(--lh-h5); font-weight: 600; color: var(--color-text); }
+.wise-h6 { font-family: var(--font-heading); font-size: var(--fs-h6); line-height: var(--lh-h6); font-weight: 700; color: var(--color-text); }
+.wise-subtitle { font-family: var(--font-heading); font-size: var(--fs-subtitle); line-height: var(--lh-subtitle); font-weight: 300; color: var(--color-text); }
+.wise-decorative {
+  font-family: var(--font-body);
+  font-size: var(--fs-decor);
+  line-height: var(--lh-decor);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3.38px;
+  color: var(--wise-black);
+}
+.wise-decorative--light-bg { opacity: 0.2; }
+.wise-decorative--dark-bg  { color: var(--wise-white); opacity: 0.3; }
+.wise-body-lg  { font-family: var(--font-body); font-size: var(--fs-body-lg); line-height: var(--lh-body-lg); font-weight: 300; color: var(--color-text-muted); }
+.wise-body     { font-family: var(--font-body); font-size: var(--fs-body); line-height: var(--lh-body); font-weight: 400; color: var(--color-text-muted); }
