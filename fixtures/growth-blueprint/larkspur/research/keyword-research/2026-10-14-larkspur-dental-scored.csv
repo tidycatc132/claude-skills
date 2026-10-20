@@ -1,0 +1,13 @@
+keyword,volume,kd,intent,funnel,relevance,trend,cpc,position,impressions,clicks,source,priority_score,tier,intent_value,opportunity_score,bucket,impact,confidence,impact_confidence
+emergency dentist boise,1300,32,transactional,BOFU,5,growing,24.8,N/A,N/A,N/A,Measured,4.45,P0,3,121.88,Quick Win,0.823,0.576,0.474
+family dentist boise,720,28,transactional,BOFU,5,stable,16.9,N/A,N/A,N/A,Measured,4.21,P0,3,77.14,Quick Win,0.696,0.594,0.414
+dentist boise,6600,61,transactional,BOFU,5,stable,19.4,N/A,N/A,N/A,Measured,4.04,P0,3,324.59,Growth,0.889,0.446,0.396
+dental implants boise,880,44,commercial,BOFU,5,growing,31.2,N/A,N/A,N/A,Measured,4.03,P0,2,40.00,Growth,0.789,0.522,0.412
+sedation dentistry boise,210,21,transactional,BOFU,4,growing,21.5,N/A,N/A,N/A,Measured,4.01,P0,3,30.00,Quick Win,0.664,0.576,0.382
+dentist meridian idaho,1600,37,transactional,BOFU,4,stable,15.8,N/A,N/A,N/A,Measured,3.90,P1,3,129.73,Quick Win,0.766,0.504,0.386
+pediatric dentist boise,1000,39,transactional,BOFU,4,stable,14.1,N/A,N/A,N/A,Measured,3.78,P1,3,76.92,Quick Win,0.725,0.495,0.359
+invisalign boise,590,42,commercial,BOFU,4,growing,18.3,N/A,N/A,N/A,Measured,3.69,P1,2,28.10,Growth,0.754,0.481,0.363
+how much do dental implants cost,9900,48,informational,BOFU,4,stable,6.2,N/A,N/A,N/A,Measured,3.43,P1,1,206.25,Hold,0.848,0.454,0.385
+teeth whitening boise,480,26,commercial,BOFU,3,stable,9.7,N/A,N/A,N/A,Measured,3.42,P1,2,36.92,Quick Win,0.655,0.503,0.330
+what to do for a cracked tooth,2900,17,informational,TOFU,3,stable,1.4,N/A,N/A,N/A,Measured,3.38,P1,1,170.59,Research,0.478,0.543,0.260
+are dental x rays safe,1900,22,informational,TOFU,2,stable,0.8,N/A,N/A,N/A,Measured,2.98,P2,1,86.36,Research,0.429,0.471,0.202

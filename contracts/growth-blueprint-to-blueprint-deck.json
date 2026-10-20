@@ -1,0 +1,19 @@
+{
+  "name": "growth-blueprint-to-blueprint-deck",
+  "version": 1,
+  "producer": "growth-blueprint",
+  "consumer": "blueprint-deck",
+  "format": "json",
+  "fixture": "fixtures/contracts/growth-blueprint-sections.json",
+  "keys": [
+    "Executive Summary",
+    "Business and Market Overview",
+    "Competitive Analysis",
+    "Strategic Positioning",
+    "Keyword Opportunity",
+    "Site Architecture and Content Plan",
+    "Growth Strategy",
+    "Measurement and Next Steps"
+  ],
+  "consumer_cmd": "python3 skills/blueprint-deck/scripts/deck.py sections {fixture}"
+}

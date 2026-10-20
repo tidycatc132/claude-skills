@@ -1,0 +1,585 @@
+{
+  "client": "Larkspur Family Dental",
+  "date": "2026-10-20",
+  "agency": "WISE Digital Partners",
+  "slides": [
+    {
+      "id": "cover",
+      "title": "Growth Blueprint",
+      "prepared_for": "Prepared for Larkspur Family Dental",
+      "by": "By WISE Digital Partners",
+      "notes": {
+        "say": "Thank you for the kickoff call. This deck is the plan for your new site, built from what you told us and from our keyword research. It describes direction, not guarantees.",
+        "emphasise": "The plan describes direction, not guarantees.",
+        "pushback": "Pushback: you promised us a top ranking within a month. Answer: that is your goal, and we treat it as one, but search results depend on factors outside anyone's control, so we do not promise it."
+      }
+    },
+    {
+      "id": "diagnosis",
+      "eyebrow": "The Diagnosis",
+      "headline": "Larkspur has no website, so emergency patients in Boise cannot find you",
+      "stats": [
+        {
+          "value": "1,300",
+          "caption": "monthly searches for emergency dentist boise"
+        }
+      ],
+      "body": [
+        "The practice has no website today, only the registered domain larkspurdental.com.",
+        "No Boise practice has a dedicated emergency page in the top 5 results yet."
+      ],
+      "notes": {
+        "say": "Today there is nothing online for a person with a cracked tooth to land on. Emergency care is the fastest-growing part of your practice, and that is where the search demand is.",
+        "emphasise": "1,300 monthly searches for emergency dentist boise, at a difficulty of 32.",
+        "pushback": "Pushback: is emergency search really big enough to matter? Answer: it is one of the largest Tier 1 terms and one of the easier ones to win, and nobody in Boise has a dedicated page in the top 5."
+      }
+    },
+    {
+      "id": "cost",
+      "eyebrow": "What This Costs You",
+      "headline": "Meridian families and implant patients searching today have no way to find you",
+      "stats": [
+        {
+          "value": "1,600",
+          "caption": "monthly searches for dentist meridian idaho"
+        },
+        {
+          "value": "880",
+          "caption": "monthly searches for dental implants boise"
+        }
+      ],
+      "body": [
+        "Both are services you told us matter most."
+      ],
+      "notes": {
+        "say": "Without a site, every one of these searches goes to another practice. Implants and your second service area are where you said you want growth.",
+        "emphasise": "1,600 searches for dentist meridian idaho and 880 for dental implants boise.",
+        "pushback": "Pushback: will we get all of those searches? Answer: no. These are monthly search volumes, not patients, and we do not promise a share or a patient number."
+      }
+    },
+    {
+      "id": "told-us",
+      "eyebrow": "What You Told Us",
+      "headline": "You told us to lead with emergencies, explain sedation gently and stay calm in tone",
+      "quotes": [
+        {
+          "text": "We see emergencies the same day, every weekday, no exceptions.",
+          "speaker": "Dr. Maya Okafor",
+          "date": "2026-10-09",
+          "drives": "Priority: emergencies lead"
+        },
+        {
+          "text": "If the site can just explain sedation without making it scary, that's a win.",
+          "speaker": "Dr. Maya Okafor",
+          "date": "2026-10-09",
+          "drives": "Sedation explained gently"
+        },
+        {
+          "text": "Implants change people's lives, and most people don't know we do them.",
+          "speaker": "Dr. Maya Okafor",
+          "date": "2026-10-09",
+          "drives": "Implants get their own page"
+        },
+        {
+          "text": "We never want to sound like a used-car lot. Calm, clear, no pressure.",
+          "speaker": "Dr. Maya Okafor",
+          "date": "2026-10-09",
+          "drives": "Voice: calm, no pressure"
+        }
+      ],
+      "notes": {
+        "say": "These are your words from the kickoff call. Each one shaped a decision in this plan, and we will point to them as we go.",
+        "emphasise": "Same-day emergency care leads, in your own words.",
+        "pushback": "Pushback: our priorities have changed since the call. Answer: tell us now and we will update the Blueprint before the pages are written."
+      }
+    },
+    {
+      "id": "divider",
+      "number": "01",
+      "headline": "Where you stand today",
+      "notes": {
+        "say": "Section one is where you stand today: what you already have and what the search market looks like.",
+        "emphasise": "Your reputation is already an asset.",
+        "pushback": "Pushback: why start with the present? Answer: the plan only makes sense against a clear starting point."
+      }
+    },
+    {
+      "id": "stand-today",
+      "eyebrow": "Where You Stand Today",
+      "headline": "Your reputation is strong, but it has no website to work on yet",
+      "stats": [
+        {
+          "value": "4.9",
+          "caption": "average rating across your Google reviews"
+        },
+        {
+          "value": "212",
+          "caption": "Google reviews from your patients"
+        }
+      ],
+      "body": [
+        "The new site will put this proof where new patients decide."
+      ],
+      "notes": {
+        "say": "Patients already rate you highly. The site's job is to put that rating in front of people at the moment they choose a dentist.",
+        "emphasise": "4.9 average rating from 212 Google reviews.",
+        "pushback": "Pushback: can we say best dentist in Boise? Answer: no. Dental advertising is held to honest-claims rules, so we use only real, current ratings and proof points."
+      }
+    },
+    {
+      "id": "competitors",
+      "eyebrow": "Who You're Up Against",
+      "headline": "The competitor comparison waits on a saved competitor report",
+      "needs_input": "[NEEDS INPUT: a saved competitor-analysis report for Treasure Valley Smiles, Boise Bright Dental and North End Family Dental; competitor figures are never estimated. Who can supply it: the SEO team]",
+      "notes": {
+        "say": "You named three competitors on the call. We have not yet saved the competitor review, so we are not showing a comparison and we will not estimate one.",
+        "emphasise": "No competitor figures are shown until the report is saved.",
+        "pushback": "Pushback: why is this slide empty? Answer: we never estimate competitor figures. The comparison is added once the review is done."
+      }
+    },
+    {
+      "id": "threats",
+      "eyebrow": "Which Competitors Actually Matter",
+      "headline": "Which competitors matter will be graded once the competitor report is saved",
+      "needs_input": "[NEEDS INPUT: a saved competitor-analysis report for Treasure Valley Smiles, Boise Bright Dental and North End Family Dental; competitor figures are never estimated. Who can supply it: the SEO team]",
+      "notes": {
+        "say": "Once the review is saved we will tell you directly which of the three are real threats and which only look intimidating. The keyword research already gives one early signal: nobody in Boise has a dedicated emergency page in the top 5.",
+        "emphasise": "No Boise practice has a dedicated emergency page in the top 5.",
+        "pushback": "Pushback: are those three really our competitors? Answer: we will say so plainly in the review, including any that are not."
+      }
+    },
+    {
+      "id": "keywords",
+      "eyebrow": "What You'll Rank For",
+      "headline": "Eight keywords match the new pages, and the bigger terms come after launch",
+      "table": {
+        "columns": [
+          "Keyword",
+          "Monthly searches",
+          "Difficulty",
+          "Intent",
+          "Tier",
+          "Time to result"
+        ],
+        "rows": [
+          [
+            "emergency dentist boise",
+            "1300",
+            "32",
+            "transactional",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "family dentist boise",
+            "720",
+            "28",
+            "transactional",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "dental implants boise",
+            "880",
+            "44",
+            "commercial",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "sedation dentistry boise",
+            "210",
+            "21",
+            "transactional",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "dentist meridian idaho",
+            "1600",
+            "37",
+            "transactional",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "pediatric dentist boise",
+            "1000",
+            "39",
+            "transactional",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "invisalign boise",
+            "590",
+            "42",
+            "commercial",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "teeth whitening boise",
+            "480",
+            "26",
+            "commercial",
+            "Tier 1",
+            "With the new site"
+          ],
+          [
+            "dentist boise",
+            "6600",
+            "61",
+            "transactional",
+            "Tier 2",
+            "Months 1 to 3"
+          ],
+          [
+            "how much do dental implants cost",
+            "9900",
+            "48",
+            "informational",
+            "Tier 2",
+            "Months 1 to 3"
+          ],
+          [
+            "what to do for a cracked tooth",
+            "2900",
+            "17",
+            "informational",
+            "Tier 2",
+            "Months 1 to 3"
+          ],
+          [
+            "are dental x rays safe",
+            "1900",
+            "22",
+            "informational",
+            "Tier 3",
+            "Months 4 to 6 and beyond"
+          ]
+        ]
+      },
+      "caption": "Monthly searches and difficulty from our keyword research.",
+      "notes": {
+        "say": "Tier 1 keywords are the main keywords of the pages we are building now. Tier 2 is for the first months after launch, and Tier 3 builds long-term authority.",
+        "emphasise": "Emergency dentist boise: 1,300 searches a month at a difficulty of 32.",
+        "pushback": "Pushback: why not target the biggest terms first? Answer: they are harder, and authority from the service pages comes first. The next slide covers it."
+      }
+    },
+    {
+      "id": "top-keyword",
+      "eyebrow": "Why Your Top Keyword Isn't Month One",
+      "headline": "Dentist boise is the long game, so it is not a day-one target",
+      "keyword": "dentist boise",
+      "tier": "Tier 2, aimed at after launch",
+      "stats": [
+        {
+          "value": "6,600",
+          "caption": "monthly searches, at a difficulty of 61"
+        }
+      ],
+      "points": [
+        "It is the biggest search term, and also one of the hardest to win.",
+        "We build authority through the service pages first.",
+        "We aim at it after launch, not on day one."
+      ],
+      "notes": {
+        "say": "We know this is the term you would most like to own. It needs authority that a new site does not have, so we earn it through the service pages first.",
+        "emphasise": "6,600 monthly searches at a difficulty of 61.",
+        "pushback": "Pushback: you said you wanted to be the top dentist on Google within a month. Answer: that is your goal, and we do not promise a ranking, because this term needs authority built over time."
+      }
+    },
+    {
+      "id": "divider",
+      "number": "02",
+      "headline": "The plan",
+      "notes": {
+        "say": "Section two is the plan itself: how you are positioned and what we are building.",
+        "emphasise": "Emergency care leads.",
+        "pushback": "Pushback: can the order change? Answer: yes, tell us and the Blueprint changes before pages are written."
+      }
+    },
+    {
+      "id": "positioning",
+      "eyebrow": "How You'll Be Positioned",
+      "headline": "Same-day emergency care is what sets Larkspur apart from other Boise practices",
+      "points": [
+        "Same-day emergency appointments every weekday.",
+        "4.9 average rating from 212 Google reviews.",
+        "Sedation options for anxious patients."
+      ],
+      "message": "The calm, same-day family practice that treats emergencies and implants under one roof.",
+      "notes": {
+        "say": "This is the message the first screen of the homepage will carry and every page will keep repeating. It leads with the differentiator you gave us.",
+        "emphasise": "Same-day emergency appointments on weekdays.",
+        "pushback": "Pushback: awards and press are missing. Answer: none have been found, so we do not lean on them. If you have any, send them and we will use them."
+      }
+    },
+    {
+      "id": "site",
+      "eyebrow": "The Site We're Building",
+      "headline": "The new site gives every service you want found its own page",
+      "stats": [
+        {
+          "value": "11",
+          "caption": "pages in the agreed 12-page scope"
+        }
+      ],
+      "pages": [
+        {
+          "name": "Home",
+          "type": "home"
+        },
+        {
+          "name": "Emergency Dentist",
+          "type": "service"
+        },
+        {
+          "name": "Family Dentistry",
+          "type": "service"
+        },
+        {
+          "name": "Dental Implants",
+          "type": "service"
+        },
+        {
+          "name": "Sedation Dentistry",
+          "type": "service"
+        },
+        {
+          "name": "Pediatric Dentistry",
+          "type": "service"
+        },
+        {
+          "name": "Invisalign",
+          "type": "service"
+        },
+        {
+          "name": "Teeth Whitening",
+          "type": "service"
+        },
+        {
+          "name": "Meridian Location",
+          "type": "location"
+        },
+        {
+          "name": "About",
+          "type": "about"
+        },
+        {
+          "name": "Our Team",
+          "type": "about"
+        },
+        {
+          "name": "New Patients",
+          "type": "other"
+        },
+        {
+          "name": "Contact",
+          "type": "contact"
+        }
+      ],
+      "notes": {
+        "say": "Each service you want to be found for gets a page matched to a Tier 1 keyword, plus Meridian, About, Our Team, New Patients and Contact pages. Every page has a clear way to book or call.",
+        "emphasise": "11 pages counted against the 12-page scope.",
+        "pushback": "Pushback: why only 11 counted pages? Answer: the home page, contact page, 404 page, privacy and terms pages and blog posts are part of the site but not counted against the scope."
+      }
+    },
+    {
+      "id": "not-doing",
+      "eyebrow": "What We're Not Doing",
+      "headline": "We are leaving three things out so the plan stays honest and in scope",
+      "items": [
+        {
+          "what": "A twenty-page site with a page per insurance plan",
+          "why": "It is outside the agreed 12-page scope, so it is not in this plan.",
+          "revisit": "If the scope is changed in a new agreement"
+        },
+        {
+          "what": "Blog writing as part of the build",
+          "why": "Blog writing is outside the current agreement, so the content calendar is a plan to agree on, not work already included.",
+          "revisit": "If blog writing is added to the agreement"
+        },
+        {
+          "what": "Promised rankings or patient numbers",
+          "why": "Search results depend on factors outside anyone's control, so we describe direction and do not guarantee a ranking or a patient number.",
+          "revisit": "When results data from the first months after launch is available"
+        }
+      ],
+      "notes": {
+        "say": "Saying no clearly now avoids a hard conversation later. Each of these has an event that would make it worth revisiting.",
+        "emphasise": "The agreed scope is 12 pages.",
+        "pushback": "Pushback: why not just add the insurance pages? Answer: they are outside the current scope, and we will revisit them if the scope changes."
+      }
+    },
+    {
+      "id": "divider",
+      "number": "03",
+      "headline": "Making it work",
+      "notes": {
+        "say": "Section three is what has to be true for the plan to work, how we measure it and what happens next.",
+        "emphasise": "Some of this depends on your team, and some on ours.",
+        "pushback": "Pushback: is this a lot to ask of us? Answer: it is a short list, and each item names an owner and what it holds up."
+      }
+    },
+    {
+      "id": "has-to-be-true",
+      "eyebrow": "What Has To Be True",
+      "headline": "The plan needs a few items from your team and one report from ours",
+      "client": [
+        {
+          "item": "Provide team photos",
+          "owner": "Larkspur Family Dental",
+          "blocks": "The About and Our Team pages",
+          "needed_by": "November, as scheduled"
+        },
+        {
+          "item": "Supply pricing information and any awards or press",
+          "owner": "Office manager and Dr. Maya Okafor",
+          "blocks": "Pricing and proof content on the site",
+          "needed_by": "Before content review"
+        },
+        {
+          "item": "Review and approve clinical wording and the results disclaimer",
+          "owner": "Dr. Maya Okafor, with legal approval",
+          "blocks": "The implant and Invisalign pages",
+          "needed_by": "Before content review"
+        }
+      ],
+      "wise": [
+        {
+          "item": "Complete the competitor review and add it to this Blueprint",
+          "owner": "WISE Digital Partners",
+          "blocks": "The competitor slides and authority targets",
+          "needed_by": "Before the Blueprint is final"
+        },
+        {
+          "item": "Write and design the pages in the sitemap",
+          "owner": "WISE Digital Partners",
+          "blocks": "Launch of the new site",
+          "needed_by": "After this Blueprint is approved"
+        }
+      ],
+      "notes": {
+        "say": "These are the items that hold up the build. Team photos are scheduled for November. The clinical wording on implants and Invisalign needs Dr. Okafor and legal approval.",
+        "emphasise": "Team photos are scheduled for November.",
+        "pushback": "Pushback: what if photos slip? Answer: the About and Our Team pages wait on them, and the rest of the build continues."
+      }
+    },
+    {
+      "id": "measure",
+      "eyebrow": "How We'll Measure This",
+      "headline": "We will track bookings, calls and rankings, and read them as direction only",
+      "table": {
+        "columns": [
+          "Metric",
+          "Baseline today",
+          "3 months",
+          "6 months",
+          "12 months"
+        ],
+        "rows": [
+          [
+            "Booking requests and phone calls",
+            "Not tracked yet",
+            "Begin to come from search",
+            "Growing from search",
+            "A steady source of requests"
+          ],
+          [
+            "Rankings for the Tier 1 keywords",
+            "Not tracked yet",
+            "Emergency, family dentistry and sedation pages move first",
+            "Implants, pediatric and Meridian pages gain visibility",
+            "Competing for broader terms such as dentist boise"
+          ],
+          [
+            "New-patient enquiries from search",
+            "Not tracked yet",
+            "Start to appear",
+            "Rise as reviews and content add up",
+            "Steady, especially emergency and implant patients"
+          ]
+        ]
+      },
+      "notes": {
+        "say": "We track your two main conversions and your Tier 1 rankings. Targets here are directions, not promises.",
+        "emphasise": "Targets are directional, not promised.",
+        "pushback": "Pushback: you said you wanted twenty more new patients a month by next summer. Answer: we treat that as your goal and measure against it, but we do not promise a patient number."
+      }
+    },
+    {
+      "id": "team",
+      "eyebrow": "Your Team",
+      "headline": "Each side has named people who own the decisions and the work",
+      "people": [
+        {
+          "name": "Dr. Maya Okafor",
+          "side": "client",
+          "role": "Founder, Larkspur Family Dental",
+          "owns": "Priorities and clinical wording approval"
+        },
+        {
+          "name": "[NEEDS INPUT: name of office manager]",
+          "side": "client",
+          "role": "Office manager",
+          "owns": "Pricing information and any awards or press"
+        },
+        {
+          "name": "Jordan Pike",
+          "side": "wise",
+          "role": "[NEEDS INPUT: role of Jordan Pike]",
+          "owns": "The kickoff and questions on this plan"
+        }
+      ],
+      "notes": {
+        "say": "Dr. Okafor owns priorities and clinical sign-off. Your office manager supplies pricing and proof. Jordan Pike is your contact on our side.",
+        "emphasise": "Dr. Maya Okafor signs off clinical wording.",
+        "pushback": "Pushback: what if Dr. Okafor is away? Answer: tell us who can approve in the meantime, and we will route reviews to them."
+      }
+    },
+    {
+      "id": "next",
+      "eyebrow": "What Happens Next",
+      "headline": "Next we review this together, then collect your inputs and finish the build plan",
+      "actions": [
+        {
+          "action": "Walk through this Blueprint and note your questions",
+          "owner": "Jordan Pike",
+          "timing": "Monday"
+        },
+        {
+          "action": "Provide team photos",
+          "owner": "Larkspur Family Dental",
+          "timing": "November"
+        },
+        {
+          "action": "Supply pricing information and any awards or press",
+          "owner": "Office manager and Dr. Maya Okafor",
+          "timing": "Before content review"
+        },
+        {
+          "action": "Approve clinical wording and the results disclaimer",
+          "owner": "Dr. Maya Okafor",
+          "timing": "Before content review"
+        },
+        {
+          "action": "Complete the competitor review and add it to the Blueprint",
+          "owner": "WISE Digital Partners",
+          "timing": "Before the Blueprint is final"
+        },
+        {
+          "action": "Write and design the pages in the sitemap",
+          "owner": "WISE Digital Partners",
+          "timing": "After approval"
+        }
+      ],
+      "notes": {
+        "say": "On Monday we walk through this deck together. After that the work splits between your inputs and our writing and design.",
+        "emphasise": "Complete the competitor review and add it to the Blueprint.",
+        "pushback": "Pushback: when will the site be ready? Answer: that depends on the photos and approvals above, so we confirm dates once those arrive."
+      }
+    }
+  ]
+}
