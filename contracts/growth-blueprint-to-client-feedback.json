@@ -1,0 +1,21 @@
+{
+  "name": "growth-blueprint-to-client-feedback",
+  "version": 1,
+  "producer": "growth-blueprint",
+  "consumer": "client-feedback",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-blueprint-sections.json",
+  "keys": [
+    "Executive Summary",
+    "Business and Market Overview",
+    "Competitive Analysis",
+    "Strategic Positioning",
+    "Keyword Opportunity",
+    "Site Architecture and Content Plan",
+    "Growth Strategy",
+    "Measurement and Next Steps"
+  ],
+  "producer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract blueprint evals/growth-blueprint/golden/larkspur-full/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract --validate {fixture}"
+}
