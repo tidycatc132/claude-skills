@@ -36,6 +36,8 @@ How to turn the client's reply into `feedback-plan.json`. The script rejects a p
 
 ## Types
 
+A reply to the Week 2 email (Blueprint, deck and page content) has a sixth type, `strategy`, two more Affects (`blueprint: <section>`, `page: <url-slug>`) and a `changes` list per item: see [Week 2](week-2.md). The rest of this file applies to both weeks.
+
 | Type | When | Impact |
 |---|---|---|
 | `approval` | The client signs off on something as it is ("the copy sounds like us", "go ahead with Option A"). | `none` (**checked**) |
