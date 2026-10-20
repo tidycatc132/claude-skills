@@ -1,0 +1,123 @@
+{
+  "date": "2026-12-03",
+  "from": "feedback-email.txt",
+  "contact": "Maya Castellano",
+  "am": "Jordan Pike",
+  "week": 2,
+  "items": [
+    {
+      "feedback": "Mostly it feels right and the sitemap makes sense to us.",
+      "type": "approval",
+      "affects": "blueprint: Site Architecture and Content Plan",
+      "impact": "none",
+      "action": "Record approval of the overall direction and the sitemap",
+      "owner": "AM"
+    },
+    {
+      "feedback": "What surprised me is that emergency care is the top priority. Emergencies are hard on our staff and we close at 6, so we can't really be the emergency vet for Bend. We'd much rather lead with dental and wellness, that's where we want to grow.",
+      "type": "strategy",
+      "affects": "blueprint: Keyword Opportunity",
+      "impact": "high",
+      "action": "SEO decides whether dental and wellness keywords move to Tier 1 and emergency drops, then updates the Blueprint",
+      "owner": "SEO",
+      "changes": {
+        "blueprint": [
+          "Executive Summary",
+          "Keyword Opportunity",
+          "Growth Strategy"
+        ],
+        "pages": [
+          "emergency-vet",
+          "home"
+        ]
+      }
+    },
+    {
+      "feedback": "Could it say we have a Fear Free trained team instead?",
+      "type": "strategy",
+      "affects": "blueprint: Strategic Positioning",
+      "impact": "medium",
+      "action": "SEO rewrites the positioning line without claiming a Fear Free practice",
+      "owner": "SEO",
+      "changes": {
+        "blueprint": [
+          "Strategic Positioning"
+        ],
+        "pages": [
+          "home"
+        ]
+      }
+    },
+    {
+      "feedback": "On the dental care page it says we offer anesthesia-free cleanings. We don't do those, please take that out.",
+      "type": "content",
+      "affects": "page: dental-care",
+      "impact": "low",
+      "action": "Remove anesthesia-free cleanings from the dental care page",
+      "owner": "Content",
+      "changes": {
+        "pages": [
+          "dental-care"
+        ]
+      }
+    },
+    {
+      "feedback": "Small thing, Dr. Ruiz's name is spelled wrong on the About page, it's Ruiz not Ruis.",
+      "type": "content",
+      "affects": "page: about",
+      "impact": "low",
+      "action": "Correct Ruis to Ruiz on the About page",
+      "owner": "Content",
+      "changes": {
+        "pages": [
+          "about"
+        ]
+      }
+    },
+    {
+      "feedback": "We get a lot of clients driving in from Sisters and would love a page for them like the Redmond one. Is that possible?",
+      "type": "scope",
+      "affects": "site scope",
+      "impact": "high",
+      "action": "Tell Maya a second location page is beyond the SOW; send a change order if she wants it",
+      "owner": "AM",
+      "verdict": "outside",
+      "pages": 1,
+      "basis": "The SOW allows 1 location page and the Redmond page uses it."
+    },
+    {
+      "feedback": "When will we see the designs for the inner pages?",
+      "type": "question",
+      "affects": "timeline",
+      "impact": "none",
+      "action": "Tell Maya when the inner page designs follow",
+      "owner": "AM"
+    }
+  ],
+  "facts": [
+    {
+      "section": "Snapshot",
+      "fact": "Closes at 6",
+      "evidence": "we close at 6"
+    },
+    {
+      "section": "Services",
+      "fact": "Does not offer anesthesia-free dental cleanings",
+      "evidence": "We don't do those, please take that out."
+    },
+    {
+      "section": "Differentiators and Proof",
+      "fact": "Two of the four vets are Fear Free certified",
+      "evidence": "only two of our four vets are Fear Free certified"
+    },
+    {
+      "section": "Scope Summary",
+      "fact": "CONFLICT: Maya Castellano asked for a Sisters location page; the SOW allows 1 location page (SOW pages: 10); the build follows the SOW until a signed change",
+      "evidence": "would love a page for them like the Redmond one"
+    }
+  ],
+  "reply": {
+    "subject": "Re: Your Growth Blueprint and page content are ready",
+    "body": "Hi Maya,\n\nThank you for going through the deck with Dr. Lund. I'm glad the overall direction and the sitemap feel right.\n\nYour point about emergency care is an important one. Our SEO lead will review the keyword priorities with dental and wellness in mind, and I'll come back to you before we change the Blueprint. The same goes for the Fear Free wording: we will review it so the positioning only says what is true.\n\nWe will remove the anesthesia-free cleanings from the dental care page and correct Dr. Ruiz's name on the About page.\n\nA Sisters page would be a second location page, which goes beyond what the current agreement covers. I'll send you a change order for it, and work on the agreed pages carries on meanwhile.\n\nThe inner page designs come next; I'll confirm when you'll see them once the design team has scheduled them.\n\nThanks again,"
+  }
+}
