@@ -202,6 +202,15 @@ def main() -> int:
     friday = copy.deepcopy(pn)
     friday["reply"]["body"] = friday["reply"]["body"].replace("If a short call", "Could you reply by next week? If a short call")
     expect("nudge with a new deadline refused", nudge(w2, friday, "2026-12-08")[:2], fails, "new deadline")
+    guide = REPO / "skills/blueprint-deck/references/slide-guide.md"
+    if guide.exists():
+        import re
+        sys.path.insert(0, str(HERE))
+        import feedback as FB
+        deck = {int(n): t.strip() for n, t in re.findall(r"(?m)^\| (\d+) \| `[a-z-]+` \| (.+?) \|$",
+                                                       guide.read_text(encoding="utf-8"))}
+        wrong = [f"{n} {t}" for n, t in FB.DECK_SLIDES.items() if deck.get(n) != t]
+        results.append(("deck slide numbers match blueprint-deck's slide guide", not wrong, "; ".join(wrong)))
     for t in TMP:
         shutil.rmtree(t, ignore_errors=True)
     for name, ok, detail in results:

@@ -1,0 +1,12 @@
+{
+  "name": "week-2-client-email-to-client-feedback",
+  "version": 1,
+  "producer": "week-2-client-email",
+  "consumer": "client-feedback",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-week-2-email-header.json",
+  "keys": ["Client:", "Send date:", "Reply by:"],
+  "producer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract week-2-email fixtures/week-2-client-email/drafts/larkspur-dental-week-2-email-edited.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract --validate {fixture}"
+}

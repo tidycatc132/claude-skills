@@ -7,6 +7,7 @@ Usage:
   python3 feedback.py check kickoff/<slug> --feedback <client text file> --report feedback/<slug>/<file>-feedback.md
   python3 feedback.py updates-json kickoff/<slug> --feedback <client text file> --plan feedback-plan.json
   python3 feedback.py nudge kickoff/<slug> --plan nudge-plan.json --today YYYY-MM-DD [--email <week-2 email>] [--dry-run]
+  python3 feedback.py contract week-2-email <email.md> | contract blueprint <blueprint.md> | contract --validate <file.json>
 
 scope         prints the scope source from <slug>-context.md as JSON (source, SOW pages, services, quote lines).
 render        validates the plan against the client's text and the scope source, writes
@@ -17,6 +18,8 @@ check         re-reads the written files and prints a `| Check | Result | Detail
 updates-json  prints the updates the plan would write as JSON (keys Client, Source, Date, From, rows).
 nudge         when the Week 2 email's `Reply by:` date has passed with no Week 2 feedback logged, checks the
               nudge plan and writes feedback/<slug>/<today>-week-2-nudge.md, then checks it.
+contract      prints, as JSON, what this skill reads from a Week 2 email's header (`Client:`, `Send date:`,
+              `Reply by:`) or a Growth Blueprint (its `##` sections); --validate checks such a JSON file.
 
 A plan with "week": 2 is a reply to the Week 2 email (Growth Blueprint, deck and page content): it reads
 blueprint/<slug>/<slug>-growth-blueprint.md, content/<url-slug>/article.md and, when present,
@@ -209,6 +212,27 @@ def scope_dir(scope: dict) -> Path:
     return Path(scope["kdir"])
 
 
+EMAIL_KEYS = ["Client:", "Send date:", "Reply by:"]
+
+
+def email_header(text: str) -> dict:
+    """The Week 2 email's header lines this skill reads (week-2-client-email writes them)."""
+    out = {}
+    for k in EMAIL_KEYS:
+        m = re.search(rf"(?m)^{re.escape(k)}[ \t]*(.*?)\s*$", text)
+        out[k] = m.group(1) if m else ""
+    return out
+
+
+def blueprint_sections(text: str) -> dict:
+    """The Blueprint's `##` sections this skill names, keyed by heading."""
+    found = {}
+    for m in re.finditer(r"(?ms)^## (.+?)\s*\n(.*?)(?=^## |\Z)", text):
+        if m.group(1) in BLUEPRINT_SECTIONS:
+            found[m.group(1)] = m.group(2).strip()
+    return found
+
+
 def week2_info(kdir: Path) -> dict:
     """The Week 2 files in the working folder: the Blueprint, the page folders and the Week 2 email."""
     slug, root = kdir.name, kdir.parent.parent
@@ -217,9 +241,10 @@ def week2_info(kdir: Path) -> dict:
     pages = sorted(d.name for d in (root / "content").glob("*") if (d / "article.md").exists())
     bp_text = read(bp) if bp.exists() else ""
     em_text = read(email) if email.exists() else ""
-    reply_by = (re.search(r"(?m)^Reply by:\s*(\d{4}-\d{2}-\d{2})\s*$", em_text) or [None, ""])[1]
+    reply_by = email_header(em_text)["Reply by:"]
+    reply_by = reply_by if DATE_RE.match(reply_by) else ""
     return {"blueprint": f"blueprint/{slug}/{bp.name}" if bp.exists() else "",
-            "sections": [h for h in re.findall(r"(?m)^## (.+?)\s*$", bp_text) if h in BLUEPRINT_SECTIONS],
+            "sections": list(blueprint_sections(bp_text)),
             "pages": pages, "email": f"emails/{slug}/{email.name}" if email.exists() else "",
             "reply_by": reply_by, "text": bp_text + "\n" + em_text}
 
@@ -744,8 +769,9 @@ def nudge(kdir: Path, plan_path: Path, today: str, email_arg: str | None, dry_ru
     if not email.exists():
         raise SystemExit(f"ERROR: {email} not found; the nudge follows the Week 2 email (week-2-client-email).")
     em = read(email)
-    reply_by = (re.search(r"(?m)^Reply by:\s*(\d{4}-\d{2}-\d{2})\s*$", em) or [None, ""])[1]
-    send_date = (re.search(r"(?m)^Send date:\s*(\d{4}-\d{2}-\d{2})\s*$", em) or [None, ""])[1]
+    head = email_header(em)
+    reply_by = head["Reply by:"] if DATE_RE.match(head["Reply by:"]) else ""
+    send_date = head["Send date:"] if DATE_RE.match(head["Send date:"]) else ""
     if not reply_by:
         raise SystemExit(f"ERROR: {email} has no 'Reply by: YYYY-MM-DD' line.")
     if today <= reply_by:
@@ -874,6 +900,27 @@ def check_nudge(kdir: Path, path: Path, email: Path, today: str) -> int:
     return 0 if passed else 1
 
 
+# ---------- contract ----------
+
+def contract(kind: str | None, file: str, validate: bool) -> int:
+    if validate:
+        data = json.loads(read(Path(file)))
+        if "Reply by:" in data or "Send date:" in data:
+            bad = [k for k in EMAIL_KEYS if k not in data] + \
+                  [k for k in ("Send date:", "Reply by:") if k in data and not DATE_RE.match(str(data[k]))]
+        else:
+            bad = [k for k in BLUEPRINT_SECTIONS if k not in data]
+        if bad:
+            print("CONTRACT INVALID: missing or not YYYY-MM-DD: " + ", ".join(bad))
+            return 1
+        print("CONTRACT OK")
+        return 0
+    text = read(Path(file))
+    data = email_header(text) if kind == "week-2-email" else blueprint_sections(text)
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+    return 0
+
+
 # ---------- main ----------
 
 def load_plan(p: Path) -> dict:
@@ -889,6 +936,10 @@ def main() -> int:
     s = sub.add_parser("scope")
     s.add_argument("kickoff")
     s.add_argument("--week", choices=["1", "2"], default="1")
+    ct = sub.add_parser("contract")
+    ct.add_argument("kind", nargs="?", choices=["week-2-email", "blueprint"])
+    ct.add_argument("file")
+    ct.add_argument("--validate", action="store_true")
     nd = sub.add_parser("nudge")
     nd.add_argument("kickoff")
     nd.add_argument("--plan", required=True)
@@ -907,6 +958,10 @@ def main() -> int:
     c.add_argument("--feedback", required=True)
     c.add_argument("--report", required=True)
     a = ap.parse_args()
+    if a.cmd == "contract":
+        if not a.validate and not a.kind:
+            ap.error("contract needs week-2-email or blueprint, or --validate")
+        return contract(a.kind, a.file, a.validate)
     kdir = Path(a.kickoff.rstrip("/"))
     if a.cmd == "scope":
         info = scope_info(kdir)
