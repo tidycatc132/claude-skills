@@ -1,0 +1,21 @@
+{
+  "should_trigger": [
+    "Draft the Week 2 email to Larkspur Family Dental that sends Jenna the Growth Blueprint deck and the page content.",
+    "The Blueprint deck for Tidewater Roofing is built. Write the client email that delivers it with the sitemap page copy and asks for their feedback by next Tuesday.",
+    "Write the email that sends Dr. Ruiz the strategy deck and all the page drafts for Fernbrook Veterinary Clinic.",
+    "Put together the Week 2 send-out for Copperline Plumbing: the deck goes as the main attachment with the PDF for reference, plus the content doc link and what they still owe us.",
+    "Draft the cover email for the Growth Blueprint presentation and website copy we're sending Oakhurst Landscape Co. tomorrow, and offer them a walkthrough call.",
+    "End of week 2 for Harbor Pine Dental: write the client email with the blueprint deck and the content for every page."
+  ],
+  "should_not_trigger": [
+    "Draft the Week 1 email to Fernbrook Veterinary Clinic with the three homepage design options and the homepage copy.",
+    "Jenna replied to the Blueprint deck: she wants implants ahead of sedation and the About page is missing their history. Sort the feedback and draft our reply.",
+    "Build the branded Growth Blueprint deck for Larkspur Family Dental from the finished Blueprint.",
+    "Write the Growth Blueprint and the AM Briefing for Larkspur Family Dental from the Week 1 files.",
+    "Write the welcome email for Copperline Plumbing with the intake form link and the gap questions.",
+    "Write every page from the content briefs in research/content-briefs/ for Tidewater Roofing.",
+    "Check that Week 1 is complete for Fernbrook before we move to Week 2.",
+    "Post a progress update on the Larkspur build to ClickUp.",
+    "Jenna emailed the Saturday hours and the hygienist names for Larkspur. Update the missing items."
+  ]
+}
