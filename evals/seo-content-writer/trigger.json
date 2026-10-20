@@ -7,7 +7,12 @@
     "Draft the service page for emergency dental care in Tacoma from this brief, ready for the dev to build.",
     "The keyword research and brief are done for 'best standing desks for small spaces'. Now write the listicle itself so it can get cited in ChatGPT and Perplexity.",
     "Use our client's voice.md and style.md plus brief-07.md to write the how-to article on replacing a garbage disposal.",
-    "Produce the long-form guide this content brief describes, with a semantic HTML version and the pre-publish QA pass."
+    "Produce the long-form guide this content brief describes, with a semantic HTML version and the pre-publish QA pass.",
+    "Write all the briefs in research/content-briefs/ for Larkspur Veterinary that don't have a page yet.",
+    "Write every page from the briefs for Fernhollow Landscaping. The homepage was done in Week 1, so skip it.",
+    "Here's the About page brief for Copperleaf Tree Care. Write the About page copy from it.",
+    "Turn the contact page brief into the finished Contact page, with the form fields, phone, email, address and map sections.",
+    "Write the Spokane Valley location page from its content brief."
   ],
   "should_not_trigger": [
     "Create a content brief for 'how long does a tankless water heater last' from our topical map CSV.",
@@ -20,6 +25,11 @@
     "Proofread this two-paragraph customer email for typos.",
     "Write three LinkedIn posts announcing our new tankless water heater service.",
     "I wrote this draft myself (draft.md). Is it ready to publish? Score it for E-E-A-T.",
-    "What does it take to rank for 'tankless water heater lifespan'? Show me who holds the featured snippet."
+    "What does it take to rank for 'tankless water heater lifespan'? Show me who holds the featured snippet.",
+    "Create content briefs for the about, contact and location pages from the saved keyword research.",
+    "Write a design brief for each page type (service, location, about, contact) for the design team.",
+    "Update the client's office hours and phone number in their context file after today's call.",
+    "Audit our live About page for E-E-A-T signals and tell me what's missing.",
+    "Write all the briefs for the November calendar items from the keyword research report."
   ]
 }
