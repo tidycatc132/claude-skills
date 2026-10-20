@@ -1,0 +1,16 @@
+I wrote the Growth Blueprint and the AM Briefing for Larkspur Family Dental, both dated 2026-10-19. The check passed on every row, and no `[NEEDS INPUT]` flags are open.
+
+- Blueprint: `/tmp/harness-eval-kh_vnl6m/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md`
+- AM Briefing: `/tmp/harness-eval-kh_vnl6m/blueprint/larkspur-dental/larkspur-dental-am-briefing.md` (476 words)
+
+RESULT: PASS
+
+**Page count needs confirming with SEO.** The sitemap report counts 11 pages against the 12-page cap, but the count leaves out Home and Contact. The scope wording says the 12 pages include home and contact. If both count, the sitemap is 13 pages and over the cap. I copied the report as it stands and put a flag in the AM Briefing's Calibration Framing. I'd confirm the count with SEO before the Blueprint goes to the client.
+
+**Client requests the Blueprint does not take on.**
+- **Twenty-page site:** the client asked for twenty pages with a page per insurance plan. The Blueprint says the sitemap follows the agreed scope of up to 12 pages.
+- **Top dentist in Boise within a month:** the Blueprint presents this as the client's goal and says it is not promised.
+- **Twenty more new patients a month:** the Blueprint presents this as the client's goal and says it is not promised.
+- **Content calendar:** blog writing is excluded from the scope, so the Blueprint says the calendar needs a separate agreement or an in-house writer.
+
+**Open items for the client (listed in the Blueprint's next steps).** Team photos in November; service prices (none supplied yet); any awards or press; and approval of the results disclaimer (it still needs legal approval) for the implant and Invisalign pages.

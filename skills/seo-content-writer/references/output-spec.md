@@ -1,6 +1,6 @@
 # Output spec
 
-All files go in `content/<url-slug>/` unless the user names another folder. The scripts read these layouts, so keep them exact. A homepage uses the layout in `homepage.md` for `article.md` (and its folder is `content/home/`); the other files follow this spec with the changes listed there.
+All files go in `content/<url-slug>/` unless the user names another folder. The scripts read these layouts, so keep them exact. A homepage uses the layout in `homepage.md` for `article.md` (and its folder is `content/home/`), and an About, Contact or location page the layout in `client-pages.md`; the other files follow this spec with the changes listed there.
 
 ## `article.md`
 

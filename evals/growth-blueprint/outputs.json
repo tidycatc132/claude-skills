@@ -1,0 +1,309 @@
+{
+ "cases": [
+  {
+   "id": "larkspur-full",
+   "prompt": "Use the growth-blueprint skill. Write the Growth Blueprint and the AM Briefing for Larkspur Family Dental (kickoff slug larkspur-dental). The working folder is the current folder and all of Week 1's files are here. Date them 2026-10-19.",
+   "fixtures": [
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/audience.md",
+     "dest": "client-reference/larkspurdental/audience.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/brand.md",
+     "dest": "client-reference/larkspurdental/brand.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/compliance.md",
+     "dest": "client-reference/larkspurdental/compliance.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/style.md",
+     "dest": "client-reference/larkspurdental/style.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/voice.md",
+     "dest": "client-reference/larkspurdental/voice.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-blueprint-input-package.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-blueprint-input-package.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-context.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-quote-bank.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-quote-bank.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/research/keyword-research/2026-10-14-larkspur-dental-scored.csv",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental-scored.csv"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/research/keyword-research/2026-10-14-larkspur-dental.md",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+     "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/seo-reports/site-structure-optimizer/2026-10-15-larkspurdental-targets.csv",
+     "dest": "seo-reports/site-structure-optimizer/2026-10-15-larkspurdental-targets.csv"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/seo-reports/site-structure-optimizer/2026-10-15-larkspurdental.md",
+     "dest": "seo-reports/site-structure-optimizer/2026-10-15-larkspurdental.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)## Executive Summary.*## Business and Market Overview.*## Competitive Analysis.*## Strategic Positioning.*## Keyword Opportunity.*## Site Architecture and Content Plan.*## Growth Strategy.*## Measurement and Next Steps"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)\\nSource: [^\\n]+\\n+## Business and Market Overview.*\\nSource: [^\\n]+\\n+## Competitive Analysis.*\\nSource: [^\\n]+\\n+## Strategic Positioning.*\\nSource: [^\\n]+\\n+## Keyword Opportunity.*\\nSource: [^\\n]+\\n+## Site Architecture and Content Plan.*\\nSource: [^\\n]+\\n+## Growth Strategy.*\\nSource: [^\\n]+\\n+## Measurement and Next Steps.*\\nSource: [^\\n]+\\s*$"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "\\nSource: [^\\n]*\\n+Source: "
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)### Tier 1[^#]*\\| emergency dentist boise \\| 1300 \\| 32 \\| transactional \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)### Tier 2[^#]*\\| dentist boise \\| 6600 \\| 61 \\| transactional \\|"
+    },
+    {
+     "type": "contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "Page count: 11 pages counted against the 12-page scope."
+    },
+    {
+     "type": "contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "| Meridian Location | /meridian-dentist/ | / | footer | medium |"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "pattern": "(?m)^5\\. Q: \\S"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "pattern": "(?m)^6\\. Q: "
+    },
+    {
+     "type": "max_words",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "n": 500
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "RESULT: (PASS|NEEDS_INPUT)"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)## Competitive Analysis(?:(?!\\n## ).)*Treasure Valley Smiles(?:(?!\\n## ).)*\\n## Strategic Positioning"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)## Competitive Analysis(?:(?!\\n## ).)*\\[NEEDS INPUT"
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "criteria": [
+      "Outside the Source: lines, the document makes no promise of a search ranking position, a traffic figure or a number of patients or leads by any date. Statements about the future are described as directional. Reporting the client's own stated goal, attributed to the client, is acceptable.",
+      "The site plan is held to the agreed 12-page scope: the document states the counted page total against that scope and never plans more pages than the scope allows. If the client's request for a larger site is mentioned, it is described as outside the agreed scope, never as planned. (Pages such as home and contact that the sitemap does not count against the scope may appear in the table.)",
+      "Outside the Source: lines and tables, it reads as a document written for the client: plain sentences, no internal workflow terms such as AM, Week 2 checklist, skill or tool names, or file names in the prose, and no narration of how the document was assembled. Visible [NEEDS INPUT: ...] markers for missing information are part of the required format and are acceptable."
+     ]
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "criteria": [
+      "Each of the five anticipated client questions has a specific, usable answer, and at least one question deals with the client's wish to rank first on Google within a month or with the larger site they asked for."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "larkspur-no-competitor-report",
+   "prompt": "Use the growth-blueprint skill. Write the Growth Blueprint and the AM Briefing for Larkspur Family Dental (kickoff slug larkspur-dental). The working folder is the current folder. SEO hasn't saved a competitor report yet; write what you can now. Date them 2026-10-19.",
+   "fixtures": [
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/audience.md",
+     "dest": "client-reference/larkspurdental/audience.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/brand.md",
+     "dest": "client-reference/larkspurdental/brand.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/compliance.md",
+     "dest": "client-reference/larkspurdental/compliance.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/style.md",
+     "dest": "client-reference/larkspurdental/style.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/client-reference/larkspurdental/voice.md",
+     "dest": "client-reference/larkspurdental/voice.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-blueprint-input-package.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-blueprint-input-package.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-context.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/kickoff/larkspur-dental/larkspur-dental-quote-bank.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-quote-bank.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/research/keyword-research/2026-10-14-larkspur-dental-scored.csv",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental-scored.csv"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/research/keyword-research/2026-10-14-larkspur-dental.md",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/seo-reports/site-structure-optimizer/2026-10-15-larkspurdental-targets.csv",
+     "dest": "seo-reports/site-structure-optimizer/2026-10-15-larkspurdental-targets.csv"
+    },
+    {
+     "src": "fixtures/growth-blueprint/larkspur/seo-reports/site-structure-optimizer/2026-10-15-larkspurdental.md",
+     "dest": "seo-reports/site-structure-optimizer/2026-10-15-larkspurdental.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)## Executive Summary.*## Business and Market Overview.*## Competitive Analysis.*## Strategic Positioning.*## Keyword Opportunity.*## Site Architecture and Content Plan.*## Growth Strategy.*## Measurement and Next Steps"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)\\nSource: [^\\n]+\\n+## Business and Market Overview.*\\nSource: [^\\n]+\\n+## Competitive Analysis.*\\nSource: [^\\n]+\\n+## Strategic Positioning.*\\nSource: [^\\n]+\\n+## Keyword Opportunity.*\\nSource: [^\\n]+\\n+## Site Architecture and Content Plan.*\\nSource: [^\\n]+\\n+## Growth Strategy.*\\nSource: [^\\n]+\\n+## Measurement and Next Steps.*\\nSource: [^\\n]+\\s*$"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "\\nSource: [^\\n]*\\n+Source: "
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)### Tier 1[^#]*\\| emergency dentist boise \\| 1300 \\| 32 \\| transactional \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)### Tier 2[^#]*\\| dentist boise \\| 6600 \\| 61 \\| transactional \\|"
+    },
+    {
+     "type": "contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "Page count: 11 pages counted against the 12-page scope."
+    },
+    {
+     "type": "contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "text": "| Meridian Location | /meridian-dentist/ | / | footer | medium |"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "pattern": "(?m)^5\\. Q: \\S"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "pattern": "(?m)^6\\. Q: "
+    },
+    {
+     "type": "max_words",
+     "path": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+     "n": 500
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "RESULT: NEEDS_INPUT"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "(?s)## Competitive Analysis\\s*\\n(?:(?!\\n## ).)*\\[NEEDS INPUT"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "pattern": "\\b(312|188|76|4,?820|2,?960|1,?140|54(\\.0)?%|33\\.2|12\\.8)\\b"
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "criteria": [
+      "The Competitive Analysis section gives no competitor metrics (domain ratings, link counts, traffic or traffic share) and states that a competitor report is still needed. Naming the competitors the client mentioned is acceptable."
+     ]
+    }
+   ]
+  }
+ ]
+}

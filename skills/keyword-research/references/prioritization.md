@@ -99,6 +99,6 @@ python3 scripts/score_keywords.py --selftest
 
 Input columns (CSV or JSON): `keyword, volume, kd, intent, relevance, trend, cpc, position, impressions, clicks, source`. `query` is accepted for `keyword`. Missing columns produce `N/A` in every score that needs them.
 
-Output columns, always in this order: `keyword, volume, kd, intent, funnel, relevance, trend, cpc, position, impressions, clicks, source, priority_score, tier, intent_value, opportunity_score, bucket, impact, confidence, impact_confidence`.
+Output columns, always in this order: `keyword`, `volume`, `kd`, `intent`, `funnel`, `relevance`, `trend`, `cpc`, `position`, `impressions`, `clicks`, `source`, `priority_score`, `tier`, `intent_value`, `opportunity_score`, `bucket`, `impact`, `confidence`, `impact_confidence`. The saved scored CSV keeps this header exactly; growth-blueprint reads it (contract `keyword-research-to-growth-blueprint`).
 
 `--mode all` (default) sorts by tier then Opportunity; `triage`, `opportunity`, `impact` sort by that score; `striking` (set automatically with `--position-range`) sorts by impressions.

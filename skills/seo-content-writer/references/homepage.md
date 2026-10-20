@@ -6,7 +6,7 @@ A homepage is the page a client looks at hardest, so it is where invented proof 
 
 ## The client-fact rule
 
-Every credential, license or registration number, certification, membership, award, rating, review count, warranty, guarantee, testimonial, street address, phone number and opening hour on the page must be stated in the brief or in a client file (`client-reference/<client-slug>/`, or the client files the user names). Anything else is a `[NEEDS INPUT: ...]` flag in the place the fact belongs, for example `[NEEDS INPUT: contractor registration number and any manufacturer certifications]`.
+Every credential, license or registration number, certification, membership, award, rating, review count, warranty, guarantee, testimonial, street address, phone number, email address and opening hour on the page must be stated in the brief or in a client file (`client-reference/<client-slug>/`, or the client files the user names). Anything else is a `[NEEDS INPUT: ...]` flag in the place the fact belongs, for example `[NEEDS INPUT: contractor registration number and any manufacturer certifications]`.
 
 - Copy what the files state exactly: the phone digits, the address, a testimonial word for word with the name the file gives. Never shorten or polish a quote, and never write a quote, initial-only name ("R. C.") or review the files do not contain. The sentence that introduces a testimonial names who said it and what it is about, without restating its content ("Marisol Ortega, a homeowner in Meridian, describes her roof inspection with Juniper Ridge Roofing."); a paraphrase turns the client's words into new, stronger claims.
 - A transcript or call note that states a fact counts as a file. Keep its qualifier: "about 47 Google reviews" in the source stays "about 47", never "47 five-star reviews".
@@ -66,12 +66,12 @@ An FAQ (`## Frequently Asked Questions`, the format rules for FAQs) may go betwe
 
 ## QA
 
-Run `check_draft.py` with `--page-type homepage` (it also switches on its own when the brief says `Page type: homepage`, `format: homepage` or `URL: /`) and `--client-dir client-reference/<client-slug>/` when that folder exists, plus `--facts <file>` for any other client file you used. Homepage mode skips the byline check, makes the per-section statistic a WARN, and adds:
+Run `check_draft.py` with `--page-type homepage` (it also switches on its own when the brief says `Page type: homepage`, `format: homepage` or `URL: /`) and `--client-dir client-reference/<client-slug>/` when that folder exists, plus `--facts <file>` for any other client file you used. Homepage mode skips the byline check, makes the per-section statistic and keyword repetition WARNs, and adds:
 
 | Check | FAIL means | Fix |
 | --- | --- | --- |
 | Homepage sections in order | A marker is missing, repeated or out of order | Add or move the section |
-| Client facts trace to the brief or client files | A phone, address, hours, quoted testimonial, rating, review count, founding year, warranty, guarantee or credential word is on the page but in no file. Open slots, flags, a file's prohibited or banned lists, and a brief's Client Inputs Needed, Concerns, Format Requirements, Writer QA Checklist and Research Log sections do not count as stating a fact | Delete it or replace it with a `[NEEDS INPUT: ...]` flag |
+| Client facts trace to the brief or client files | A phone, email, address, hours, quoted testimonial, rating, review count, founding year, warranty, guarantee or credential word is on the page but in no file. Open slots, flags, a file's prohibited or banned lists, and a brief's Client Inputs Needed, Concerns, Format Requirements, Writer QA Checklist and Research Log sections do not count as stating a fact | Delete it or replace it with a `[NEEDS INPUT: ...]` flag |
 | Proof section carries proof or a flag | The Proof section has no quote, figure or flag | Add the files' proof, or flag what is needed |
 | Final CTA gives a route | The Final CTA section has no link, phone or flag | Add the conversion link or phone |
 

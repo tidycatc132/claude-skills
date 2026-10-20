@@ -1,0 +1,13 @@
+{
+  "name": "keyword-research-to-growth-blueprint",
+  "version": 1,
+  "producer": "keyword-research",
+  "consumer": "growth-blueprint",
+  "format": "csv",
+  "fixture": "fixtures/contracts/keyword-research-scored.csv",
+  "columns": ["keyword", "volume", "kd", "intent", "funnel", "relevance", "trend", "cpc", "position", "impressions", "clicks", "source", "priority_score", "tier", "intent_value", "opportunity_score", "bucket", "impact", "confidence", "impact_confidence"],
+  "required_non_empty": ["keyword", "tier"],
+  "enums": {"tier": ["P0", "P1", "P2", "P3", "N/A"]},
+  "min_rows": 1,
+  "consumer_cmd": "python3 skills/growth-blueprint/scripts/blueprint.py keywords {fixture}"
+}
