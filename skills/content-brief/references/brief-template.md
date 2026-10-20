@@ -152,7 +152,7 @@ Field rules: `status` is `DONE` or `DONE_WITH_CONCERNS` (a `NEEDS_INPUT` or `BLO
 - 5 to 8 sub-question sections (`### H2:`), plus the optional FAQ (`### H2: Frequently Asked Questions`, with a `- Questions:` line) and one CTA section (`### H2 (CTA):`).
 - Every `### H2:` and `### H2 (CTA):` section has `- First sentence must state:` and `- Evidence:` lines. The first-sentence instruction is always a fact the writer can state; a client-input slot may appear in it only beside that fact, never as the whole instruction. `- Evidence:` lists evidence ids (`E1, E3`) or says `none verifiable`, which must match a concern with its fallback instruction.
 - H3s (`#### H3:`) are optional; they are questions too, or numbered steps or list items.
-- A homepage (`format: homepage`) adds a `- Section: <name>` line to every `### H2:` and `### H2 (CTA):` block, in the order formats.md gives (Why Us, Services Overview, Proof, About Snapshot, Service Area, Process, optional FAQ, Final CTA), and may write `- Evidence: none needed` where formats.md allows it.
+- A client page (`format: homepage`, `about-page`, `contact-page` or `location-page`) adds a `- Section: <name>` line to every `### H2:` and `### H2 (CTA):` block, in the order formats.md gives for that format (several H2s may share a section), ending with an optional FAQ and Final CTA, and may write `- Evidence: none needed` where formats.md allows it. About and Contact pages take 4 to 8 sub-question sections; a Contact page's Contact Form block adds a `- Fields:` line.
 
 ## Slots
 

@@ -1,0 +1,39 @@
+{
+  "id": "contact-saltmarsh-window-co",
+  "brief_version": 1,
+  "status": "DONE_WITH_CONCERNS",
+  "date": "2026-10-19",
+  "client": "Saltmarsh Window Co.",
+  "client_domain": "saltmarshwindow.com",
+  "market": "en-us, Charleston, South Carolina",
+  "language": "en",
+  "page_url": "/contact/",
+  "mode": "new",
+  "existing_url": "N/A",
+  "primary_keyword": "contact saltmarsh window co",
+  "secondary_keywords": [
+    "saltmarsh window co phone number"
+  ],
+  "intent": "Navigational",
+  "funnel": "BOFU",
+  "format": "contact-page",
+  "format_embedded": [],
+  "format_source": "contact page",
+  "metrics": {
+    "volume": 10,
+    "kd": 1,
+    "source": "Measured"
+  },
+  "geo_candidate": false,
+  "geo_answer_format": "N/A",
+  "cluster": "Core pages",
+  "pillar_url": "N/A",
+  "ymyl": false,
+  "local": true,
+  "cannibalization": "clear (no site)",
+  "voice_source": "default/home-services",
+  "style_source": "default/home-services",
+  "word_range": "150-400",
+  "client_inputs_open": 1,
+  "source_report": "research/keyword-research/2026-10-19-core-pages.md"
+}
