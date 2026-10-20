@@ -1,0 +1,12 @@
+{
+  "name": "growth-blueprint-to-week-2-client-email",
+  "version": 1,
+  "producer": "growth-blueprint",
+  "consumer": "week-2-client-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/growth-blueprint-am-briefing.json",
+  "keys": ["Executive Summary", "Key Strategic Bets", "Numbers the AM Should Know", "Anticipated Client Questions", "Calibration Framing"],
+  "producer_cmd": "python3 skills/week-2-client-email/scripts/week2_email.py contract briefing fixtures/contracts/growth-blueprint-am-briefing.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-2-client-email/scripts/week2_email.py contract --validate {fixture}"
+}

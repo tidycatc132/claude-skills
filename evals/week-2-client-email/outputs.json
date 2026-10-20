@@ -1,0 +1,530 @@
+{
+  "cases": [
+    {
+      "id": "larkspur-default-reply-by",
+      "prompt": "Use the week-2-client-email skill. Draft the Week 2 email for Larkspur Family Dental (kickoff slug larkspur-dental). The contact is Jenna Park and I'm Marco Silva, the AM. Today is 2026-10-20. The Growth Blueprint deck, the AM Briefing, the page content in content/ and the missing items are all in the working folder, which is the current folder. We'll attach the deck and its PDF export; no links this time.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/kickoff/larkspur-dental/larkspur-dental-missing-items.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Client: Larkspur Family Dental$",
+          "label": "client line"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "larkspur-dental-growth-blueprint-deck.pptx",
+          "label": "deck named by file name"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Does this feel right?",
+          "label": "question 1 verbatim"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Does anything surprise you?",
+          "label": "question 2 verbatim"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Is anything missing?",
+          "label": "question 3 verbatim"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?mi)^- Photos\\b.*November",
+          "label": "photos still owed, with the November note"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Certifications, awards and memberships",
+          "label": "certifications still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Legal or compliance language",
+          "label": "disclaimer wording still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- .*Saturday hours",
+          "label": "Saturday hours still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- .*CRM, forms or call tracking",
+          "label": "the one platform needing the client's help"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Details marked in the copy for these pages: About; Contact; Emergency Dentist; Sedation Dentistry$",
+          "label": "one line naming the pages with open details, Home left out"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?mi)Google Analytics|Search Console|Tag Manager",
+          "label": "platforms WISE sets up are not asked of the client"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)wrong if|calibration|briefing|twenty|confirm with seo|internal|domain rating",
+          "label": "nothing from the internal briefing framing leaks"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)brave smiles",
+          "label": "the client's slogan stays in the copy"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)guarantee|thrilled|excited to|don't hesitate|world-class",
+          "label": "no promises or agency filler"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "the checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "context": [
+            "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+          ],
+          "criteria": [
+            "The email gives two or three recommendations, each a plain client-facing restatement of a different one of the Key Strategic Bets in the AM Briefing (context file), with no promised rankings, traffic or patient numbers."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "criteria": [
+            "The email reads as a short, calm note from the account manager in the agency's own voice (I and we): it says the deck is the file to open first, asks the client to focus on the overall direction, the proposed sitemap and the page content, offers a walkthrough call, and does not sound like marketing copy."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Reply by: 2026-10-26$",
+          "label": "default reply-by is 4 business days after Tuesday 2026-10-20"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Monday, October 26",
+          "label": "reply-by date written out in the body"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Hi Jenna,$",
+          "label": "greets Jenna"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "Marco Silva\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "default sign-off"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "https?://",
+          "label": "no links when none were given"
+        }
+      ]
+    },
+    {
+      "id": "larkspur-dr-links-user-date",
+      "prompt": "Use the week-2-client-email skill. Write the Week 2 client email for Larkspur Family Dental (kickoff slug larkspur-dental) to Dr. Maya Okafor. I'm Priya Nair, the AM. Today is 2026-10-21 and we want her reply by Friday 2026-10-30. Links: the deck is also shared at https://drive.google.com/file/d/larkspur-deck, the page copy is in https://docs.google.com/document/d/larkspur-pages and she can book a walkthrough at https://calendly.com/priya-wise/30min. Everything else is in the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/kickoff/larkspur-dental/larkspur-dental-missing-items.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Client: Larkspur Family Dental$",
+          "label": "client line"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "larkspur-dental-growth-blueprint-deck.pptx",
+          "label": "deck named by file name"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Does this feel right?",
+          "label": "question 1 verbatim"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Does anything surprise you?",
+          "label": "question 2 verbatim"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Is anything missing?",
+          "label": "question 3 verbatim"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?mi)^- Photos\\b.*November",
+          "label": "photos still owed, with the November note"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Certifications, awards and memberships",
+          "label": "certifications still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Legal or compliance language",
+          "label": "disclaimer wording still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- .*Saturday hours",
+          "label": "Saturday hours still owed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- .*CRM, forms or call tracking",
+          "label": "the one platform needing the client's help"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^- Details marked in the copy for these pages: About; Contact; Emergency Dentist; Sedation Dentistry$",
+          "label": "one line naming the pages with open details, Home left out"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?mi)Google Analytics|Search Console|Tag Manager",
+          "label": "platforms WISE sets up are not asked of the client"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)wrong if|calibration|briefing|twenty|confirm with seo|internal|domain rating",
+          "label": "nothing from the internal briefing framing leaks"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)brave smiles",
+          "label": "the client's slogan stays in the copy"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?i)guarantee|thrilled|excited to|don't hesitate|world-class",
+          "label": "no promises or agency filler"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "the checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "context": [
+            "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+          ],
+          "criteria": [
+            "The email gives two or three recommendations, each a plain client-facing restatement of a different one of the Key Strategic Bets in the AM Briefing (context file), with no promised rankings, traffic or patient numbers."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "criteria": [
+            "The email reads as a short, calm note from the account manager in the agency's own voice (I and we): it says the deck is the file to open first, asks the client to focus on the overall direction, the proposed sitemap and the page content, offers a walkthrough call, and does not sound like marketing copy."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Reply by: 2026-10-30$",
+          "label": "the AM's reply-by date is kept"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Friday, October 30",
+          "label": "reply-by written out"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "(?m)^Hi Dr\\. Okafor,$",
+          "label": "greets Dr. Okafor"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "https://drive.google.com/file/d/larkspur-deck",
+          "label": "deck link"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "https://docs.google.com/document/d/larkspur-pages",
+          "label": "page copy link"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "https://calendly.com/priya-wise/30min",
+          "label": "walkthrough booking link"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "https?://(?!drive\\.google\\.com/file/d/larkspur-deck|docs\\.google\\.com/document/d/larkspur-pages|calendly\\.com/priya-wise/30min)",
+          "label": "no link the AM did not give"
+        },
+        {
+          "type": "regex",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "pattern": "Priya Nair\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "sign-off"
+        }
+      ]
+    },
+    {
+      "id": "larkspur-no-deck",
+      "prompt": "Use the week-2-client-email skill. Draft the Week 2 email for Larkspur Family Dental (kickoff slug larkspur-dental) to Jenna Park from me, Marco Silva. Today is 2026-10-20. The files are in the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/kickoff/larkspur-dental/larkspur-dental-missing-items.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "label": "no email without the deck"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?i)deck",
+          "label": "says the deck is missing"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says no email was written because the Growth Blueprint deck file is not in the folder, and asks for the deck to be built or its path to be given, without drafting the email anyway."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "larkspur-check-edited-draft",
+      "prompt": "Use the week-2-client-email skill. Marco Silva (AM) edited the Week 2 email for Larkspur Family Dental (kickoff slug larkspur-dental) to Jenna Park by hand; it is at emails/larkspur-dental/larkspur-dental-week-2-email.md. It was drafted on 2026-10-20 with the default reply-by date of 2026-10-26 and no links. Only run the check on it and tell me which rows fail and why. Do not change the email.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-am-briefing.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/kickoff/larkspur-dental/larkspur-dental-missing-items.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-missing-items.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-client-email/larkspur/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-client-email/drafts/larkspur-dental-week-2-email-edited.md",
+          "dest": "emails/larkspur-dental/larkspur-dental-week-2-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "RESULT: FAIL|FAIL",
+          "label": "reports the failing result"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?is)word count|25\\d words|too long|over 250",
+          "label": "names the word count"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?is)Oct 28th|Thursday",
+          "label": "names the second date"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?is)top 3",
+          "label": "names the ranking promise"
+        },
+        {
+          "type": "regex",
+          "target": "stdout",
+          "pattern": "(?is)figure.{0,200}\\b8\\b|\\b8 new patients",
+          "label": "names the invented figure"
+        },
+        {
+          "type": "contains",
+          "path": "emails/larkspur-dental/larkspur-dental-week-2-email.md",
+          "text": "Get you into the top 3",
+          "label": "the email was left unchanged"
+        }
+      ]
+    }
+  ]
+}

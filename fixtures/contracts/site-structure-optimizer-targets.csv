@@ -1,0 +1,9 @@
+page_slug,primary_keyword,secondary_keywords,intent,funnel_stage,pillar,cluster_role,geo_format,priority_tier,opportunity_bucket,volume,kd,existing_url,source
+emergency-dentist,emergency dentist boise,same day dentist boise,transactional,decision,emergency-dentist,pillar,faq,P1,new-page,1300,32,,site-structure-optimizer
+family-dentistry,family dentist boise,,transactional,decision,family-dentistry,pillar,,P1,new-page,720,28,,site-structure-optimizer
+dental-implants,dental implants boise,implant dentist boise,commercial,consideration,dental-implants,pillar,comparison,P1,new-page,880,44,,site-structure-optimizer
+sedation-dentistry,sedation dentistry boise,,transactional,decision,family-dentistry,cluster,,P2,new-page,210,21,,site-structure-optimizer
+pediatric-dentistry,pediatric dentist boise,,transactional,decision,family-dentistry,cluster,,P2,new-page,1000,39,,site-structure-optimizer
+invisalign,invisalign boise,,commercial,consideration,family-dentistry,cluster,,P2,new-page,590,42,,site-structure-optimizer
+teeth-whitening,teeth whitening boise,,commercial,consideration,family-dentistry,cluster,,P3,new-page,480,26,,site-structure-optimizer
+meridian-dentist,dentist meridian idaho,,transactional,decision,meridian-dentist,pillar,,P2,new-page,1600,37,,site-structure-optimizer

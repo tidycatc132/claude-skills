@@ -1,0 +1,14 @@
+I built the Larkspur Family Dental deck, dated 2026-10-20. It has 19 slides with speaker notes on every slide. One item is still open (below), so the build result is `RESULT: NEEDS_INPUT`.
+
+The script's checks passed: no em-dashes, no form of "prescribe", all 83 figures are in the Blueprint, and all 4 quotes match the quote bank word for word.
+
+- **Deck:** `/tmp/harness-eval-h2lgukws/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx`
+- **Compliance file:** `/tmp/harness-eval-h2lgukws/blueprint/larkspur-dental/larkspur-dental-deck-compliance.md`
+- **Slide plan:** `/tmp/harness-eval-h2lgukws/blueprint/larkspur-dental/larkspur-dental-deck-plan.json`
+
+**Open item, slide 18 (Your Team):** `[NEEDS INPUT: Jordan Pike's role at WISE]`. The quote bank names Jordan Pike as the agency speaker, but no file gives their role. The AM has to supply it. I also made Jordan the owner of "Brief and write the 11 counted pages and the home page" on slide 19. If someone else owns that, change it.
+
+Before the AM sends it, the SEO should check these:
+- **Slide 2:** it names one constraint: the practice has no website, so new emergency-care searchers in Boise can't find it.
+- **Competitor figures:** slides 7 and 8 carry the competitor figures. I graded Treasure Valley Smiles and Boise Bright Dental "Real threat", and North End Family Dental "Overstated".
+- **Slide 14:** the four "not doing" items are the twenty-page site, blog writing, paid media and "top dentist on Google within a month". The paid media item comes from the client context file (excluded in the SOW), not the Blueprint.

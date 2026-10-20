@@ -2,6 +2,8 @@
 
 The reply goes out from the Account Manager in WISE Digital Partners' voice: the agency talking to its client. The homepage copy is in the client's brand voice; none of its slogans or style belong in the reply.
 
+A reply to the Week 2 email follows the same rules, plus the framing and the strategy rules in [Week 2](week-2.md).
+
 ## What the reply does, in this order
 
 1. Greets the client by first name (`Hi Lena,`) on the first line (**checked**).
@@ -19,7 +21,7 @@ The script adds the sign-off (the AM's name and `Account Manager, WISE Digital P
 - "I" for the AM, "we" for WISE. Short paragraphs of one to three sentences. At most 300 words (**checked**).
 - Warm, direct and specific. Agree with what we will do; be clear and kind about what needs a decision.
 - Plain text: no headings, bold or bullets unless listing three or more changes.
-- Every number in the reply, dates included, comes from the client's text or the kickoff context (**checked**). Never set a delivery or launch date yourself.
+- Every number in the reply, dates included, comes from the client's text or the kickoff context, plus the Blueprint and the Week 2 email in a Week 2 reply (**checked**). Never set a delivery or launch date yourself.
 
 ## Never
 

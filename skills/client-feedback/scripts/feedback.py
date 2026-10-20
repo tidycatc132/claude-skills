@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Sort client feedback on Week 1 deliverables into a feedback file, an updates file and a reply draft.
+"""Sort client feedback on the Week 1 or Week 2 deliverables into a feedback file, an updates file and a reply draft.
 
 Usage:
-  python3 feedback.py scope kickoff/<slug>
+  python3 feedback.py scope kickoff/<slug> [--week 2]
   python3 feedback.py render kickoff/<slug> --feedback <client text file> --plan feedback-plan.json [--dry-run]
   python3 feedback.py check kickoff/<slug> --feedback <client text file> --report feedback/<slug>/<file>-feedback.md
   python3 feedback.py updates-json kickoff/<slug> --feedback <client text file> --plan feedback-plan.json
+  python3 feedback.py nudge kickoff/<slug> --plan nudge-plan.json --today YYYY-MM-DD [--email <week-2 email>] [--dry-run]
 
 scope         prints the scope source from <slug>-context.md as JSON (source, SOW pages, services, quote lines).
 render        validates the plan against the client's text and the scope source, writes
@@ -14,6 +15,12 @@ render        validates the plan against the client's text and the scope source,
 check         re-reads the written files and prints a `| Check | Result | Detail |` table and
               `RESULT: PASS` or `RESULT: FAIL` (exit 0 or 1).
 updates-json  prints the updates the plan would write as JSON (keys Client, Source, Date, From, rows).
+nudge         when the Week 2 email's `Reply by:` date has passed with no Week 2 feedback logged, checks the
+              nudge plan and writes feedback/<slug>/<today>-week-2-nudge.md, then checks it.
+
+A plan with "week": 2 is a reply to the Week 2 email (Growth Blueprint, deck and page content): it reads
+blueprint/<slug>/<slug>-growth-blueprint.md, content/<url-slug>/article.md and, when present,
+emails/<slug>/<slug>-week-2-email.md from the working folder (the parent of kickoff/).
 
 Standard library only.
 """
@@ -26,8 +33,23 @@ import sys
 from pathlib import Path
 
 TYPES = ["content", "design", "scope", "question", "approval"]
+TYPES_W2 = ["content", "design", "strategy", "scope", "question", "approval"]
 AFFECTS = ["homepage copy", "homepage design", "site scope", "client context", "timeline",
            "platform access", "intake items", "other"]
+AFFECTS_W2 = AFFECTS + ["blueprint", "page"]
+# The Growth Blueprint's sections (growth-blueprint) and the deck slides built from each (blueprint-deck).
+BLUEPRINT_SECTIONS = ["Executive Summary", "Business and Market Overview", "Competitive Analysis",
+                      "Strategic Positioning", "Keyword Opportunity", "Site Architecture and Content Plan",
+                      "Growth Strategy", "Measurement and Next Steps"]
+DECK_SLIDES = {2: "The Diagnosis", 3: "What This Costs You", 6: "Where You Stand Today",
+               7: "Who You're Up Against", 8: "Which Competitors Actually Matter", 9: "What You'll Rank For",
+               10: "Why Your Top Keyword Isn't Month One", 12: "How You'll Be Positioned",
+               13: "The Site We're Building", 14: "What We're Not Doing", 16: "What Has To Be True",
+               17: "How We'll Measure This", 19: "What Happens Next"}
+SECTION_SLIDES = {"Executive Summary": [2], "Business and Market Overview": [3, 6],
+                  "Competitive Analysis": [3, 7, 8], "Strategic Positioning": [12],
+                  "Keyword Opportunity": [9, 10], "Site Architecture and Content Plan": [13],
+                  "Growth Strategy": [10, 14], "Measurement and Next Steps": [16, 17, 19]}
 IMPACTS = ["none", "low", "medium", "high"]
 OWNERS = ["AM", "Content", "Design", "SEO", "Dev"]
 VERDICTS = ["outside", "unclear", "within"]
@@ -39,6 +61,9 @@ VERDICT_TEXT = {
 TABLE_COLUMNS = ["#", "Feedback", "Type", "Affects", "Impact", "Action", "Owner"]
 TABLE_HEADER = "| " + " | ".join(TABLE_COLUMNS) + " |"
 REPORT_SECTIONS = ["Summary", "Feedback Items", "Scope Check", "Reply Draft"]
+REPORT_SECTIONS_W2 = ["Summary", "Feedback Items", "Scope Check", "SEO Review", "Reply Draft"]
+SEO_HOLD = "Status: hold the reply until SEO signs off the items below"
+SEO_CLEAR = "- No strategy items; the reply can go once the AM has read it."
 
 CONTEXT_HEADINGS = ["Snapshot", "Business Overview", "Services", "Customers and Service Area",
                     "Goals and Conversion", "Differentiators and Proof", "Competitors", "Website Today",
@@ -62,6 +87,7 @@ SIGNOFF_TITLE = "Account Manager, WISE Digital Partners"
 AM_PLACEHOLDER = "[AM name]"
 MAX_QUOTE = 300
 MAX_REPLY_WORDS = 300
+MAX_NUDGE_WORDS = 150
 DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 TAG_END_RE = re.compile(r"\[[a-z]+(?:,\s*[a-z]+)*\]\s*$")
 
@@ -81,6 +107,12 @@ SECRET_STOP = {"the", "a", "an", "attached", "below", "above", "required", "here
 HEADER_LINE_RE = re.compile(r"^(From|To|Cc|Bcc|Date|Sent|Subject|Reply-To):", re.I)
 HISTORY_RE = re.compile(r"^(On .{5,200} wrote:\s*$|-{2,}\s*Original Message|_{5,}|From:\s)", re.I)
 SMALL_TALK_RE = re.compile(r"(?i)^(hope\b|how are you|how's (your|the|things|it)|how was your)")
+W2_NAMES_RE = re.compile(r"(?i)\b(blueprint|deck)\b")
+STRATEGY_WORDS = re.compile(r"(?i)\b(blueprint|deck|priorit\w*|keywords?|positioning|sitemap|strategy|direction)\b")
+DONE_RE = re.compile(r"(?i)\b(we've|we have|i've|i have)\s+(already\s+)?(updated|changed|reworked|switched|moved|swapped|reordered|rewritten|dropped|removed)\b")
+COMMIT_RE = re.compile(r"(?i)\b(we'll|we will|i'll|i will)\s+(update|change|rework|switch|move|swap|reorder|rewrite|lead with|make)\b")
+HOLD_W2_RE = re.compile(r"(?i)\b(review|reviewed|reviewing|look at|looking at|consider|considering|whether|SEO|come back|get back)\b")
+PROCEED_RE = re.compile(r"(?i)\b(go ahead|going ahead|move ahead|moving ahead|proceed|proceeding|carry on|carrying on|keep going|start on|starting on|begin|move forward|moving forward)\b")
 
 
 def read(p: Path) -> str:
@@ -166,11 +198,103 @@ def scope_info(kdir: Path) -> dict:
     svc = re.search(r"(?m)^Included services:\s*(.+?)\s*$", body)
     quotes = [ln[1:].strip() for ln in body.split("\n") if ln.startswith(">")]
     bullets = [ln[2:].strip() for ln in body.split("\n") if ln.startswith("- ")]
-    return {"client": client, "slug": slug, "source": source, "sow_pages": pages,
+    return {"client": client, "slug": slug, "kdir": str(kdir), "source": source, "sow_pages": pages,
             "sow_pages_line": f"SOW pages: {pages}",
             "included_services": TAG_END_RE.sub("", svc.group(1)).strip() if svc else "",
             "scope_quotes": [TAG_END_RE.sub("", q).strip() for q in quotes],
             "scope_bullets": bullets, "context_text": text}
+
+
+def scope_dir(scope: dict) -> Path:
+    return Path(scope["kdir"])
+
+
+def week2_info(kdir: Path) -> dict:
+    """The Week 2 files in the working folder: the Blueprint, the page folders and the Week 2 email."""
+    slug, root = kdir.name, kdir.parent.parent
+    bp = root / "blueprint" / slug / f"{slug}-growth-blueprint.md"
+    email = root / "emails" / slug / f"{slug}-week-2-email.md"
+    pages = sorted(d.name for d in (root / "content").glob("*") if (d / "article.md").exists())
+    bp_text = read(bp) if bp.exists() else ""
+    em_text = read(email) if email.exists() else ""
+    reply_by = (re.search(r"(?m)^Reply by:\s*(\d{4}-\d{2}-\d{2})\s*$", em_text) or [None, ""])[1]
+    return {"blueprint": f"blueprint/{slug}/{bp.name}" if bp.exists() else "",
+            "sections": [h for h in re.findall(r"(?m)^## (.+?)\s*$", bp_text) if h in BLUEPRINT_SECTIONS],
+            "pages": pages, "email": f"emails/{slug}/{email.name}" if email.exists() else "",
+            "reply_by": reply_by, "text": bp_text + "\n" + em_text}
+
+
+def plan_week(plan: dict) -> int:
+    return 2 if str(plan.get("week", 1)) == "2" else 1
+
+
+def changes_of(it: dict) -> tuple[list[str], list[int], list[str]]:
+    """Blueprint sections, deck slides (derived from the sections) and page slugs an item changes."""
+    ch = it.get("changes") or {}
+    secs = [x for x in BLUEPRINT_SECTIONS if x in (ch.get("blueprint") or [])]
+    slides = sorted({n for x in secs for n in SECTION_SLIDES[x]})
+    return secs, slides, list(ch.get("pages") or [])
+
+
+def impact_cell(it: dict, week: int) -> str:
+    if week != 2:
+        return it["impact"]
+    secs, slides, pages = changes_of(it)
+    parts = []
+    if secs:
+        parts.append("Blueprint " + ", ".join(secs))
+    if slides:
+        parts.append("deck slides " + ", ".join(map(str, slides)))
+    if pages:
+        parts.append("pages " + ", ".join(pages))
+    return it["impact"] + (": " + "; ".join(parts) if parts else "")
+
+
+def validate_week2_item(p: str, it: dict, w2: dict) -> list[str]:
+    errs = []
+    t, a, imp = it.get("type"), str(it.get("affects", "")), it.get("impact")
+    head, _, detail = a.partition(":")
+    head, detail = head.strip(), detail.strip()
+    ch = it.get("changes") or {}
+    if not isinstance(ch, dict) or set(ch) - {"blueprint", "pages"}:
+        return [f"{p}: changes is an object with the lists 'blueprint' and 'pages' only"]
+    for sec in ch.get("blueprint") or []:
+        if sec not in BLUEPRINT_SECTIONS:
+            errs.append(f"{p}: changes.blueprint '{sec}' is not a Blueprint section ({BLUEPRINT_SECTIONS})")
+        elif w2["sections"] and sec not in w2["sections"]:
+            errs.append(f"{p}: the Blueprint has no '## {sec}' section")
+    for pg in ch.get("pages") or []:
+        if pg not in w2["pages"]:
+            errs.append(f"{p}: page '{pg}' has no content/{pg}/article.md (pages: {', '.join(w2['pages']) or 'none'})")
+    secs, _, pages = changes_of(it)
+    changing = imp != "none" and t not in ("question", "approval")
+    if head == "blueprint":
+        if detail not in BLUEPRINT_SECTIONS:
+            errs.append(f"{p}: affects 'blueprint: <section>' names one of {BLUEPRINT_SECTIONS}")
+        elif changing and detail not in secs:
+            errs.append(f"{p}: affects names Blueprint '{detail}', so changes.blueprint lists it")
+    if head == "page":
+        if detail not in w2["pages"]:
+            errs.append(f"{p}: affects 'page: <url-slug>' names a folder in content/ ({', '.join(w2['pages']) or 'none'})")
+        elif changing and detail not in pages:
+            errs.append(f"{p}: affects names page '{detail}', so changes.pages lists it")
+    if t == "strategy":
+        if head != "blueprint":
+            errs.append(f"{p}: a strategy item affects 'blueprint: <section>'")
+        if imp not in ("medium", "high"):
+            errs.append(f"{p}: a strategy item has impact medium or high")
+        if it.get("owner") != "SEO":
+            errs.append(f"{p}: a strategy item is owned by SEO, who signs it off before the reply goes")
+    if t == "content" and imp != "none" and not (secs or pages):
+        errs.append(f"{p}: a content change names the page(s) or Blueprint section(s) it changes in changes")
+    if t in ("question", "approval") and (secs or pages):
+        errs.append(f"{p}: a {t} changes nothing; leave changes empty")
+    if t == "scope":
+        if it.get("verdict") in ("outside", "unclear") and (secs or pages):
+            errs.append(f"{p}: a scope request outside or unclear changes nothing until a signed change; leave changes empty")
+        if it.get("verdict") == "within" and "Site Architecture and Content Plan" not in secs:
+            errs.append(f"{p}: a scope request within scope changes the Blueprint's Site Architecture and Content Plan")
+    return errs
 
 
 # ---------- plan ----------
@@ -189,6 +313,17 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
         errs.append(f"date '{plan['date']}' must be YYYY-MM-DD")
     if not str(plan["contact"]).strip():
         errs.append("contact must name the person who wrote the feedback")
+    if str(plan.get("week", 1)) not in ("1", "2"):
+        errs.append("week is 1 (the reply to the Week 1 email) or 2 (the reply to the Week 2 email)")
+    week = plan_week(plan)
+    types, affects = (TYPES_W2, AFFECTS_W2) if week == 2 else (TYPES, AFFECTS)
+    w2 = week2_info(scope_dir(scope)) if week == 2 else None
+    if week == 1 and week2_info(scope_dir(scope))["email"] and re.search(r"(?i)\b(blueprint|deck)\b", raw):
+        errs.append("the Week 2 email has gone out and this reply talks about the Blueprint or the deck: "
+                    "it is the Week 2 reply, so set \"week\": 2 (references/week-2.md)")
+    if w2 is not None and not w2["blueprint"]:
+        errs.append(f"a Week 2 reply needs blueprint/{scope['slug']}/{scope['slug']}-growth-blueprint.md "
+                    "(growth-blueprint writes it)")
     items = plan["items"]
     if not isinstance(items, list) or not items:
         errs.append("items must be a non-empty list")
@@ -207,10 +342,11 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
             if "|" in str(it.get(key, "")) or "\n" in str(it.get(key, "")).strip():
                 errs.append(f"{p}: {key} must be one line without '|'")
         t, a, imp, own_ = it.get("type"), str(it.get("affects", "")), it.get("impact"), it.get("owner")
-        if t not in TYPES:
-            errs.append(f"{p}: type '{t}' is not one of {TYPES}")
-        if a.split(":")[0].strip() not in AFFECTS:
-            errs.append(f"{p}: affects '{a}' must start with one of {AFFECTS}")
+        if t not in types:
+            hint = " (strategy is for a Week 2 reply: set \"week\": 2)" if t == "strategy" else ""
+            errs.append(f"{p}: type '{t}' is not one of {types}{hint}")
+        if a.split(":")[0].strip() not in affects:
+            errs.append(f"{p}: affects '{a}' must start with one of {affects}")
         if imp not in IMPACTS:
             errs.append(f"{p}: impact '{imp}' is not one of {IMPACTS}")
         if own_ not in OWNERS:
@@ -245,6 +381,10 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
                     errs.append(f"{p}: a scope request outside or unclear is owned by the AM")
         elif "verdict" in it or "pages" in it:
             errs.append(f"{p}: only scope items carry verdict or pages")
+        if w2 is not None:
+            errs += validate_week2_item(p, it, w2)
+        elif "changes" in it:
+            errs.append(f"{p}: changes belong to a Week 2 reply only")
     quotes = [str(it.get("feedback", "")) for it in items]
     for q in uncovered_questions(own, quotes):
         errs.append(f"the client's question is in no item's feedback quote: \"{q[:70]}\"")
@@ -296,7 +436,10 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
         errs.append("reply body is empty")
     if SIGNOFF_TITLE.lower() in body.lower():
         errs.append("leave the sign-off out of the reply body; the script adds the AM's name and title")
-    errs += [f"reply: {e}" for e in reply_problems(body, own, scope["context_text"], open_scope > 0)]
+    n_strategy = sum(1 for it in items if it.get("type") == "strategy")
+    extra_text = w2["text"] if w2 else ""
+    errs += [f"reply: {e}" for e in reply_problems(body, own, scope["context_text"] + "\n" + extra_text,
+                                                   open_scope > 0, week, n_strategy)]
     blob = json.dumps(plan, ensure_ascii=False)
     for s in secrets:
         if s in blob:
@@ -305,7 +448,8 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
     return errs
 
 
-def reply_problems(body: str, own: str, context: str, has_open_scope: bool) -> list[str]:
+def reply_problems(body: str, own: str, context: str, has_open_scope: bool, week: int = 1,
+                   n_strategy: int = 0) -> list[str]:
     probs = []
     if not re.match(r"^(Hi|Hello|Dear) [^\n]+,\s*$", body.split("\n")[0] if body else ""):
         probs.append("first line must be the greeting, for example 'Hi Tom,'")
@@ -329,6 +473,17 @@ def reply_problems(body: str, own: str, context: str, has_open_scope: bool) -> l
         for sent in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", body)):
             if re.search(r"(?i)\bpages?\b", sent) and AGREE_RE.search(sent) and not HOLD_RE.search(sent):
                 probs.append(f"agrees to extra pages: \"{sent[:80]}\"")
+    if week == 2:
+        if not W2_NAMES_RE.search(body):
+            probs.append("a Week 2 reply names the Blueprint or the deck it answers")
+        for sent in re.split(r"(?<=[.!?])\s+", re.sub(r"\s+", " ", body)):
+            if STRATEGY_WORDS.search(sent) and DONE_RE.search(sent):
+                probs.append(f"says the strategy has already changed: \"{sent[:80]}\"")
+            elif n_strategy and STRATEGY_WORDS.search(sent) and COMMIT_RE.search(sent) and not HOLD_W2_RE.search(sent):
+                probs.append(f"commits to a strategy change before SEO has reviewed it: \"{sent[:80]}\"")
+        if n_strategy and not re.search(r"(?i)\breview", body):
+            probs.append("a point changes the Blueprint's direction, so the reply says we will review it before "
+                         "changing the plan")
     allowed = numbers(own) | numbers(context)
     extra = numbers(body) - allowed
     if extra:
@@ -370,28 +525,47 @@ def render_updates(up: dict) -> str:
 
 def render_report(plan: dict, scope: dict, updates_name: str | None, had_secrets: bool) -> str:
     items = plan["items"]
-    count = {t: sum(1 for i in items if i["type"] == t) for t in TYPES}
+    week = plan_week(plan)
+    types = TYPES_W2 if week == 2 else TYPES
+    count = {t: sum(1 for i in items if i["type"] == t) for t in types}
     approved = [i["affects"] for i in items if i["type"] == "approval"]
     sc = [i for i in items if i["type"] == "scope"]
     vcount = {v: sum(1 for i in sc if i["verdict"] == v) for v in VERDICTS}
     nfacts = len(plan.get("facts", []) or [])
     src_label = f"{scope['source']} ({scope['sow_pages_line']})"
-    out = [f"Client: {scope['client']}", f"Date: {plan['date']}", f"From: {plan['from']}",
-           f"Scope source: {src_label}", "", f"# {scope['client']}: client feedback, {plan['date']}", "",
+    head = [f"Client: {scope['client']}", f"Date: {plan['date']}", f"From: {plan['from']}",
+            f"Scope source: {src_label}"]
+    w2 = week2_info(scope_dir(scope)) if week == 2 else None
+    if w2:
+        head += ["Week: 2", f"Blueprint: {w2['blueprint']}",
+                 f"Week 2 email: {w2['email'] or 'not found'}" + (f" (reply by {w2['reply_by']})" if w2["reply_by"] else "")]
+    title = "client feedback on the Week 2 Blueprint and pages" if w2 else "client feedback"
+    out = head + ["", f"# {scope['client']}: {title}, {plan['date']}", "",
            "## Summary", "",
-           f"- Items: {len(items)} (" + ", ".join(f"{count[t]} {t}" for t in TYPES) + ")",
+           f"- Items: {len(items)} (" + ", ".join(f"{count[t]} {t}" for t in types) + ")",
            "- Approved: " + ("; ".join(approved) if approved else "nothing yet"),
            "- Scope requests: " + ("none" if not sc else
                                    f"{vcount['outside']} outside scope, {vcount['unclear']} to confirm, "
                                    f"{vcount['within']} within scope"),
            "- Context updates: " + (f"{nfacts} facts in `{updates_name}`; merge them with client-context-update"
                                     if nfacts else "none (the client stated no new facts)")]
+    strat = [n for n, i in enumerate(items, 1) if i["type"] == "strategy"]
+    if w2:
+        secs = [x for x in BLUEPRINT_SECTIONS if any(x in changes_of(i)[0] for i in items)]
+        slides = sorted({n for i in items for n in changes_of(i)[1]})
+        pages = sorted({pg for i in items for pg in changes_of(i)[2]})
+        out += ["- Blueprint sections changing: " + (", ".join(secs) if secs else "none"),
+                "- Deck: " + ("rebuild with blueprint-deck after the Blueprint changes; slides "
+                              + ", ".join(f"{n} {DECK_SLIDES[n]}" for n in slides) if slides else "no change"),
+                "- Page files changing: " + (", ".join(f"content/{pg}/article.md" for pg in pages) if pages else "none"),
+                "- SEO review: " + (f"items {', '.join('#' + str(n) for n in strat)} change the Blueprint's direction; "
+                                    "hold the reply until SEO signs them off" if strat else "none needed")]
     if had_secrets:
         out.append("- Left out: the client's text contains login details; none were copied into these files")
     out += ["", "## Feedback Items", "", TABLE_HEADER, "|---|---|---|---|---|---|---|"]
     for n, i in enumerate(items, 1):
         fb = re.sub(r"\s+", " ", i["feedback"]).strip()
-        out.append(f"| {n} | \"{fb}\" | {i['type']} | {i['affects']} | {i['impact']} | {i['action'].strip()} | {i['owner']} |")
+        out.append(f"| {n} | \"{fb}\" | {i['type']} | {i['affects']} | {impact_cell(i, week)} | {i['action'].strip()} | {i['owner']} |")
     out += ["", "## Scope Check", ""]
     if not sc:
         out.append("- No scope requests.")
@@ -401,6 +575,16 @@ def render_report(plan: dict, scope: dict, updates_name: str | None, had_secrets
         label, follow = VERDICT_TEXT[i["verdict"]]
         pages = f" Pages requested: {i['pages']}." if i.get("pages") is not None else ""
         out.append(f"- #{n} {label}: {i['basis'].strip()}{pages} Scope source: {src_label}. {follow}")
+    if w2:
+        out += ["", "## SEO Review", ""]
+        if strat:
+            out.append(SEO_HOLD)
+            out.append("")
+            for n in strat:
+                i = items[n - 1]
+                out.append(f"- #{n} {i['affects'].partition(':')[2].strip()}: {i['action'].strip()}")
+        else:
+            out.append(SEO_CLEAR)
     am = str(plan.get("am", "")).strip() or AM_PLACEHOLDER
     out += ["", "## Reply Draft", "", f"Subject: {plan['reply']['subject'].strip()}", "",
             plan["reply"]["body"].strip(), "", am, SIGNOFF_TITLE]
@@ -434,13 +618,16 @@ def check(kdir: Path, fb_path: Path, rep_path: Path) -> int:
         print(f"ERROR: {rep_path} not found")
         return 1
     rep = read(rep_path)
+    week = 2 if re.search(r"(?m)^Week: 2\s*$", rep) else 1
+    types, affects = (TYPES_W2, AFFECTS_W2) if week == 2 else (TYPES, AFFECTS)
+    w2 = week2_info(kdir) if week == 2 else None
     heads = {k: (re.search(rf"(?m)^{k}:\s*(.+?)\s*$", rep) or [None, ""])[1] for k in ("Client", "Date", "From", "Scope source")}
     res.append(("header lines", all(heads.values()) and heads["Client"] == scope["client"],
                 f"Client: {heads['Client'] or '-'}; Date: {heads['Date'] or '-'}"))
     found = re.findall(r"(?m)^## (.+?)\s*$", rep)
-    res.append(("sections in order", found == REPORT_SECTIONS, ", ".join(found)))
+    res.append(("sections in order", found == (REPORT_SECTIONS_W2 if w2 else REPORT_SECTIONS), ", ".join(found)))
     rows = parse_table(rep, TABLE_HEADER)
-    bad, quotes, types = [], [], []
+    bad, quotes, rtypes = [], [], []
     if rows is None:
         bad.append("table header missing")
         rows = []
@@ -449,21 +636,29 @@ def check(kdir: Path, fb_path: Path, rep_path: Path) -> int:
             bad.append(f"row {k} has {len(r)} cells")
             continue
         quotes.append(r[1].strip('"'))
-        types.append(r[2])
+        rtypes.append(r[2])
         if r[0] != str(k):
             bad.append(f"row {k} numbered {r[0]}")
-        if r[2] not in TYPES or r[3].split(":")[0] not in AFFECTS or r[4] not in IMPACTS or r[6] not in OWNERS:
+        level = r[4].split(":")[0] if w2 else r[4]
+        if r[2] not in types or r[3].split(":")[0] not in affects or level not in IMPACTS or r[6] not in OWNERS:
             bad.append(f"row {k} has a value outside the enums")
+        if w2:
+            for pg in re.findall(r"pages ([^;]+)", r[4]):
+                miss = [x.strip() for x in pg.split(",") if x.strip() not in w2["pages"]]
+                if miss:
+                    bad.append(f"row {k} names page(s) with no content/<url-slug>/article.md: {', '.join(miss)}")
+            if r[2] == "strategy" and ("Blueprint " not in r[4] or r[6] != "SEO"):
+                bad.append(f"row {k} is strategy but names no Blueprint section or is not owned by SEO")
     res.append(("feedback table", bool(rows) and not bad, "; ".join(bad[:3]) or f"{len(rows)} rows"))
     nv = [str(k) for k, q in enumerate(quotes, 1) if norm(q) not in own_n]
     res.append(("quotes verbatim", not nv, f"rows {', '.join(nv)} not in the client's text" if nv else "every Feedback cell is the client's words"))
     uncovered = uncovered_questions(own, quotes)
     res.append(("every question has a row", not uncovered, "; ".join(f'"{q[:50]}"' for q in uncovered[:2]) or "all client questions covered"))
-    summ = re.search(r"(?m)^- Items: (\d+) \((\d+) content, (\d+) design, (\d+) scope, (\d+) question, (\d+) approval\)", rep)
-    want = [len(rows)] + [types.count(t) for t in TYPES]
+    summ = re.search(r"(?m)^- Items: (\d+) \(" + ", ".join(rf"(\d+) {t}" for t in types) + r"\)", rep)
+    want = [len(rows)] + [rtypes.count(t) for t in types]
     res.append(("summary counts", bool(summ) and [int(x) for x in summ.groups()] == want, f"table: {want}"))
     sc_sec = (re.search(r"(?ms)^## Scope Check\s*\n(.*?)(?=^## )", rep) or [None, ""])[1]
-    scope_rows = [str(k) for k, t in enumerate(types, 1) if t == "scope"]
+    scope_rows = [str(k) for k, t in enumerate(rtypes, 1) if t == "scope"]
     listed = re.findall(r"(?m)^- #(\d+) (outside scope|to confirm|within scope):", sc_sec)
     ok_scope = sorted(n for n, _ in listed) == sorted(scope_rows) and (scope_rows or "- No scope requests." in sc_sec)
     res.append(("scope check", bool(ok_scope), f"{len(listed)} scope line(s) for {len(scope_rows)} scope row(s)"))
@@ -505,18 +700,170 @@ def check(kdir: Path, fb_path: Path, rep_path: Path) -> int:
     leaked = [s for s in secrets if s in blob]
     res.append(("no secrets copied", not leaked, "a login or password from the client's text was copied" if leaked else
                 (f"{len(secrets)} left out" if secrets else "none in the client's text")))
+    n_strategy = rtypes.count("strategy")
+    if w2:
+        seo = (re.search(r"(?ms)^## SEO Review\s*\n(.*?)(?=^## )", rep) or [None, ""])[1]
+        listed_s = re.findall(r"(?m)^- #(\d+) ", seo)
+        want_s = [str(k) for k, t in enumerate(rtypes, 1) if t == "strategy"]
+        ok_seo = (listed_s == want_s and SEO_HOLD in seo) if want_s else SEO_CLEAR in seo
+        res.append(("SEO review", ok_seo, f"{len(want_s)} strategy row(s) held for SEO" if want_s
+                    else "no strategy rows; nothing held"))
+        res.append(("Week 2 inputs", bool(w2["blueprint"]), f"{w2['blueprint'] or 'no Blueprint found'}; "
+                    f"{len(w2['pages'])} page folder(s); Week 2 email {'found' if w2['email'] else 'not found'}"))
     reply = (re.search(r"(?ms)^## Reply Draft\s*\n(.*)\Z", rep) or [None, ""])[1].strip()
     rl = reply.split("\n")
     subj_ok = bool(rl) and rl[0].startswith("Subject: ") and len(rl[0]) <= 99
     sign_ok = len(rl) >= 2 and rl[-1] == SIGNOFF_TITLE and rl[-2].strip() != ""
     body = "\n".join(rl[2:-2]).strip() if len(rl) > 4 else ""
-    probs = reply_problems(body, own, scope["context_text"], open_scope > 0)
+    probs = reply_problems(body, own, scope["context_text"] + "\n" + (w2["text"] if w2 else ""), open_scope > 0,
+                           week, n_strategy)
     if not subj_ok:
         probs.insert(0, "no Subject: line")
     if not sign_ok:
         probs.insert(0, "sign-off must be the AM's name then the title")
     res.append(("reply draft", not probs, "; ".join(probs[:3]) or "greeting, voice, numbers and sign-off fine"))
     if rl and len(rl) >= 2 and rl[-2].strip() == AM_PLACEHOLDER:
+        res.append(("AM name", True, "placeholder: fill in the AM's name before sending"))
+    print("| Check | Result | Detail |")
+    print("|---|---|---|")
+    for name, ok, detail in res:
+        print(f"| {name} | {'PASS' if ok else 'FAIL'} | {detail} |")
+    passed = all(ok for _, ok, _ in res)
+    print(f"RESULT: {'PASS' if passed else 'FAIL'}")
+    return 0 if passed else 1
+
+
+# ---------- nudge ----------
+
+def nudge(kdir: Path, plan_path: Path, today: str, email_arg: str | None, dry_run: bool) -> int:
+    scope = scope_info(kdir)
+    slug, root = kdir.name, kdir.parent.parent
+    email = Path(email_arg) if email_arg else root / "emails" / slug / f"{slug}-week-2-email.md"
+    if not DATE_RE.match(today):
+        raise SystemExit(f"ERROR: --today '{today}' must be YYYY-MM-DD")
+    if not email.exists():
+        raise SystemExit(f"ERROR: {email} not found; the nudge follows the Week 2 email (week-2-client-email).")
+    em = read(email)
+    reply_by = (re.search(r"(?m)^Reply by:\s*(\d{4}-\d{2}-\d{2})\s*$", em) or [None, ""])[1]
+    send_date = (re.search(r"(?m)^Send date:\s*(\d{4}-\d{2}-\d{2})\s*$", em) or [None, ""])[1]
+    if not reply_by:
+        raise SystemExit(f"ERROR: {email} has no 'Reply by: YYYY-MM-DD' line.")
+    if today <= reply_by:
+        print(f"NOT DUE: the client has until {reply_by} to reply; no nudge before that date.")
+        return 1
+    fdir = root / "feedback" / slug
+    logged = [f for f in sorted(fdir.glob("*-feedback.md"))
+              if re.search(r"(?m)^Week: 2\s*$", read(f)) and f.name[:10] >= (send_date or "")]
+    if logged:
+        print(f"REPLY LOGGED: {logged[-1]} already records the client's Week 2 reply; no nudge needed.")
+        return 1
+    plan = load_plan(plan_path)
+    reply = plan.get("reply") or {}
+    subj, body = str(reply.get("subject", "")).strip(), str(reply.get("body", "")).strip()
+    errs = []
+    if not str(plan.get("contact", "")).strip():
+        errs.append("contact must name the client the Week 2 email went to")
+    if not subj or len(subj) > 90 or "\n" in subj:
+        errs.append("subject must be one line of at most 90 characters")
+    if SIGNOFF_TITLE.lower() in body.lower():
+        errs.append("leave the sign-off out of the body; the script adds the AM's name and title")
+    errs += nudge_problems(body, scope["context_text"] + "\n" + em, reply_by)
+    if errs:
+        print("PLAN REJECTED")
+        for e in errs:
+            print(f"- {e}")
+        return 1
+    if dry_run:
+        print("PLAN OK")
+        return 0
+    out = fdir / f"{today}-week-2-nudge.md"
+    am = str(plan.get("am", "")).strip() or AM_PLACEHOLDER
+    rel_email = f"emails/{slug}/{email.name}" if not email_arg else email_arg
+    lines = [f"Client: {scope['client']}", f"Date: {today}", "Week: 2", f"Week 2 email: {rel_email}",
+             f"Reply by: {reply_by}", "", f"# {scope['client']}: Week 2 nudge, {today}", "", "## Notes", "",
+             f"- No reply to the Week 2 email by {reply_by} (today is {today}).",
+             "- Week 3 proceeds with the Blueprint as is.",
+             "- A reply that arrives later is sorted with client-feedback; anything that changes the Blueprint's "
+             "direction goes to SEO before the reply.", "", "## Nudge Draft", "", f"Subject: {subj}", "", body, "",
+             am, SIGNOFF_TITLE]
+    fdir.mkdir(parents=True, exist_ok=True)
+    out.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"WROTE {out}")
+    return check_nudge(kdir, out, email, today)
+
+
+MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october",
+          "november", "december"]
+MONTH_DAY_RE = re.compile(r"(?i)\b(" + "|".join(m[:3] for m in MONTHS) + r")[a-z]*\.?\s+(\d{1,2})\b")
+
+
+def nudge_problems(body: str, sources: str, reply_by: str) -> list[str]:
+    probs = []
+    if reply_by:
+        rb = (MONTHS[int(reply_by[5:7]) - 1][:3], int(reply_by[8:10]))
+        for m in MONTH_DAY_RE.finditer(body):
+            if (m.group(1).lower(), int(m.group(2))) != rb:
+                probs.append(f"names the date '{m.group(0)}'; the only date a nudge gives is the missed reply-by date")
+        import datetime as _dt
+        rb_day = _dt.date.fromisoformat(reply_by).strftime("%A").lower()
+        for m in re.finditer(r"(?i)\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b", body):
+            if m.group(1).lower() != rb_day:
+                probs.append(f"names '{m.group(0)}'; the only day a nudge gives is the missed reply-by date")
+        for m in re.finditer(r"\b\d{1,2}/\d{1,2}(?:/\d{2,4})?\b|\b\d{4}-\d{2}-\d{2}\b", body):
+            if m.group(0) != reply_by:
+                probs.append(f"names the date '{m.group(0)}'; the only date a nudge gives is the missed reply-by date")
+        if re.search(r"(?i)\b(next week|end of (the )?week|tomorrow|by monday|this week)\b", body):
+            probs.append("sets a new deadline; the only date a nudge gives is the missed reply-by date")
+    if not re.match(r"^(Hi|Hello|Dear) [^\n]+,\s*$", body.split("\n")[0] if body else ""):
+        probs.append("first line must be the greeting, for example 'Hi Maya,'")
+    words = len(re.findall(r"\b[\w'-]+\b", body))
+    if words > MAX_NUDGE_WORDS:
+        probs.append(f"{words} words; keep a nudge to {MAX_NUDGE_WORDS}")
+    low = body.lower()
+    for b in BANNED_REPLY:
+        if re.search(r"(?<![\w-])" + re.escape(b) + r"(?![\w-])", low):
+            probs.append(f"uses '{b}'")
+    for lab in INTERNAL_LABELS:
+        m = re.search(lab, body if lab.startswith(r"\b") and lab[2].isupper() else low)
+        if m:
+            probs.append(f"internal label '{m.group(0)}' in the client's email")
+    if not W2_NAMES_RE.search(body):
+        probs.append("names the Blueprint or the deck the client has not answered yet")
+    if not PROCEED_RE.search(body):
+        probs.append("says the work goes ahead on the Blueprint as it stands (go ahead, move ahead, proceed)")
+    if not re.search(r"(?i)\b(thoughts|feedback|questions?|comments?)\b", body):
+        probs.append("still welcomes their thoughts or feedback")
+    extra = numbers(body) - numbers(sources)
+    if extra:
+        probs.append(f"number(s) {sorted(extra)} are in neither the Week 2 email nor the context; set no new date")
+    return probs
+
+
+def check_nudge(kdir: Path, path: Path, email: Path, today: str) -> int:
+    scope = scope_info(kdir)
+    text = read(path)
+    res = []
+    heads = {k: (re.search(rf"(?m)^{k}:\s*(.+?)\s*$", text) or [None, ""])[1]
+             for k in ("Client", "Date", "Week", "Week 2 email", "Reply by")}
+    res.append(("header lines", all(heads.values()) and heads["Client"] == scope["client"] and heads["Week"] == "2",
+                f"Client: {heads['Client'] or '-'}; Reply by: {heads['Reply by'] or '-'}"))
+    found = re.findall(r"(?m)^## (.+?)\s*$", text)
+    res.append(("sections in order", found == ["Notes", "Nudge Draft"], ", ".join(found)))
+    res.append(("overdue", bool(heads["Reply by"]) and heads["Date"] > heads["Reply by"],
+                f"reply by {heads['Reply by'] or '-'}, nudge dated {heads['Date'] or '-'}"))
+    res.append(("Week 3 note", "- Week 3 proceeds with the Blueprint as is." in text, "notes say Week 3 goes ahead"))
+    draft = (re.search(r"(?ms)^## Nudge Draft\s*\n(.*)\Z", text) or [None, ""])[1].strip().split("\n")
+    subj_ok = bool(draft) and draft[0].startswith("Subject: ")
+    sign_ok = len(draft) >= 2 and draft[-1] == SIGNOFF_TITLE and draft[-2].strip() != ""
+    body = "\n".join(draft[2:-2]).strip() if len(draft) > 4 else ""
+    probs = nudge_problems(body, scope["context_text"] + "\n" + (read(email) if email.exists() else ""),
+                           heads["Reply by"])
+    if not subj_ok:
+        probs.insert(0, "no Subject: line")
+    if not sign_ok:
+        probs.insert(0, "sign-off must be the AM's name then the title")
+    res.append(("nudge draft", not probs, "; ".join(probs[:3]) or "greeting, voice, numbers and sign-off fine"))
+    if len(draft) >= 2 and draft[-2].strip() == AM_PLACEHOLDER:
         res.append(("AM name", True, "placeholder: fill in the AM's name before sending"))
     print("| Check | Result | Detail |")
     print("|---|---|---|")
@@ -541,6 +888,13 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("scope")
     s.add_argument("kickoff")
+    s.add_argument("--week", choices=["1", "2"], default="1")
+    nd = sub.add_parser("nudge")
+    nd.add_argument("kickoff")
+    nd.add_argument("--plan", required=True)
+    nd.add_argument("--today", required=True)
+    nd.add_argument("--email")
+    nd.add_argument("--dry-run", action="store_true")
     for name in ("render", "updates-json"):
         r = sub.add_parser(name)
         r.add_argument("kickoff")
@@ -557,8 +911,16 @@ def main() -> int:
     if a.cmd == "scope":
         info = scope_info(kdir)
         info.pop("context_text")
+        info.pop("kdir")
+        if a.week == "2":
+            w2 = week2_info(kdir)
+            w2.pop("text")
+            w2["deck_slides"] = {sec: [f"{n} {DECK_SLIDES[n]}" for n in SECTION_SLIDES[sec]] for sec in BLUEPRINT_SECTIONS}
+            info["week2"] = w2
         print(json.dumps(info, indent=2, ensure_ascii=False))
         return 0
+    if a.cmd == "nudge":
+        return nudge(kdir, Path(a.plan), a.today, a.email, a.dry_run)
     if a.cmd == "check":
         return check(kdir, Path(a.feedback), Path(a.report))
     scope = scope_info(kdir)

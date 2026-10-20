@@ -1,0 +1,17 @@
+{
+  "<!-- section: Hero -->": "shared",
+  "<!-- section: Company Story -->": "about",
+  "<!-- section: Mission and Values -->": "about",
+  "<!-- section: Team -->": "about",
+  "<!-- section: Credentials -->": "about",
+  "<!-- section: Contact Form -->": "contact",
+  "<!-- section: Phone and Email -->": "contact",
+  "<!-- section: Address and Hours -->": "contact",
+  "<!-- section: Map -->": "contact",
+  "<!-- section: How We Serve -->": "location",
+  "<!-- section: Local Services -->": "location",
+  "<!-- section: Local Proof -->": "location",
+  "<!-- section: Directions -->": "location",
+  "<!-- section: FAQ -->": "shared",
+  "<!-- section: Final CTA -->": "shared"
+}

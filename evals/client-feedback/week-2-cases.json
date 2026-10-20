@@ -1,0 +1,353 @@
+{
+  "note": "Week 2 cases for client-feedback, run from a scratch copy because outputs.json and trigger.json are frozen. Append them to those files only with the owner's unlock.",
+  "outputs": [
+    {
+      "id": "fernhollow-week-2-reply",
+      "prompt": "Use the client-feedback skill. Maya Castellano at Fernhollow Animal Hospital answered our Week 2 email (the Growth Blueprint deck and the page content); her reply is in `feedback-email.txt`. The kickoff folder is `kickoff/fernhollow-animal-hospital/` and the Blueprint, pages and Week 2 email are in this folder. I'm the AM, Jordan Pike. Sort her feedback and draft my reply.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/fernhollow/feedback-email.txt",
+          "dest": "feedback-email.txt"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md",
+          "dest": "blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md",
+          "dest": "emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/emergency-vet/article.md",
+          "dest": "content/emergency-vet/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/dental-care/article.md",
+          "dest": "content/dental-care/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/surgery/article.md",
+          "dest": "content/surgery/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/wellness-exams/article.md",
+          "dest": "content/wellness-exams/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/vet-redmond-or/article.md",
+          "dest": "content/vet-redmond-or/article.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback-updates.md"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?m)^Week: 2\\s*$",
+          "label": "report marked Week 2"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*(emergency|dental and wellness)[^\\n]*\\|\\s*strategy\\s*\\|[^\\n]*\\|\\s*SEO\\s*\\|\\s*$",
+          "label": "priority change typed strategy, owned by SEO"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*\\|\\s*strategy\\s*\\|\\s*blueprint: Keyword Opportunity\\s*\\|\\s*(medium|high): Blueprint [^|\\n]*Keyword Opportunity[^|\\n]*; deck slides [^|\\n]*\\b9\\b",
+          "label": "priority change names Keyword Opportunity and deck slide 9"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Fear Free[^\\n]*\\|\\s*strategy\\s*\\|\\s*blueprint: Strategic Positioning\\s*\\|",
+          "label": "Fear Free claim typed strategy on Strategic Positioning"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*anesthesia-free[^\\n]*\\|\\s*content\\s*\\|\\s*page: dental-care\\s*\\|",
+          "label": "anesthesia-free fix is content on the dental care page"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Ruis[^\\n]*\\|\\s*content\\s*\\|\\s*page: about\\s*\\|",
+          "label": "Ruiz spelling is content on the About page"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Sisters[^\\n]*\\|\\s*scope\\s*\\|",
+          "label": "Sisters page typed scope"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?ims)^## Scope Check\\s*\\n+- #\\d+ outside scope:",
+          "label": "Sisters page judged outside scope (1 location page)"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*inner pages[^\\n]*\\|\\s*question\\s*\\|",
+          "label": "inner page designs typed question"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?ms)^## SEO Review\\s*\\n+Status: hold the reply until SEO signs off",
+          "label": "reply held for SEO"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?m)^- Deck: rebuild with blueprint-deck",
+          "label": "deck rebuild flagged"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?ms)^## Reply Draft.*^Jordan Pike\\s*\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "reply signed by the AM"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Services\\s*\\|[^\\n]*anesthesia-free",
+          "label": "Services fact records that anesthesia-free cleanings are not offered"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback-updates.md",
+          "pattern": "(?im)^\\|\\s*\\d+\\s*\\|\\s*Scope Summary\\s*\\|\\s*CONFLICT:[^\\n]*Sisters",
+          "label": "Sisters page logged as a scope conflict"
+        },
+        {
+          "type": "not_regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "pattern": "(?im)^.*\\bwe('ve| have) (already )?(updated|changed|switched|moved|reordered|dropped)\\b[^.\\n]*\\b(blueprint|priorit\\w*|keywords?|positioning|deck|emergency)\\b",
+          "label": "reply does not say the plan already changed"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md",
+          "context": [
+            "feedback-email.txt",
+            "emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md"
+          ],
+          "criteria": [
+            "The reply draft acknowledges what Maya said feels right, takes her concern about emergency care and the Fear Free wording seriously, and says these will be reviewed before the Blueprint changes; it does not agree to drop emergency care or rewrite the positioning yet.",
+            "The reply draft says a Sisters page goes beyond the current agreement and names a change order, quote or estimate as the next step, agrees plainly to the two page fixes, and answers when the inner page designs come without inventing a date."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fernhollow-week-2-nudge",
+      "prompt": "Use the client-feedback skill. Maya Castellano at Fernhollow Animal Hospital still hasn't answered our Week 2 email (`emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md`). Today is 2026-12-08. Kickoff folder: `kickoff/fernhollow-animal-hospital/`. I'm Jordan Pike. Draft whatever she should get from us now.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md",
+          "dest": "blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md",
+          "dest": "emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/emergency-vet/article.md",
+          "dest": "content/emergency-vet/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/dental-care/article.md",
+          "dest": "content/dental-care/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/surgery/article.md",
+          "dest": "content/surgery/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/wellness-exams/article.md",
+          "dest": "content/wellness-exams/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/vet-redmond-or/article.md",
+          "dest": "content/vet-redmond-or/article.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-08-week-2-nudge.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-03-feedback.md"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-08-week-2-nudge.md",
+          "pattern": "(?m)^- Week 3 proceeds with the Blueprint as is\\.$",
+          "label": "notes say Week 3 proceeds"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-08-week-2-nudge.md",
+          "pattern": "(?ms)^## Nudge Draft.*^Jordan Pike\\s*\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "nudge signed by the AM"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "feedback/fernhollow-animal-hospital/2026-12-08-week-2-nudge.md",
+          "context": [
+            "emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md"
+          ],
+          "criteria": [
+            "The nudge draft is a short, friendly reminder in an agency's voice that says work will go ahead on the Blueprint as it stands, still welcomes Maya's thoughts, and sets no new deadline or date other than the reply-by date already given."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fernhollow-nudge-not-due",
+      "prompt": "Use the client-feedback skill. Maya at Fernhollow Animal Hospital hasn't replied to our Week 2 email yet (`emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md`). Today is 2026-12-02. Kickoff folder: `kickoff/fernhollow-animal-hospital/`. I'm Jordan Pike. Should I nudge her? Draft it if so.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md",
+          "dest": "kickoff/fernhollow-animal-hospital/fernhollow-animal-hospital-missing-items.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md",
+          "dest": "blueprint/fernhollow-animal-hospital/fernhollow-animal-hospital-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md",
+          "dest": "emails/fernhollow-animal-hospital/fernhollow-animal-hospital-week-2-email.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/emergency-vet/article.md",
+          "dest": "content/emergency-vet/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/dental-care/article.md",
+          "dest": "content/dental-care/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/surgery/article.md",
+          "dest": "content/surgery/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/wellness-exams/article.md",
+          "dest": "content/wellness-exams/article.md"
+        },
+        {
+          "src": "fixtures/client-feedback/fernhollow/content/vet-redmond-or/article.md",
+          "dest": "content/vet-redmond-or/article.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "feedback/fernhollow-animal-hospital/2026-12-02-week-2-nudge.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)(2026-12-04|December 4)",
+          "label": "names the reply-by date"
+        }
+      ]
+    }
+  ],
+  "trigger": {
+    "should_trigger": [
+      "Maya from Fernhollow Animal Hospital answered the Week 2 email about the Growth Blueprint deck and the page copy. Sort her points and draft my reply.",
+      "The client replied to the Blueprint deck: she wants dental first instead of emergency, a page for another town and two fixes on the pages. Who owns what, and what do I send back?",
+      "Our Week 2 reply-by date was Friday and the client never answered the Blueprint email. Draft a nudge.",
+      "Triage the client's response to the Growth Blueprint and page content and flag anything SEO has to look at before I answer."
+    ],
+    "should_not_trigger": [
+      "Draft the Week 2 email that sends Fernhollow the Growth Blueprint deck and the page content.",
+      "SEO agreed to lead with dental and wellness. Update the keyword tiers in the Fernhollow Growth Blueprint.",
+      "Rebuild the Fernhollow Blueprint deck now that the Blueprint changed.",
+      "Check that Fernhollow's Week 2 is complete before we start Week 3."
+    ]
+  }
+}
