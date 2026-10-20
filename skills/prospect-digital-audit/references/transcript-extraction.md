@@ -18,7 +18,7 @@ Only the **prospect's** statements count as facts about the business. The sales 
 |---|---|---|
 | Company name | Sheet header | Prefer the name on the site if they differ; note the difference. |
 | Services they sell, ranked by how much they stress them or say they earn from them | Keyword groups | |
-| Cities and areas they serve or want to grow in | Cities column and rankings grid | |
+| Cities and areas they serve or want to grow in | Locations column and rankings grid | |
 | Number of business locations | `tracking.business_locations` | Verify against the site's location pages. |
 | Website platform, if mentioned | `seo.website_platform` | Detection from the site wins if they conflict. |
 | Ads they say they run (Google, Meta, other) | Tie-break for ads cells | Detection wins; record conflicts in notes. |
@@ -33,13 +33,14 @@ Only the **prospect's** statements count as facts about the business. The sales 
 1. Take the services the prospect stressed most.
 2. Turn each into the search phrase a customer would type, without a city (`water heater repair`, not `water heater repair austin`).
 3. Check monthly volume with SE Ranking keyword metrics. If a phrase has under 20 searches, try the closest common variant.
-4. Pick the 5 with the best mix of what they want to sell and real volume. Record the reason for each in the notes.
+4. Pick the 5 with the best mix of what they want to sell and real volume. Record the reason for each in the notes. Order them most important first: the top 3 are also tracked in every additional location.
 
-## Choosing the 5 cities
+## Choosing the locations (1 main, up to 3 additional)
 
-1. The city they are based in first.
+1. The city they are based in first (the main location: 5 keywords).
 2. Then the cities they named as wanting more work from.
 3. Then cities named on their service-area pages.
-4. Pair each keyword group with one city for the "Location & Nearby Cities" column, in the same order (group 1 with city 1).
+4. Stop at 4 locations in total: 1 main and at most 3 additional.
+5. Fill the "Location & Nearby Cities" column of each keyword group with the locations where that group is tracked, comma separated: groups 1 to 3 in every location, groups 4 and 5 in the main location only.
 
-If fewer than 5 cities exist anywhere: for a local business use the main city's nearest suburbs by population; for a national or online business use the headquarters city plus the largest metros in other states, or the states the prospect names. Say so in the notes.
+If there is only the main location, or the site names fewer locations than you want: for a local business use the main city's nearest suburbs by population; for a national or online business use the headquarters city plus the largest metros in other states, or the states the prospect names. Say so in the notes.

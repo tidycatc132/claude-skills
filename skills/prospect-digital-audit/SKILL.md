@@ -16,11 +16,11 @@ Turns a sales call transcript and a prospect URL into WISE's completed Digital A
 
 Work through the steps in order. Keep every value you collect, with its source, in `audit.json` (shape: [assets/audit-example.json](assets/audit-example.json)). If the user supplies an already collected `audit.json`, start at the first step whose values it lacks (usually step 7).
 
-1. **Extract from the transcript** per [transcript-extraction.md](references/transcript-extraction.md): business facts, services, target cities, pain points, objections. Pick the 5 keyword groups and 5 cities. If the transcript yields fewer than 5 of either, fill the gap from the site and SE Ranking and say so in the notes.
+1. **Extract from the transcript** per [transcript-extraction.md](references/transcript-extraction.md): business facts, services, target locations, pain points, objections. Pick the 5 keyword groups, ordered by importance, and the locations: 1 main plus up to 3 additional, 4 at most. If the transcript yields fewer than 5 keyword groups or only the main location, fill the gap from the site and SE Ranking and say so in the notes.
 2. **Identify key pages**: the homepage plus every core service page (cap 10), as defined in [scoring-rubric.md](references/scoring-rubric.md). Every Correct/Incorrect cell is judged on these pages.
-3. **Collect data for each section** using the sources in [data-sources.md](references/data-sources.md) (the SE Ranking connector, page fetches, PageSpeed Insights, web search). Prospects have not granted account access, so analytics and ads come from tag detection and ad libraries, never from GA4, Search Console or Google Ads connectors.
+3. **Collect data for each section** using the sources in [data-sources.md](references/data-sources.md) (the SE Ranking connector, page fetches, the GTmetrix connector for speed, web search). Prospects have not granted account access, so analytics and ads come from tag detection and ad libraries, never from GA4, Search Console or Google Ads connectors.
 4. **Check directories** with the fixed list and match rules in [directories.md](references/directories.md).
-5. **Pull rankings**: one city-targeted SE Ranking SERP request per keyword x city (25 cells), reading both the map pack and organic page 1. Save each result to a file and read it with `scripts/parse_serp.py`; see "Rankings grid" in [data-sources.md](references/data-sources.md) for how to run the requests.
+5. **Pull rankings**: one city-targeted SE Ranking SERP request per keyword x location, limited to 5 keywords for the main location and the top 3 keywords for each additional location (14 requests at most), reading both the map pack and organic page 1. Save each result to a file and read it with `scripts/parse_serp.py`; see "Rankings grid" in [data-sources.md](references/data-sources.md) for how to run the requests.
 6. **Score** every Correct/Incorrect, Yes/No and Pass/Fail cell with [scoring-rubric.md](references/scoring-rubric.md). A check is Incorrect if the homepage or any core service page fails it. The ADA cell comes from `scripts/check_ada.py` run on the saved key-page HTML.
 7. **Write the two texts** per [output-guide.md](references/output-guide.md): 3 to 5 prospect-facing observations for the sheet, and the internal sales notes from [assets/sales-notes-template.md](assets/sales-notes-template.md).
 8. **Build the sheet**:
@@ -28,7 +28,12 @@ Work through the steps in order. Keep every value you collect, with its source, 
    python3 <skill folder>/scripts/fill_audit.py <run-folder>/audit.json <run-folder>/<slug>-digital-audit.xlsx
    ```
    `<skill folder>` is where this SKILL.md lives; `<run-folder>` is under the working directory. The script needs `openpyxl` (`pip install openpyxl`). It fills [assets/audit-template.csv](assets/audit-template.csv) by label as the first sheet, adds a second sheet "How We Got These Results" (one row per cell: method, the evidence you recorded, the source), writes the XLSX and a CSV copy of the first sheet, and exits non-zero listing missing cells and wrong counts (5 keyword groups, 25 rankings, 3 to 5 observations, directory totals). Fix every listed problem and rerun until it exits 0.
-9. **Deliver** the run folder `prospect-audits/<slug>-<YYYY-MM-DD>/` containing the XLSX, the CSV copy, `<slug>-sales-notes.md` and `audit.json`. Do not send, upload or post anything; the sales manager reviews first.
+9. **Render the client PDF** (2 pages, WISE branding, from the same `audit.json`):
+   ```bash
+   node <skill folder>/scripts/render_report.mjs <run-folder>/audit.json <run-folder>/<slug>-client-audit.pdf
+   ```
+   Needs Node 18+, the `playwright` package and a Chromium build (set `CHROME_PATH` to use an installed Chrome); React and Babel are bundled in [assets/report/](assets/report/), so no network is needed. The script exits non-zero unless the PDF is exactly 2 pages; if it is not, shorten the observations. Every count in an observation must come from the final data (for example "X of 14 searches"). The optional `summaries` object in `audit.json` (`rankings`, `presence`, `health`) replaces the template's default sentence under that section, so keep it client-safe. `directories.detail` must carry a `status` (Accurate, Inaccurate, Not Found or Unchecked) for all 21 directories. [assets/audit-empty.json](assets/audit-empty.json) is a blank `audit.json` with every key.
+10. **Deliver** the run folder `prospect-audits/<slug>-<YYYY-MM-DD>/` containing the XLSX, the CSV copy, `<slug>-client-audit.pdf`, `<slug>-sales-notes.md` and `audit.json`. Do not send, upload or post anything; the sales manager reviews first.
 
 ## Rules
 

@@ -31,17 +31,16 @@ SE Ranking tool names below are the `mcp__SE_Ranking__*` tools. Before the first
 
 ## Core Web Vitals
 
-Fetch PageSpeed Insights for the homepage, once per strategy. The keyless API is often quota-limited (HTTP 429): use a key if the user supplied one; otherwise take Overall Test Results from the SE Ranking audit's field Core Web Vitals (good share of 75% or more for LCP, CLS and INP on mobile means `Pass`) and write `Unknown` for the optimization and speed cells.
-`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=mobile` and `&strategy=desktop`.
+Use the GTmetrix connector (`https://gtmetrix.com/mcp`). Load its tools with ToolSearch before the first call and use the parameters their schemas list. Test the homepage twice: once on a desktop profile and once on a mobile profile with throttled 4G, and wait for each test to finish. If GTmetrix is not connected or a test fails, fall back to PageSpeed Insights (`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=<url>&strategy=mobile` and `&strategy=desktop`; the keyless API is often quota-limited, HTTP 429) and say so in `evidence`. If neither works, take Overall Test Results from the SE Ranking audit's field Core Web Vitals (good share of 75% or more for LCP, CLS and INP on mobile means `Pass`) and write `Unknown` for the optimization, speed and LCP cells.
 
 | Cell | Value |
 |---|---|
 | Overall Test Results | `Pass` if the field-data Core Web Vitals assessment passes on mobile; if there is no field data, `Pass` only if mobile LCP is 2.5 s or less, CLS 0.1 or less and TBT 200 ms or less in lab data. Otherwise `Fail`. |
-| Desktop / Mobile Page Optimization | Lighthouse performance score (`lighthouseResult.categories.performance.score` x 100) as a percentage. |
-| Desktop / Mobile Speed | Lab Speed Index (`lighthouseResult.audits.speed-index.numericValue`, ms to seconds), one decimal. |
-| Desktop / Mobile LCP | Largest Contentful Paint in seconds, one decimal: the field value `loadingExperience.metrics.LARGEST_CONTENTFUL_PAINT_MS.percentile` when PageSpeed returns one (Google's 28-day 75th percentile), otherwise the lab value `lighthouseResult.audits.largest-contentful-paint.numericValue`. Say in `evidence` which one it was. Under 2.5 s is good, 2.5 to 4.0 needs improvement, over 4.0 is poor. |
+| Desktop / Mobile Page Optimization | GTmetrix Performance score as a percentage (PageSpeed fallback: `lighthouseResult.categories.performance.score` x 100). |
+| Desktop / Mobile Speed | GTmetrix Speed Index, seconds, one decimal (PageSpeed fallback: `lighthouseResult.audits.speed-index.numericValue`, ms to seconds). |
+| Desktop / Mobile LCP | GTmetrix Largest Contentful Paint (lab) in seconds, one decimal. On the PageSpeed fallback: the field value `loadingExperience.metrics.LARGEST_CONTENTFUL_PAINT_MS.percentile` when it returns one (Google's 28-day 75th percentile), otherwise the lab value `lighthouseResult.audits.largest-contentful-paint.numericValue`. Say in `evidence` which tool and which value it was. Under 2.5 s is good, 2.5 to 4.0 needs improvement, over 4.0 is poor. |
 
-Run mobile and desktop as separate requests; each gives its own LCP.
+Run mobile and desktop as separate tests; each gives its own LCP.
 
 ## ADA Compliant / ADA Software
 
@@ -49,7 +48,11 @@ Save the HTML of every key page and run `python3 -I <skill folder>/scripts/check
 
 ## Generative AI visibility
 
-`DATA_getAiSearchOverview` and `DATA_getAiSearchPromptsByTarget` for the domain. `Yes` for an engine if the domain is cited or the brand mentioned for any prompt. Gemini covers Google AI Overviews and AI Mode; "Other" covers Perplexity and any other engine SE Ranking reports. If SE Ranking has no data for the domain, write `No` for each engine and note "no AI mentions found in SE Ranking data".
+The sheet lists the engines in alphabetical order, with Other last: ChatGPT, Claude, Google (Gemini), Other. Add any new engine in its alphabetical place in the template, `UNDER_HEADER` in `scripts/fill_audit.py` and this list.
+
+`DATA_getAiSearchOverview` and `DATA_getAiSearchPromptsByTarget` for the domain cover ChatGPT, Gemini and Other. `Yes` for an engine if the domain is cited or the brand mentioned for any prompt. Gemini covers Google AI Overviews and AI Mode; "Other" covers Perplexity and any other engine SE Ranking reports. If SE Ranking has no data for the domain, write `No` for each of those engines and note "no AI mentions found in SE Ranking data".
+
+Claude: SE Ranking does not report it, so run a spot check. Ask Claude with web search the 5 keyword groups as buyer questions (for example "best bookkeeping services for small businesses"), plus one "what is <brand>?" question, and answer `Yes` if any answer names the brand or cites the domain. Record the prompts and the verdict in `evidence.claude`, say it was a spot check in the sales notes, and write `Unknown` if it could not be run.
 
 ## Analytics and ads (no account access)
 
@@ -77,7 +80,7 @@ Search the web for the business name plus city. Read stars and review counts fro
 
 ## Rankings grid
 
-For each of the 25 keyword x city pairs:
+The grid covers at most 4 locations: the main location with 5 keywords, then up to 3 additional locations with 3 keywords each (14 searches at most). The 3 keywords for an additional location are the first 3 keyword groups, so order the groups by importance. `scripts/fill_audit.py` rejects any other counts. For each keyword x location pair:
 
 1. Resolve the city with `DATA_getSerpLocations` using "City, State"; short names return noisy lists, so save the output and filter it with a few lines of Python.
 2. Request the SERP for the keyword at that location with `DATA_getSerpResults`. Send ONE query per call (a multi-query array returns only the first) and at most 3 calls in parallel. A call can time out at 60 seconds while the task still finishes: list tasks with `DATA_getSerpTasks` and fetch the finished one with `DATA_getSerpTaskAdvancedResults`. Do not re-run a query that timed out; advanced results cost credits. Each result is about 70 KB, so save it to a file and run `python3 -I <skill folder>/scripts/parse_serp.py <domain> "<business name>" <files...> --out <run-folder>/positions.json`, which writes the positions as JSON.
