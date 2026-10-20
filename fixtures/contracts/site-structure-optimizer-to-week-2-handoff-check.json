@@ -1,0 +1,69 @@
+{
+  "countable pages N / SOW cap M": [
+    5,
+    6
+  ],
+  "(not in SOW scope)": [
+    "Home",
+    "Contact",
+    "Privacy Policy"
+  ],
+  "pages": [
+    {
+      "page": "Home",
+      "url": "/",
+      "url_slug": "home",
+      "not_in_sow_scope": true,
+      "checked": true
+    },
+    {
+      "page": "Spinal Adjustments",
+      "url": "/services/spinal-adjustments/",
+      "url_slug": "spinal-adjustments",
+      "not_in_sow_scope": false,
+      "checked": true
+    },
+    {
+      "page": "Sports Injury Care",
+      "url": "/services/sports-injury-care/",
+      "url_slug": "sports-injury-care",
+      "not_in_sow_scope": false,
+      "checked": true
+    },
+    {
+      "page": "Prenatal Chiropractic",
+      "url": "/services/prenatal-chiropractic/",
+      "url_slug": "prenatal-chiropractic",
+      "not_in_sow_scope": false,
+      "checked": true
+    },
+    {
+      "page": "Ashby Location",
+      "url": "/ashby-chiropractor/",
+      "url_slug": "ashby-chiropractor",
+      "not_in_sow_scope": false,
+      "checked": true
+    },
+    {
+      "page": "About",
+      "url": "/about/",
+      "url_slug": "about",
+      "not_in_sow_scope": false,
+      "checked": true
+    },
+    {
+      "page": "Contact",
+      "url": "/contact/",
+      "url_slug": "contact",
+      "not_in_sow_scope": true,
+      "checked": true
+    },
+    {
+      "page": "Privacy Policy",
+      "url": "/privacy-policy/",
+      "url_slug": "privacy-policy",
+      "not_in_sow_scope": true,
+      "checked": false
+    }
+  ]
+}

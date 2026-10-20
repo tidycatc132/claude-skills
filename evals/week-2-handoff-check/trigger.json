@@ -1,0 +1,25 @@
+{
+  "should_trigger": [
+    "Run the Week 2 handoff check for Fernway Family Chiropractic. Are we ready for Week 3?",
+    "Is Week 2 done for Copperline Plumbing? Make sure the Blueprint, deck, every page and the design briefs are all in the folder.",
+    "Go/no-go for Brightwater Dental before Week 3: check the Week 2 deliverables.",
+    "Before design starts the inner page templates in Week 3, check whether anything from Week 2 is missing for Juniper Ridge Roofing.",
+    "End-of-week checklist for Atlas Physio's Week 2. Does every page in the sitemap have a brief and written copy?",
+    "Can Fernhollow Landscaping move to Week 3? The client hasn't answered the Blueprint email yet.",
+    "Week 2 readiness check for Maple Row Bakery: competitor report, Growth Blueprint, AM briefing, deck and compliance, page content, design briefs, Week 2 email.",
+    "We deleted and rewrote a couple of pages for Harbor & Pine; re-run the Week 2 completeness check and tell me what's still open."
+  ],
+  "should_not_trigger": [
+    "Run the Week 1 handoff check for Fernway; can SEO start the Growth Blueprint?",
+    "Draft the Week 2 email to Dana with the Blueprint deck and the page content.",
+    "Dana replied to the Blueprint email; sort her feedback and draft my answer.",
+    "Write all the briefs for Fernway; every page still missing.",
+    "Rebuild the Fernway Blueprint deck; SEO changed two figures in the Blueprint.",
+    "Write the Growth Blueprint and the AM briefing for Fernway from the Week 1 files.",
+    "Write the page-type design briefs for Fernway now that the inner pages are written.",
+    "Post the Week 2 progress update to the ClickUp task for the Fernway build.",
+    "Audit the Fernway About page draft for E-E-A-T before it goes to the client.",
+    "Is the Fernway sitemap still inside the 6-page SOW cap if we add a Wexley location page?",
+    "Write the Fernway Sports Injury Care page from its brief."
+  ]
+}

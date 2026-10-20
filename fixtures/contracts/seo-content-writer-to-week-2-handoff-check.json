@@ -1,0 +1,10 @@
+{
+  "content/<url-slug>/": "prenatal-chiropractic/",
+  "VERDICT:": "NEEDS_INPUT",
+  "qa_report.md": {
+    "open_flags": 1
+  },
+  "handoff.md": [
+    "[NEEDS INPUT: Dr. Patel's prenatal certification name and year]"
+  ]
+}

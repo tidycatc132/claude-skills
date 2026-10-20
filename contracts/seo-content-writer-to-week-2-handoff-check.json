@@ -1,0 +1,12 @@
+{
+  "name": "seo-content-writer-to-week-2-handoff-check",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "week-2-handoff-check",
+  "format": "json",
+  "fixture": "fixtures/contracts/seo-content-writer-to-week-2-handoff-check.json",
+  "keys": ["content/<url-slug>/", "VERDICT:", "qa_report.md", "handoff.md"],
+  "producer_cmd": "python3 skills/week-2-handoff-check/scripts/week2_handoff.py page fixtures/contracts/seo-content-writer-week-2-page/prenatal-chiropractic",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-2-handoff-check/scripts/week2_handoff.py page --validate {fixture}"
+}

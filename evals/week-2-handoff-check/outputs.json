@@ -1,0 +1,1298 @@
+{
+  "cases": [
+    {
+      "id": "one-page-deleted",
+      "prompt": "Use the week-2-handoff-check skill. Run the Week 2 handoff check for Fernway Family Chiropractic; the working folder is the current folder. Can we move on to Week 3?",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-am-briefing.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.html",
+          "dest": "content/about/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/handoff.md",
+          "dest": "content/about/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/qa_report.md",
+          "dest": "content/about/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.html",
+          "dest": "content/ashby-chiropractor/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.md",
+          "dest": "content/ashby-chiropractor/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/handoff.md",
+          "dest": "content/ashby-chiropractor/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/metadata.md",
+          "dest": "content/ashby-chiropractor/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/qa_report.md",
+          "dest": "content/ashby-chiropractor/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.html",
+          "dest": "content/contact/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/handoff.md",
+          "dest": "content/contact/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/qa_report.md",
+          "dest": "content/contact/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.html",
+          "dest": "content/prenatal-chiropractic/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.md",
+          "dest": "content/prenatal-chiropractic/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/handoff.md",
+          "dest": "content/prenatal-chiropractic/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/metadata.md",
+          "dest": "content/prenatal-chiropractic/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/qa_report.md",
+          "dest": "content/prenatal-chiropractic/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.html",
+          "dest": "content/spinal-adjustments/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.md",
+          "dest": "content/spinal-adjustments/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/handoff.md",
+          "dest": "content/spinal-adjustments/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/metadata.md",
+          "dest": "content/spinal-adjustments/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/qa_report.md",
+          "dest": "content/spinal-adjustments/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.html",
+          "dest": "content/sports-injury-care/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/handoff.md",
+          "dest": "content/sports-injury-care/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/metadata.md",
+          "dest": "content/sports-injury-care/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
+          "dest": "content/sports-injury-care/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
+          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
+          "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/handoff/fernway-chiro/fernway-chiro-week-1-handoff.md",
+          "dest": "handoff/fernway-chiro/fernway-chiro-week-1-handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/kickoff/fernway-chiro/fernway-chiro-context.md",
+          "dest": "kickoff/fernway-chiro/fernway-chiro-context.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/about.md",
+          "dest": "research/content-briefs/about.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/ashby-chiropractor.md",
+          "dest": "research/content-briefs/ashby-chiropractor.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/contact.md",
+          "dest": "research/content-briefs/contact.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/prenatal-chiropractic.md",
+          "dest": "research/content-briefs/prenatal-chiropractic.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/spinal-adjustments.md",
+          "dest": "research/content-briefs/spinal-adjustments.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/sports-injury-care.md",
+          "dest": "research/content-briefs/sports-injury-care.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "text": "| Item | Required | Status | Path | Note |"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Sports Injury Care \\| yes \\| missing \\| content/sports-injury-care/ \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "not_regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| (Week 1 handoff|Growth Blueprint|AM Briefing|Blueprint deck|Deck compliance|Sitemap report|Page: (Home|Spinal Adjustments|Prenatal Chiropractic|Ashby Location|About|Contact)|Page-type design briefs|Week 2 client email) \\| yes \\| (missing|stale) \\|"
+        },
+        {
+          "type": "file_absent",
+          "path": "content/sports-injury-care/article.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)sports injury"
+        }
+      ]
+    },
+    {
+      "id": "complete-go-no-reply",
+      "prompt": "Use the week-2-handoff-check skill. Today is 2026-10-21. Fernway Family Chiropractic's Week 2 should be finished and the Week 2 email went out; Dana hasn't replied yet. Check this folder and tell me if Week 3 can start.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-am-briefing.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.html",
+          "dest": "content/about/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/handoff.md",
+          "dest": "content/about/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/qa_report.md",
+          "dest": "content/about/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.html",
+          "dest": "content/ashby-chiropractor/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.md",
+          "dest": "content/ashby-chiropractor/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/handoff.md",
+          "dest": "content/ashby-chiropractor/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/metadata.md",
+          "dest": "content/ashby-chiropractor/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/qa_report.md",
+          "dest": "content/ashby-chiropractor/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.html",
+          "dest": "content/contact/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/handoff.md",
+          "dest": "content/contact/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/qa_report.md",
+          "dest": "content/contact/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.html",
+          "dest": "content/prenatal-chiropractic/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.md",
+          "dest": "content/prenatal-chiropractic/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/handoff.md",
+          "dest": "content/prenatal-chiropractic/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/metadata.md",
+          "dest": "content/prenatal-chiropractic/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/qa_report.md",
+          "dest": "content/prenatal-chiropractic/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.html",
+          "dest": "content/spinal-adjustments/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.md",
+          "dest": "content/spinal-adjustments/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/handoff.md",
+          "dest": "content/spinal-adjustments/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/metadata.md",
+          "dest": "content/spinal-adjustments/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/qa_report.md",
+          "dest": "content/spinal-adjustments/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.html",
+          "dest": "content/sports-injury-care/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.md",
+          "dest": "content/sports-injury-care/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/handoff.md",
+          "dest": "content/sports-injury-care/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/metadata.md",
+          "dest": "content/sports-injury-care/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
+          "dest": "content/sports-injury-care/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
+          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
+          "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/handoff/fernway-chiro/fernway-chiro-week-1-handoff.md",
+          "dest": "handoff/fernway-chiro/fernway-chiro-week-1-handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/kickoff/fernway-chiro/fernway-chiro-context.md",
+          "dest": "kickoff/fernway-chiro/fernway-chiro-context.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/about.md",
+          "dest": "research/content-briefs/about.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/ashby-chiropractor.md",
+          "dest": "research/content-briefs/ashby-chiropractor.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/contact.md",
+          "dest": "research/content-briefs/contact.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/prenatal-chiropractic.md",
+          "dest": "research/content-briefs/prenatal-chiropractic.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/spinal-adjustments.md",
+          "dest": "research/content-briefs/spinal-adjustments.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/sports-injury-care.md",
+          "dest": "research/content-briefs/sports-injury-care.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\nGO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Client feedback \\| no \\| missing \\|[^\\n]*2026-10-23"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Deck compliance \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Contact \\| yes \\| present \\| content/contact/ \\|"
+        },
+        {
+          "type": "not_regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| yes \\| (missing|stale) \\|"
+        },
+        {
+          "type": "not_regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Privacy Policy \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "Checked: 2026-10-21"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "\\bGO\\b"
+        }
+      ]
+    },
+    {
+      "id": "blocked-three-ways",
+      "prompt": "Use the week-2-handoff-check skill. Week 2 handoff check for Fernway Family Chiropractic, working folder is here. What's blocking Week 3 and who owns each item?",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-am-briefing.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/deckfail/blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.html",
+          "dest": "content/about/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/nolist/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/nolist/content/about/handoff.md",
+          "dest": "content/about/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/nolist/content/about/qa_report.md",
+          "dest": "content/about/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.html",
+          "dest": "content/ashby-chiropractor/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.md",
+          "dest": "content/ashby-chiropractor/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/handoff.md",
+          "dest": "content/ashby-chiropractor/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/metadata.md",
+          "dest": "content/ashby-chiropractor/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/qa_report.md",
+          "dest": "content/ashby-chiropractor/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.html",
+          "dest": "content/contact/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/handoff.md",
+          "dest": "content/contact/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/qa_report.md",
+          "dest": "content/contact/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.html",
+          "dest": "content/prenatal-chiropractic/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.md",
+          "dest": "content/prenatal-chiropractic/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/handoff.md",
+          "dest": "content/prenatal-chiropractic/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/metadata.md",
+          "dest": "content/prenatal-chiropractic/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/qa_report.md",
+          "dest": "content/prenatal-chiropractic/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.html",
+          "dest": "content/spinal-adjustments/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.md",
+          "dest": "content/spinal-adjustments/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/handoff.md",
+          "dest": "content/spinal-adjustments/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/metadata.md",
+          "dest": "content/spinal-adjustments/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/qa_report.md",
+          "dest": "content/spinal-adjustments/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.html",
+          "dest": "content/sports-injury-care/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.md",
+          "dest": "content/sports-injury-care/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/handoff.md",
+          "dest": "content/sports-injury-care/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/metadata.md",
+          "dest": "content/sports-injury-care/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
+          "dest": "content/sports-injury-care/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
+          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
+          "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/week1-nogo/handoff/fernway-chiro/fernway-chiro-week-1-handoff.md",
+          "dest": "handoff/fernway-chiro/fernway-chiro-week-1-handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/kickoff/fernway-chiro/fernway-chiro-context.md",
+          "dest": "kickoff/fernway-chiro/fernway-chiro-context.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/about.md",
+          "dest": "research/content-briefs/about.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/ashby-chiropractor.md",
+          "dest": "research/content-briefs/ashby-chiropractor.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/contact.md",
+          "dest": "research/content-briefs/contact.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/prenatal-chiropractic.md",
+          "dest": "research/content-briefs/prenatal-chiropractic.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/spinal-adjustments.md",
+          "dest": "research/content-briefs/spinal-adjustments.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/sports-injury-care.md",
+          "dest": "research/content-briefs/sports-injury-care.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Week 1 handoff \\| yes \\| missing \\|[^\\n]*NO-GO"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Deck compliance \\| yes \\| missing \\|[^\\n]*(?i:em-dash)"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: About \\| yes \\| missing \\| content/about/ \\|[^\\n]*(?i:client.input|open flag)"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Sports Injury Care \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Blueprint deck \\| yes \\| present \\|"
+        },
+        {
+          "type": "contains",
+          "path": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "text": "RESULT: FAIL"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)blueprint-deck|\\bSEO\\b"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go"
+        }
+      ]
+    },
+    {
+      "id": "stale-and-reply-logged",
+      "prompt": "Use the week-2-handoff-check skill. SEO revised the Fernway Family Chiropractic Blueprint yesterday and Dana replied to the Week 2 email. Run the end-of-week check on this folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-am-briefing.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/stale/blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.html",
+          "dest": "content/about/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/handoff.md",
+          "dest": "content/about/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/qa_report.md",
+          "dest": "content/about/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.html",
+          "dest": "content/ashby-chiropractor/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.md",
+          "dest": "content/ashby-chiropractor/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/handoff.md",
+          "dest": "content/ashby-chiropractor/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/metadata.md",
+          "dest": "content/ashby-chiropractor/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/qa_report.md",
+          "dest": "content/ashby-chiropractor/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.html",
+          "dest": "content/contact/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/handoff.md",
+          "dest": "content/contact/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/qa_report.md",
+          "dest": "content/contact/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.html",
+          "dest": "content/prenatal-chiropractic/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.md",
+          "dest": "content/prenatal-chiropractic/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/handoff.md",
+          "dest": "content/prenatal-chiropractic/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/metadata.md",
+          "dest": "content/prenatal-chiropractic/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/qa_report.md",
+          "dest": "content/prenatal-chiropractic/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.html",
+          "dest": "content/spinal-adjustments/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.md",
+          "dest": "content/spinal-adjustments/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/handoff.md",
+          "dest": "content/spinal-adjustments/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/metadata.md",
+          "dest": "content/spinal-adjustments/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/qa_report.md",
+          "dest": "content/spinal-adjustments/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.html",
+          "dest": "content/sports-injury-care/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.md",
+          "dest": "content/sports-injury-care/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/handoff.md",
+          "dest": "content/sports-injury-care/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/metadata.md",
+          "dest": "content/sports-injury-care/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
+          "dest": "content/sports-injury-care/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/stale/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
+          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
+          "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/handoff/fernway-chiro/fernway-chiro-week-1-handoff.md",
+          "dest": "handoff/fernway-chiro/fernway-chiro-week-1-handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/kickoff/fernway-chiro/fernway-chiro-context.md",
+          "dest": "kickoff/fernway-chiro/fernway-chiro-context.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/about.md",
+          "dest": "research/content-briefs/about.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/ashby-chiropractor.md",
+          "dest": "research/content-briefs/ashby-chiropractor.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/contact.md",
+          "dest": "research/content-briefs/contact.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/prenatal-chiropractic.md",
+          "dest": "research/content-briefs/prenatal-chiropractic.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/spinal-adjustments.md",
+          "dest": "research/content-briefs/spinal-adjustments.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/sports-injury-care.md",
+          "dest": "research/content-briefs/sports-injury-care.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/variants/feedback/feedback/fernway-chiro/2026-10-21-feedback.md",
+          "dest": "feedback/fernway-chiro/2026-10-21-feedback.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Growth Blueprint \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Deck compliance \\| yes \\| stale \\|[^\\n]*2026-10-20"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page-type design briefs \\| yes \\| stale \\|[^\\n]*ashby-chiropractor"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Client feedback \\| no \\| present \\|[^\\n]*SEO"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Ashby Location \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go"
+        }
+      ]
+    },
+    {
+      "id": "brief-deleted",
+      "prompt": "Use the week-2-handoff-check skill. Someone cleaned up the Fernway Family Chiropractic briefs folder. Check whether Week 2 is still complete; the working folder is here.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-am-briefing.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-am-briefing.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-deck-compliance.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-deck-compliance.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint-deck.pptx"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md",
+          "dest": "blueprint/fernway-chiro/fernway-chiro-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.html",
+          "dest": "content/about/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/handoff.md",
+          "dest": "content/about/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/about/qa_report.md",
+          "dest": "content/about/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.html",
+          "dest": "content/ashby-chiropractor/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/article.md",
+          "dest": "content/ashby-chiropractor/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/handoff.md",
+          "dest": "content/ashby-chiropractor/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/metadata.md",
+          "dest": "content/ashby-chiropractor/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/ashby-chiropractor/qa_report.md",
+          "dest": "content/ashby-chiropractor/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.html",
+          "dest": "content/contact/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/handoff.md",
+          "dest": "content/contact/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/contact/qa_report.md",
+          "dest": "content/contact/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.html",
+          "dest": "content/home/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/handoff.md",
+          "dest": "content/home/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.html",
+          "dest": "content/prenatal-chiropractic/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/article.md",
+          "dest": "content/prenatal-chiropractic/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/handoff.md",
+          "dest": "content/prenatal-chiropractic/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/metadata.md",
+          "dest": "content/prenatal-chiropractic/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/prenatal-chiropractic/qa_report.md",
+          "dest": "content/prenatal-chiropractic/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.html",
+          "dest": "content/spinal-adjustments/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/article.md",
+          "dest": "content/spinal-adjustments/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/handoff.md",
+          "dest": "content/spinal-adjustments/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/metadata.md",
+          "dest": "content/spinal-adjustments/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/spinal-adjustments/qa_report.md",
+          "dest": "content/spinal-adjustments/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.html",
+          "dest": "content/sports-injury-care/article.html"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/article.md",
+          "dest": "content/sports-injury-care/article.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/handoff.md",
+          "dest": "content/sports-injury-care/handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/metadata.md",
+          "dest": "content/sports-injury-care/metadata.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
+          "dest": "content/sports-injury-care/qa_report.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
+          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
+          "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/handoff/fernway-chiro/fernway-chiro-week-1-handoff.md",
+          "dest": "handoff/fernway-chiro/fernway-chiro-week-1-handoff.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/kickoff/fernway-chiro/fernway-chiro-context.md",
+          "dest": "kickoff/fernway-chiro/fernway-chiro-context.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/about.md",
+          "dest": "research/content-briefs/about.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/ashby-chiropractor.md",
+          "dest": "research/content-briefs/ashby-chiropractor.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/contact.md",
+          "dest": "research/content-briefs/contact.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/spinal-adjustments.md",
+          "dest": "research/content-briefs/spinal-adjustments.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/research/content-briefs/sports-injury-care.md",
+          "dest": "research/content-briefs/sports-injury-care.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-fernway-chiro.md"
+        },
+        {
+          "src": "fixtures/week-2-handoff-check/full/seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md",
+          "dest": "seo-reports/site-structure-optimizer/2026-10-15-fernwaychiro.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Prenatal Chiropractic \\| yes \\| missing \\| content/prenatal-chiropractic/ \\|[^\\n]*no brief"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\| Page: Spinal Adjustments \\| yes \\| present \\|"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
+          "pattern": "\\nNO-GO\\n?$"
+        },
+        {
+          "type": "file_absent",
+          "path": "research/content-briefs/prenatal-chiropractic.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)prenatal"
+        }
+      ]
+    }
+  ]
+}

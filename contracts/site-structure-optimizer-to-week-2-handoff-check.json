@@ -1,0 +1,12 @@
+{
+  "name": "site-structure-optimizer-to-week-2-handoff-check",
+  "version": 1,
+  "producer": "site-structure-optimizer",
+  "consumer": "week-2-handoff-check",
+  "format": "json",
+  "fixture": "fixtures/contracts/site-structure-optimizer-to-week-2-handoff-check.json",
+  "keys": ["countable pages N / SOW cap M", "(not in SOW scope)"],
+  "producer_cmd": "python3 skills/week-2-handoff-check/scripts/week2_handoff.py sitemap fixtures/contracts/site-structure-optimizer-week-2-report.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-2-handoff-check/scripts/week2_handoff.py sitemap --validate {fixture}"
+}
