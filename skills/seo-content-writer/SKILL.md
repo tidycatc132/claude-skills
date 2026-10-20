@@ -1,6 +1,6 @@
 ---
 name: seo-content-writer
-description: Use when a content brief (from the brief step after keyword research) must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, definition, service page or homepage), optimized for Google, AI Overviews, ChatGPT and Perplexity and for readers. Trigger on "write the article from this brief", "turn this brief into the finished page", "draft the service page from this brief", "write the homepage copy from this brief", "execute this brief", including when the client's voice.md, style.md or compliance.md come with the brief. Produces article.md, metadata.md, article.html, qa_report.md and handoff.md, and flags missing evidence instead of inventing it. Do NOT use for building the brief or for a keyword-research report alone (use content-brief), auditing or scoring a page or draft not written from a brief (use content-quality-auditor), the client voice and style kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
+description: Use when a content brief (from the brief step) must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, service page, homepage, About, Contact or location page), optimized for search, AI answers and readers, or when every brief already in a folder needs its page written. Trigger on "write the article from this brief", "turn this brief into the finished page", "write the About page from this brief", and "write all the briefs" or "write every page from the briefs" when the briefs exist; also when voice.md, style.md or compliance.md come with it. Writes article.md, metadata.md, article.html, qa_report.md and handoff.md per page, flagging missing evidence or client facts, never inventing them. Do NOT use for creating briefs or a keyword-research report alone (use content-brief), auditing a page not written from a brief (use content-quality-auditor), the client voice kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
 ---
 
 # SEO Content Writer
@@ -13,11 +13,14 @@ Third step of the content pipeline: keyword research, then the content brief, th
 - **Client reference files** (optional): if `client-reference/<client-slug>/` exists (from client-reference-kit, where `<client-slug>` is the client's domain without `www.` and the TLD, for example `cedarlinecu`), read `voice.md`, `style.md` and `compliance.md` and follow them. Their banned words, product names and disclaimers win over your defaults.
 - **Live research** (optional): use WebSearch or WebFetch only if available, only to find sources for claims, and cite every page you use.
 
+- **Page type.** The brief's `format:` or `Page type:` line decides the layout: `homepage` (or `page_url: /`), `about` or `about-page` (or `page_url: /about/` or `/about-us/`), `contact` or `contact-page` (or `page_url: /contact/` or `/contact-us/`), `location` or `location-page`. Anything else is an article. content-brief writes `homepage` and `location-page` briefs; it has no About or Contact format yet, so those briefs are written by hand (any layout, with the `format:` line) until it does.
+- **A folder of briefs** (batch mode): when the user asks to write the pages for all the briefs that already exist, or every page from the briefs (usually `research/content-briefs/`), follow `references/batch-mode.md`: it writes, one page at a time, every brief whose `content/<url-slug>/article.md` does not exist yet, and ends with one `| Page | Brief | VERDICT | Open flags |` table.
+
 If there is no brief, only a topic, say the brief step should run first. If the user still wants the page, build the intake checklist yourself and label it an unapproved working brief in `handoff.md`.
 
 ## Outputs
 
-Write five files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`.
+Write five files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`. Batch mode also writes `content/batch-summary.md`.
 
 | File | What it is |
 | --- | --- |
@@ -30,12 +33,12 @@ Write five files into `content/<url-slug>/` (or the folder the user names). `<ur
 ## Workflow
 
 1. **Intake.** Read the brief like a checklist using `references/brief-intake.md`. Write down, before drafting: the primary question, 5-8 sub-questions, 8-15 entities with one primary name each, the evidence for each section, the author and credentials, first-hand material, and each internal link with its anchor. Build missing sub-questions and entities yourself (how much, how often, why, what if variants). Never build missing evidence or authors; flag them (step 3).
-2. **Load the writing rules.** Read `references/writing-rules.md` in full before drafting. Read `references/format-rules.md` for the page type(s) the brief names (comparison, how-to, definition, listicle, FAQ, product or service). For a homepage (page type or format `homepage`, or URL `/`), read `references/homepage.md`: its section map and client-fact rule replace the article layout.
+2. **Load the writing rules.** Read `references/writing-rules.md` in full before drafting. Read `references/format-rules.md` for the page type(s) the brief names (comparison, how-to, definition, listicle, FAQ, product or service). For a homepage (page type or format `homepage`, or URL `/`), read `references/homepage.md`: its section map and client-fact rule replace the article layout. For an About, Contact or location page (see **Page type** under Inputs), read only the section "The client-fact rule" in `references/homepage.md` (not its homepage section map), then `references/client-pages.md` for that page's section map.
 3. **Draft `article.md`** to the layout in `references/output-spec.md`. Where the page needs a fact you do not have from the brief, the client files or a cited source, write a visible flag in place of the fact (a brief's `[CLIENT INPUT NEEDED #n: ...]` slots are copied as they are): `[NEEDS SOURCE: what is needed]` for evidence, `[NEEDS INPUT: what is needed]` for author, pricing, URLs or client facts. Never write a number, quote, source, credential or URL you were not given or did not verify; "typical industry figures" from memory count as invented. An unverifiable number is worse than a flag.
 4. **Write `metadata.md`** per `references/output-spec.md`. The meta title starts from the H1 and keeps its intent. Length limits for title and description are not enforced.
 5. **Run the QA script** as its own plain command, paths as arguments:
    `python3 <skill-folder>/scripts/check_draft.py content/<url-slug>/article.md --brief <brief-path>`
-   On a homepage add `--page-type homepage` and `--client-dir client-reference/<client-slug>/` (when it exists), plus `--facts <file>` for each other client file you took facts from.
+   On a homepage, About, Contact or location page add `--page-type homepage` (or `about`, `contact`, `location`) and `--client-dir client-reference/<client-slug>/` (when it exists), plus `--facts <file>` for each other client file you took facts from.
    Fix every FAIL in the draft and rerun until the verdict is `READY` or `NEEDS_INPUT`. Read every WARN and fix it or say in `handoff.md` why it stays (for example, a number not in the brief that is cited in Sources).
 6. **Do the judgment QA** in `references/qa-checklist.md` (the checks a script cannot make: isolation reading, entity consistency, sources match claims, YMYL depth). Fix the draft, then rerun step 5.
 7. **Build the HTML**: `python3 <skill-folder>/scripts/make_html.py content/<url-slug>/article.md`
@@ -60,5 +63,7 @@ Run each script as a single plain `python3` command (use `python` where `python3
 | `references/writing-rules.md` | Step 2, always |
 | `references/format-rules.md` | Step 2, for the page type(s) in the brief |
 | `references/output-spec.md` | Steps 3, 4 and 8 |
-| `references/homepage.md` | Steps 2 to 8, when the page is a homepage |
+| `references/homepage.md` | Steps 2 to 8, when the page is a homepage; its client-fact rule also for About, Contact and location pages |
+| `references/client-pages.md` | Steps 2 to 8, when the page is an About, Contact or location page |
+| `references/batch-mode.md` | Before step 1, when the user asks to write all the briefs in a folder |
 | `references/qa-checklist.md` | Step 6, and when a QA check FAILs and the fix is unclear |

@@ -4,7 +4,8 @@
 Usage:
   python3 check_draft.py ARTICLE.md [--brief BRIEF.md] [--keyword "target keyword"]
                          [--metadata METADATA.md] [--out QA_REPORT.md]
-                         [--page-type homepage] [--client-dir DIR] [--facts FILE ...]
+                         [--page-type homepage|about|contact|location]
+                         [--client-dir DIR] [--facts FILE ...]
 
 Reads `article.md` (and `metadata.md` beside it unless --metadata is given),
 runs the mechanical checks from references/qa-checklist.md, prints a
@@ -16,12 +17,16 @@ VERDICT: NEEDS_INPUT  no FAILs, but the draft carries [NEEDS SOURCE: ...] or
                       [NEEDS INPUT: ...] flags a human must resolve
 VERDICT: READY        no FAILs and no open flags
 
-Homepage mode (--page-type homepage, or a brief saying `Page type: homepage` or
-`format: homepage`): no byline check, the per-section statistic is a WARN, and
-the page must carry the eight `<!-- section: ... -->` markers in order, a Proof
-section with proof or a flag, a Final CTA with a route, and no client fact
-(phone, address, hours, quoted testimonial, rating, review count, founding year,
-credential word) that the brief, --client-dir files or --facts files do not state.
+Client page modes (--page-type homepage, about, contact or location, or a brief
+whose page type or format names one of them, `page_url: /` for a homepage,
+`/about/` or `/contact/` for those pages): no byline check, the per-section
+statistic and keyword repetition are WARNs, and the page must carry its `<!-- section: ... -->` markers
+in order (PAGE_SECTIONS), a Final CTA with a route, and no client fact (phone,
+email, address, hours, quoted testimonial, rating, review count, founding year,
+credential word) that the brief, --client-dir files or --facts files do not
+state. Homepage, About and Location pages also need proof or a flag in their
+proof section; a Contact page needs its form fields listed and its phone, email,
+address and hours given or flagged.
 
 Exit code 1 on FIX, else 0. Standard library only.
 """
@@ -85,6 +90,16 @@ STOP = {"a", "an", "the", "of", "to", "for", "in", "on", "and", "or", "is", "do"
         "with", "be", "need", "there", "than", "your", "you", "get", "at", "by", "from", "that", "this"}
 HOMEPAGE_SECTIONS = ["Hero", "Why Us", "Services Overview", "Proof", "About Snapshot",
                      "Service Area", "Process", "Final CTA"]
+# client pages: section markers in order, the label used in the report, and the section that must carry proof
+PAGE_SECTIONS = {
+    "homepage": HOMEPAGE_SECTIONS,
+    "about": ["Hero", "Company Story", "Mission and Values", "Team", "Credentials", "Final CTA"],
+    "contact": ["Hero", "Contact Form", "Phone and Email", "Address and Hours", "Map", "Final CTA"],
+    "location": ["Hero", "How We Serve", "Local Services", "Local Proof", "Directions", "Final CTA"],
+}
+PAGE_LABEL = {"homepage": "Homepage", "about": "About page", "contact": "Contact page", "location": "Location page"}
+PROOF_SECTION = {"homepage": "Proof", "about": "Credentials", "location": "Local Proof"}
+EMAIL = re.compile(r"\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")
 MARKER = re.compile(r"(?im)^\s*<!--\s*section:\s*([^>]+?)\s*-->\s*$")
 PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b")
 HOURS = re.compile(r"(?i)\b\d{1,2}(?::\d{2})?\s?(?:a\.?m\.?|p\.?m\.?)(?![a-z])|"
@@ -130,19 +145,35 @@ def norm_text(s: str) -> str:
     return re.sub(r"\s+", " ", re.sub(r"[^\w$%+★'\- ]+", " ", s.lower())).strip()
 
 
-def homepage_checks(md: str, sections: list, facts: str, add) -> None:
-    """The homepage rules from references/homepage.md that a script can check."""
+def page_type_of(brief: str, given: str | None) -> str:
+    """homepage, about, contact or location (a client page with a section map), else "" (an article)."""
+    if given:
+        return given.lower() if given.lower() in PAGE_SECTIONS else ""
+    m = re.search(r"(?im)^\W*(?:page[ _]type|format)\W*\s*:\s*\**\s*(home\s?page|about|contact|location)\b", brief)
+    if m:
+        return {"homepage": "homepage", "home page": "homepage"}.get(m.group(1).lower(), m.group(1).lower())
+    m = re.search(r"(?im)^\W*(?:url|page_url)\W*\s*:\s*\**\s*(/[^\s*]*)\s*$", brief)
+    url = m.group(1).strip("/").lower() if m else None
+    if url == "":
+        return "homepage"
+    return {"about": "about", "about-us": "about", "contact": "contact", "contact-us": "contact"}.get(url or "", "")
+
+
+def homepage_checks(md: str, sections: list, facts: str, add, page_type: str = "homepage") -> None:
+    """The client-page rules from references/homepage.md and references/client-pages.md that a script can check."""
+    order = PAGE_SECTIONS[page_type]
+    label = PAGE_LABEL[page_type]
     found = [m.group(1).strip() for m in MARKER.finditer(md)]
-    want = [x.lower() for x in HOMEPAGE_SECTIONS]
+    want = [x.lower() for x in order]
     core = [f for f in found if f.lower() in want]
-    missing = [x for x in HOMEPAGE_SECTIONS if x.lower() not in [c.lower() for c in core]]
+    missing = [x for x in order if x.lower() not in [c.lower() for c in core]]
     dupes = sorted({c for c in core if [x.lower() for x in core].count(c.lower()) > 1})
     in_order = [c.lower() for c in core] == [w for w in want if w in [c.lower() for c in core]]
     detail = "; ".join(filter(None, [
         f"missing: {', '.join(missing)}" if missing else "",
         f"repeated: {', '.join(dupes)}" if dupes else "",
         "" if in_order else "out of order: " + " > ".join(core)]))
-    add("Homepage sections in order", not missing and not dupes and in_order, detail)
+    add(f"{label} sections in order", not missing and not dupes and in_order, detail)
 
     # the page text by section marker, flags removed (a flag is the right way to name a missing fact)
     by_sec: dict[str, str] = {}
@@ -164,6 +195,9 @@ def homepage_checks(md: str, sections: list, facts: str, add) -> None:
     for m in PHONE.finditer(page_noflag):
         if re.sub(r"\D", "", m.group(0)) not in fact_digits:
             untraced.append(f"phone {m.group(0)}")
+    for m in EMAIL.finditer(page_noflag):
+        if m.group(0).lower() not in facts.lower():
+            untraced.append(f"email {m.group(0)}")
     for rx, label in ((HOURS, "hours"), (STREET, "address")):
         for m in rx.finditer(page_noflag):
             if norm_text(m.group(0)) not in nfacts:
@@ -198,10 +232,23 @@ def homepage_checks(md: str, sections: list, facts: str, add) -> None:
     add("Client facts trace to the brief or client files", not untraced,
         "not in any file (delete or flag): " + "; ".join(untraced[:10]) if untraced else "")
 
-    proof = by_sec.get("proof", "")
-    add("Proof section carries proof or a flag",
-        bool(re.search(r"\d|[\"“]|^\s*>", proof, re.M) or FLAG.search(proof)),
-        "" if proof.strip() else "no Proof section")
+    if page_type in PROOF_SECTION:
+        name = PROOF_SECTION[page_type]
+        proof = by_sec.get(name.lower(), "")
+        add(f"{name} section carries proof or a flag",
+            bool(re.search(r"\d|[\"“]|^\s*>", proof, re.M) or FLAG.search(proof)),
+            "" if proof.strip() else f"no {name} section")
+    if page_type == "contact":
+        form = by_sec.get("contact form", "")
+        n_fields = len(re.findall(r"(?m)^\s*(?:[-*+]|\d+[.)])\s+\S", form))
+        add("Contact form lists its fields", n_fields >= 3, f"{n_fields} fields listed (list each field as a bullet)")
+        pe, ah = by_sec.get("phone and email", ""), by_sec.get("address and hours", "")
+        gaps = [what for what, ok in (
+            ("phone", PHONE.search(pe) or re.search(r"(?i)\[[^\]]*phone", pe)),
+            ("email", EMAIL.search(pe) or re.search(r"(?i)\[[^\]]*e-?mail", pe)),
+            ("address", STREET.search(ah) or re.search(r"(?i)\[[^\]]*address|\bno (?:public |walk-in )?(?:office|storefront|street address)", ah)),
+            ("hours", HOURS.search(ah) or re.search(r"(?i)\[[^\]]*hours", ah))) if not ok]
+        add("Contact details given or flagged", not gaps, "missing, give or flag: " + ", ".join(gaps) if gaps else "")
     cta = by_sec.get("final cta", "")
     has_route = bool(LINK.search(cta) or PHONE.search(cta) or FLAG.search(cta))
     add("Final CTA gives a route", has_route, "" if has_route else "no link, phone or flag in the Final CTA section")
@@ -315,9 +362,10 @@ def main() -> int:
     ap.add_argument("--keyword")
     ap.add_argument("--metadata")
     ap.add_argument("--out")
-    ap.add_argument("--page-type", help="homepage switches on the homepage checks (else read from the brief)")
-    ap.add_argument("--client-dir", help="client reference folder; its .md files count as client facts (homepage)")
-    ap.add_argument("--facts", action="append", default=[], help="another client file that states facts (homepage)")
+    ap.add_argument("--page-type", choices=sorted(PAGE_SECTIONS),
+                    help="switches on that client page's checks (else read from the brief)")
+    ap.add_argument("--client-dir", help="client reference folder; its .md files count as client facts (client pages)")
+    ap.add_argument("--facts", action="append", default=[], help="another client file that states facts (client pages)")
     ap.add_argument("--brief-only", action="store_true",
                     help="only read the brief and print what the checks will use (keyword, client, link targets)")
     a = ap.parse_args()
@@ -351,9 +399,8 @@ def main() -> int:
         if m:
             keyword = m.group(1).strip()
 
-    homepage = (a.page_type or "").lower() == "homepage" or bool(
-        re.search(r"(?im)^\W*(?:page[ _]type|format)\W*\s*:\s*\**\s*home\s?page\b", brief)
-        or re.search(r"(?im)^\W*(?:url|page_url)\W*\s*:\s*\**\s*/\s*$", brief))
+    page_type = page_type_of(brief, a.page_type)
+    homepage = bool(page_type)  # any client page (homepage, about, contact, location) follows the client-page rules
     facts = brief
     if homepage:
         facts = fact_text(brief)
@@ -381,7 +428,8 @@ def main() -> int:
     head = [l.strip() for l in after.splitlines() if l.strip()][:4]
     by = next((l for l in head if re.match(r"^\**by\b", l, re.I)), "")
     if homepage:
-        add("No article byline on a homepage", not by, f"remove the byline: {strip_md(by)[:60]}" if by else "")
+        add(f"No article byline on {'a homepage' if page_type == 'homepage' else 'an ' + PAGE_LABEL[page_type] if page_type == 'about' else 'a ' + PAGE_LABEL[page_type]}", not by,
+            f"remove the byline: {strip_md(by)[:60]}" if by else "")
     elif not by:
         add("Named author byline", False, "no line starting 'By ' under the H1")
     elif BYLINE_BAD.search(by):
@@ -402,8 +450,9 @@ def main() -> int:
         add("Keyword terms in first 100 words", early, "" if early else "move the target phrase into the opening answer", warn=True)
         reps = len(re.findall(re.escape(keyword.lower()), md.lower()))
         limit = 3 + body_words // 600
+        # on a client page the keyword is often the client's name, which the one-name rule repeats on purpose
         add("No mechanical keyword repetition", reps <= limit,
-            f"exact phrase used {reps} times (limit {limit})" if reps > limit else f"{reps} exact uses")
+            f"exact phrase used {reps} times (limit {limit})" if reps > limit else f"{reps} exact uses", warn=homepage)
     else:
         add("Target keyword known", False, "pass --keyword or include 'Keyword:' in the brief", warn=True)
 
@@ -641,9 +690,9 @@ def main() -> int:
     else:
         add("Metadata table complete", False, f"{meta_path.name} not found")
 
-    # 16b. homepage sections and the client-fact rule
+    # 16b. client page sections and the client-fact rule
     if homepage:
-        homepage_checks(md_full, sections, facts, add)
+        homepage_checks(md_full, sections, facts, add, page_type)
 
     # 17. open evidence / input flags
     flags = FLAG.findall(md) + FLAG.findall(meta)
