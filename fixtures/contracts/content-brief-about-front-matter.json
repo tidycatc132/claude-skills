@@ -1,0 +1,40 @@
+{
+  "id": "saltmarsh-window-co",
+  "brief_version": 1,
+  "status": "DONE_WITH_CONCERNS",
+  "date": "2026-10-19",
+  "client": "Saltmarsh Window Co.",
+  "client_domain": "saltmarshwindow.com",
+  "market": "en-us, Charleston, South Carolina",
+  "language": "en",
+  "page_url": "/about/",
+  "mode": "new",
+  "existing_url": "N/A",
+  "primary_keyword": "saltmarsh window co",
+  "secondary_keywords": [
+    "about saltmarsh window co",
+    "saltmarsh window cleaning owner"
+  ],
+  "intent": "Navigational",
+  "funnel": "BOFU",
+  "format": "about-page",
+  "format_embedded": [],
+  "format_source": "about us",
+  "metrics": {
+    "volume": 30,
+    "kd": 2,
+    "source": "Measured"
+  },
+  "geo_candidate": false,
+  "geo_answer_format": "N/A",
+  "cluster": "Core pages",
+  "pillar_url": "N/A",
+  "ymyl": false,
+  "local": true,
+  "cannibalization": "clear (no site)",
+  "voice_source": "default/home-services",
+  "style_source": "default/home-services",
+  "word_range": "400-800",
+  "client_inputs_open": 2,
+  "source_report": "research/keyword-research/2026-10-19-core-pages.md"
+}
