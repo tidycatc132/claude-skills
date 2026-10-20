@@ -1,0 +1,13 @@
+{
+  "name": "site-structure-optimizer-to-growth-blueprint",
+  "version": 1,
+  "producer": "site-structure-optimizer",
+  "consumer": "growth-blueprint",
+  "format": "csv",
+  "fixture": "fixtures/contracts/site-structure-optimizer-targets.csv",
+  "columns": ["page_slug", "primary_keyword", "secondary_keywords", "intent", "funnel_stage", "pillar", "cluster_role", "geo_format", "priority_tier", "opportunity_bucket", "volume", "kd", "existing_url", "source"],
+  "required_non_empty": ["page_slug", "primary_keyword"],
+  "enums": {"cluster_role": ["pillar", "cluster"], "priority_tier": ["P1", "P2", "P3"], "opportunity_bucket": ["new-page", "revise", "consolidate"], "source": ["site-structure-optimizer"]},
+  "min_rows": 1,
+  "consumer_cmd": "python3 skills/growth-blueprint/scripts/blueprint.py sitemap-targets {fixture}"
+}

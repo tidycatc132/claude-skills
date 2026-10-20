@@ -28,7 +28,7 @@ Two layers. The script checks what can be checked mechanically; you check the re
 | Metadata table complete, 3-7 key takeaways, summary 3-4 sentences | Field missing or wrong count | Fix `metadata.md` |
 | No mechanical keyword repetition | Exact keyword over the limit | Replace repeats with specific language |
 
-On a homepage (`--page-type homepage`) the byline check is skipped, the per-section statistic is a WARN, and four more checks run; they are listed in `homepage.md`.
+On a homepage (`--page-type homepage`) the byline check is skipped, the per-section statistic is a WARN, and four more checks run; they are listed in `homepage.md`. About, Contact and location pages (`--page-type about`, `contact`, `location`) work the same way, with the checks listed in `client-pages.md`.
 
 WARN items (paragraph length, vague intensifiers, keyword placement, numbers not in the brief, meta title vs H1, open flags) are not failures, but each one kept must be explained in `handoff.md`. "Numbers not in the brief" is the fabrication alarm: every listed number must be a step count, a date, a derived figure you show the arithmetic for, or a value cited in `## Sources`. Otherwise delete it or flag it.
 
@@ -37,7 +37,7 @@ WARN items (paragraph length, vague intensifiers, keyword placement, numbers not
 1. **Isolation.** Read each section alone. Does it answer its heading without the rest of the page?
 2. **Entity names.** Is each entity called by one name throughout, including the aliases the brief bans? Does every comparative sentence name both sides?
 3. **Claims match sources.** For each number: is the wording as strong as the source and no stronger, and is the source named in the sentence?
-4. **Quotes.** Is each quote verbatim from the brief, a client file or a cited source, with name and role? On a homepage, does every client fact keep its file's qualifier ("about 47 reviews" stays "about 47")?
+4. **Quotes.** Is each quote verbatim from the brief, a client file or a cited source, with name and role? On a homepage, About, Contact or location page, does every client fact keep its file's qualifier ("about 47 reviews" stays "about 47")?
 5. **First-hand experience.** Is at least one client experience marker on the page, or a flag asking for one?
 6. **Format rules.** Are the `format-rules.md` items for this page type met (table, imperative numbered steps, one-sentence definition with mechanism, specific list differentiators, visible pricing)?
 7. **Tables.** Is every set of 3+ comparable items or figures in a table?

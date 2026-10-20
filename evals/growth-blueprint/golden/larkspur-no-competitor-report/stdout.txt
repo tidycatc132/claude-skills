@@ -1,0 +1,14 @@
+I wrote the Growth Blueprint and the AM Briefing for Larkspur Family Dental, both dated 2026-10-19. The check passes everything except the competitor report. That report is still missing, so the result is `NEEDS_INPUT`.
+
+- **Growth Blueprint:** `/tmp/harness-eval-hsz44bqo/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md`
+- **AM Briefing:** `/tmp/harness-eval-hsz44bqo/blueprint/larkspur-dental/larkspur-dental-am-briefing.md`
+
+RESULT: NEEDS_INPUT
+
+There are two open `[NEEDS INPUT]` flags. SEO can supply both by saving the competitor report:
+1. **Competitive Analysis:** this section names the three competitors from the kickoff call (Treasure Valley Smiles, Boise Bright Dental, North End Family Dental) and carries no competitor figures.
+2. **Growth Strategy, Phase 3:** the authority gaps (links, reviews, citations) can't be named until the report exists.
+
+The page count is 11 pages against the 12-page scope. The client asked on the call for a twenty-page site with a page per insurance plan. The Blueprint says the plan follows the agreed scope and doesn't list the extra pages.
+
+Once the report is saved, re-run the skill with `--force` so the two sections that mention the gap are rewritten from it.

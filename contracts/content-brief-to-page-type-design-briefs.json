@@ -1,0 +1,14 @@
+{
+  "name": "content-brief-to-page-type-design-briefs",
+  "version": 1,
+  "producer": "content-brief",
+  "consumer": "page-type-design-briefs",
+  "format": "json",
+  "fixture": "fixtures/contracts/content-brief-front-matter.json",
+  "keys": [
+    "format",
+    "page_url",
+    "primary_keyword"
+  ],
+  "consumer_cmd": "python3 skills/page-type-design-briefs/scripts/ptdb.py brief-format {fixture}"
+}

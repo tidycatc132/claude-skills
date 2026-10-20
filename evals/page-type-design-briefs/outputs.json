@@ -1,0 +1,672 @@
+{
+  "cases": [
+    {
+      "id": "bramblewood-four-types-option-chosen",
+      "prompt": "Use the page-type-design-briefs skill for Bramblewood Plumbing (slug bramblewood-plumbing). The pages are written in content/, the client reference kit is in client-reference/bramblewoodplumbing/, the homepage design brief is in design/bramblewood-plumbing/ and the client's feedback on the homepage options is in feedback/bramblewood-plumbing/. Today is 2026-10-20. Write the page-type design briefs for the design team.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/client-reference/bramblewoodplumbing/audience.md",
+          "dest": "client-reference/bramblewoodplumbing/audience.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/client-reference/bramblewoodplumbing/brand.md",
+          "dest": "client-reference/bramblewoodplumbing/brand.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/client-reference/bramblewoodplumbing/voice.md",
+          "dest": "client-reference/bramblewoodplumbing/voice.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/batch-summary.md",
+          "dest": "content/batch-summary.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/drain-cleaning/article.md",
+          "dest": "content/drain-cleaning/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/drain-cleaning/metadata.md",
+          "dest": "content/drain-cleaning/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/plumber-north-bend/article.md",
+          "dest": "content/plumber-north-bend/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/plumber-north-bend/metadata.md",
+          "dest": "content/plumber-north-bend/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/water-heater-repair/article.md",
+          "dest": "content/water-heater-repair/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/content/water-heater-repair/metadata.md",
+          "dest": "content/water-heater-repair/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/design/bramblewood-plumbing/bramblewood-plumbing-homepage-design-brief.md",
+          "dest": "design/bramblewood-plumbing/bramblewood-plumbing-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/feedback/bramblewood-plumbing/2026-10-16-feedback.md",
+          "dest": "feedback/bramblewood-plumbing/2026-10-16-feedback.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/research/content-briefs/drain-cleaning.md",
+          "dest": "research/content-briefs/drain-cleaning.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/research/content-briefs/water-heater-repair.md",
+          "dest": "research/content-briefs/water-heater-repair.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "<fill>"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Page Types\\s*$.*^## Service Pages\\s*$.*^## Location Pages\\s*$.*^## About Page\\s*$.*^## Contact Page\\s*$.*^## Open Questions\\s*$.*^## Hand-off\\s*$.*^## Sources\\s*$",
+          "label": "one section per page type found, in order"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?m)^## Resource Pages",
+          "label": "no section for a page type with no pages"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?m)^Homepage direction: Option B \\(feedback/bramblewood-plumbing/2026-10-16-feedback\\.md\\)\\s*$",
+          "label": "chosen homepage option read from feedback"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*- `content/drain-cleaning/article\\.md`",
+          "label": "service page 1 listed under services"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*- `content/water-heater-repair/article\\.md`",
+          "label": "service page 2 listed under services"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?m)^- `content/home/article\\.md`",
+          "label": "homepage not briefed as a page type"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?m)^Words: 228 to 317 \\(2 pages\\)\\s*$",
+          "label": "service length range computed"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*\\|\\s*2\\s*\\|\\s*How We Serve\\s*\\|",
+          "label": "location content map follows the page sections"
+        },
+        {
+          "type": "contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "[NEEDS INPUT: office hours]"
+        },
+        {
+          "type": "contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "[NEEDS INPUT: Washington plumbing contractor license number]"
+        },
+        {
+          "type": "contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "[NEEDS INPUT: drain cleaning guarantee terms, if any]"
+        },
+        {
+          "type": "contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "#1F5C63"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?i)\\b\\d+\\s?(px|pt|rem)\\b|\\bcarousels?\\b|\\bsliders?\\b|\\bfull[- ]width\\b|\\bsticky\\b|\\bdrop shadow|\\bgradient|\\b(two|three|2|3)[- ]column",
+          "label": "no visual design prescribed"
+        },
+        {
+          "type": "not_contains",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "text": "batch-summary"
+        },
+        {
+          "type": "rubric",
+          "target": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "context": [
+            "client-reference/bramblewoodplumbing/brand.md",
+            "client-reference/bramblewoodplumbing/voice.md",
+            "client-reference/bramblewoodplumbing/audience.md",
+            "design/bramblewood-plumbing/bramblewood-plumbing-homepage-design-brief.md"
+          ],
+          "criteria": [
+            "The brief describes content structure and brand constraints for each page type and never tells the designer how a section should look (layout patterns, imagery style, visual effects or type treatments are not prescribed).",
+            "The brand rules in brand.md that limit design (copper only on the main call to action, no red anywhere) are carried into the brief as constraints, and no brand fact appears that the kit files or the homepage design brief given as reference do not state."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Service Pages: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Location Pages: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "About Page: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Contact Page: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?Option B",
+          "label": "service template names the chosen Option B"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?Option B",
+          "label": "contact template names the chosen Option B"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Contact Page: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Contact Page: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Contact Page: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Contact Page: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Contact Page\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Contact Page: Homepage Relationship written"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/bramblewood-plumbing/bramblewood-plumbing-page-type-design-briefs.md",
+          "pattern": "(?i)van photo",
+          "label": "client's change request to Option B not relayed"
+        }
+      ]
+    },
+    {
+      "id": "oakmere-no-option-chosen-no-colours",
+      "prompt": "Use the page-type-design-briefs skill for Oakmere Veterinary Clinic (slug oakmere-vet). Everything is in this folder: the written pages in content/, the kit in client-reference/oakmerevet/, the homepage design brief and the client's feedback. Today is 2026-10-20. Write the page-type design briefs so Design can start on the templates.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/client-reference/oakmerevet/audience.md",
+          "dest": "client-reference/oakmerevet/audience.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/client-reference/oakmerevet/brand.md",
+          "dest": "client-reference/oakmerevet/brand.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/about-us/article.md",
+          "dest": "content/about-us/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/dog-dental-cleaning/article.md",
+          "dest": "content/dog-dental-cleaning/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/dog-dental-cleaning/metadata.md",
+          "dest": "content/dog-dental-cleaning/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/how-often-should-dogs-get-teeth-cleaned/article.md",
+          "dest": "content/how-often-should-dogs-get-teeth-cleaned/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/how-often-should-dogs-get-teeth-cleaned/metadata.md",
+          "dest": "content/how-often-should-dogs-get-teeth-cleaned/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/content/vet-clinic-ashby/article.md",
+          "dest": "content/vet-clinic-ashby/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/design/oakmere-vet/oakmere-vet-homepage-design-brief.md",
+          "dest": "design/oakmere-vet/oakmere-vet-homepage-design-brief.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/feedback/oakmere-vet/2026-10-17-feedback.md",
+          "dest": "feedback/oakmere-vet/2026-10-17-feedback.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/oakmere/research/content-briefs/how-often-should-dogs-get-teeth-cleaned.md",
+          "dest": "research/content-briefs/how-often-should-dogs-get-teeth-cleaned.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "text": "<fill>"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Page Types\\s*$.*^## Service Pages\\s*$.*^## Location Pages\\s*$.*^## About Page\\s*$.*^## Resource Pages\\s*$.*^## Open Questions\\s*$",
+          "label": "service, location, about and resource sections in order"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?m)^## Contact Page",
+          "label": "no contact section (no contact page written)"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*- `content/dog-dental-cleaning/article\\.md`",
+          "label": "service page classified from its URL"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*- `content/how-often-should-dogs-get-teeth-cleaned/article\\.md`",
+          "label": "blog explainer classified as resource"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?m)^Homepage direction: direction not chosen yet\\s*$",
+          "label": "no option recorded"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Open Questions\\s*$(?:(?!^## ).)*direction not chosen yet",
+          "label": "open question says direction not chosen yet"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "\\bOption [A-Z0-9]\\b",
+          "label": "no homepage option guessed"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "#[0-9A-Fa-f]{6}\\b",
+          "label": "no colour values invented"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?m)^- GAP:.*colou?r",
+          "label": "missing colours are a GAP"
+        },
+        {
+          "type": "contains",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "text": "[NEEDS SOURCE: study on dental chews and plaque reduction]"
+        },
+        {
+          "type": "contains",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "text": "[NEEDS INPUT: parking details]"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?i)\\b\\d+\\s?(px|pt|rem)\\b|\\bcarousels?\\b|\\bsliders?\\b|\\bfull[- ]width\\b|\\bsticky\\b|\\bdrop shadow|\\bgradient|\\b(two|three|2|3)[- ]column",
+          "label": "no visual design prescribed"
+        },
+        {
+          "type": "rubric",
+          "target": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "context": [
+            "client-reference/oakmerevet/brand.md",
+            "feedback/oakmere-vet/2026-10-17-feedback.md",
+            "client-reference/oakmerevet/audience.md"
+          ],
+          "criteria": [
+            "Because the client has not chosen a homepage design, the brief never says which homepage design the templates follow or what it looks like; it says the direction is not chosen and leaves that relationship open.",
+            "No brand colour, font or logo detail is stated as fact; the brief treats them as open because brand.md says they are not confirmed."
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Service Pages: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Location Pages: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "About Page: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Pages\\s*$(?:(?!^## ).)*?^### Content Map\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^## ).)*?^### Content Length\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^## ).)*?^### Consistent and Variable\\s*$",
+          "label": "Resource Pages: nine subsections in order"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?direction not chosen yet",
+          "label": "resource template says direction not chosen yet"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Service Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Service Pages: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Location Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Location Pages: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## About Page\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "About Page: Homepage Relationship written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Repeating Blocks\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Resource Pages: Repeating Blocks written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### CTAs\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Resource Pages: CTAs written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Brand Reference\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Resource Pages: Brand Reference written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Responsive Priorities\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Resource Pages: Responsive Priorities written"
+        },
+        {
+          "type": "regex",
+          "path": "design/oakmere-vet/oakmere-vet-page-type-design-briefs.md",
+          "pattern": "(?ms)^## Resource Pages\\s*$(?:(?!^## ).)*?^### Homepage Relationship\\s*$(?:(?!^##).)*?^- (?!<fill>)\\S",
+          "label": "Resource Pages: Homepage Relationship written"
+        }
+      ]
+    },
+    {
+      "id": "no-pages-written-stops",
+      "prompt": "Use the page-type-design-briefs skill for Linden Hill Roofing (slug linden-hill-roofing). The kit is in client-reference/lindenhillroofing/. Write the page-type design briefs.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/bramblewood/client-reference/bramblewoodplumbing/brand.md",
+          "dest": "client-reference/lindenhillroofing/brand.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "design/linden-hill-roofing/linden-hill-roofing-page-type-design-briefs.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)seo-content-writer|no pages|not (been )?written|write the pages",
+          "label": "says the pages must be written first"
+        }
+      ]
+    }
+  ]
+}
