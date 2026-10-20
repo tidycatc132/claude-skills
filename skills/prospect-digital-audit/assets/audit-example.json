@@ -43,8 +43,9 @@
     "ai_written_blogs": "No"
   },
   "ai_visibility": {
-    "gemini": "No",
     "chatgpt": "No",
+    "claude": "No",
+    "gemini": "No",
     "other": "No"
   },
   "tracking": {
@@ -85,28 +86,28 @@
     {
       "keyword": "water heater repair",
       "searches_per_month": 880,
-      "city": "Austin",
+      "city": "Austin, Round Rock, Cedar Park, Georgetown",
       "reason": "Prospect said water heaters are their biggest earner (row 5); 880 US searches/month"
     },
     {
       "keyword": "drain cleaning",
       "searches_per_month": 720,
-      "city": "Round Rock"
+      "city": "Austin, Round Rock, Cedar Park, Georgetown"
     },
     {
       "keyword": "emergency plumber",
       "searches_per_month": 1300,
-      "city": "Cedar Park"
+      "city": "Austin, Round Rock, Cedar Park, Georgetown"
     },
     {
       "keyword": "sewer line repair",
       "searches_per_month": 210,
-      "city": "Georgetown"
+      "city": "Austin"
     },
     {
       "keyword": "leak detection",
       "searches_per_month": 170,
-      "city": "Pflugerville"
+      "city": "Austin"
     }
   ],
   "observations": [
@@ -164,18 +165,6 @@
       "organic_position": null
     },
     {
-      "keyword": "sewer line repair",
-      "city": "Round Rock",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "leak detection",
-      "city": "Round Rock",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
       "keyword": "water heater repair",
       "city": "Cedar Park",
       "maps_position": null,
@@ -189,18 +178,6 @@
     },
     {
       "keyword": "emergency plumber",
-      "city": "Cedar Park",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "sewer line repair",
-      "city": "Cedar Park",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "leak detection",
       "city": "Cedar Park",
       "maps_position": null,
       "organic_position": null
@@ -220,48 +197,6 @@
     {
       "keyword": "emergency plumber",
       "city": "Georgetown",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "sewer line repair",
-      "city": "Georgetown",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "leak detection",
-      "city": "Georgetown",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "water heater repair",
-      "city": "Pflugerville",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "drain cleaning",
-      "city": "Pflugerville",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "emergency plumber",
-      "city": "Pflugerville",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "sewer line repair",
-      "city": "Pflugerville",
-      "maps_position": null,
-      "organic_position": null
-    },
-    {
-      "keyword": "leak detection",
-      "city": "Pflugerville",
       "maps_position": null,
       "organic_position": null
     }
@@ -271,7 +206,8 @@
     "ada_compliant": "no accessibility software and the quick screen fails: pages/home.html: 6 images without alt, 2 unlabelled fields",
     "mobile_lcp_seconds": "PageSpeed Insights field LCP (28-day p75) 6.8 s on mobile",
     "desktop_lcp_seconds": "PageSpeed Insights lab LCP 2.9 s on desktop (no field data)",
-    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.8 s"
+    "mobile_speed_seconds": "PageSpeed Insights mobile Speed Index 6.8 s",
+    "claude": "Spot check: 5 keyword prompts and one brand question asked of Claude with web search; the brand was not named."
   },
   "sources": {
     "meta_titles": "SE Ranking audit report, Pages with long titles",

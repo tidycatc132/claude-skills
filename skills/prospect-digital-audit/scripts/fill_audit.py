@@ -23,6 +23,10 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 
 DIRECTORY_TOTAL = 21
+MAIN_LOCATION_KEYWORDS = 5
+EXTRA_LOCATION_KEYWORDS = 3
+MAX_LOCATIONS = 4
+MAX_RANKING_ROWS = MAIN_LOCATION_KEYWORDS + (MAX_LOCATIONS - 1) * EXTRA_LOCATION_KEYWORDS
 
 # Left and right result tables: label in the template -> JSON key.
 # The result sits two columns to the right of the label.
@@ -64,8 +68,9 @@ UNDER_HEADER = {
     "# of Core Pages": ("content", "core_pages"),
     "# of Blog Posts": ("content", "blog_posts"),
     "AI-Written Blogs": ("content", "ai_written_blogs"),
-    "Google (Gemini)": ("ai_visibility", "gemini"),
     "ChatGPT": ("ai_visibility", "chatgpt"),
+    "Claude": ("ai_visibility", "claude"),
+    "Google (Gemini)": ("ai_visibility", "gemini"),
     "Google Analytics": ("tracking", "google_analytics"),
     "Google Tag Manager": ("tracking", "google_tag_manager"),
     "# of Business Locations": ("tracking", "business_locations"),
@@ -109,6 +114,26 @@ def put(grid, r, c, value):
     grid[r][c] = "" if value is None else str(value)
 
 
+def check_rankings(ranks):
+    """Problems with the rankings list: locations in order of first appearance."""
+    per_city = {}
+    for row in ranks:
+        per_city.setdefault(row.get("city", ""), []).append(row.get("keyword", ""))
+    problems = []
+    if not per_city:
+        return ["rankings is empty"]
+    if len(per_city) > MAX_LOCATIONS:
+        problems.append(f"rankings cover {len(per_city)} locations; the limit is {MAX_LOCATIONS} (1 main + {MAX_LOCATIONS - 1} additional)")
+    for i, (city, keywords) in enumerate(per_city.items()):
+        want = MAIN_LOCATION_KEYWORDS if i == 0 else EXTRA_LOCATION_KEYWORDS
+        label = "main location" if i == 0 else "additional location"
+        if len(keywords) != want:
+            problems.append(f"rankings: {label} {city!r} must have {want} keywords, got {len(keywords)}")
+        if len(set(keywords)) != len(keywords):
+            problems.append(f"rankings: {city!r} repeats a keyword")
+    return problems
+
+
 def fill(grid, data, problems):
     def need(section, key):
         sec = data.get(section, {})
@@ -143,12 +168,13 @@ def fill(grid, data, problems):
             problems.append(f"template label not found: {label}")
             continue
         put(grid, hit[0] + 1, hit[1], need(section, key))
-    # "Other" appears twice (AI visibility and ads); the AI one is in the Gemini row.
-    gem = find(grid, "Google (Gemini)")
-    if gem:
-        for c in range(gem[1], len(grid[gem[0]])):
-            if norm(grid[gem[0]][c]) == "Other":
-                put(grid, gem[0] + 1, c, need("ai_visibility", "other"))
+    # "Other" appears twice (AI visibility and ads); the AI one is in the same row as ChatGPT.
+    # The AI engines run in alphabetical order, with Other last.
+    first = find(grid, "ChatGPT")
+    if first:
+        for c in range(first[1], len(grid[first[0]])):
+            if norm(grid[first[0]][c]) == "Other":
+                put(grid, first[0] + 1, c, need("ai_visibility", "other"))
 
     # Reviews: stars row then review-count row.
     for label, key in REVIEW_COLUMNS.items():
@@ -209,17 +235,17 @@ def fill(grid, data, problems):
         for i, text in enumerate(obs[:5]):
             put(grid, hdr[0] + 1 + i, hdr[1], text)
 
-    # Rankings breakdown: 25 rows under the "Keywords" header.
+    # Rankings breakdown: up to 4 locations (1 main + 3 additional); the main location
+    # has 5 keywords and each additional location 3.
     ranks = data.get("rankings", [])
-    if len(ranks) != 25:
-        problems.append(f"rankings must have 25 entries, got {len(ranks)}")
+    problems.extend(check_rankings(ranks))
     hdr = find(grid, "Keywords", start_row=find(grid, "Search Rankings Breakdown")[0]
                if find(grid, "Search Rankings Breakdown") else 0)
     maps_hits = organic_hits = 0
     if hdr:
         maps_col = find(grid, "Top 3 (Maps)", start_row=hdr[0])[1]
         org_col = find(grid, "1st Page (Organic)", start_row=hdr[0])[1]
-        for i, row in enumerate(ranks[:25]):
+        for i, row in enumerate(ranks[:MAX_RANKING_ROWS]):
             r = hdr[0] + 1 + i
             put(grid, r, hdr[1], row.get("keyword", ""))
             put(grid, r, hdr[1] + 1, row.get("city", ""))
@@ -228,6 +254,9 @@ def fill(grid, data, problems):
             put(grid, r, org_col, o if o else "-")
             maps_hits += 1 if m and int(m) <= 3 else 0
             organic_hits += 1 if o and int(o) <= 10 else 0
+    # Drop the template's unused ranking rows (the grid is the last block in the sheet).
+    if hdr and len(ranks) < MAX_RANKING_ROWS:
+        del grid[hdr[0] + 1 + max(len(ranks), 5):]
     # The template puts each count in the first filled cell below its label.
     for label, value in (("Top 3 Maps Rankings", maps_hits), ("Top 10 Organic Rankings", organic_hits)):
         hit = find(grid, label)
@@ -279,16 +308,17 @@ METHODS = {
     "ui.original_content": "Key pages checked for own photos or video versus stock-only imagery.",
     "ui.clear_customer_journey": "Every core service reachable from the homepage in one click, and each service page points to a next step.",
     "ui.clear_conversion_path": "Every key page has a visible call or form CTA above the fold on mobile.",
-    "ui.cwv_overall": "PageSpeed Insights for the homepage: field-data Core Web Vitals assessment on mobile, or lab thresholds (LCP 2.5 s, CLS 0.1, TBT 200 ms) when there is no field data.",
-    "ui.desktop_optimization": "PageSpeed Insights desktop Lighthouse performance score.",
-    "ui.desktop_speed_seconds": "PageSpeed Insights desktop lab Speed Index, in seconds.",
-    "ui.desktop_lcp_seconds": "PageSpeed Insights desktop Largest Contentful Paint: the 28-day field value (75th percentile) when Google has one, otherwise the lab value, in seconds.",
-    "ui.mobile_optimization": "PageSpeed Insights mobile Lighthouse performance score.",
-    "ui.mobile_speed_seconds": "PageSpeed Insights mobile lab Speed Index on simulated 4G, in seconds.",
-    "ui.mobile_lcp_seconds": "PageSpeed Insights mobile Largest Contentful Paint: the 28-day field value (75th percentile) when Google has one, otherwise the lab value on simulated 4G, in seconds.",
+    "ui.cwv_overall": "Homepage Core Web Vitals: field-data assessment on mobile (SE Ranking audit or PageSpeed Insights), or GTmetrix lab thresholds (LCP 2.5 s, CLS 0.1, TBT 200 ms) when there is no field data.",
+    "ui.desktop_optimization": "GTmetrix homepage test on a desktop profile: Performance score (PageSpeed Insights desktop Lighthouse score if GTmetrix was unavailable).",
+    "ui.desktop_speed_seconds": "GTmetrix desktop Speed Index, in seconds.",
+    "ui.desktop_lcp_seconds": "GTmetrix desktop Largest Contentful Paint (lab value), in seconds.",
+    "ui.mobile_optimization": "GTmetrix homepage test on a mobile profile with throttled 4G: Performance score (PageSpeed Insights mobile Lighthouse score if GTmetrix was unavailable).",
+    "ui.mobile_speed_seconds": "GTmetrix mobile Speed Index on throttled 4G, in seconds.",
+    "ui.mobile_lcp_seconds": "GTmetrix mobile Largest Contentful Paint (lab value) on throttled 4G, in seconds.",
     "content.core_pages": "Sitemap URLs that are service, location, industry, pricing or about pages; blog, legal, offer and thank-you pages excluded.",
     "content.blog_posts": "Post count from the post sitemap.",
     "content.ai_written_blogs": "The 3 most recent posts judged for generic intros, no first-hand detail, listicle structure and stock phrases; Yes if 2 of 3 show 3 or more signs.",
+    "ai_visibility.claude": "Spot check: the 5 keyword prompts asked of Claude with web search; Yes if the brand or domain is named in any answer. SE Ranking does not report Claude.",
     "ai_visibility.gemini": "SE Ranking AI search data: domain cited or brand mentioned for any prompt in Google AI Overviews or AI Mode.",
     "ai_visibility.chatgpt": "SE Ranking AI search data: domain cited or brand mentioned for any ChatGPT prompt.",
     "ai_visibility.other": "SE Ranking AI search data for Perplexity and any other engine reported.",
@@ -303,7 +333,7 @@ METHODS = {
     "reviews.facebook": "Stars and review count read from the Facebook page.",
     "directories": "21 fixed directories searched by business name, city and site; each listing compared with the website's name, address and phone. Error rate = (Inaccurate + Not Found) / 21; Unchecked directories are not counted as errors.",
     "keyword_groups": "Services the prospect stressed on the call, phrased as customers search (no city), with SE Ranking US monthly volume. Volumes are national, not per city.",
-    "rankings": "One city-targeted SE Ranking SERP per keyword and city, read for the local pack (positions 1 to 3) and organic page one (positions 1 to 10) by domain or business name.",
+    "rankings": "One city-targeted SE Ranking SERP per keyword and location: 5 keywords for the main location and 3 for each of up to 3 additional locations (14 searches at most), read for the local pack (positions 1 to 3) and organic page one (positions 1 to 10) by domain or business name.",
     "observations": "Written from the findings above, tied to what the prospect said on the call where possible, biggest business impact first.",
 }
 
@@ -423,7 +453,7 @@ def save(grid, out_xlsx, data=None):
                 cell.fill = fill_
             if norm(value) in bold_labels or norm(value).endswith(("Content", "Performance", "Result")):
                 cell.font = Font(bold=True)
-    for col, width in zip("ABCDEFG", (34, 16, 18, 4, 40, 16, 18)):
+    for col, width in zip("ABCDEFGH", (34, 16, 18, 4, 40, 16, 18, 16)):
         ws.column_dimensions[col].width = width
     if data is not None:
         add_how_sheet(wb, data)
