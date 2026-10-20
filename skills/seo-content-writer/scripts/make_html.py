@@ -14,7 +14,7 @@ Structure produced (no JavaScript, every fact in the initial HTML):
     <section class="sources">     the `## Sources` section
   </article>
 
-A homepage's `<!-- section: Name -->` markers are never printed: each becomes a
+A client page's (homepage, About, Contact, location) `<!-- section: Name -->` markers are never printed: each becomes a
 `data-section="name"` attribute on the section it opens (Hero goes on <header>
 and the intro), so the design brief can map content sections to layout.
 

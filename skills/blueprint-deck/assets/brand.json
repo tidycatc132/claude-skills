@@ -1,0 +1,34 @@
+{
+  "agency": "WISE Digital Partners",
+  "source": "WISE Digital Partners Design System artifact: project/tokens.json, project/README.md, project/assets/wise-logo.png (copied 2026-10-20)",
+  "logo": "wise-logo.png",
+  "logo_size_px": [640, 264],
+  "fonts": {
+    "heading": "Montserrat",
+    "body": "Montserrat",
+    "note": "The brand guide names Proxima Nova for body text, a paid typeface. Montserrat is the approved stand-in until it is licensed; change `body` here then."
+  },
+  "colors": {
+    "white": "FFFFFF",
+    "gray_100": "F7F7F7",
+    "gray_200": "CCCCCC",
+    "gray_300": "7A7A7A",
+    "gray_400": "505858",
+    "gray_700": "051011",
+    "gray_800": "111111",
+    "green": "019F44",
+    "green_dark": "017A34",
+    "green_70": "4DBC7C",
+    "green_40": "99D9B4",
+    "green_10": "E5F5EC",
+    "green_5": "F2FAF6",
+    "gradient_start": "020506",
+    "gradient_end": "061012"
+  },
+  "usage": {
+    "headings": "gray_800, semibold",
+    "body": "gray_400 on white and tints (gray_300 is below 4.5:1 for small text)",
+    "accent": "green, held to one or two moments per slide",
+    "dark": "gradient_start to gradient_end with white text, for section dividers"
+  }
+}

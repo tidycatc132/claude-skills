@@ -1,0 +1,15 @@
+{
+  "name": "client-feedback-to-page-type-design-briefs",
+  "version": 1,
+  "producer": "client-feedback",
+  "consumer": "page-type-design-briefs",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-homepage-choice.json",
+  "keys": [
+    "## Feedback Items",
+    "homepage design",
+    "approval",
+    "design"
+  ],
+  "consumer_cmd": "python3 skills/page-type-design-briefs/scripts/ptdb.py choice {fixture}"
+}
