@@ -1,0 +1,359 @@
+{
+ "cases": [
+  {
+   "id": "larkspur-full-deck",
+   "prompt": "Build the Growth Blueprint deck for Larkspur Family Dental (kickoff slug larkspur-dental). The Blueprint and the quote bank are in the working folder, which is the current folder. Date the deck 2026-10-20.",
+   "fixtures": [
+    {
+     "src": "fixtures/blueprint-deck/larkspur/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-quote-bank.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-quote-bank.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-context.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+    },
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md"
+    },
+    {
+     "type": "json_valid",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "text": "—"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "(?i)prescri"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| em-dashes \\| PASS \\| 0 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| prescribe \\| PASS \\| 0 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| figures \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| quotes \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 13 \\| 11 \\| yes \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "(?s)(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.).*(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.).*(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.)"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "RESULT: (PASS|NEEDS_INPUT)"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^RESULT: (PASS|NEEDS_INPUT)$"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 9 \\| 1,?300 \\| yes \\|"
+    },
+    {
+     "type": "contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "text": "\"larkspurdental.com\""
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 7 \\| 54\\.0% \\| yes \\|"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| needs input \\|[^\\n]*slide (?:2|3|6|7|8|9|10|13)(?!\\d)"
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "criteria": [
+      "This is the plan of a client slide deck, one object per slide. Every content slide's headline (the `headline` field, not the `eyebrow`) states a conclusion as a full sentence, such as 'Nobody in Boise owns emergency dental search yet', never a topic label such as 'Competitive Landscape' or 'Our Team'. Cover and section dividers are exempt."
+     ]
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "criteria": [
+      "The diagnosis slide's headline names a single problem the client has today, rather than listing several problems or describing an opportunity. (The stat count and line count are checked elsewhere; judge only the headline.)"
+     ]
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "criteria": [
+      "The not-doing slide gives, for every item, the reason it is not being done as a full sentence, and names the event that would make it worth revisiting (a short phrase is fine for the trigger). It is not a bare list of service names."
+     ]
+    },
+    {
+     "type": "rubric",
+     "target": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "criteria": [
+      "Every content slide (all slides except the cover and the three section dividers) has speaker notes that say what to say, name one number or point to emphasise, and name the likely pushback."
+     ]
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| diagnosis\\: one stat \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| diagnosis\\: two lines at most \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| has to be true \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| notes fields \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| headlines \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| not doing\\: 2 to 5 items \\| PASS \\|"
+    }
+   ]
+  },
+  {
+   "id": "larkspur-no-competitor-report",
+   "prompt": "Build the Blueprint deck for larkspur-dental from the Blueprint in this folder. Date it 2026-10-20.",
+   "fixtures": [
+    {
+     "src": "fixtures/blueprint-deck/larkspur-no-competitors/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-quote-bank.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-quote-bank.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-context.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+    },
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md"
+    },
+    {
+     "type": "json_valid",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "text": "—"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "(?i)prescri"
+    },
+    {
+     "type": "not_contains",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "text": "[WRITE:"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| em-dashes \\| PASS \\| 0 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| prescribe \\| PASS \\| 0 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| figures \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| quotes \\| PASS \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 13 \\| 11 \\| yes \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "(?s)(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.).*(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.).*(?:When someone cracks a tooth on a Saturday night, I want us to be the first name they find\\.|Half our new patients tell us they hadn't seen a dentist in five years because they were scared\\.|We never want to sound like a used-car lot\\. Calm, clear, no pressure\\.|Implants change people's lives, and most people don't know we do them\\.|Meridian families drive past three dentists to get to us\\.|We see emergencies the same day, every weekday, no exceptions\\.|I'd love for kids to actually look forward to coming in\\.|If the site can just explain sedation without making it scary, that's a win\\.)"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "RESULT: NEEDS_INPUT"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^RESULT: NEEDS_INPUT$"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "NEEDS INPUT: a saved competitor-analysis report"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-plan.json",
+     "pattern": "54\\.0|4,?820|2,?960|\\b312\\b|\\b188\\b"
+    }
+   ]
+  },
+  {
+   "id": "edited-deck-check",
+   "prompt": "Jordan edited the Larkspur Family Dental Blueprint deck (slug larkspur-dental) in PowerPoint before sending it. Check the edited deck in this folder is still compliant against the Blueprint and the quote bank, and write the compliance file. Don't change the deck.",
+   "fixtures": [
+    {
+     "src": "fixtures/blueprint-deck/larkspur/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/edited-deck/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-quote-bank.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-quote-bank.md"
+    },
+    {
+     "src": "fixtures/blueprint-deck/larkspur/kickoff/larkspur-dental/larkspur-dental-context.md",
+     "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "RESULT: FAIL"
+    },
+    {
+     "type": "file_exists",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^RESULT: FAIL$"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| em-dashes \\| FAIL \\| 1 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| prescribe \\| FAIL \\| 1 found \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| quotes \\| FAIL \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 2 \\| 2,000 \\| no \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 2 \\| 1,300 \\| yes \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 4 \\| 212 \\| yes \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 5 \\| 90 \\| no \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 5 \\| quote not word for word \\| [^|]+ \\| Implants change people's lives, and most people \\|"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 5 \\| quote not word for word \\| [^|]+ \\| the calm, same-day family practice"
+    },
+    {
+     "type": "not_regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| 5 \\| quote not word for word \\| [^|]+ \\| We never want"
+    },
+    {
+     "type": "regex",
+     "path": "blueprint/larkspur-dental/larkspur-dental-deck-compliance.md",
+     "pattern": "(?m)^\\| quotes \\| FAIL \\| 4 quotes, 3 not word for word"
+    }
+   ]
+  }
+ ]
+}
