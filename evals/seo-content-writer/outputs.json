@@ -643,6 +643,435 @@
           ]
         }
       ]
+    },
+    {
+      "id": "copperleaf-batch-about-contact",
+      "prompt": "Use the seo-content-writer skill to write all the briefs in research/content-briefs/ for Copperleaf Tree Care. The client's files are in client-reference/copperleaftree/. There is no WebFetch, WebSearch or internet access in this session.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/content-briefs/about-copperleaf-tree-care.md",
+          "dest": "research/content-briefs/about-copperleaf-tree-care.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/content-briefs/about-copperleaf-tree-care.v1.md",
+          "dest": "research/content-briefs/about-copperleaf-tree-care.v1.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/content-briefs/contact-copperleaf-tree-care.md",
+          "dest": "research/content-briefs/contact-copperleaf-tree-care.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/content-briefs/home.md",
+          "dest": "research/content-briefs/home.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/content-briefs/emergency-tree-removal.md",
+          "dest": "research/content-briefs/emergency-tree-removal.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/content/home/qa_report.md",
+          "dest": "content/home/qa_report.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/content/emergency-tree-removal/article.md",
+          "dest": "content/emergency-tree-removal/article.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/content/emergency-tree-removal/qa_report.md",
+          "dest": "content/emergency-tree-removal/qa_report.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/client-reference/copperleaftree/brand.md",
+          "dest": "client-reference/copperleaftree/brand.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/about/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/about/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/about/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/about/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/about/handoff.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/contact/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/contact/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/contact/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/contact/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/contact/handoff.md"
+        },
+        {
+          "type": "contains",
+          "path": "content/home/article.md",
+          "text": "WEEK-1-HOMEPAGE-SENTINEL",
+          "label": "the existing homepage is skipped, not rewritten"
+        },
+        {
+          "type": "file_absent",
+          "path": "content/home/handoff.md",
+          "label": "no homepage rewrite"
+        },
+        {
+          "type": "contains",
+          "path": "content/emergency-tree-removal/article.md",
+          "text": "EMERGENCY-PAGE-SENTINEL",
+          "label": "an existing page is skipped, not rewritten"
+        },
+        {
+          "type": "file_absent",
+          "path": "content/emergency-tree-removal/handoff.md",
+          "label": "no rewrite of an existing page"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/qa_report.md",
+          "pattern": "VERDICT: NEEDS_INPUT",
+          "label": "About page: QA ran, no FAILs, the brief's open client inputs stay open"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/qa_report.md",
+          "pattern": "\\| About page sections in order \\| PASS \\|",
+          "label": "About page mode ran"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/qa_report.md",
+          "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
+          "label": "About page: no client fact beyond the files"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/article.md",
+          "pattern": "<!-- section: Hero -->.*<!-- section: Company Story -->.*<!-- section: Mission and Values -->.*<!-- section: Team -->.*<!-- section: Credentials -->.*<!-- section: Final CTA -->",
+          "label": "About sections in order"
+        },
+        {
+          "type": "contains",
+          "path": "content/about/article.md",
+          "text": "PN-7731A",
+          "label": "the stated certification number, exact"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/article.md",
+          "pattern": "(?i)\\[(NEEDS INPUT|CLIENT INPUT NEEDED #\\d+):[^\\]]*crew",
+          "label": "crew names are a flag"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/article.md",
+          "pattern": "(?i)\\[(NEEDS INPUT|CLIENT INPUT NEEDED #\\d+):[^\\]]*(insurance|registration)",
+          "label": "insurance and registration are a flag"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/about/article.md",
+          "pattern": "(?i)\\b(licensed|insured|bonded|award[- ]winning|top[- ]rated|\\d(\\.\\d)?[- ]star|\\d+\\+? (google |online )?reviews)\\b|★",
+          "label": "no invented credentials, ratings or review counts"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/about/article.md",
+          "pattern": "(?im)^\\**by\\s",
+          "label": "no article byline"
+        },
+        {
+          "type": "regex",
+          "path": "content/about/article.md",
+          "pattern": "\\]\\(/free-estimate/?\\)",
+          "label": "conversion link"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/qa_report.md",
+          "pattern": "VERDICT: NEEDS_INPUT",
+          "label": "Contact page: QA ran, no FAILs, hours stay open"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/qa_report.md",
+          "pattern": "\\| Contact page sections in order \\| PASS \\|",
+          "label": "Contact page mode ran"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/qa_report.md",
+          "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
+          "label": "Contact page: no client fact beyond the files"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/article.md",
+          "pattern": "<!-- section: Hero -->.*<!-- section: Contact Form -->.*<!-- section: Phone and Email -->.*<!-- section: Address and Hours -->.*<!-- section: Map -->.*<!-- section: Final CTA -->",
+          "label": "Contact sections in order"
+        },
+        {
+          "type": "contains",
+          "path": "content/contact/article.md",
+          "text": "(509) 555-0142",
+          "label": "phone, exact"
+        },
+        {
+          "type": "contains",
+          "path": "content/contact/article.md",
+          "text": "office@copperleaftree.com",
+          "label": "email, exact"
+        },
+        {
+          "type": "contains",
+          "path": "content/contact/article.md",
+          "text": "2218 N Argonne Rd",
+          "label": "address, exact"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/article.md",
+          "pattern": "(?i)\\[(NEEDS INPUT|CLIENT INPUT NEEDED #\\d+):[^\\]]*hours",
+          "label": "office hours are a flag"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/contact/article.md",
+          "pattern": "(?i)\\b(mon|tues?|wednes|thurs?|fri|satur|sun)day\\b|\\bm-f\\b|\\b\\d{1,2}(:\\d{2})?\\s?[ap]\\.?m\\b",
+          "label": "no invented opening hours"
+        },
+        {
+          "type": "regex",
+          "path": "content/contact/article.md",
+          "pattern": "<!-- section: Contact Form -->(?:(?!<!-- section:).)*?(?:\\n[ \\t]*(?:[-*]|\\d+[.)])[ \\t][^\\n]+){4}",
+          "label": "the form's fields are listed"
+        },
+        {
+          "type": "contains",
+          "path": "content/batch-summary.md",
+          "text": "| Page | Brief | VERDICT | Open flags |",
+          "label": "one summary table"
+        },
+        {
+          "type": "regex",
+          "path": "content/batch-summary.md",
+          "pattern": "(?m)^\\|[^|\\n]*content/about/[^|\\n]*\\|[^|\\n]*\\|\\s*NEEDS_INPUT\\s*\\|",
+          "label": "summary row: About page NEEDS_INPUT"
+        },
+        {
+          "type": "regex",
+          "path": "content/batch-summary.md",
+          "pattern": "(?m)^\\|[^|\\n]*content/contact/[^|\\n]*\\|[^|\\n]*\\|\\s*NEEDS_INPUT\\s*\\|",
+          "label": "summary row: Contact page NEEDS_INPUT"
+        },
+        {
+          "type": "regex",
+          "path": "content/batch-summary.md",
+          "pattern": "(?m)^\\|[^|\\n]*content/emergency-tree-removal/[^|\\n]*\\|[^|\\n]*\\|\\s*READY\\s*\\|",
+          "label": "summary covers pages that already existed"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/batch-summary.md",
+          "pattern": "\\.v1\\.md",
+          "label": "an older brief version is not a page"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "\\| Page \\| Brief \\| VERDICT \\| Open flags \\|",
+          "label": "the answer includes the summary table"
+        },
+        {
+          "type": "rubric",
+          "target": "content/about/article.md",
+          "context": [
+            "client-reference/copperleaftree/brand.md",
+            "research/content-briefs/about-copperleaf-tree-care.md"
+          ],
+          "criteria": [
+            "The page never says or implies that Rosa Delgado founded, started or established Copperleaf Tree Care (the files say only that she owns it and that it was founded in 2012).",
+            "The Team section names no person other than Rosa Delgado and describes no crew size, crew experience or crew qualification; the crew is a visible input flag.",
+            "Every value in the Mission and Values section is one of the three values in brand.md, without added promises."
+          ]
+        },
+        {
+          "type": "not_contains",
+          "path": "content/about/article.md",
+          "text": "PN-6120B",
+          "label": "the older brief version (.v1) is not used"
+        },
+        {
+          "type": "not_contains",
+          "path": "content/about/article.md",
+          "text": "business day",
+          "label": "no fact carried over from the Contact brief"
+        },
+        {
+          "type": "not_contains",
+          "path": "content/contact/article.md",
+          "text": "parks",
+          "label": "no fact carried over from the About brief"
+        },
+        {
+          "type": "contains",
+          "path": "content/contact/article.md",
+          "text": "one business day",
+          "label": "the Contact brief's own fact is used"
+        }
+      ]
+    },
+    {
+      "id": "copperleaf-location-page",
+      "prompt": "Use the seo-content-writer skill to write the Spokane Valley location page from the brief at research/location/tree-service-spokane-valley.md. The client's files are in client-reference/copperleaftree/. There is no WebFetch, WebSearch or internet access in this session.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/research/location/tree-service-spokane-valley.md",
+          "dest": "research/location/tree-service-spokane-valley.md"
+        },
+        {
+          "src": "fixtures/seo-content-writer/copperleaf/client-reference/copperleaftree/brand.md",
+          "dest": "client-reference/copperleaftree/brand.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/spokane-valley/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/spokane-valley/metadata.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/spokane-valley/article.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/spokane-valley/qa_report.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/spokane-valley/handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/qa_report.md",
+          "pattern": "VERDICT: NEEDS_INPUT",
+          "label": "QA ran, no FAILs, the missing local testimonial stays open"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/qa_report.md",
+          "pattern": "\\| Location page sections in order \\| PASS \\|",
+          "label": "Location page mode ran"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/qa_report.md",
+          "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
+          "label": "no client fact beyond the files"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "<!-- section: Hero -->.*<!-- section: How We Serve -->.*<!-- section: Local Services -->.*<!-- section: Local Proof -->.*<!-- section: Directions -->.*<!-- section: Final CTA -->",
+          "label": "Location sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "<!-- section: Local Proof -->(?:(?!<!-- section:).)*\\b212\\b",
+          "label": "local proof uses the brief's Spokane Valley figure"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "(?i)\\[(NEEDS INPUT|CLIENT INPUT NEEDED #\\d+):[^\\]]*(review|testimonial)",
+          "label": "the missing local testimonial is a flag"
+        },
+        {
+          "type": "contains",
+          "path": "content/spokane-valley/article.md",
+          "text": "2218 N Argonne Rd",
+          "label": "address, exact"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "(?i)\\bI-90\\b|\\binterstate\\b|\\bexit\\s+\\d|\\bfreeway\\b|\\bparking (lot|is|in)\\b",
+          "label": "no invented directions, exits or parking"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "(?i)\\b(licensed|insured|bonded|award[- ]winning|top[- ]rated|\\d(\\.\\d)?[- ]star|\\d+\\+? (google |online )?reviews)\\b|★",
+          "label": "no invented credentials, ratings or review counts"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "(?i)surrounding (area|communities|neighborhoods)|and beyond|greater spokane|inland northwest",
+          "label": "no service area beyond the files"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "\\]\\(/stump-grinding/?\\)",
+          "label": "service link stump grinding"
+        },
+        {
+          "type": "regex",
+          "path": "content/spokane-valley/article.md",
+          "pattern": "\\]\\(/free-estimate/?\\)",
+          "label": "conversion link"
+        },
+        {
+          "type": "contains",
+          "path": "content/spokane-valley/article.html",
+          "text": "data-section=\"local-proof\"",
+          "label": "HTML keeps the section map for design"
+        },
+        {
+          "type": "rubric",
+          "target": "content/spokane-valley/article.md",
+          "context": [
+            "client-reference/copperleaftree/brand.md",
+            "research/location/tree-service-spokane-valley.md"
+          ],
+          "criteria": [
+            "The Liberty Lake testimonial is either left out or clearly attributed to Tom and Ellen Fischer of Liberty Lake; it is never presented as a Spokane Valley customer's words, and it is quoted word for word if used.",
+            "The page does not describe Spokane Valley neighborhoods, streets, landmarks, tree species, weather or local permit rules that neither file states."
+          ]
+        }
+      ]
     }
   ]
 }

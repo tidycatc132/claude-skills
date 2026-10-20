@@ -1,0 +1,17 @@
+I built the Larkspur Blueprint deck, dated 2026-10-20. It has 19 slides, with speaker notes on every slide. The build finished with `RESULT: NEEDS_INPUT`, because four items are still missing. The em-dash, "prescribe", figure and quote checks all passed, so every figure is in the Blueprint and all four quotes match the quote bank word for word.
+
+- **Deck:** `/tmp/harness-eval-wxhl9qtz/blueprint/larkspur-dental/larkspur-dental-growth-blueprint-deck.pptx`
+- **Compliance file:** `/tmp/harness-eval-wxhl9qtz/blueprint/larkspur-dental/larkspur-dental-deck-compliance.md`
+- **Slide plan (to edit and rebuild):** `/tmp/harness-eval-wxhl9qtz/blueprint/larkspur-dental/larkspur-dental-deck-plan.json`
+
+**Still open:**
+- **Competitor report (slides 7 and 8):** the Blueprint has no saved competitor-analysis report for Treasure Valley Smiles, Boise Bright Dental and North End Family Dental. Both competitor slides show the placeholder, and no competitor figures appear anywhere in the deck. The SEO team can supply the report.
+- **Office manager's name (slide 18):** no file names them. The AM can supply it.
+- **Jordan Pike's role (slide 18):** no file gives it. The AM can supply it.
+
+**Before the AM sends it:** the SEO team should check slide 2, which names one constraint (Larkspur has no website, so emergency patients in Boise can't find them). They should also check the competitor figures once the report is added.
+
+I made some choices the Blueprint doesn't dictate, so you may want to look at them:
+- **Slide 14:** I listed three things as left out: the twenty-page insurance-plan site, blog writing, and promised rankings or patient numbers.
+- **Slide 19:** it has six actions. The first, "Walk through this Blueprint and note your questions", is owned by Jordan Pike and timed "Monday". That action is my addition, not from the Blueprint.
+- **Page type:** I set the Emergency Dentist page to the `service` type.

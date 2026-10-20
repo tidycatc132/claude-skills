@@ -1,0 +1,29 @@
+The edited deck is no longer compliant. I ran the skill's check on it, and it wrote the compliance file. I didn't change the deck.
+
+**RESULT: FAIL**
+
+Compliance file: `/tmp/harness-eval-crkh6hz_/blueprint/larkspur-dental/larkspur-dental-deck-compliance.md`
+
+| Check | Result | Detail |
+|---|---|---|
+| em-dashes | FAIL | 1 found |
+| prescribe | FAIL | 1 found |
+| figures | FAIL | 6 figures read, 2 are not in the Blueprint |
+| quotes | FAIL | 4 quotes read, 3 are not word for word in the quote bank |
+| speaker notes | PASS | Every slide has notes. |
+| slides | PASS | 5 slides read. |
+
+**Hits by slide**
+- **Slide 2:** The figure 2,000 is not in the Blueprint.
+- **Slide 3:**
+  - The speaker notes have an em-dash ("Let the quote land — then explain…").
+  - The quote "We never want to sound like a used car lot. Calm, clear and no pressure." is not word for word from the quote bank.
+- **Slide 4:** The word "prescribed" appears.
+- **Slide 5:**
+  - The figure 90 is not in the Blueprint.
+  - The quote "Implants change people's lives, and most people" doesn't match the bank.
+  - The quote "the calm, same-day family practice that treats emergencies and implants under one roof." doesn't match the bank.
+
+The deck has 5 slides, not the 19 a full build produces. The check only covers what is in the file, so slides missing from it aren't flagged.
+
+To fix these, you can edit the plan and rebuild, or I can tell you which slide to change by hand. Jordan should not send the deck until a check passes.

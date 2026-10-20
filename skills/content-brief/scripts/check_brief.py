@@ -7,20 +7,30 @@ Usage:
 
 Checks: front-matter fields and values, format values, required sections and
 their order (YMYL and refresh moves included), question headings in the
-Outline, 5-8 sub-question sections, 8-15 entities, evidence rows with ids,
+Outline, 5-8 sub-question sections (4-8 on About and Contact), 8-15 entities, evidence rows with ids,
 URLs, dates and labels, evidence ids used by the Outline, banned
 instructions (invented-example wording, schema markup, character counts, tool
 or skill names), client-input slot accounting, link tables, and status
 consistency with the concerns.
 
-Homepage briefs (`format: homepage`) also need `page_url: /`, the Outline's
-`- Section:` lines in the homepage order (Why Us, Services Overview, Proof,
-About Snapshot, Service Area, Process, then the CTA as Final CTA), proof or a
-slot in Proof, phone, address and hours (or slots) in Final CTA, and every
-client fact in the brief (phone, address, hours, quoted testimonial, rating,
-review count, founding year, credential word) found in a client file passed
-with --client-dir or --facts. A writer takes the brief's facts as true, so an
-untraced one would reach the page. Prints a `| Check | Result | Detail |` table and
+Client-page briefs carry the writer's section map as `- Section:` lines, in
+order (several H2s may share a section), then an optional FAQ and the CTA as
+Final CTA:
+  homepage       Why Us, Services Overview, Proof, About Snapshot, Service Area, Process
+  about-page     Company Story, Mission and Values, Team, Credentials
+  contact-page   Contact Form, Phone and Email, Address and Hours, Map
+  location-page  How We Serve, Local Services, Local Proof, Directions
+A homepage also needs `page_url: /`, proof or a slot in Proof, and phone,
+address and hours (or slots) in Final CTA. An About page needs proof or a slot
+in Credentials; a Location page in Local Proof; a Contact page a `- Fields:`
+line with three or more fields (or a slot), phone, email, address and hours (or
+slots), and every client page but the homepage a route in Final CTA. About and
+Contact take 4-8 sub-question sections. On homepage, About and Contact briefs
+(on a Location brief, in Local Proof, Directions and Final CTA) every client fact (phone, email, address, hours, quoted testimonial, rating,
+review count, founding year, credential word) must be found in a client file
+passed with --client-dir or --facts. A writer takes the brief's facts as true,
+so an untraced one would reach the page. `selftest_client_pages.py` tests the client-page
+checks; run it after changing them. Prints a `| Check | Result | Detail |` table and
 `GATE: PASS` or `GATE: FAIL`. Exit code 1 on FAIL. Standard library only.
 """
 from __future__ import annotations
@@ -57,7 +67,21 @@ BANNED = re.compile(
     r"\b(writing|drafting|content|SEO) (skill|agent|bot)\b|\bAI (writer|drafting tool)\b"
 )
 UNSCANNED = {"Research Log", "Evidence", "Voice and Style"}
-HOME_SECTIONS = ["Why Us", "Services Overview", "Proof", "About Snapshot", "Service Area", "Process"]
+PAGE_SECTIONS = {
+    "homepage": ["Why Us", "Services Overview", "Proof", "About Snapshot", "Service Area", "Process"],
+    "about-page": ["Company Story", "Mission and Values", "Team", "Credentials"],
+    "contact-page": ["Contact Form", "Phone and Email", "Address and Hours", "Map"],
+    "location-page": ["How We Serve", "Local Services", "Local Proof", "Directions"],
+}
+PAGE_LABEL = {"homepage": "Homepage", "about-page": "About page", "contact-page": "Contact page",
+              "location-page": "Location page"}
+# client pages whose facts must trace to client files; a location brief cites public local sources
+# elsewhere, so only its client sections are traced
+TRACED = {"homepage", "about-page", "contact-page"}
+TRACED_SECTIONS = {"location-page": ["Local Proof", "Directions", "Final CTA"]}
+# the section that must carry the client's proof, or a slot
+PROOF_SECTION = {"homepage": "Proof", "about-page": "Credentials", "location-page": "Local Proof"}
+EMAIL = re.compile(r"\b[\w.+-]+@[\w-]+(?:\.[\w-]+)+\b")
 PHONE = re.compile(r"\(?\b\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b")
 STREET = re.compile(r"\b\d{2,6}\s+(?:[A-Z0-9][\w.'-]*\s+){1,4}?(?:Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|"
                     r"Drive|Dr|Lane|Ln|Way|Court|Ct|Parkway|Pkwy|Place|Pl|Highway|Hwy|Suite|Ste)\b")
@@ -77,8 +101,13 @@ CLAIM = re.compile(
 RATING_WORD = re.compile(r"(?i)star|review|rat|out of|/|★")
 # headings and lines that say what must NOT be claimed are not facts
 NOT_A_FACT = re.compile(r"(?i)\bnot yet\b|do not|don't|never|not available|prohibit|banned|avoid|pending|unapproved")
-# homepage sections that may go without a statistic
-NO_STAT_SECTIONS = {"services overview", "service area", "process", "final cta"}
+# client-page sections that may go without a statistic
+NO_STAT_SECTIONS = {
+    "homepage": {"services overview", "service area", "process", "final cta"},
+    "about-page": {"mission and values", "team", "final cta"},
+    "contact-page": {"contact form", "phone and email", "address and hours", "map", "final cta"},
+    "location-page": {"local services", "directions", "final cta"},
+}
 GENERIC_ANCHOR = re.compile(r"^(click here|here|learn more|read more|more|this page|this article|link)$", re.I)
 
 
@@ -161,6 +190,10 @@ def untraced_facts(text: str, facts: str, quotes: str = "") -> list[str]:
     for m in PHONE.finditer(text):
         if re.sub(r"\D", "", m.group(0)) not in phones:
             bad.append(f"phone {m.group(0)}")
+    emails = {m.group(0).lower() for m in EMAIL.finditer(facts)}
+    for m in EMAIL.finditer(text):
+        if m.group(0).lower() not in emails:
+            bad.append(f"email {m.group(0)}")
     for rx, label in ((STREET, "address"), (HOURS, "hours")):
         for m in rx.finditer(text):
             if flat(m.group(0)) not in nf:
@@ -189,8 +222,8 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("brief")
     ap.add_argument("--front-matter-json", action="store_true")
-    ap.add_argument("--client-dir", help="client file folder; its .md files are where a homepage brief's client facts come from")
-    ap.add_argument("--facts", action="append", default=[], help="another client file a homepage brief took facts from")
+    ap.add_argument("--client-dir", help="client file folder; its .md files are where a homepage, About or Contact brief's client facts come from")
+    ap.add_argument("--facts", action="append", default=[], help="another client file a homepage, About or Contact brief took facts from")
     a = ap.parse_args()
     p = Path(a.brief)
     if not p.is_file():
@@ -269,7 +302,8 @@ def main() -> int:
     bad_h, no_first, no_ev, ev_ids, none_ver = [], [], [], set(), False
     subq = 0
     cta = 0
-    home = g("format") == "homepage"
+    ptype = g("format") if g("format") in PAGE_SECTIONS else None
+    home = ptype == "homepage"
     labels, home_blocks = [], {}
     for mm, b in h2:
         if not mm:
@@ -308,30 +342,64 @@ def main() -> int:
             ev_ids.update(ids)
             if "none verifiable" in ev.group(1).lower():
                 none_ver = True
-            elif home and "none needed" in ev.group(1).lower():
+            elif ptype and "none needed" in ev.group(1).lower():
                 lab = re.search(r"(?m)^- Section:\s*(.+?)\s*$", b)
-                if not (lab and lab.group(1).lower() in NO_STAT_SECTIONS):
-                    no_ev.append(f"{title[:40]} ('none needed' only for {', '.join(sorted(NO_STAT_SECTIONS))})")
+                if not (lab and lab.group(1).lower() in NO_STAT_SECTIONS[ptype]):
+                    no_ev.append(f"{title[:40]} ('none needed' only for {', '.join(sorted(NO_STAT_SECTIONS[ptype]))})")
             elif not ids and kind != "H2 (CTA)":
                 no_ev.append(title[:50])
     add("Outline headings are questions", not bad_h, "; ".join(bad_h[:5]))
-    add("5-8 sub-question sections plus one CTA", 5 <= subq <= 8 and cta == 1, f"{subq} sub-question sections, {cta} CTA")
+    lo = 4 if ptype in ("about-page", "contact-page") else 5
+    add(f"{lo}-8 sub-question sections plus one CTA", lo <= subq <= 8 and cta == 1, f"{subq} sub-question sections, {cta} CTA")
     add("Every section says what its first sentence must state", not no_first, "; ".join(no_first[:5]))
     add("Every section lists evidence ids or 'none verifiable'", not no_ev, "; ".join(no_ev[:5]))
 
-    # --- homepage: the writer's section map, proof and contact route
-    if home:
-        add("Homepage page_url is /", str(g("page_url", "")).strip() == "/", f"page_url {g('page_url')!r}")
-        want_l = HOME_SECTIONS + (["FAQ"] if "faq" in [x.lower() for x in labels] else []) + ["Final CTA"]
-        add("Homepage sections in order", [x.lower() for x in labels] == [x.lower() for x in want_l],
-            f"'- Section:' lines {labels}; want {want_l}")
+    # --- client pages: the writer's section map, proof and contact route
+    if ptype:
+        name = PAGE_LABEL[ptype]
+        if home:
+            add("Homepage page_url is /", str(g("page_url", "")).strip() == "/", f"page_url {g('page_url')!r}")
+        # several H2s may share a section; the sections themselves come once each, in order
+        seen = [x for i, x in enumerate(labels) if i == 0 or x.lower() != labels[i - 1].lower()]
+        want_l = PAGE_SECTIONS[ptype] + (["FAQ"] if "faq" in [x.lower() for x in labels] else []) + ["Final CTA"]
+        no_lab = [mm.group(2)[:40] for mm, b in h2 if mm and not re.search(r"(?m)^- Section:\s*\S", b)]
+        add(f"{name} sections in order", [x.lower() for x in seen] == [x.lower() for x in want_l] and not no_lab,
+            f"'- Section:' lines {labels}; want {want_l}" + (f"; no '- Section:' line under {no_lab}" if no_lab else ""))
         cta_b = next((b for mm, b in h2 if mm and mm.group(1) == "H2 (CTA)"), "")
-        add("Homepage CTA is the Final CTA", bool(re.search(r"(?m)^- Section:\s*Final CTA\s*$", cta_b)),
+        add(f"{name} CTA is the Final CTA", bool(re.search(r"(?m)^- Section:\s*Final CTA\s*$", cta_b)),
             "the '### H2 (CTA):' block needs '- Section: Final CTA'")
-        proof = home_blocks.get("proof", "")
-        add("Proof section has evidence or a slot", bool(re.search(r"\bE\d+\b", proof) or SLOT.search(proof)),
-            "cite the client's proof (E-ids) or slot what is missing")
-        fin = home_blocks.get("final cta", "")
+        blocks_of = lambda sec: "\n".join(b for mm, b in h2 if mm and re.search(
+            rf"(?mi)^- Section:\s*{re.escape(sec)}\s*$", b))
+        if ptype in PROOF_SECTION:
+            sec = PROOF_SECTION[ptype]
+            proof = blocks_of(sec)
+            add(f"{sec} section has evidence or a slot", bool(re.search(r"\bE\d+\b", proof) or SLOT.search(proof)),
+                "cite the client's proof (E-ids) or slot what is missing")
+        fin = blocks_of("Final CTA")
+        if not home:
+            lf = re.search(r"(?ms)^### Links from this page\s*\n(.*?)(?=^### |\Z)", S.get("Internal Links", ""))
+            listed = {r[0].rstrip("/") for r in (table_rows(lf.group(1)) if lf else []) if r and r[0].startswith("/")}
+            paths = [x.rstrip("/") for x in re.findall(r"(?<![\w/.@])/[\w-]+(?:/[\w-]+)*/?", fin)]
+            route = any(x in listed for x in paths) or PHONE.search(fin) or SLOT.search(fin)
+            add(f"{name} Final CTA gives a route", bool(route),
+                "name the next action's path from Links from this page, the phone, or a slot"
+                + (f" (not in Links from this page: {', '.join(paths)})" if paths else ""))
+        if ptype == "contact-page":
+            form = blocks_of("Contact Form")
+            fl = re.search(r"(?m)^- Fields:\s*(.+)$", form)
+            nfields = len([x for x in re.split(r",|;", SLOT.sub("", fl.group(1))) if x.strip()]) if fl else 0
+            add("Contact form lists its fields", nfields >= 3 or bool(fl and SLOT.search(fl.group(1))),
+                "add a '- Fields:' line with three or more comma-separated fields, or a slot for the field list")
+            det = blocks_of("Phone and Email") + "\n" + blocks_of("Address and Hours")
+            dslots = " ".join(x.group(0) for x in SLOT.finditer(det)).lower()
+            gaps = [w for w, rx, words in (("phone", PHONE, ("phone",)), ("email", EMAIL, ("email",)),
+                                           ("address", STREET, ("address",)), ("hours", HOURS, ("hours",)))
+                    if not rx.search(SLOT.sub(" ", det)) and not any(x in dslots for x in words)
+                    and not re.search(rf"(?i)\bno (?:public |street )*{w}\b", det)]
+            add("Contact details given or slotted", not gaps,
+                "give each from a client file, or a slot, or say there is none ('no public street address'): "
+                + ", ".join(gaps))
+    if home:
         slots = " ".join(x.group(0) for x in SLOT.finditer(fin)).lower()
         gaps = [w for w, rx, words in (("phone", PHONE, ("phone", "call")), ("address", STREET, ("address",)),
                                        ("hours", HOURS, ("hours",)))
@@ -428,8 +496,8 @@ def main() -> int:
     if g("ymyl") is True:
         add("YMYL brief names a reviewer or a slot", bool(re.search(r"(?m)^- Reviewer:\s*\S", auth)), "no '- Reviewer:' line")
 
-    # --- homepage: client facts trace to client files
-    if home:
+    # --- homepage, About and Contact: client facts trace to client files
+    if ptype in TRACED or ptype in TRACED_SECTIONS:
         files = [Path(f) for f in a.facts]
         bad_dir = a.client_dir and not Path(a.client_dir).is_dir()
         if a.client_dir and not bad_dir:
@@ -449,8 +517,11 @@ def main() -> int:
         scan = SLOT.sub(" ", "\n".join(
             "\n".join(l for l in t.split("\n") if not NOT_A_FACT.search(l)) if n == "Voice and Style" else t
             for n, t in secs if n not in {"Research Log", "Writer QA Checklist"}))
+        if ptype in TRACED_SECTIONS:
+            scan = SLOT.sub(" ", "\n".join(b for mm, b in h2 if mm and any(re.search(
+                rf"(?mi)^- Section:\s*{re.escape(x)}\s*$", b) for x in TRACED_SECTIONS[ptype])))
         bad_f = untraced_facts(scan, facts, scan)
-        add("Homepage client facts trace to client files", not bad_f and not missing_f,
+        add(f"{PAGE_LABEL[ptype]} client facts trace to client files", not bad_f and not missing_f,
             ("not found: " + ", ".join(missing_f) + "; " if missing_f else "")
             + ("in no client file (slot it or pass the file with --facts): " + "; ".join(bad_f[:8]) if bad_f else ""))
 
