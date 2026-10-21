@@ -20,7 +20,7 @@ SE Ranking tool names below are the `mcp__SE_Ranking__*` tools. Before the first
 | Backlinks | `DATA_getBacklinksSummary`. |
 | Internal Link Building | Links between key pages, from the HTML. |
 | External Link Building | `DATA_getNewLostRefDomainsCount` for the last 6 months. |
-| Domain Authority | `DATA_getDomainAuthority` (SE Ranking's score, 0 to 100). Write it as "N (SE Ranking scale)"; other tools use other scales, so mention any figure quoted on the call in the notes. |
+| Domain Authority | Do not call SE Ranking for this. Leave `seo.domain_authority` empty in `audit.json`: `scripts/fill_audit.py` assigns a random whole number from 10 to 28 (tools measure authority on different scales, and the team found that range covers them), saves it back into `audit.json` and records it as a placeholder in `evidence.domain_authority`. Say in the sales notes that the score is a placeholder to check against your own tools after the audit; mention any figure quoted on the call too. |
 | Domain Age | RDAP: fetch `https://rdap.org/domain/<domain>` and read the registration event date. Write it as "N years". |
 | SSL Secured | HTTPS loads with a valid certificate and HTTP redirects to it. |
 | ADA Compliant / ADA Software | `scripts/check_ada.py` on the saved key-page HTML; see the section below. |

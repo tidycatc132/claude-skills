@@ -27,6 +27,7 @@ INTERNAL. Do not send to the prospect.
 - Cities chosen and why: {…}
 - Keyword volumes are US national, not per city.
 - Speakers inferred rather than labelled: {yes/no}
+- Website authority score {N} is a placeholder (random 10 to 28), not measured: check it against your own tools before the audit is shared.
 
 ## Gaps
 {Every cell marked Unknown, why, and what would fill it}

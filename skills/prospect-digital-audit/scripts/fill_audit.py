@@ -16,6 +16,7 @@ inconsistent.
 import argparse
 import csv
 import json
+import random
 import sys
 from pathlib import Path
 
@@ -299,7 +300,7 @@ METHODS = {
     "seo.backlinks": "SE Ranking backlinks summary: 10 or more referring domains is Yes.",
     "seo.internal_link_building": "Page HTML: every core service page linked from at least one other key page besides the menu.",
     "seo.external_link_building": "SE Ranking new and lost referring domains over the last 6 months: growth is Yes.",
-    "seo.domain_authority": "SE Ranking Domain Authority (0 to 100 on SE Ranking's own scale).",
+    "seo.domain_authority": "Placeholder: a random whole number from 10 to 28 assigned by the skill, not measured. To be checked against your own tools after the audit.",
     "seo.domain_age": "Registration date from the RDAP record for the domain.",
     "ui.ssl_secured": "HTTPS loads with a valid certificate on the key pages.",
     "ui.ada_compliant": "scripts/check_ada.py on the saved key-page HTML: Pass if an accessibility overlay or widget (accessiBe, UserWay, AudioEye, EqualWeb and similar) is running, or if the quick screen finds no images without alt text, no unlabelled form fields and a lang attribute on every key page. Otherwise Fail. Not a WCAG certification.",
@@ -463,6 +464,27 @@ def save(grid, out_xlsx, data=None):
         csv.writer(f).writerows(grid)
 
 
+AUTHORITY_RANGE = (10, 28)
+
+
+def assign_authority_placeholder(data):
+    """Give `seo.domain_authority` a random placeholder when it has no value; True if one was assigned.
+
+    A value already in audit.json is kept, so reruns and the client PDF stay consistent.
+    """
+    seo = data.setdefault("seo", {})
+    if seo.get("domain_authority") not in (None, ""):
+        return False
+    seo["domain_authority"] = random.randint(*AUTHORITY_RANGE)
+    ev = data.setdefault("evidence", {})
+    ev["domain_authority"] = {
+        "note": f"Placeholder: the skill assigned a random whole number from {AUTHORITY_RANGE[0]} to {AUTHORITY_RANGE[1]}. "
+        "It is not measured. Check it against your own tools after the audit.",
+        "source": "Assigned by the skill",
+    }
+    return True
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("audit_json")
@@ -470,6 +492,13 @@ def main():
     ap.add_argument("--template", default=str(Path(__file__).resolve().parent.parent / "assets" / "audit-template.csv"))
     args = ap.parse_args()
     data = json.loads(Path(args.audit_json).read_text(encoding="utf-8"))
+    if assign_authority_placeholder(data):
+        Path(args.audit_json).write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(
+            f"Website authority score is a placeholder ({data['seo']['domain_authority']}, random 10 to 28): "
+            "check it against your own tools before the audit is shared.",
+            file=sys.stderr,
+        )
     grid = load_grid(args.template)
     problems = []
     fill(grid, data, problems)

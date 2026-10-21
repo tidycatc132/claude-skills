@@ -355,7 +355,7 @@ class Component extends DCLogic {
     const age = num(seo.domain_age);
     const locs = num(tr.business_locations);
     const foundations = [
-      { value: num(seo.domain_authority) ?? '—', suffix: ' / 100', label: 'Domain authority (SE Ranking scale)' },
+      { value: num(seo.domain_authority) ?? '—', suffix: '', label: 'Website authority score' },
       age != null ? { value: age, suffix: ' years', label: 'Domain age' } : { value: locs ?? '—', suffix: '', label: locs === 1 ? 'Business location' : 'Business locations' },
       { value: fmt(num(content.core_pages)), suffix: '', label: 'Core pages' },
       { value: fmt(num(content.blog_posts)), suffix: '', label: blogLabel }
