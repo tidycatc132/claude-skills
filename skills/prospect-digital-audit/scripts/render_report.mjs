@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { createHash } from 'node:crypto';
 import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
@@ -50,11 +51,29 @@ const types = {
   '.png': 'image/png',
   '.ttf': 'font/ttf',
 };
-const vendor = {
+const vendorFiles = {
   'react@18.3.1/umd/react.production.min.js': 'react.production.min.js',
   'react-dom@18.3.1/umd/react-dom.production.min.js': 'react-dom.production.min.js',
   '@babel/standalone@7.29.0/babel.min.js': 'babel.min.js',
 };
+
+// The template pins each library by SRI hash (in support.js). Serve a bundled copy
+// only when it matches that hash; a copy altered in transit (line endings, a
+// re-packed skill upload) is skipped and the request goes to unpkg, where the
+// browser still enforces the same hash. The check is never bypassed.
+const pinned = Object.fromEntries(
+  [...fs.readFileSync(path.join(root, 'support.js'), 'utf8').matchAll(/var (\w+)_URL = "https:\/\/unpkg\.com\/([^"]+)";\s*var \1_SRI = "([^"]+)"/g)].map((m) => [m[2], m[3]]),
+);
+const vendor = {};
+for (const [key, name] of Object.entries(vendorFiles)) {
+  const body = fs.readFileSync(path.join(root, 'vendor', name));
+  const sri = `sha384-${createHash('sha384').update(body).digest('base64')}`;
+  if (pinned[key] === sri) {
+    vendor[key] = name;
+  } else {
+    console.error(`Bundled ${name} does not match the template's integrity hash (file altered after install?); will load it from unpkg instead.`);
+  }
+}
 
 const server = http.createServer((req, res) => {
   const urlPath = decodeURIComponent(req.url.split('?')[0]);
@@ -92,18 +111,27 @@ server.listen(0, '127.0.0.1', async () => {
     });
     await page.route('https://unpkg.com/**', (route) => {
       const key = route.request().url().replace('https://unpkg.com/', '');
-      if (!vendor[key]) return route.abort();
+      if (!vendor[key]) return route.continue();
       return route.fulfill({ path: path.join(root, 'vendor', vendor[key]), contentType: 'application/javascript' });
     });
     const url = `http://127.0.0.1:${server.address().port}/${encodeURIComponent('WISE Audit Report Template.dc.html')}`;
     await page.goto(url, { waitUntil: 'networkidle' });
-    await page.waitForFunction(() => document.querySelectorAll('section.page').length > 0, null, { timeout: 15000 });
+    try {
+      await page.waitForFunction(() => document.querySelectorAll('section.page').length > 0, null, { timeout: 15000 });
+    } catch {
+      for (const e of errors) console.error(`page error: ${e}`);
+      console.error('The report did not render. If a library failed its integrity check, reinstall the skill from the repo (vendor/ must be byte-identical) or run with access to unpkg.com.');
+      process.exit(1);
+    }
     await page.waitForTimeout(1500);
     fs.mkdirSync(path.dirname(path.resolve(outPath)), { recursive: true });
     const pdf = await page.pdf({ path: outPath, format: 'Letter', printBackground: true, preferCSSPageSize: true });
     const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length;
     for (const e of errors) console.error(`page error: ${e}`);
-    if (pages !== 2) {
+    if (errors.some((e) => e.includes('failed to load'))) {
+      console.error('A library failed to load or failed its integrity check, so the PDF is not valid. Reinstall the skill from the repo (assets/report/vendor must be byte-identical) or run with access to unpkg.com.');
+      code = 1;
+    } else if (pages !== 2) {
       console.error(`Expected 2 pages, got ${pages}: shorten the observations or summaries.`);
       code = 1;
     } else {
