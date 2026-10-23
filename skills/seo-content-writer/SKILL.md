@@ -1,11 +1,11 @@
 ---
 name: seo-content-writer
-description: Use when a content brief (from the brief step) must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, service page, homepage, About, Contact or location page), optimized for search, AI answers and readers, or when every brief already in a folder needs its page written. Trigger on "write the article from this brief", "turn this brief into the finished page", "write the About page from this brief", and "write all the briefs" or "write every page from the briefs" when the briefs exist; also when voice.md, style.md or compliance.md come with it. Writes article.md, metadata.md, article.html, qa_report.md and handoff.md per page, flagging missing evidence or client facts, never inventing them. Do NOT use for creating briefs or a keyword-research report alone (use content-brief), auditing a page not written from a brief (use content-quality-auditor), the client voice kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
+description: Use when a content brief must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, service page, homepage, About, Contact or location page) for search, AI answers, readers and vector indexing, or when every brief in a folder needs a page. Trigger on "write the article from this brief", "turn this brief into the finished page", "write the About page from this brief", "write all the briefs", "write every page from the briefs", or a semantic HTML5 version of a page written from a brief; also when voice.md, style.md or compliance.md come with it. Writes article.md, metadata.md, article.html, article-semantic.md, qa_report.md and handoff.md per page, flagging missing evidence or client facts, never inventing them. Do NOT use for creating briefs or keyword research alone (use content-brief), auditing a page not written from a brief (use content-quality-auditor), the client voice kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
 ---
 
 # SEO Content Writer
 
-Third step of the content pipeline: keyword research, then the content brief, then this skill. It turns one approved brief into a page that ranks, gets quoted by answer engines, and reads well. Every passage must stand on its own when an AI system lifts it out of the page, and every fact must trace to a source a human can check.
+Third step of the content pipeline: keyword research, then the content brief, then this skill. It turns one approved brief into a page that ranks, gets quoted by answer engines, and reads well. Every passage must stand on its own when a chunker or an AI system lifts it out of the page, and every fact must trace to a source a human can check. The content ships twice: as plain markdown, and as the same markdown wrapped in HTML5 semantic tags for the CMS.
 
 ## Inputs
 
@@ -20,13 +20,14 @@ If there is no brief, only a topic, say the brief step should run first. If the 
 
 ## Outputs
 
-Write five files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`. Batch mode also writes `content/batch-summary.md`.
+Write six files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`. Batch mode also writes `content/batch-summary.md`.
 
 | File | What it is |
 | --- | --- |
 | `article.md` | The page. Layout fixed by `references/output-spec.md` |
 | `metadata.md` | One `\| Field \| Value \|` table with `Meta title`, `Meta description`, `H1`, `URL slug`, `Primary question`, `Target keyword`, `Key takeaways`, `Article summary` |
-| `article.html` | Semantic static HTML, made by `scripts/make_html.py` |
+| `article.html` | Complete static HTML page, made by `scripts/make_html.py` |
+| `article-semantic.md` | The second version of the content: the markdown wrapped in `<main>`, `<article>`, `<header>`, `<section>`, `<nav>` and `<footer>` tags, made by `scripts/make_semantic.py` |
 | `qa_report.md` | The QA table and `VERDICT:` line, made by `scripts/check_draft.py` |
 | `handoff.md` | Open flags, judgment QA, build and indexability checks, post-publish tracking |
 
@@ -41,7 +42,10 @@ Write five files into `content/<url-slug>/` (or the folder the user names). `<ur
    On a homepage, About, Contact or location page add `--page-type homepage` (or `about`, `contact`, `location`) and `--client-dir client-reference/<client-slug>/` (when it exists), plus `--facts <file>` for each other client file you took facts from.
    Fix every FAIL in the draft and rerun until the verdict is `READY` or `NEEDS_INPUT`. Read every WARN and fix it or say in `handoff.md` why it stays (for example, a number not in the brief that is cited in Sources).
 6. **Do the judgment QA** in `references/qa-checklist.md` (the checks a script cannot make: isolation reading, entity consistency, sources match claims, YMYL depth). Fix the draft, then rerun step 5.
-7. **Build the HTML**: `python3 <skill-folder>/scripts/make_html.py content/<url-slug>/article.md`
+7. **Build the two HTML versions**, each as its own command:
+   `python3 <skill-folder>/scripts/make_html.py content/<url-slug>/article.md`
+   `python3 <skill-folder>/scripts/make_semantic.py content/<url-slug>/article.md`
+   The second prints `SEMANTIC: OK` when the nesting and ids check out; an `ERROR:` line means the markdown broke a rule in `references/output-spec.md` (usually a heading level skipped). Fix `article.md`, rerun step 5, then rerun both.
 8. **Write `handoff.md`** per `references/output-spec.md`: every open flag, the build and indexability checklist, and the post-publish citation tracking plan.
 9. **Answer in chat** with the `VERDICT:` line, the file list, the open flags (each one, quoted), and the top build checks. Do not call the page publish-ready unless the verdict is `READY`.
 
@@ -51,6 +55,7 @@ Run each script as a single plain `python3` command (use `python` where `python3
 
 - Every H2 and H3 is the question a real person would type or ask, except the utility sections `Key Takeaways`, `Frequently Asked Questions`, `Sources` and numbered step or list-item H3s.
 - The first sentence under every heading is the complete answer and names its subject. No lead-ins, no opening pronoun.
+- The text under a heading, up to the next heading, is one retrieval chunk: 100 to 300 words on one subtopic. Over 300 words, split it with an H3 per subtopic; `check_draft.py` fails a longer block.
 - Every major section carries at least one specific number tied to a named source, or a `[NEEDS SOURCE: ...]` flag. Exception: a section the content brief marks `- Evidence: none verifiable` is explained without a number, as its concern says; `check_draft.py` reads that from the brief and only warns.
 - One name per entity, restated at the start of paragraphs, list items and table rows.
 - YMYL topics (health, finance, legal, safety): credentials, sourcing and first-hand experience come first; missing ones are flags, and `handoff.md` routes the page to compliance or expert review.

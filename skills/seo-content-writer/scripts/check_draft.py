@@ -543,6 +543,28 @@ def main() -> int:
                 long_p.append(f"'{s['title'][:30]}' ({len(sentences(text))} sentences)")
     add("Paragraphs at most 4 sentences", not long_p, "; ".join(long_p[:5]), warn=True)
 
+    # 7b. passage size: the text under a heading, up to the next heading of any level, is the passage a
+    # chunker lifts out of the page; 100-300 words keeps one subtopic inside one chunk
+    too_long, too_short = [], []
+    content_h2 = [s for s in sections if s["level"] == 2 and s["title"].lower() not in UTILITY_H2]
+    parent_h2 = ""
+    for i, s in enumerate(sections):
+        if s["level"] == 2:
+            parent_h2 = s["title"].lower()
+        if s["level"] < 2 or s["title"].lower() in UTILITY_H2:
+            continue
+        words = len(re.findall(r"\b\w+\b", strip_md(" ".join(t for _, t in s["blocks"]))))
+        has_child = i + 1 < len(sections) and sections[i + 1]["level"] > s["level"]
+        if words > 300:
+            too_long.append(f"'{s['title'][:40]}' ({words} words)")
+        elif (words < 100 and is_question(s["title"]) and not has_child and not homepage
+              and parent_h2 not in UTILITY_H2 and not (content_h2 and s is content_h2[-1])):
+            too_short.append(f"'{s['title'][:40]}' ({words} words)")
+    add("Passage size: no heading block over 300 words", not too_long,
+        "split with an H3 per subtopic: " + "; ".join(too_long[:5]) if too_long else "")
+    add("Passages under 100 words", not too_short,
+        "thin for a retrieval chunk, add support or merge: " + "; ".join(too_short[:5]) if too_short else "", warn=True)
+
     # 8. unattributed claims and vague intensifiers
     un = sorted({m.group(0) for m in UNATTRIBUTED.finditer(md)})
     add("No unattributed claims", not un, ", ".join(un))

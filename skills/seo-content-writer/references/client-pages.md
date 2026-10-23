@@ -55,7 +55,7 @@ A content brief's location outline may carry extra local H2s (permits, local con
 ## Layout notes
 
 - No byline, no `Key Takeaways` section and no "Updated" date.
-- Lengths unless the brief gives a range: About 400 to 800 words, Contact 150 to 400, Location 500 to 900.
+- Lengths unless the brief gives a range: About 400 to 800 words, Contact 150 to 400, Location 500 to 900. Of the retrieval-chunk rules only the 300-word ceiling per section applies; the 100-word floor does not.
 - The per-section statistic rule is relaxed as on the homepage: use the brief's figures where they fit (Company Story, Credentials, Local Proof) and add no `[NEEDS SOURCE]` flags just to give a section a number.
 - Link every internal link the brief lists; the conversion link goes in the Hero or Final CTA.
 
@@ -64,6 +64,7 @@ A content brief's location outline may carry extra local H2s (permits, local con
 - `metadata.md`: same eight rows. `Primary question` is the visitor's question ("Who is Copperleaf Tree Care?", "How do I contact Copperleaf Tree Care?", "Who offers tree service in Spokane Valley?"). `Key takeaways` are 3-5 facts from the page.
 - `handoff.md`: every client-fact flag under `## Open Flags`, with "client" as who resolves it. In the build checklist, replace the byline line with "Every client fact (names, phone, email, address, hours, credentials, reviews) matches the client's records and Google Business Profile." Contact page: add "Build the form with the fields listed; send submissions to the address the client confirms" and "Embed the map for the address shown". Contact and Location pages: add a LocalBusiness structured data line as a separate job, matching the visible contact details.
 - `article.html`: `make_html.py` turns each marker into a `data-section` attribute and never prints it.
+- `article-semantic.md`: `make_semantic.py` does the same, with Hero on the `<header>` and Final CTA as the `class="cta"` section.
 
 ## QA
 

@@ -9,8 +9,15 @@ These rules make each passage quotable by an answer engine and still pleasant to
 - Cover the how much, how often, why and what if variants, not only what and how.
 - Add a question heading of your own (beyond the brief's) only when you can answer it from the brief, the client files or a cited source. A question whose answer would be only a flag is cut from the page and listed in `handoff.md` as a suggested addition.
 - Put the key claim of the page in the first paragraph under the H1. The most important answer is never in the middle of the page.
-- Split a section that covers two topics. A section longer than about 300 words usually needs H3s.
+- Split a section that covers two topics. The text under one heading, up to the next heading, is 100 to 300 words (see "Retrieval chunks" below).
 - The CTA section is also a question heading, for example "How do I book a descaling visit in Portland?".
+
+## Retrieval chunks
+
+A vector index does not store the page; it stores passages a chunker cuts from it, usually 256 to 512 tokens with a small overlap, and ranks each one mostly by its opening tokens. Write so that every cut lands between subtopics and every passage still says what it is about.
+
+- **One subtopic per heading block, 100 to 300 words.** The text under a heading, up to the next heading of any level, is the unit. Under 100 words it is too thin to be retrieved for its question; over 300 words a chunker will cut it mid-thought, so add an H3 per subtopic instead. `check_draft.py` fails a block over 300 words and warns on a question block under 100. On a homepage, About, Contact or location page only the 300-word ceiling applies; those pages are short by design and the 100-word floor does not.
+- **Lead with the topic sentence, name the entity.** The "Answer first" and "Restate the subject" rules below are the inverted pyramid a retrieval model ranks on: the first sentence of every heading block states its core concept in full, and the first words of every paragraph, list item and table row name the subject ("The Distributed Cache Gateway lets developers configure timeout limits", not "This feature lets you configure timeout limits"), so a passage cut from the middle of the page still carries its entity. The Entity clarity rules say how to find and fix the references.
 
 ## Writing each section (passage rules)
 
