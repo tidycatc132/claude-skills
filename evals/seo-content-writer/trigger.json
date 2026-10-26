@@ -12,7 +12,9 @@
     "Write every page from the briefs for Fernhollow Landscaping. The homepage was done in Week 1, so skip it.",
     "Here's the About page brief for Copperleaf Tree Care. Write the About page copy from it.",
     "Turn the contact page brief into the finished Contact page, with the form fields, phone, email, address and map sections.",
-    "Write the Spokane Valley location page from its content brief."
+    "Write the Spokane Valley location page from its content brief.",
+    "Write the finished page from this approved brief, structured for semantic retrieval and vector indexing, and give me the semantic HTML5 version of the content too.",
+    "Turn the approved HELOC brief into the article plus the version wrapped in main, article and section tags for the CMS."
   ],
   "should_not_trigger": [
     "Create a content brief for 'how long does a tankless water heater last' from our topical map CSV.",
@@ -30,6 +32,8 @@
     "Write a design brief for each page type (service, location, about, contact) for the design team.",
     "Update the client's office hours and phone number in their context file after today's call.",
     "Audit our live About page for E-E-A-T signals and tell me what's missing.",
-    "Write all the briefs for the November calendar items from the keyword research report."
+    "Write all the briefs for the November calendar items from the keyword research report.",
+    "Convert my already-published blog post at /blog/heloc-basics/ into semantic HTML5 with main, article and section tags.",
+    "Chunk this existing page's text into 300-word passages for our RAG index."
   ]
 }

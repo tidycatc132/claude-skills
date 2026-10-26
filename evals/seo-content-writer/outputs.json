@@ -1072,6 +1072,138 @@
           ]
         }
       ]
+    },
+    {
+      "id": "harborpine-chunked-semantic",
+      "prompt": "Use the seo-content-writer skill to write the finished page from the approved brief at `briefs/tankless-lifespan-brief.md`, structured for semantic retrieval and vector indexing (passages that stand alone when chunked), and produce the semantic-HTML version of the content as well. There is no WebFetch, WebSearch or internet access in this session, and the brief's evidence pack is all the evidence there is. Save the outputs in `content/tankless-lifespan/`.",
+      "fixtures": [
+        {
+          "src": "fixtures/seo-content-writer/harborpine/briefs/tankless-lifespan-brief.md",
+          "dest": "briefs/tankless-lifespan-brief.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/article.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/article-semantic.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "content/tankless-lifespan/qa_report.md"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "VERDICT: (READY|NEEDS_INPUT)",
+          "label": "QA pass ran and nothing FAILs"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "(?m)^\\| Passage size[^|]*\\| PASS",
+          "label": "no heading block over 300 words"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "(?m)^\\| Passages under 100 words[^|]*\\| PASS",
+          "label": "no thin question block"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "(?m)^\\| No orphaned pronouns[^|]*\\| PASS",
+          "label": "no block starts with a pronoun"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "pattern": "(?m)^\\| First sentence is a direct answer[^|]*\\| PASS",
+          "label": "inverted pyramid per section"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?s)<main\\b[^>]*>\\s*<article\\b[^>]*>.*</article>\\s*</main>",
+          "label": "main wraps article wraps everything"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?s)<header class=\"article-header\">.*<h1 itemprop=\"headline\">[^<]+</h1>.*</header>",
+          "label": "article header holds the H1"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "<section id=\"[a-z0-9-]+\" aria-labelledby=\"[a-z0-9-]+-heading\">\\s*<h2 id=\"[a-z0-9-]+-heading\">[^<]+\\?</h2>",
+          "label": "each sub-question is a labelled section"
+        },
+        {
+          "type": "contains",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "text": "<nav class=\"table-of-contents\"",
+          "label": "table of contents nav"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "<time datetime=\"\\d{4}-\\d{2}-\\d{2}\"",
+          "label": "machine-readable date"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "itemtype=\"https://schema.org/FAQPage\"[\\s\\S]*itemprop=\"acceptedAnswer\"",
+          "label": "FAQ carries Question/Answer microdata"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?s)<footer class=\"article-footer\">.*</footer>\\s*</article>",
+          "label": "article footer closes the article"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?m)^##\\s",
+          "label": "H2s are HTML with ids, not markdown"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?m)^\\| .+ \\|$",
+          "label": "markdown table kept as markdown"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "(?m)^- \\S",
+          "label": "markdown list kept as markdown"
+        },
+        {
+          "type": "regex",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "pattern": "\\]\\(/water-heaters/?\\)",
+          "label": "markdown links kept"
+        },
+        {
+          "type": "not_contains",
+          "path": "content/tankless-lifespan/article-semantic.md",
+          "text": "&lt;",
+          "label": "no escaped tags"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "SEMANTIC: OK",
+          "label": "the semantic build reported OK in chat"
+        }
+      ]
     }
   ]
 }

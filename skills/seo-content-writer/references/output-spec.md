@@ -69,6 +69,34 @@ Written by `scripts/check_draft.py`. Never hand-write or edit it. Its first line
 
 Written by `scripts/make_html.py` from `article.md` and `metadata.md`. Never hand-edit; change the markdown and rerun.
 
+## `article-semantic.md`
+
+Written by `scripts/make_semantic.py` from `article.md` and `metadata.md`. Never hand-edit; change the markdown and rerun. It is the second version of the content: the markdown kept as markdown (paragraphs, lists, tables, links, H3s), with HTML only where markdown cannot express the tag or the attribute. Every tag sits on its own line with a blank line on each side, so a CommonMark renderer still parses the markdown between the tags.
+
+```
+<main id="main-content">
+  <article id="<h1-slug>" itemscope itemtype="https://schema.org/Article">
+    <header class="article-header">
+      <h1 itemprop="headline">                 the H1
+      <p class="byline">                       By <a rel="author" ... itemprop="author">, <time datetime="YYYY-MM-DD" itemprop="dateModified">
+      <intro paragraphs as markdown>
+      <section class="key-takeaways" aria-labelledby="key-takeaways-heading">   the Key Takeaways list
+      <nav class="table-of-contents" aria-labelledby="toc-heading">              numbered links to every section (articles with 3 or more sections)
+    </header>
+    <section id="<h2-slug>" aria-labelledby="<h2-slug>-heading">   one per question H2, its H3s kept as markdown ###
+    <section id="<h2-slug>" class="cta" aria-labelledby="...">     the CTA section: a client page's Final CTA, else the last question H2 (this spec puts the CTA last)
+    <section id="frequently-asked-questions" ... itemscope itemtype="https://schema.org/FAQPage">
+      <article itemprop="mainEntity" itemscope itemtype="https://schema.org/Question">  one per FAQ H3 (itemprop="name"), its answer in <div itemprop="acceptedAnswer"><div itemprop="text">
+    <footer class="article-footer">
+      <section class="sources" aria-labelledby="sources-heading">   the Sources list
+      <section class="summary" aria-labelledby="summary-heading">   the metadata `Article summary`
+    </footer>
+  </article>
+</main>
+```
+
+A client page's `<!-- section: ... -->` markers become `data-section` attributes (Hero on the `<header>`) and are never printed; a client page gets no byline, Key Takeaways or table of contents because `article.md` has none. The script checks its own output (one `<main>`, one `<article>`, every `<section>` labelled by a heading id that exists, no heading level skipped) and prints `SEMANTIC: OK`; `python3 scripts/make_semantic.py --check <file>` runs the same check on any such file.
+
 ## `handoff.md`
 
 Sections in this order:
@@ -97,7 +125,8 @@ VERDICT: <same verdict as qa_report.md>
 
 ### Build and Publish Checklist (copy, fill the specifics)
 
-- [ ] Build from `article.html`: semantic `<article>`, `<header>`, `<section>`, `<aside>`; one H1; heading levels not skipped.
+- [ ] Build from `article.html`, or paste `article-semantic.md` into a CMS that accepts markdown with HTML: keep its `<main>` > `<article>` > `<section>` nesting, ids and `aria-labelledby`; one H1; heading levels not skipped.
+- [ ] If the FAQ's Question/Answer microdata from `article-semantic.md` ships, the structured-data skill must not add a second FAQPage in JSON-LD.
 - [ ] Critical facts (prices, specs, hours, key answers) are in the initial HTML, not loaded by JavaScript.
 - [ ] Page is indexable: no `noindex`, not blocked in robots.txt, listed in the XML sitemap.
 - [ ] Canonical tag points to the page's own final URL; no existing page targets the same primary question (check for cannibalization against <list any pages the brief names>).

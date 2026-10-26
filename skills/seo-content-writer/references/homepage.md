@@ -54,7 +54,7 @@ An FAQ (`## Frequently Asked Questions`, the format rules for FAQs) may go betwe
 ```
 
 - No byline, no `Key Takeaways` section and no "Updated" date: a homepage is not an article.
-- Keep it scannable: 450 to 900 words unless the brief gives a range. Bullets and short paragraphs over long prose.
+- Keep it scannable: 450 to 900 words unless the brief gives a range. Bullets and short paragraphs over long prose. Of the retrieval-chunk rules only the 300-word ceiling per section applies; the 100-word floor does not.
 - The "statistic per section" rule is relaxed: use the brief's figures where they fit (Why Us, Proof, About), and do not add `[NEEDS SOURCE]` flags just to give Process or Service Area a number.
 - Link every internal link the brief lists; services link from Services Overview, the about page from About Snapshot, the conversion page from Hero and Final CTA.
 
@@ -63,6 +63,7 @@ An FAQ (`## Frequently Asked Questions`, the format rules for FAQs) may go betwe
 - `metadata.md`: same eight rows. `Primary question` is what a searcher wants answered ("Which roofing company in Boise should I call?"). `Key takeaways` are the Why Us reasons. `Article summary` describes the business in 3-4 sentences, in the page's voice.
 - `handoff.md`: under `## Open Flags`, every client-fact flag, with "client" as who resolves it. In the build checklist, replace the byline line with "Every client fact (phone, address, hours, credentials, reviews) matches the client's records and Google Business Profile." Add a line for LocalBusiness structured data as a separate job; it must match the visible contact details.
 - `article.html`: `make_html.py` turns each marker into a `data-section` attribute and never prints it.
+- `article-semantic.md`: `make_semantic.py` does the same, with Hero on the `<header>` and Final CTA as the `class="cta"` section; no byline, Key Takeaways or table of contents.
 
 ## QA
 
