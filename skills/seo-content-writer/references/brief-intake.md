@@ -1,6 +1,6 @@
 # Brief intake: read the brief like a checklist
 
-Do this before writing a word of the page. Write the result as a short working list; it goes into `handoff.md` under `## Intake`, one line per item, each marked `from brief`, `built` or `FLAG`.
+Do this before writing a word of the page. Write the result as a short working list for yourself, each item marked `from brief`, `built` or `FLAG`; only the FLAG items reach `handoff.md`, as open flags.
 
 ## The eight intake items
 
@@ -13,7 +13,7 @@ Do this before writing a word of the page. Write the result as a short working l
 | 5 | Evidence per section (named statistics, expert quotes, credible sources) | Map each item to the section it supports | Research with WebSearch/WebFetch if available and cite; otherwise `[NEEDS SOURCE: ...]` in that section. Never fill from memory |
 | 6 | Named author, credentials, bio URL | Byline with name, credentials, link to bio | `[NEEDS INPUT: author name, credentials and bio URL]` in the byline line. Never "Staff Writer", "Admin" or a made-up person |
 | 7 | First-hand experience (numbers from real work, named cases, original photos, mistakes seen) | Plan where each goes | `[NEEDS INPUT: one first-hand example from the client]` in the most relevant section |
-| 8 | Internal links (pillar, sub-topic, siblings) with planned anchor text | Plan the sentence each link sits in | Link only to URLs the brief or the user gave; ask in `handoff.md` for the rest. Never invent a URL |
+| 8 | Internal links (pillar, sub-topic, siblings) with planned anchor text | Plan the sentence each link sits in | Link only to URLs the brief or the user gave; flag the rest `[NEEDS INPUT: URL for ...]`. Never invent a URL |
 
 Also take from the brief: page type and format directives (table, FAQ, word range), search intent, CTA wording and target, client name and location, and anything marked approved or banned.
 
@@ -46,7 +46,7 @@ When `client-reference/<client-slug>/` exists, read before drafting:
 
 ## When there is no brief
 
-If the user gives only a topic or keyword, recommend running the brief step first. If they want the page anyway, fill this intake table yourself, mark every row `built` or `FLAG`, and title the section in `handoff.md` "Working brief (not approved)".
+If the user gives only a topic or keyword, recommend running the brief step first. If they want the page anyway, fill this intake table yourself, mark every row `built` or `FLAG`, and add an Open Flags row in `handoff.md`: "Written from a working brief, not an approved one".
 
 ## Briefs from the content-brief step
 

@@ -1,6 +1,6 @@
 # About, Contact and Location pages
 
-Load this when the brief's page type or format is `about`, `contact` or `location` (`about-page`, `contact-page` and `location-page` count), or its page URL is `/about/`, `/about-us/`, `/contact/` or `/contact-us/`. Like the homepage, these pages replace the article layout in `output-spec.md` for `article.md` with a fixed section map; `metadata.md`, `qa_report.md`, `article.html` and `handoff.md` keep their specs, with the changes under "Other files". The writing rules still apply: question headings, answer-first sentences, one name per entity, a source for every figure.
+Load this when the brief's page type or format is `about`, `contact` or `location` (`about-page`, `contact-page` and `location-page` count), or its page URL is `/about/`, `/about-us/`, `/contact/` or `/contact-us/`. Like the homepage, these pages replace the article layout in `output-spec.md` for `article.md` with a fixed section map; the metadata table, the QA report, `article.html` and `handoff.md` keep their specs, with the changes under "Other files". The writing rules still apply: question headings, answer-first sentences, one name per entity, a source for every figure.
 
 ## The client-fact rule applies in full
 
@@ -36,7 +36,7 @@ These pages are mostly client facts, so the client-fact rule in `homepage.md` de
 | 2 | `<!-- section: Contact Form -->` | what the form is for, then each form field as a bullet, from the brief (else a flag for the field list) |
 | 3 | `<!-- section: Phone and Email -->` | the phone and email from the files, else flags |
 | 4 | `<!-- section: Address and Hours -->` | the street address and opening hours from the files, else flags |
-| 5 | `<!-- section: Map -->` | one sentence naming the address the map shows; the map itself is a build item in `handoff.md` |
+| 5 | `<!-- section: Map -->` | one sentence naming the address the map shows; the map itself is built by the developer |
 | 6 | `<!-- section: Final CTA -->` | what happens after the visitor gets in touch, from the brief |
 
 ### Location page
@@ -55,14 +55,14 @@ A content brief's location outline may carry extra local H2s (permits, local con
 ## Layout notes
 
 - No byline, no `Key Takeaways` section and no "Updated" date.
-- Lengths unless the brief gives a range: About 400 to 800 words, Contact 150 to 400, Location 500 to 900. Of the retrieval-chunk rules only the 300-word ceiling per section applies; the 100-word floor does not.
+- Lengths unless the brief gives a range: About 400 to 800 words, Contact 150 to 400, Location 500 to 900.
 - The per-section statistic rule is relaxed as on the homepage: use the brief's figures where they fit (Company Story, Credentials, Local Proof) and add no `[NEEDS SOURCE]` flags just to give a section a number.
 - Link every internal link the brief lists; the conversion link goes in the Hero or Final CTA.
 
 ## Other files
 
-- `metadata.md`: same eight rows. `Primary question` is the visitor's question ("Who is Copperleaf Tree Care?", "How do I contact Copperleaf Tree Care?", "Who offers tree service in Spokane Valley?"). `Key takeaways` are 3-5 facts from the page.
-- `handoff.md`: every client-fact flag under `## Open Flags`, with "client" as who resolves it. In the build checklist, replace the byline line with "Every client fact (names, phone, email, address, hours, credentials, reviews) matches the client's records and Google Business Profile." Contact page: add "Build the form with the fields listed; send submissions to the address the client confirms" and "Embed the map for the address shown". Contact and Location pages: add a LocalBusiness structured data line as a separate job, matching the visible contact details.
+- Metadata table: same eight rows. `Primary question` is the visitor's question ("Who is Copperleaf Tree Care?", "How do I contact Copperleaf Tree Care?", "Who offers tree service in Spokane Valley?"). `Key takeaways` are 3-5 facts from the page.
+- `handoff.md`: every client-fact flag under `## Open Flags`, with "client" as who resolves it.
 - `article.html`: `make_html.py` turns each marker into a `data-section` attribute and never prints it.
 - `article-semantic.md`: `make_semantic.py` does the same, with Hero on the `<header>` and Final CTA as the `class="cta"` section.
 

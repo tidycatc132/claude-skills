@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Self-test for the passage-size check in check_draft.py and for make_semantic.py. Standard library only.
+"""Self-test for make_semantic.py. Standard library only.
 
 Usage: python3 selftest_structure.py   (exit 0 when every case behaves as expected)
 
-The passage cases write a small article into a temporary folder, run check_draft.py and read the
-"Passage size" and "Passages under 100 words" rows of qa_report.md. The semantic cases build
-article-semantic.md from an article and a homepage and check its nesting with --check.
+The semantic cases build article-semantic.md from an article and a homepage and check its nesting
+with --check.
 """
 from __future__ import annotations
 
@@ -83,9 +82,7 @@ Juniper Ridge Roofing is owner-run.
 def run_semantic(article: str, meta: str = "") -> tuple[str, str]:
     with tempfile.TemporaryDirectory() as d:
         p = Path(d) / "article.md"
-        p.write_text(article, encoding="utf-8")
-        if meta:
-            (Path(d) / "metadata.md").write_text(meta, encoding="utf-8")
+        p.write_text(meta + "\n" + article if meta else article, encoding="utf-8")
         r = subprocess.run([PY, str(HERE / "make_semantic.py"), str(p)], capture_output=True, text=True)
         out = (Path(d) / "article-semantic.md").read_text(encoding="utf-8")
         c = subprocess.run([PY, str(HERE / "make_semantic.py"), "--check", str(Path(d) / "article-semantic.md")],
@@ -101,27 +98,34 @@ def main() -> int:
         if not ok:
             fails.append(name)
 
-    # passage size
-    good = HEAD + section("Why does a tankless water heater fail early?", 9) + TAIL
-    rows = run_qa(good)
-    expect("150-word block passes", rows.get("Passage size: no heading block over 300 words") == "PASS", str(rows))
-    expect("150-word block is not short", rows.get("Passages under 100 words") == "PASS", str(rows))
-
+    # long sections are no longer capped
     long = HEAD + section("Why does a tankless water heater fail early?", 22) + TAIL
     rows = run_qa(long)
-    expect("330-word block FAILs", rows.get("Passage size: no heading block over 300 words") == "FAIL", str(rows))
+    expect("no passage-size row", not any(k.startswith("Passage") for k in rows), str(rows))
 
-    short = HEAD + section("Why does a tankless water heater fail early?", 2) + TAIL
-    rows = run_qa(short)
-    expect("30-word block WARNs", rows.get("Passages under 100 words") == "WARN", str(rows))
-
-    with_h3 = HEAD + section("Why does a tankless water heater fail early?", 2, "What is mineral scale?") + TAIL
-    rows = run_qa(with_h3)
-    expect("short H2 intro before an H3 does not WARN", rows.get("Passages under 100 words") == "PASS", str(rows))
+    # metadata table at the top of article.md; QA report goes to qa/<slug>/, not the page folder
+    good = HEAD + section("Why does a tankless water heater fail early?", 9) + TAIL
+    meta = ("| Field | Value |\n| --- | --- |\n| Meta title | Tankless Lifespan Guide |\n"
+            "| Article summary | Scale is the main threat. |\n")
+    with tempfile.TemporaryDirectory() as d:
+        page = Path(d) / "content" / "tankless-lifespan"
+        page.mkdir(parents=True)
+        (page / "article.md").write_text(meta + "\n" + good, encoding="utf-8")
+        subprocess.run([PY, str(HERE / "check_draft.py"), str(page / "article.md"), "--keyword", "tankless water heater"],
+                       capture_output=True, text=True)
+        rep = Path(d) / "qa" / "tankless-lifespan" / "qa_report.md"
+        expect("QA report written to qa/<slug>/", rep.is_file() and not (page / "qa_report.md").exists())
+        expect("metadata table read from article.md", "Metadata table complete | FAIL | no `" not in
+               (rep.read_text(encoding="utf-8") if rep.is_file() else ""))
+        subprocess.run([PY, str(HERE / "make_html.py"), str(page / "article.md")], capture_output=True, text=True)
+        page_html = (page / "article.html").read_text(encoding="utf-8")
+        expect("HTML title from the table, table not in body",
+               "<title>Tankless Lifespan Guide</title>" in page_html and "Article summary" not in page_html.split("<body")[-1])
 
     # semantic version of an article
-    out, log = run_semantic(good, "| Field | Value |\n| --- | --- |\n| Article summary | Scale is the main threat. |\n")
+    out, log = run_semantic(good, meta)
     expect("semantic article checks OK", "SEMANTIC: OK" in log and "error" not in log.lower(), log[-300:])
+    expect("metadata table not printed in the semantic version", "| Field | Value |" not in out)
     expect("main > article > header nesting",
            bool(re.search(r'(?s)<main id="main-content">\s*<article id="[^"]+" itemscope[^>]*>\s*<header class="article-header">', out)))
     expect("byline has rel=author and time", 'rel="author"' in out and '<time datetime="2026-10-23"' in out)

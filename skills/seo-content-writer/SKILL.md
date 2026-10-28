@@ -1,11 +1,11 @@
 ---
 name: seo-content-writer
-description: Use when a content brief must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, service page, homepage, About, Contact or location page) for search, AI answers, readers and vector indexing, or when every brief in a folder needs a page. Trigger on "write the article from this brief", "turn this brief into the finished page", "write the About page from this brief", "write all the briefs", "write every page from the briefs", or a semantic HTML5 version of a page written from a brief; also when voice.md, style.md or compliance.md come with it. Writes article.md, metadata.md, article.html, article-semantic.md, qa_report.md and handoff.md per page, flagging missing evidence or client facts, never inventing them. Do NOT use for creating briefs or keyword research alone (use content-brief), auditing a page not written from a brief (use content-quality-auditor), the client voice kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
+description: Use when a content brief must become the finished, publish-ready page (blog post, guide, how-to, comparison, listicle, service page, homepage, About, Contact or location page) for search, AI answers, readers and vector indexing, or when every brief in a folder needs a page. Trigger on "write the article from this brief", "turn this brief into the finished page", "write the About page from this brief", "write all the briefs", "write every page from the briefs", or a semantic HTML5 version of a page written from a brief; also when voice.md, style.md or compliance.md come with it. Writes article.md (metadata table on top), article.html, article-semantic.md and handoff.md per page, flagging missing evidence or client facts, never inventing them. Do NOT use for creating briefs or keyword research alone (use content-brief), auditing a page not written from a brief (use content-quality-auditor), the client voice kit (use client-reference-kit), JSON-LD schema (use structured-data), or social posts and emails.
 ---
 
 # SEO Content Writer
 
-Third step of the content pipeline: keyword research, then the content brief, then this skill. It turns one approved brief into a page that ranks, gets quoted by answer engines, and reads well. Every passage must stand on its own when a chunker or an AI system lifts it out of the page, and every fact must trace to a source a human can check. The content ships twice: as plain markdown, and as the same markdown wrapped in HTML5 semantic tags for the CMS.
+Third step of the content pipeline: keyword research, then the content brief, then this skill. It turns one approved brief into a page that ranks, gets quoted by answer engines, and reads well. Every section answers its question up front in natural language, and every fact must trace to a source a human can check. The content ships twice: as plain markdown, and as the same markdown wrapped in HTML5 semantic tags for the CMS.
 
 ## Inputs
 
@@ -16,49 +16,48 @@ Third step of the content pipeline: keyword research, then the content brief, th
 - **Page type.** The brief's `format:` or `Page type:` line decides the layout: `homepage` (or `page_url: /`), `about` or `about-page` (or `page_url: /about/` or `/about-us/`), `contact` or `contact-page` (or `page_url: /contact/` or `/contact-us/`), `location` or `location-page`. Anything else is an article. content-brief writes `homepage` and `location-page` briefs; it has no About or Contact format yet, so those briefs are written by hand (any layout, with the `format:` line) until it does.
 - **A folder of briefs** (batch mode): when the user asks to write the pages for all the briefs that already exist, or every page from the briefs (usually `research/content-briefs/`), follow `references/batch-mode.md`: it writes, one page at a time, every brief whose `content/<url-slug>/article.md` does not exist yet, and ends with one `| Page | Brief | VERDICT | Open flags |` table.
 
-If there is no brief, only a topic, say the brief step should run first. If the user still wants the page, build the intake checklist yourself and label it an unapproved working brief in `handoff.md`.
+If there is no brief, only a topic, say the brief step should run first. If the user still wants the page, build the intake checklist yourself and add an Open Flags row in `handoff.md` saying the page was written from an unapproved working brief.
 
 ## Outputs
 
-Write six files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`. Batch mode also writes `content/batch-summary.md`.
+Write four files into `content/<url-slug>/` (or the folder the user names). `<url-slug>` is the last segment of the brief's URL, else the primary keyword hyphenated; a homepage uses `content/home/`. The QA report is a working file in `qa/<url-slug>/qa_report.md`, never in the page folder (when the page folder is not under `content/`, the script writes it beside the article; leave it out of what you hand over). Batch mode also writes `content/batch-summary.md`.
 
 | File | What it is |
 | --- | --- |
-| `article.md` | The page. Layout fixed by `references/output-spec.md` |
-| `metadata.md` | One `\| Field \| Value \|` table with `Meta title`, `Meta description`, `H1`, `URL slug`, `Primary question`, `Target keyword`, `Key takeaways`, `Article summary` |
+| `article.md` | The page, opening with one `\| Field \| Value \|` metadata table (`Meta title`, `Meta description`, `H1`, `URL slug`, `Primary question`, `Target keyword`, `Key takeaways`, `Article summary`). Layout fixed by `references/output-spec.md` |
 | `article.html` | Complete static HTML page, made by `scripts/make_html.py` |
 | `article-semantic.md` | The second version of the content: the markdown wrapped in `<main>`, `<article>`, `<header>`, `<section>`, `<nav>` and `<footer>` tags, made by `scripts/make_semantic.py` |
-| `qa_report.md` | The QA table and `VERDICT:` line, made by `scripts/check_draft.py` |
-| `handoff.md` | Open flags, judgment QA, build and indexability checks, post-publish tracking |
+| `handoff.md` | A `# Handoff: <H1>` title, the `VERDICT:` line and the open flags table, nothing else |
 
 ## Workflow
 
 1. **Intake.** Read the brief like a checklist using `references/brief-intake.md`. Write down, before drafting: the primary question, 5-8 sub-questions, 8-15 entities with one primary name each, the evidence for each section, the author and credentials, first-hand material, and each internal link with its anchor. Build missing sub-questions and entities yourself (how much, how often, why, what if variants). Never build missing evidence or authors; flag them (step 3).
 2. **Load the writing rules.** Read `references/writing-rules.md` in full before drafting. Read `references/format-rules.md` for the page type(s) the brief names (comparison, how-to, definition, listicle, FAQ, product or service). For a homepage (page type or format `homepage`, or URL `/`), read `references/homepage.md`: its section map and client-fact rule replace the article layout. For an About, Contact or location page (see **Page type** under Inputs), read only the section "The client-fact rule" in `references/homepage.md` (not its homepage section map), then `references/client-pages.md` for that page's section map.
 3. **Draft `article.md`** to the layout in `references/output-spec.md`. Where the page needs a fact you do not have from the brief, the client files or a cited source, write a visible flag in place of the fact (a brief's `[CLIENT INPUT NEEDED #n: ...]` slots are copied as they are): `[NEEDS SOURCE: what is needed]` for evidence, `[NEEDS INPUT: what is needed]` for author, pricing, URLs or client facts. Never write a number, quote, source, credential or URL you were not given or did not verify; "typical industry figures" from memory count as invented. An unverifiable number is worse than a flag.
-4. **Write `metadata.md`** per `references/output-spec.md`. The meta title starts from the H1 and keeps its intent. Length limits for title and description are not enforced.
+4. **Write the metadata table** at the top of `article.md`, per `references/output-spec.md`. The meta title starts from the H1 and keeps its intent. Length limits for title and description are not enforced.
 5. **Run the QA script** as its own plain command, paths as arguments:
    `python3 <skill-folder>/scripts/check_draft.py content/<url-slug>/article.md --brief <brief-path>`
    On a homepage, About, Contact or location page add `--page-type homepage` (or `about`, `contact`, `location`) and `--client-dir client-reference/<client-slug>/` (when it exists), plus `--facts <file>` for each other client file you took facts from.
-   Fix every FAIL in the draft and rerun until the verdict is `READY` or `NEEDS_INPUT`. Read every WARN and fix it or say in `handoff.md` why it stays (for example, a number not in the brief that is cited in Sources).
-6. **Do the judgment QA** in `references/qa-checklist.md` (the checks a script cannot make: isolation reading, entity consistency, sources match claims, YMYL depth). Fix the draft, then rerun step 5.
+   Fix every FAIL in the draft and rerun until the verdict is `READY` or `NEEDS_INPUT`. Read every WARN and fix it unless it is right as written (for example, a number not in the brief that is cited in Sources).
+6. **Do the judgment QA** in `references/qa-checklist.md` (the checks a script cannot make: natural reading, entity consistency, sources match claims, YMYL depth). Fix the draft, then rerun step 5.
 7. **Build the two HTML versions**, each as its own command:
    `python3 <skill-folder>/scripts/make_html.py content/<url-slug>/article.md`
    `python3 <skill-folder>/scripts/make_semantic.py content/<url-slug>/article.md`
    The second prints `SEMANTIC: OK` when the nesting and ids check out; an `ERROR:` line means the markdown broke a rule in `references/output-spec.md` (usually a heading level skipped). Fix `article.md`, rerun step 5, then rerun both.
-8. **Write `handoff.md`** per `references/output-spec.md`: every open flag, the build and indexability checklist, and the post-publish citation tracking plan.
-9. **Answer in chat** with the `VERDICT:` line, the file list, the open flags (each one, quoted), and the top build checks. Do not call the page publish-ready unless the verdict is `READY`.
+8. **Write `handoff.md`** per `references/output-spec.md`: the verdict and every open flag, nothing else.
+9. **Answer in chat** with the `VERDICT:` line, the `SEMANTIC: OK` line from step 7, the file list and the open flags (each one, quoted). Do not call the page publish-ready unless the verdict is `READY`.
 
 Run each script as a single plain `python3` command (use `python` where `python3` is not on the path) with paths as arguments. Do not chain commands with `&&`, `|`, `cd` or loops, and inspect files with the file-reading tool. If a command is denied, retry the plain `python3` form once before reporting that the script could not run; never hand-write `qa_report.md` in its place.
 
 ## Rules that decide most outcomes
 
 - Every H2 and H3 is the question a real person would type or ask, except the utility sections `Key Takeaways`, `Frequently Asked Questions`, `Sources` and numbered step or list-item H3s.
-- The first sentence under every heading is the complete answer and names its subject. No lead-ins, no opening pronoun.
-- The text under a heading, up to the next heading, is one retrieval chunk: 100 to 300 words on one subtopic. Over 300 words, split it with an H3 per subtopic; `check_draft.py` fails a longer block.
+- The first sentence under every heading is the complete answer and names its subject, in plain words rather than the heading echoed back. No lead-ins.
+- One subtopic per heading; split a section that covers two.
+- The brief's notes on tone, framing and sourcing shape the writing; the page never states them.
 - Every major section carries at least one specific number tied to a named source, or a `[NEEDS SOURCE: ...]` flag. Exception: a section the content brief marks `- Evidence: none verifiable` is explained without a number, as its concern says; `check_draft.py` reads that from the brief and only warns.
-- One name per entity, restated at the start of paragraphs, list items and table rows.
-- YMYL topics (health, finance, legal, safety): credentials, sourcing and first-hand experience come first; missing ones are flags, and `handoff.md` routes the page to compliance or expert review.
+- One name per entity.
+- YMYL topics (health, finance, legal, safety): credentials, sourcing and first-hand experience come first; missing ones are flags, and a missing reviewer is an open flag in `handoff.md`.
 
 ## Reference files
 

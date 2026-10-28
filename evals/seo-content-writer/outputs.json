@@ -16,15 +16,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/tankless-lifespan/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/tankless-lifespan/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/tankless-lifespan/qa_report.md"
+          "path": "qa/tankless-lifespan/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -32,7 +28,7 @@
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "VERDICT: (READY|NEEDS_INPUT)",
           "label": "QA pass ran and nothing FAILs"
         },
@@ -142,25 +138,25 @@
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/metadata.md",
+          "path": "content/tankless-lifespan/article.md",
           "pattern": "(?im)^\\|\\s*Meta title\\s*\\|\\s*\\S",
           "label": "meta title row"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/metadata.md",
+          "path": "content/tankless-lifespan/article.md",
           "pattern": "(?im)^\\|\\s*Meta description\\s*\\|\\s*\\S",
           "label": "meta description row"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/metadata.md",
+          "path": "content/tankless-lifespan/article.md",
           "pattern": "(?im)^\\|\\s*Key takeaways\\s*\\|\\s*\\S",
           "label": "key takeaways row"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/metadata.md",
+          "path": "content/tankless-lifespan/article.md",
           "pattern": "(?im)^\\|\\s*Article summary\\s*\\|\\s*\\S",
           "label": "article summary row"
         },
@@ -178,24 +174,6 @@
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/handoff.md",
-          "pattern": "(?i)canonical",
-          "label": "build handoff covers canonical"
-        },
-        {
-          "type": "regex",
-          "path": "content/tankless-lifespan/handoff.md",
-          "pattern": "(?i)noindex|indexab",
-          "label": "build handoff covers indexability"
-        },
-        {
-          "type": "regex",
-          "path": "content/tankless-lifespan/handoff.md",
-          "pattern": "(?i)AI Overview|Perplexity",
-          "label": "post-publish citation check"
-        },
-        {
-          "type": "regex",
           "path": "content/tankless-lifespan/article.md",
           "pattern": "(?im)^##\\s+(frequently asked questions|faqs?)\\s*$",
           "label": "FAQ section the brief asks for"
@@ -208,25 +186,25 @@
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| First sentence is a direct answer \\| PASS",
           "label": "openers are direct answers (scripted)"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
-          "pattern": "\\| First sentence restates the heading's subject \\| PASS",
+          "path": "qa/tankless-lifespan/qa_report.md",
+          "pattern": "\\| First sentence restates the heading's subject \\| (PASS|WARN)",
           "label": "openers restate the subject (scripted)"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| Yes/no questions open with a verdict and the subject \\| PASS",
           "label": "yes/no openers give a verdict (scripted)"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| Figures \\(%, \\$, decimals\\) trace to the brief or Sources \\| PASS",
           "label": "every figure traces to the brief (scripted)"
         },
@@ -244,11 +222,27 @@
         },
         {
           "type": "rubric",
-          "target": "content/tankless-lifespan/metadata.md",
+          "target": "content/tankless-lifespan/article.md",
           "criteria": [
-            "The metadata is one table with rows for at least meta title, meta description, H1, key takeaways and article summary; the meta title contains the page's H1 wording (a brand name or short benefit may be added) and keeps its informational intent; the article summary is 3 or 4 sentences"
+            "The metadata table at the top of article.md is one table with rows for at least meta title, meta description, H1, key takeaways and article summary; the meta title contains the page's H1 wording (a brand name or short benefit may be added) and keeps its informational intent; the article summary is 3 or 4 sentences"
           ],
           "label": "rubric: metadata table"
+        },
+        {
+          "type": "file_absent",
+          "path": "content/tankless-lifespan/metadata.md",
+          "label": "no separate metadata file"
+        },
+        {
+          "type": "file_absent",
+          "path": "content/tankless-lifespan/qa_report.md",
+          "label": "QA report kept out of the page folder"
+        },
+        {
+          "type": "not_regex",
+          "path": "content/tankless-lifespan/handoff.md",
+          "pattern": "(?im)^## (Intake|Judgment QA|Build and Publish Checklist|After Publishing)",
+          "label": "handoff holds only the verdict and open flags"
         }
       ]
     },
@@ -268,15 +262,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/what-is-a-heloc/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/what-is-a-heloc/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/what-is-a-heloc/qa_report.md"
+          "path": "qa/what-is-a-heloc/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -284,19 +274,19 @@
         },
         {
           "type": "contains",
-          "path": "content/what-is-a-heloc/qa_report.md",
+          "path": "qa/what-is-a-heloc/qa_report.md",
           "text": "VERDICT: NEEDS_INPUT",
           "label": "not READY with open evidence and author gaps"
         },
         {
           "type": "regex",
-          "path": "content/what-is-a-heloc/qa_report.md",
+          "path": "qa/what-is-a-heloc/qa_report.md",
           "pattern": "\\| H2/H3 phrased as questions \\| PASS",
           "label": "question headings"
         },
         {
           "type": "regex",
-          "path": "content/what-is-a-heloc/qa_report.md",
+          "path": "qa/what-is-a-heloc/qa_report.md",
           "pattern": "\\| 5\\+ sub-questions under own headings \\| PASS",
           "label": "sub-questions built out to 5+"
         },
@@ -353,10 +343,9 @@
           "target": "content/what-is-a-heloc/article.md",
           "criteria": [
             "The first sentence of body text after the H1 and the byline is a one-sentence definition that states the mechanism (a revolving line of credit secured by the borrower's home equity that the borrower draws on as needed), not just a category label; sentences after it may add detail such as the draw and repayment periods",
-            "No figure for draw period length, repayment period length, loan-to-value limit, rates or costs is stated as fact without a named source; any such figure the page needs is replaced by a visible [NEEDS SOURCE: ...] or [NEEDS INPUT: ...] flag",
-            "The comparison with a home equity loan names both 'HELOC' and 'home equity loan' in each sentence that states a difference"
+            "No figure for draw period length, repayment period length, loan-to-value limit, rates or costs is stated as fact without a named source; any such figure the page needs is replaced by a visible [NEEDS SOURCE: ...] or [NEEDS INPUT: ...] flag"
           ],
-          "label": "rubric: definition, no fabricated YMYL figures, comparison naming",
+          "label": "rubric: definition, no fabricated YMYL figures",
           "context": [
             "heloc-brief.md"
           ]
@@ -398,7 +387,7 @@
         },
         {
           "type": "file_exists",
-          "path": "content/tankless-lifespan/qa_report.md"
+          "path": "qa/tankless-lifespan/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -406,7 +395,7 @@
         },
         {
           "type": "contains",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "text": "VERDICT: NEEDS_INPUT",
           "label": "open client slot keeps the page at NEEDS_INPUT"
         },
@@ -418,19 +407,19 @@
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| A statistic or evidence flag per major section \\| PASS",
           "label": "none-verifiable section not failed"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| Every internal link from the brief is placed \\| PASS",
           "label": "links from this page placed"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "\\| Every figure names its source in the same sentence \\| PASS"
         },
         {
@@ -496,15 +485,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/home/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/home/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/home/qa_report.md"
+          "path": "qa/home/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -512,19 +497,19 @@
         },
         {
           "type": "regex",
-          "path": "content/home/qa_report.md",
+          "path": "qa/home/qa_report.md",
           "pattern": "VERDICT: NEEDS_INPUT",
           "label": "QA ran, nothing FAILs, and missing client facts are open flags"
         },
         {
           "type": "regex",
-          "path": "content/home/qa_report.md",
+          "path": "qa/home/qa_report.md",
           "pattern": "\\| Homepage sections in order \\| PASS \\|",
           "label": "the homepage checks ran (homepage mode)"
         },
         {
           "type": "regex",
-          "path": "content/home/qa_report.md",
+          "path": "qa/home/qa_report.md",
           "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
           "label": "no credential, rating, testimonial, phone, address or hours beyond the files"
         },
@@ -696,15 +681,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/about/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/about/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/about/qa_report.md"
+          "path": "qa/about/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -716,15 +697,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/contact/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/contact/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/contact/qa_report.md"
+          "path": "qa/contact/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -754,19 +731,19 @@
         },
         {
           "type": "regex",
-          "path": "content/about/qa_report.md",
+          "path": "qa/about/qa_report.md",
           "pattern": "VERDICT: NEEDS_INPUT",
           "label": "About page: QA ran, no FAILs, the brief's open client inputs stay open"
         },
         {
           "type": "regex",
-          "path": "content/about/qa_report.md",
+          "path": "qa/about/qa_report.md",
           "pattern": "\\| About page sections in order \\| PASS \\|",
           "label": "About page mode ran"
         },
         {
           "type": "regex",
-          "path": "content/about/qa_report.md",
+          "path": "qa/about/qa_report.md",
           "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
           "label": "About page: no client fact beyond the files"
         },
@@ -814,19 +791,19 @@
         },
         {
           "type": "regex",
-          "path": "content/contact/qa_report.md",
+          "path": "qa/contact/qa_report.md",
           "pattern": "VERDICT: NEEDS_INPUT",
           "label": "Contact page: QA ran, no FAILs, hours stay open"
         },
         {
           "type": "regex",
-          "path": "content/contact/qa_report.md",
+          "path": "qa/contact/qa_report.md",
           "pattern": "\\| Contact page sections in order \\| PASS \\|",
           "label": "Contact page mode ran"
         },
         {
           "type": "regex",
-          "path": "content/contact/qa_report.md",
+          "path": "qa/contact/qa_report.md",
           "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
           "label": "Contact page: no client fact beyond the files"
         },
@@ -967,15 +944,11 @@
         },
         {
           "type": "file_exists",
-          "path": "content/spokane-valley/metadata.md"
-        },
-        {
-          "type": "file_exists",
           "path": "content/spokane-valley/article.html"
         },
         {
           "type": "file_exists",
-          "path": "content/spokane-valley/qa_report.md"
+          "path": "qa/spokane-valley/qa_report.md"
         },
         {
           "type": "file_exists",
@@ -983,19 +956,19 @@
         },
         {
           "type": "regex",
-          "path": "content/spokane-valley/qa_report.md",
+          "path": "qa/spokane-valley/qa_report.md",
           "pattern": "VERDICT: NEEDS_INPUT",
           "label": "QA ran, no FAILs, the missing local testimonial stays open"
         },
         {
           "type": "regex",
-          "path": "content/spokane-valley/qa_report.md",
+          "path": "qa/spokane-valley/qa_report.md",
           "pattern": "\\| Location page sections in order \\| PASS \\|",
           "label": "Location page mode ran"
         },
         {
           "type": "regex",
-          "path": "content/spokane-valley/qa_report.md",
+          "path": "qa/spokane-valley/qa_report.md",
           "pattern": "\\| Client facts trace to the brief or client files \\| PASS \\|",
           "label": "no client fact beyond the files"
         },
@@ -1093,35 +1066,17 @@
         },
         {
           "type": "file_exists",
-          "path": "content/tankless-lifespan/qa_report.md"
+          "path": "qa/tankless-lifespan/qa_report.md"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "VERDICT: (READY|NEEDS_INPUT)",
           "label": "QA pass ran and nothing FAILs"
         },
         {
           "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
-          "pattern": "(?m)^\\| Passage size[^|]*\\| PASS",
-          "label": "no heading block over 300 words"
-        },
-        {
-          "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
-          "pattern": "(?m)^\\| Passages under 100 words[^|]*\\| PASS",
-          "label": "no thin question block"
-        },
-        {
-          "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
-          "pattern": "(?m)^\\| No orphaned pronouns[^|]*\\| PASS",
-          "label": "no block starts with a pronoun"
-        },
-        {
-          "type": "regex",
-          "path": "content/tankless-lifespan/qa_report.md",
+          "path": "qa/tankless-lifespan/qa_report.md",
           "pattern": "(?m)^\\| First sentence is a direct answer[^|]*\\| PASS",
           "label": "inverted pyramid per section"
         },

@@ -173,6 +173,9 @@ def batch_cases(tmp: Path) -> list[tuple[str, bool]]:
     (b / "pruning.md").write_text("Target keyword: tree pruning spokane\nPage type: service-page\n", encoding="utf-8")
     (c / "home").mkdir(parents=True)
     (c / "home" / "article.md").write_text("# Home\n", encoding="utf-8")
+    q = tmp / "batch" / "qa"  # check_draft.py writes reports for content/<slug>/ to qa/<slug>/
+    q.mkdir(parents=True)
+    # a page written before reports moved to qa/ keeps its report in the page folder
     (c / "home" / "qa_report.md").write_text("VERDICT: NEEDS_INPUT\n\nOpen flags: 2.\n", encoding="utf-8")
     script = str(HERE / "batch_pages.py")
     plan = subprocess.run([sys.executable, script, "plan", str(b), "--content", str(c)], capture_output=True, text=True).stdout
@@ -184,11 +187,13 @@ def batch_cases(tmp: Path) -> list[tuple[str, bool]]:
     ]
     (c / "about").mkdir()
     (c / "about" / "article.md").write_text("# About\n", encoding="utf-8")
-    (c / "about" / "qa_report.md").write_text("VERDICT: READY\n\nOpen flags: 0.\n", encoding="utf-8")
+    (q / "about").mkdir()
+    (q / "about" / "qa_report.md").write_text("VERDICT: READY\n\nOpen flags: 0.\n", encoding="utf-8")
     r = subprocess.run([sys.executable, script, "summary", str(b), "--content", str(c)], capture_output=True, text=True)
     summary = (c / "batch-summary.md").read_text(encoding="utf-8")
     out += [
         ("summary: header row", "| Page | Brief | VERDICT | Open flags |" in summary),
+        ("summary: old-layout report in the page folder still read", "| NEEDS_INPUT | 2 |" in summary),
         ("summary: unwritten page is NOT WRITTEN", "| pruning.md | NOT WRITTEN |" in summary),
         ("summary: READY page with open client inputs needs CONFIRM", "CONFIRM:" in summary and "/about/" in summary),
         ("summary: exits 1 while pages are missing", r.returncode == 1),

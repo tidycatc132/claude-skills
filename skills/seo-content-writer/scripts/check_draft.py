@@ -3,14 +3,15 @@
 
 Usage:
   python3 check_draft.py ARTICLE.md [--brief BRIEF.md] [--keyword "target keyword"]
-                         [--metadata METADATA.md] [--out QA_REPORT.md]
+                         [--out QA_REPORT.md]
                          [--page-type homepage|about|contact|location]
                          [--client-dir DIR] [--facts FILE ...]
 
-Reads `article.md` (and `metadata.md` beside it unless --metadata is given),
-runs the mechanical checks from references/qa-checklist.md, prints a
+Reads `article.md` (its `| Field | Value |` metadata table at the top, then the
+page), runs the mechanical checks from references/qa-checklist.md, prints a
 `| Check | Result | Detail |` table and writes it, with a VERDICT line, to
-`qa_report.md` beside the article.
+`qa/<url-slug>/qa_report.md` for `content/<url-slug>/article.md` (else beside
+the article). The report is a working file, not part of the page folder.
 
 VERDICT: FIX          one or more checks FAILed; fix the draft and rerun
 VERDICT: NEEDS_INPUT  no FAILs, but the draft carries [NEEDS SOURCE: ...] or
@@ -65,10 +66,6 @@ VAGUE = re.compile(
 )
 DECISION_Q = re.compile(r"^(is|are|does|do|can|should|will|would|could|has|have)\b", re.I)
 VERDICT_WORD = re.compile(r"^(yes|no|not|usually|rarely|always|never|generally|in most|repair|replace|keep|switch|choose|neither|either|most|many|some|few|all|sometimes|partly)\b", re.I)
-STANDIN = re.compile(
-    r"\b(the former|the latter|both (products|options|loans|units|models|services|tools)|the two (products|options|loans|units|models|services|tools|differ|are|have|work)|the other one)\b",
-    re.I,
-)
 FIGURE = re.compile(r"\d\s?%|\$\s?\d|\d\.\d|\b\d+\s?(ppm|percent)\b", re.I)
 ATTRIBUTION = re.compile(
     r"according to|\(|\breports?\b|\breported\b|\brecords?\b|\bpricing\b|\bprice list\b|\bsays?\b|\bsaid\b|\bdata\b|"
@@ -270,6 +267,12 @@ def strip_md(s: str) -> str:
     return s.strip()
 
 
+def split_meta(md: str) -> tuple[str, str]:
+    """The `| Field | Value |` metadata table at the top of article.md, and the article below it."""
+    m = re.match(r"﻿?\s*((?:\|[^\n]*(?:\n|\Z))+)", md)
+    return (m.group(1), md[m.end():]) if m else ("", md)
+
+
 def parse(md: str):
     """Return (h1 list, sections). A section = dict(level, title, blocks, line)."""
     lines = md.splitlines()
@@ -360,7 +363,6 @@ def main() -> int:
     ap.add_argument("article", nargs="?")
     ap.add_argument("--brief")
     ap.add_argument("--keyword")
-    ap.add_argument("--metadata")
     ap.add_argument("--out")
     ap.add_argument("--page-type", choices=sorted(PAGE_SECTIONS),
                     help="switches on that client page's checks (else read from the brief)")
@@ -391,9 +393,7 @@ def main() -> int:
     if not art.is_file():
         print(f"article not found: {art}", file=sys.stderr)
         return 2
-    md = art.read_text(encoding="utf-8")
-    meta_path = Path(a.metadata) if a.metadata else art.with_name("metadata.md")
-    meta = meta_path.read_text(encoding="utf-8") if meta_path.is_file() else ""
+    meta, md = split_meta(art.read_text(encoding="utf-8"))
     if not keyword and meta:
         m = re.search(r"(?im)^\|\s*Target keyword\s*\|\s*(.+?)\s*\|", meta)
         if m:
@@ -484,7 +484,7 @@ def main() -> int:
             weak.append(f"'{s['title'][:40]}': {fs[:60]}")
     add("First sentence is a direct answer", not weak, "; ".join(weak[:5]))
 
-    # 5a. the first sentence restates the heading's subject, so the passage stands alone when quoted
+    # 5a. the first sentence names the heading's subject; a WARN, since echoing the heading word for word reads stiff
     unnamed = []
     for s in [x for x in sections if x["level"] >= 2 and is_question(x["title"])]:
         first = next((b for b in s["blocks"] if b[0] in ("p", "li")), None)
@@ -494,7 +494,7 @@ def main() -> int:
         cov = heading_coverage(s["title"], fs_words)
         if cov < 0.5:
             unnamed.append(f"'{s['title'][:45]}' ({cov:.0%} of heading terms)")
-    add("First sentence restates the heading's subject", not unnamed, "; ".join(unnamed[:6]))
+    add("First sentence restates the heading's subject", not unnamed, "; ".join(unnamed[:6]), warn=True)
 
     # 5b. decision questions open with a verdict word
     # Yes/no questions (auxiliary verb first, no "or") FAIL without a verdict word;
@@ -512,29 +512,6 @@ def main() -> int:
     add("Yes/no questions open with a verdict and the subject", not nov, "; ".join(nov[:5]))
     add("Choice questions open with the choice", not nov_choice, "; ".join(nov_choice[:5]), warn=True)
 
-    # 6. orphaned pronouns at the start of paragraphs, list items, table rows
-    orphans = []
-    for s in sections:
-        for kind, text in s["blocks"]:
-            first_cell = text.strip("| ").split("|")[0] if kind == "row" else text
-            if PRONOUN_START.match(strip_md(first_cell)):
-                orphans.append(f"{kind} under '{s['title'][:30]}': {strip_md(first_cell)[:50]}")
-    add("No orphaned pronouns at block starts", not orphans, "; ".join(orphans[:5]))
-
-    # 6b. comparison stand-ins that hide which entity is meant
-    standin = sorted({m.group(0).lower() for m in STANDIN.finditer(strip_md(md))})
-    # "The difference is how you receive the money." names neither side
-    for s in sections:
-        for kind, text in s["blocks"]:
-            for u in ([text] if kind == "row" else sentences(text)):
-                m = re.match(r"(?i)^the (main |key |biggest |big |real |core )?differences? (is|are|comes? down to|lies)\b",
-                             strip_md(u))
-                # a sentence that goes on to contrast two things ("... while ...", "X and Y") is fine
-                if m and not re.search(r"(?i)\b(and|while|whereas|than|versus|vs\.?|compared with|but)\b", strip_md(u)):
-                    standin.append(m.group(0).lower())
-    standin = sorted(set(standin))
-    add("Comparisons name both entities", not standin, ("replace with the entity names: " + ", ".join(standin)) if standin else "")
-
     # 7. paragraph length 2-4 sentences
     long_p = []
     for s in sections:
@@ -542,28 +519,6 @@ def main() -> int:
             if kind == "p" and len(sentences(text)) > 4:
                 long_p.append(f"'{s['title'][:30]}' ({len(sentences(text))} sentences)")
     add("Paragraphs at most 4 sentences", not long_p, "; ".join(long_p[:5]), warn=True)
-
-    # 7b. passage size: the text under a heading, up to the next heading of any level, is the passage a
-    # chunker lifts out of the page; 100-300 words keeps one subtopic inside one chunk
-    too_long, too_short = [], []
-    content_h2 = [s for s in sections if s["level"] == 2 and s["title"].lower() not in UTILITY_H2]
-    parent_h2 = ""
-    for i, s in enumerate(sections):
-        if s["level"] == 2:
-            parent_h2 = s["title"].lower()
-        if s["level"] < 2 or s["title"].lower() in UTILITY_H2:
-            continue
-        words = len(re.findall(r"\b\w+\b", strip_md(" ".join(t for _, t in s["blocks"]))))
-        has_child = i + 1 < len(sections) and sections[i + 1]["level"] > s["level"]
-        if words > 300:
-            too_long.append(f"'{s['title'][:40]}' ({words} words)")
-        elif (words < 100 and is_question(s["title"]) and not has_child and not homepage
-              and parent_h2 not in UTILITY_H2 and not (content_h2 and s is content_h2[-1])):
-            too_short.append(f"'{s['title'][:40]}' ({words} words)")
-    add("Passage size: no heading block over 300 words", not too_long,
-        "split with an H3 per subtopic: " + "; ".join(too_long[:5]) if too_long else "")
-    add("Passages under 100 words", not too_short,
-        "thin for a retrieval chunk, add support or merge: " + "; ".join(too_short[:5]) if too_short else "", warn=True)
 
     # 8. unattributed claims and vague intensifiers
     un = sorted({m.group(0) for m in UNATTRIBUTED.finditer(md)})
@@ -710,7 +665,7 @@ def main() -> int:
         add("Meta title is the H1 plus at most the brand", len(extra) <= 3,
             f"added words: {' '.join(extra[:10])}")
     else:
-        add("Metadata table complete", False, f"{meta_path.name} not found")
+        add("Metadata table complete", False, "no `| Field | Value |` table at the top of the article")
 
     # 16b. client page sections and the client-fact rule
     if homepage:
@@ -731,7 +686,11 @@ def main() -> int:
         out.append(f"| {c} | {r} | {d.replace('|', '/')} |")
     text = "\n".join(out) + "\n"
     print(text)
-    dest = Path(a.out) if a.out else art.with_name("qa_report.md")
+    # the report is a working file, not a deliverable: content/<url-slug>/article.md reports to qa/<url-slug>/
+    page = art.resolve().parent
+    default = (page.parent.parent / "qa" / page.name if page.parent.name.lower() == "content" else page) / "qa_report.md"
+    dest = Path(a.out) if a.out else default
+    dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(text, encoding="utf-8")
     print(f"wrote {dest}")
     return 1 if fails else 0

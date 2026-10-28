@@ -9,7 +9,7 @@ plan     lists every brief in BRIEFS_DIR (older versions named `<id>.v<N>.md` ar
          page folder it writes to and the action: `write` when `<content>/<url-slug>/article.md`
          does not exist yet, `skip (exists)` when it does. Exit 1 when two briefs map to one folder.
 summary  prints and writes the table `| Page | Brief | VERDICT | Open flags |`, one row per brief,
-         read from each page's `qa_report.md` (`NOT WRITTEN` when the page is missing, `NO QA`
+         read from each page's `qa/<url-slug>/qa_report.md` (`NOT WRITTEN` when the page is missing, `NO QA`
          when the page has no report). Below the table it names any page whose brief lists open
          client inputs but whose report is `READY` (a client input was filled without a source).
          Exit 1 when a row is `NOT WRITTEN`, `NO QA` or `FIX`, or a page needs that confirmation.
@@ -114,7 +114,9 @@ def main() -> int:
     bad, confirm = 0, []
     for p, text, slug, _ in rows:
         page = content / slug
-        qa = page / "qa_report.md"
+        qa = (content.parent / "qa" / slug if content.name == "content" else page) / "qa_report.md"  # where check_draft.py writes it
+        if not qa.is_file() and (page / "qa_report.md").is_file():
+            qa = page / "qa_report.md"  # a page written before the report moved out of the page folder
         if not (page / "article.md").is_file():
             verdict, flags = "NOT WRITTEN", "-"
         elif not qa.is_file():

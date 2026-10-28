@@ -12,7 +12,6 @@ Load the section(s) for the page type in the brief. A page can combine types (fo
 
 - Open with one sentence that states the single most important comparative fact, with specifics, and names both entities.
 - Follow with a table. Header row names both entities (`| Feature | Tankless water heater | Tank water heater |`). Each row is one attribute, with the figure and source in the cell.
-- Every comparative sentence names both entities.
 - End with a "which should I choose" question heading that says who each option suits, with the deciding numbers.
 
 ## How-to / process content

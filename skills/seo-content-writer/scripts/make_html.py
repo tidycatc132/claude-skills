@@ -2,7 +2,7 @@
 """Convert `article.md` into `article.html`: semantic, static HTML for the build handoff.
 
 Usage:
-  python3 make_html.py ARTICLE.md [--metadata METADATA.md] [--out ARTICLE.html]
+  python3 make_html.py ARTICLE.md [--out ARTICLE.html]
 
 Structure produced (no JavaScript, every fact in the initial HTML):
   <head>   <title> from the metadata table's `Meta title`, <meta name="description">
@@ -29,6 +29,8 @@ import html
 import re
 import sys
 from pathlib import Path
+
+from check_draft import split_meta
 
 
 def slug(s: str) -> str:
@@ -98,7 +100,6 @@ def blocks_to_html(lines: list[str]) -> list[str]:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("article")
-    ap.add_argument("--metadata")
     ap.add_argument("--out")
     a = ap.parse_args()
     art = Path(a.article)
@@ -107,11 +108,8 @@ def main() -> int:
         return 2
     md = art.read_text(encoding="utf-8")
     md = re.sub(r"\A---\n.*?\n---\n", "", md, flags=re.S)  # drop front matter if any
-    meta_path = Path(a.metadata) if a.metadata else art.with_name("metadata.md")
-    cells = {}
-    if meta_path.is_file():
-        cells = dict((k.strip(), v.strip()) for k, v in
-                     re.findall(r"(?m)^\|\s*([^|]+?)\s*\|\s*(.*?)\s*\|\s*$", meta_path.read_text(encoding="utf-8")))
+    meta, md = split_meta(md)
+    cells = dict((k.strip(), v.strip()) for k, v in re.findall(r"(?m)^\|\s*([^|]+?)\s*\|\s*(.*?)\s*\|\s*$", meta))
 
     lines = md.splitlines()
     h1 = next((re.sub(r"^#\s+", "", l).strip() for l in lines if re.match(r"^#\s+", l)), "")

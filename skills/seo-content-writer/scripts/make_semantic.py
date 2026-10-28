@@ -3,7 +3,7 @@
 page builder that accepts markdown with HTML (the second version of the content).
 
 Usage:
-  python3 make_semantic.py ARTICLE.md [--metadata METADATA.md] [--out ARTICLE-SEMANTIC.md]
+  python3 make_semantic.py ARTICLE.md [--out ARTICLE-SEMANTIC.md]
   python3 make_semantic.py --check ARTICLE-SEMANTIC.md      validate nesting and ids, exit 1 on errors
 
 Markdown stays markdown (paragraphs, lists, tables, links, H3s). HTML is used only where markdown
@@ -19,7 +19,7 @@ Structure produced:
       <section id=".." aria-labelledby>   one per question H2; H3s inside stay markdown
       <section ... class="cta">            the call-to-action section (the last question H2)
       <section ... FAQPage microdata>      each FAQ H3 as a Question/Answer <article>
-      <footer class="article-footer">     Sources <section>, Article Summary <section> (from metadata.md)
+      <footer class="article-footer">     Sources <section>, Article Summary <section> (from the metadata table)
     </article>
   </main>
 
@@ -33,6 +33,8 @@ import html
 import re
 import sys
 from pathlib import Path
+
+from check_draft import split_meta
 
 UTILITY = {"key takeaways", "frequently asked questions", "faq", "faqs", "sources", "references",
            "sources and references"}
@@ -283,7 +285,6 @@ def check(text: str) -> list[str]:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("article", help="article.md to convert, or the article-semantic.md to --check")
-    ap.add_argument("--metadata")
     ap.add_argument("--out")
     ap.add_argument("--check", action="store_true", help="validate an article-semantic.md instead of writing one")
     a = ap.parse_args()
@@ -298,11 +299,8 @@ def main() -> int:
             print(f"ERROR: {e}")
         print("SEMANTIC: " + ("OK" if not errs else f"{len(errs)} error(s)"))
         return 1 if errs else 0
-    meta_path = Path(a.metadata) if a.metadata else src.with_name("metadata.md")
-    cells: dict[str, str] = {}
-    if meta_path.is_file():
-        cells = dict((k.strip(), v.strip()) for k, v in
-                     re.findall(r"(?m)^\|\s*([^|]+?)\s*\|\s*(.*?)\s*\|\s*$", meta_path.read_text(encoding="utf-8")))
+    meta, text = split_meta(text)
+    cells = dict((k.strip(), v.strip()) for k, v in re.findall(r"(?m)^\|\s*([^|]+?)\s*\|\s*(.*?)\s*\|\s*$", meta))
     out = build(text, cells)
     dest = Path(a.out) if a.out else src.with_name("article-semantic.md")
     dest.write_text(out, encoding="utf-8")
