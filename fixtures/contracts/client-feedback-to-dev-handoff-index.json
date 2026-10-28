@@ -1,0 +1,20 @@
+{
+  "file": "fixtures/contracts/client-feedback-dev-index-sample.md",
+  "## Feedback Items": [
+    {
+      "#": "1",
+      "Affects": "blueprint: Keyword Opportunity",
+      "Impact": "high: Blueprint Keyword Opportunity; deck slides 9, 10; pages home"
+    },
+    {
+      "#": "2",
+      "Affects": "page: about",
+      "Impact": "none"
+    }
+  ],
+  "page: <url-slug>": {
+    "home": [
+      "1"
+    ]
+  }
+}

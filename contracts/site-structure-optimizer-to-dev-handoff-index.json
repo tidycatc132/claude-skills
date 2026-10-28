@@ -1,0 +1,15 @@
+{
+  "name": "site-structure-optimizer-to-dev-handoff-index",
+  "version": 1,
+  "producer": "site-structure-optimizer",
+  "consumer": "dev-handoff-index",
+  "format": "json",
+  "fixture": "fixtures/contracts/site-structure-optimizer-to-dev-handoff-index.json",
+  "keys": [
+    "URL map",
+    "Redirect map"
+  ],
+  "producer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py sitemap fixtures/contracts/site-structure-optimizer-dev-index-report.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py sitemap --validate {fixture}"
+}

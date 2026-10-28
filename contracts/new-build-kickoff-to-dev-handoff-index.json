@@ -1,0 +1,34 @@
+{
+  "name": "new-build-kickoff-to-dev-handoff-index",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "dev-handoff-index",
+  "format": "csv",
+  "fixture": "fixtures/contracts/new-build-kickoff-url-inventory.csv",
+  "columns": [
+    "url",
+    "title",
+    "page_type",
+    "status",
+    "source"
+  ],
+  "required_non_empty": [
+    "url",
+    "page_type"
+  ],
+  "enums": {
+    "page_type": [
+      "home",
+      "about",
+      "service",
+      "location",
+      "contact",
+      "blog",
+      "post",
+      "legal",
+      "other"
+    ]
+  },
+  "min_rows": 0,
+  "consumer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py inventory {fixture}"
+}

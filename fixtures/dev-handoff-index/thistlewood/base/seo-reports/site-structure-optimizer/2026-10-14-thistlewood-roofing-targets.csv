@@ -1,0 +1,5 @@
+page_slug,primary_keyword,secondary_keywords,intent,funnel_stage,pillar,cluster_role,geo_format,priority_tier,opportunity_bucket,volume,kd,existing_url,source
+roof-replacement,roof replacement redmond,new roof cost redmond,commercial,BOFU,roofing,pillar,service,P1,quick win,170,12,/roofing-services/,keyword-research
+roof-repair,roof repair redmond,roof leak repair,commercial,BOFU,roofing,spoke,service,P1,quick win,140,9,,keyword-research
+gutter-installation,gutter installation redmond,seamless gutters,commercial,BOFU,gutters,pillar,service,P2,build,70,6,,keyword-research
+redmond-roofer,roofer redmond or,roofing company redmond,commercial,BOFU,roofing,spoke,location,P1,quick win,210,14,,keyword-research

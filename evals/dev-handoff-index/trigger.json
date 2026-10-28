@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Build the dev handoff index for Thistlewood Roofing.",
+    "Is the Copperline Plumbing site ready for dev? Which pages can the developers start on?",
+    "Assemble the dev handoff package for Atlas Physio: URLs, meta titles, templates, internal links and redirects for every page.",
+    "What can dev start building for Maple Row Bakery? Some pages still have client changes pending from the Week 2 reply.",
+    "End of Week 3 for Brightwater Dental: is it GO for development?",
+    "Re-run the dev handoff index for Fernhollow Landscaping, Content just rewrote the services page the client asked to change.",
+    "Dev needs the per-page package for Harbor & Pine before they open the theme: page, URL, content file, template and meta for each page, plus the redirect list from the old site.",
+    "List every old URL on the Juniper Ridge site that needs a 301 in the dev handoff, and tell me which pages are ready to build."
+  ],
+  "should_not_trigger": [
+    "Run the Week 2 handoff check for Thistlewood Roofing; can Week 3 start?",
+    "Check the designers' page templates against the page-type design briefs and write the asset checklist for dev.",
+    "Write the Roof Repair page for Thistlewood from its content brief.",
+    "Plan the sitemap and URL structure for Thistlewood Roofing's new site.",
+    "Write the design briefs for the service, location, about and contact page templates.",
+    "Generate JSON-LD LocalBusiness schema for every page on the Thistlewood site.",
+    "Crawl the staging site and tell me which pages have broken links or missing meta titles.",
+    "Marisol replied to the Week 2 email with changes to two pages; sort her feedback and draft the reply."
+  ]
+}

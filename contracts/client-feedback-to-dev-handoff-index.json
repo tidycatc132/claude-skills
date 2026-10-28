@@ -1,0 +1,15 @@
+{
+  "name": "client-feedback-to-dev-handoff-index",
+  "version": 1,
+  "producer": "client-feedback",
+  "consumer": "dev-handoff-index",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-to-dev-handoff-index.json",
+  "keys": [
+    "## Feedback Items",
+    "page: <url-slug>"
+  ],
+  "producer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py feedback fixtures/contracts/client-feedback-dev-index-sample.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py feedback --validate {fixture}"
+}

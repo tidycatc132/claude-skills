@@ -1,0 +1,18 @@
+{
+  "brief": "fixtures/contracts/page-type-design-briefs-dev-index-sample.md",
+  "client": "Fernway Family Chiropractic",
+  "## Page Types": [
+    "Service Pages",
+    "Location Pages",
+    "About Page",
+    "Contact Page"
+  ],
+  "pages": {
+    "spinal-adjustments": "Service Pages",
+    "sports-injury-care": "Service Pages",
+    "prenatal-chiropractic": "Service Pages",
+    "ashby-chiropractor": "Location Pages",
+    "about": "About Page",
+    "contact": "Contact Page"
+  }
+}
