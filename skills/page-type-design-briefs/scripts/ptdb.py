@@ -152,8 +152,16 @@ def brief_index(root: Path) -> dict[str, str]:
     return out
 
 
+def split_meta(md: str) -> tuple[str, str]:
+    """The `| Field | Value |` metadata table at the top of article.md, and the article below it."""
+    m = re.match(r"\s*((?:\|[^\n]*(?:\n|\Z))+)", md)
+    return (m.group(1), md[m.end():]) if m else ("", md)
+
+
 def metadata_url(page_dir: Path) -> str:
-    m = re.search(r"(?im)^\|\s*URL slug\s*\|\s*(.+?)\s*\|", read(page_dir / "metadata.md"))
+    # the table now heads article.md; pages written before 2026-10-28 keep it in metadata.md
+    table = split_meta(read(page_dir / "article.md"))[0] or read(page_dir / "metadata.md")
+    m = re.search(r"(?im)^\|\s*URL slug\s*\|\s*(.+?)\s*\|", table)
     return re.sub(r"^https?://[^/]+", "", m.group(1)).strip() if m else ""
 
 
@@ -191,7 +199,7 @@ def classify(slug: str, text: str, page_dir: Path, briefs: dict[str, str], overr
     for rx, kind in URL_TYPES:
         if url and rx.search(url):
             return kind, f"URL slug {url}"
-    return "unknown", "no markers, no brief in research/content-briefs/, no telling URL slug in metadata.md"
+    return "unknown", "no markers, no brief in research/content-briefs/, no telling URL slug in the metadata table"
 
 
 def find_kit(root: Path, kit: str | None) -> Path | None:
@@ -284,7 +292,7 @@ def scan(root: Path, slug: str, kit_arg: str | None, overrides: dict[str, str]) 
         art = d / "article.md"
         if not art.exists():
             continue
-        text = read(art)
+        text = split_meta(read(art))[1]
         kind, why = classify(d.name, text, d, briefs, overrides)
         pages.append({
             "url_slug": d.name,

@@ -13,7 +13,7 @@ All paths are relative to the client's working folder. `<slug>` is the client's 
 
 | Path | Required | What it gives |
 | --- | --- | --- |
-| `content/<url-slug>/article.md` (+ `metadata.md`) | yes | The written pages, one folder each, from seo-content-writer. `content/home/` is the homepage and is left out |
+| `content/<url-slug>/article.md` | yes | The written pages, one folder each, from seo-content-writer; the metadata table heads each `article.md` (pages written before 2026-10-28 keep it in `metadata.md` beside it). `content/home/` is the homepage and is left out |
 | `research/content-briefs/<id>.md` | no | content-brief's front matter: `page_url` (or else `primary_keyword`) matches a brief to its page folder, and `format` tells a service page (`service-page`) from a resource article (`explainer`, `how-to` and the other article formats) when the page has no section markers. A brief with no known format falls through to the URL |
 | `client-reference/<client-slug>/` | no | The kit (`brand.md`, `style.md`, `voice.md`, `audience.md`, `compliance.md`, any that exist) |
 | `design/<slug>/<slug>-homepage-design-brief.md` | no | The homepage design brief (homepage-design-brief): its Brand Cues and the homepage sections |
@@ -23,7 +23,7 @@ If no page other than the homepage is written, say the pages have to be written 
 
 ## Page types
 
-The script decides each page's type, in this order: a `--type <url-slug>=<type>` you pass; the section markers seo-content-writer writes (`<!-- section: Company Story -->`, `<!-- section: Mission and Values -->`, `<!-- section: Team -->`, `<!-- section: Credentials -->` mean about; `<!-- section: Contact Form -->`, `<!-- section: Phone and Email -->`, `<!-- section: Address and Hours -->`, `<!-- section: Map -->` mean contact; `<!-- section: How We Serve -->`, `<!-- section: Local Services -->`, `<!-- section: Local Proof -->`, `<!-- section: Directions -->` mean location; `<!-- section: Hero -->`, `<!-- section: FAQ -->` and `<!-- section: Final CTA -->` are shared); the content brief's `format:`; the `URL slug` row in `metadata.md` (`/services/...`, `/locations/...`, `/blog/...`, `/about/`, `/contact/`). When it prints `UNKNOWN TYPE`, read the page and pass `--type` for it. Only page types that have pages get a section.
+The script decides each page's type, in this order: a `--type <url-slug>=<type>` you pass; the section markers seo-content-writer writes (`<!-- section: Company Story -->`, `<!-- section: Mission and Values -->`, `<!-- section: Team -->`, `<!-- section: Credentials -->` mean about; `<!-- section: Contact Form -->`, `<!-- section: Phone and Email -->`, `<!-- section: Address and Hours -->`, `<!-- section: Map -->` mean contact; `<!-- section: How We Serve -->`, `<!-- section: Local Services -->`, `<!-- section: Local Proof -->`, `<!-- section: Directions -->` mean location; `<!-- section: Hero -->`, `<!-- section: FAQ -->` and `<!-- section: Final CTA -->` are shared); the content brief's `format:`; the `URL slug` row of the metadata table at the top of `article.md`, else in an older page's `metadata.md` (`/services/...`, `/locations/...`, `/blog/...`, `/about/`, `/contact/`). When it prints `UNKNOWN TYPE`, read the page and pass `--type` for it. Only page types that have pages get a section.
 
 ## Output
 
