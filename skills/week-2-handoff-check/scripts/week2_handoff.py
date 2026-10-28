@@ -32,7 +32,7 @@ BRIEFING_SECTIONS = ["Executive Summary", "Key Strategic Bets", "Numbers the AM 
                      "Anticipated Client Questions", "Calibration Framing"]
 DESIGN_SECTIONS = ["Page Types", "Open Questions", "Hand-off", "Sources"]
 DECK_HIT_CHECKS = ["em-dashes", "prescribe", "figures", "quotes"]
-PAGE_FILES = ["article.md", "metadata.md", "article.html", "qa_report.md", "handoff.md"]
+PAGE_FILES = ["article.md", "article.html", "handoff.md"]
 GOOD_BRIEF = {"DONE", "DONE_WITH_CONCERNS"}
 # URL-map rows the content step never writes, read from the URL path only (a bakery's /cookies/ page
 # is a real page): legal and utility pages, the blog archive and posts.
@@ -202,8 +202,10 @@ def load_briefs(root: Path) -> dict[str, tuple[Path, dict[str, str]]]:
 
 
 def read_page(folder: Path) -> dict:
-    qa, handoff = read(folder / "qa_report.md"), read(folder / "handoff.md")
-    vm = re.search(r"(?m)^VERDICT:\s*([A-Z_]+)", qa)
+    # the QA report now sits in qa/<url-slug>/ beside content/; older pages keep it in their folder
+    handoff = read(folder / "handoff.md")
+    qa = read(folder.parent.parent / "qa" / folder.name / "qa_report.md") or read(folder / "qa_report.md")
+    vm = re.search(r"(?m)^VERDICT:\s*([A-Z_]+)", handoff) or re.search(r"(?m)^VERDICT:\s*([A-Z_]+)", qa)
     fm = re.search(r"Open flags:\s*(\d+)", qa)
     flags = sorted({m.group(0) for m in FLAG.finditer(handoff)})
     return {

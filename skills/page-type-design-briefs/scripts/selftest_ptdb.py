@@ -17,8 +17,7 @@ SLUG = "wrenfield-glass"
 
 FILES = {
     "content/home/article.md": "<!-- section: Hero -->\n# Glass Repair in Wrenfield\n\nText.\n\n<!-- section: Why Us -->\n## Why?\n\nText.\n",
-    "content/window-repair/article.md": "# Window Repair\n\nIntro text here.\n\n## What breaks?\n\nText. [NEEDS INPUT: repair warranty]\n\n## How do I book?\n\n[Book](/book/)\n",
-    "content/window-repair/metadata.md": "| Field | Value |\n| --- | --- |\n| URL slug | /services/window-repair/ |\n",
+    "content/window-repair/article.md": "| Field | Value |\n| --- | --- |\n| URL slug | /services/window-repair/ |\n\n# Window Repair\n\nIntro text here.\n\n## What breaks?\n\nText. [NEEDS INPUT: repair warranty]\n\n## How do I book?\n\n[Book](/book/)\n",
     "content/about/article.md": (
         "<!-- section: Hero -->\n# About Wrenfield Glass\n\nText.\n\n<!-- section: Company Story -->\n## Story?\n\nText.\n\n"
         "<!-- section: Team -->\n## Team?\n\n[NEEDS INPUT: team names]\n\n<!-- section: Final CTA -->\n## Book?\n\n[Book](/book/)\n"
