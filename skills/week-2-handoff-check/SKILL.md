@@ -22,7 +22,7 @@ What the script reads, in report order (the full rules are in `references/checkl
 | Blueprint deck | `blueprint/<slug>/<slug>-growth-blueprint-deck.pptx` |
 | Deck compliance | `blueprint/<slug>/<slug>-deck-compliance.md` |
 | Sitemap report | the last-named `seo-reports/site-structure-optimizer/*.md` with a `countable pages N / SOW cap M` line and a `| Page | URL |` URL map |
-| One row per sitemap page | its brief in `research/content-briefs/` (matched by `page_url`) and its page in `content/<url-slug>/`: `article.md`, `metadata.md`, `article.html`, `qa_report.md`, `handoff.md` |
+| One row per sitemap page | its brief in `research/content-briefs/` (matched by `page_url`) and its page in `content/<url-slug>/`: `article.md`, `article.html`, `handoff.md`; the `VERDICT:` comes from `handoff.md`, else the `qa_report.md` in `qa/<url-slug>/`, else the one in an older page's folder |
 | Page-type design briefs | `design/<slug>/<slug>-page-type-design-briefs.md` |
 | Week 2 client email | `emails/<slug>/<slug>-week-2-email.md` |
 | Client feedback (not required) | the last `feedback/<slug>/*-feedback.md` with a `Week: 2` line, or a `*-week-2-nudge.md` |
