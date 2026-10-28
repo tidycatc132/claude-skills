@@ -35,7 +35,7 @@ DESIGN_HEADINGS = ["Goals", "Audience", "Brand Cues", "Design References", "Sect
                    "Must-Haves", "Do-Nots", "Open Questions", "Sources"]
 MISSING_HEADINGS = ["Intake Items", "Platform Access", "Kickoff Call Agenda"]
 KIT_FILES = ["brand.md", "voice.md", "style.md", "audience.md", "compliance.md"]
-CONTENT_FILES = ["article.md", "metadata.md", "article.html", "qa_report.md", "handoff.md"]
+CONTENT_FILES = ["article.md", "article.html", "handoff.md"]
 CAP_RE = re.compile(r"countable pages\W*(\d+)\s*/\s*SOW cap\W*(\d+|unknown)", re.I)
 MARKER_RE = re.compile(r"<!--\s*section:\s*(.+?)\s*-->")
 OPTION_RE = re.compile(r"^\s*[^:\n]{1,60}:\s*https?://\S+\s*$")
@@ -307,7 +307,9 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
         r.set("missing", f"no homepage article.md under content/; owner {OWNERS['content']}")
     else:
         absent = [f for f in CONTENT_FILES if not (cdir / f).is_file()]
-        verdict = re.search(r"^VERDICT:\s*(\w+)", read(cdir / "qa_report.md"), re.M)
+        # handoff.md carries the VERDICT; older pages have it only in the QA report, now under qa/<url-slug>/
+        verdict = next(filter(None, (re.search(r"^VERDICT:\s*(\w+)", read(f), re.M) for f in (
+            cdir / "handoff.md", cdir.parent.parent / "qa" / cdir.name / "qa_report.md", cdir / "qa_report.md"))), None)
         if absent:
             r.set("missing", "incomplete, lacks " + ", ".join(absent) + f"; owner {OWNERS['content']}")
         elif not verdict or verdict.group(1) not in ("READY", "NEEDS_INPUT"):
