@@ -122,6 +122,21 @@ def main() -> int:
         expect("HTML title from the table, table not in body",
                "<title>Tankless Lifespan Guide</title>" in page_html and "Article summary" not in page_html.split("<body")[-1])
 
+    # brief link paths keep URL characters such as & and drop a sentence's closing period
+    with tempfile.TemporaryDirectory() as d:
+        b = Path(d) / "brief.md"
+        b.write_text("Target keyword: tankless water heater\n\n### Links from this page\n| URL | Anchor |\n|---|---|\n"
+                     "| /case-study/deblanc-murphy-&-murphy | case study |\n| /learn/blog/water_heaters/ | guide |\n\n"
+                     "## Internal links\nLink to /services/seo.\n", encoding="utf-8")
+        out_ = subprocess.run([PY, str(HERE / "check_draft.py"), "--brief", str(b), "--brief-only"],
+                              capture_output=True, text=True).stdout
+        expect("brief link with & read whole", "/case-study/deblanc-murphy-&-murphy" in out_
+               and "/learn/blog/water_heaters/" in out_, out_)
+        b.write_text("Target keyword: x\n\n## Internal links\nLink to /services/seo. Then /about/, too.\n", encoding="utf-8")
+        out_ = subprocess.run([PY, str(HERE / "check_draft.py"), "--brief", str(b), "--brief-only"],
+                              capture_output=True, text=True).stdout
+        expect("sentence punctuation not part of a link", "/services/seo, /about/" in out_, out_)
+
     # semantic version of an article
     out, log = run_semantic(good, meta)
     expect("semantic article checks OK", "SEMANTIC: OK" in log and "error" not in log.lower(), log[-300:])

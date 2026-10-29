@@ -355,7 +355,9 @@ def brief_link_targets(brief: str) -> list[str]:
     text = sec.group(1) if sec else ""
     if re.search(r"(?m)^\|", text):  # table: the URL is the first cell of each row
         text = "\n".join(l.strip().strip("|").split("|")[0] for l in text.splitlines() if l.strip().startswith("|"))
-    return list(dict.fromkeys(re.findall(r"(?<![\w.])(/[a-z0-9][a-z0-9\-/]*/?)", text)))
+    # URL path characters (& in "/case-study/a-&-b", %, _, ., ~, +); a sentence's closing . or , is not part of it
+    paths = re.findall(r"(?<![\w.])(/[a-z0-9][\w\-/&%.~+]*)", text, re.I)
+    return list(dict.fromkeys(p.rstrip(".,") for p in paths))
 
 
 def main() -> int:
