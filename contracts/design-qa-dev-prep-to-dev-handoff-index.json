@@ -1,0 +1,15 @@
+{
+  "name": "design-qa-dev-prep-to-dev-handoff-index",
+  "version": 1,
+  "producer": "design-qa-dev-prep",
+  "consumer": "dev-handoff-index",
+  "format": "json",
+  "fixture": "fixtures/contracts/design-qa-dev-prep-to-dev-handoff-index.json",
+  "keys": [
+    "## Asset Checklist",
+    "RESULT:"
+  ],
+  "producer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py devprep fixtures/contracts/design-qa-dev-prep-sample.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py devprep --validate {fixture}"
+}

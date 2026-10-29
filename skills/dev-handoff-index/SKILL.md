@@ -17,7 +17,7 @@ All paths are relative to the client's working folder. `<slug>` is the client's 
 | `content/<url-slug>/metadata.md` and `article.md` | per page | seo-content-writer's page: `Meta title`, `Meta description`, `H1`, `URL slug` from the metadata table; internal links (`[anchor](/path/)`), `tel:` and `mailto:` links and a `<!-- section: Contact Form -->` marker from the article |
 | `design/<slug>/<slug>-page-type-design-briefs.md` | yes | page-type-design-briefs: each page file listed under a page-type section's `### Pages` gives that page its template. `## Page Types` names the sections |
 | `design/<slug>/<slug>-homepage-design-brief.md` | for the homepage | its existence gives the homepage its template |
-| `design/<slug>/<slug>-design-qa-devprep.md` | no | design-qa-dev-prep: the `## Asset Checklist` section, copied whole, and the `RESULT: PASS` or `RESULT: FAIL` line |
+| `design/<slug>/<slug>-design-qa-devprep.md` | no | design-qa-dev-prep: the `## Asset Checklist` section, copied whole, and the last `RESULT:` line (`RESULT: PASS` or `RESULT: FAIL`) |
 | `feedback/<slug>/YYYY-MM-DD-feedback.md` | no | client-feedback: only the latest one. Its `## Feedback Items` rows whose Impact is not `none` hold back the page in a `page: <url-slug>` Affects, and any page named in the Impact's `pages` list |
 | `kickoff/<slug>/<slug>-url-inventory.csv` | yes | new-build-kickoff's old URLs, columns `url`, `title`, `page_type`, `status`, `source` (header only means no existing site) |
 | `handoff/<slug>/<slug>-week-2-handoff.md` | yes | week-2-handoff-check: its last line, `GO` or `NO-GO` |

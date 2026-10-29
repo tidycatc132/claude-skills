@@ -1,0 +1,14 @@
+{
+  "name": "page-type-design-briefs-to-design-qa-dev-prep",
+  "version": 1,
+  "producer": "page-type-design-briefs",
+  "consumer": "design-qa-dev-prep",
+  "format": "json",
+  "fixture": "fixtures/contracts/page-type-design-briefs-to-design-qa-dev-prep.json",
+  "keys": [
+    "## Page Types"
+  ],
+  "producer_cmd": "python3 skills/design-qa-dev-prep/scripts/dqa.py briefs fixtures/design-qa-dev-prep/larchmont/base/design/larchmont-electric/larchmont-electric-page-type-design-briefs.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/design-qa-dev-prep/scripts/dqa.py briefs --validate {fixture}"
+}

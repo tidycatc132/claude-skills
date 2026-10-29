@@ -1,0 +1,298 @@
+{
+  "cases": [
+    {
+      "id": "designer-inventory-pass-with-flag",
+      "prompt": "Use the design-qa-dev-prep skill. Run the design quality check and dev prep for Larchmont Electric; the working folder is the current folder. The designer filled in the design inventory.",
+      "fixtures": [
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/design/larchmont-electric/larchmont-electric-page-type-design-briefs.md",
+          "dest": "design/larchmont-electric/larchmont-electric-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/client-reference/larchmontelectric/brand.md",
+          "dest": "client-reference/larchmontelectric/brand.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/article.md",
+          "dest": "content/panel-upgrades/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/metadata.md",
+          "dest": "content/panel-upgrades/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/article.md",
+          "dest": "content/ev-charger-installation/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/metadata.md",
+          "dest": "content/ev-charger-installation/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/inventories/designer-pass.md",
+          "dest": "design/larchmont-electric/larchmont-electric-design-inventory.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\nRESULT: PASS\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| All \\| Colours sourced \\| FLAG \\|[^\\n]*#EEF2F6"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Service Pages \\| Holds the longest page \\| PASS \\|"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Contact Page \\| CTA placement \\| PASS \\|"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| FAIL \\|"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "## Asset Checklist\\n\\n### Images\\n\\n- Service header photo \\(2\\): 1600 x 900, WebP\\n"
+        },
+        {
+          "type": "contains",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "text": "### Interactive elements\n\n- FAQ List: each question opens and closes its answer"
+        },
+        {
+          "type": "contains",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "text": "## Mobile-First Priorities\n\n### Service Pages\n\n- On mobile the phone number and the Opening answer come first"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "#EEF2F6"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the templates pass, names the one colour (#EEF2F6) that no brand source lists and says Design should confirm it, and points to the QA file; it does not ask the user any question before running the check."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "figma-inventory-fails",
+      "prompt": "Use the design-qa-dev-prep skill. Check Larchmont Electric's templates for dev; the working folder is the current folder. The Figma file https://www.figma.com/design/LxQ7demo/Larchmont-Electric-Templates was already read into the design inventory yesterday, use that.",
+      "fixtures": [
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/design/larchmont-electric/larchmont-electric-page-type-design-briefs.md",
+          "dest": "design/larchmont-electric/larchmont-electric-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/client-reference/larchmontelectric/brand.md",
+          "dest": "client-reference/larchmontelectric/brand.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/article.md",
+          "dest": "content/panel-upgrades/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/metadata.md",
+          "dest": "content/panel-upgrades/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/article.md",
+          "dest": "content/ev-charger-installation/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/metadata.md",
+          "dest": "content/ev-charger-installation/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/inventories/figma-fails.md",
+          "dest": "design/larchmont-electric/larchmont-electric-design-inventory.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\nRESULT: FAIL\\s*$"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Service Pages \\| Brief sections have containers \\| FAIL \\|[^\\n]*FAQ"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Service Pages \\| Containers have content \\| FAIL \\|[^\\n]*Testimonials Strip"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Service Pages \\| Holds the longest page \\| FAIL \\|[^\\n]*ev-charger-installation"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Service Pages \\| CTA placement \\| FAIL \\|[^\\n]*Opening answer"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| Contact Page \\| Template exists \\| FAIL \\|"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "\\| All \\| Asset details complete \\| FAIL \\|[^\\n]*Testimonial headshots"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md",
+          "pattern": "## Asset Checklist\\n\\n### Images\\n\\n- Hero photo: 1600 x 900, WebP\\n- Testimonial headshots\\n"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the templates fail and lists what Design must fix: the missing FAQ container, the Testimonials Strip with no content, a template that holds 7 H2 sections when the longest service page has 8, the missing call to action after the Opening answer, no contact page template, and image sizes missing for the testimonial headshots. It does not claim the designs are ready for dev."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "no-inventory-writes-template",
+      "prompt": "Use the design-qa-dev-prep skill. Run the design QA and dev prep for Larchmont Electric; the working folder is the current folder. I don't have a Figma link handy.",
+      "fixtures": [
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/design/larchmont-electric/larchmont-electric-page-type-design-briefs.md",
+          "dest": "design/larchmont-electric/larchmont-electric-page-type-design-briefs.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/client-reference/larchmontelectric/brand.md",
+          "dest": "client-reference/larchmontelectric/brand.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/home/metadata.md",
+          "dest": "content/home/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/article.md",
+          "dest": "content/panel-upgrades/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/panel-upgrades/metadata.md",
+          "dest": "content/panel-upgrades/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/article.md",
+          "dest": "content/ev-charger-installation/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/ev-charger-installation/metadata.md",
+          "dest": "content/ev-charger-installation/metadata.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/design-qa-dev-prep/larchmont/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/larchmont-electric/larchmont-electric-design-inventory.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/larchmont-electric/larchmont-electric-design-qa-devprep.md"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-inventory.md",
+          "pattern": "## Template: Service Pages\\n\\nFrame: [^\\n]*\\nHolds H2 sections: [^\\n]*\\nSections:\\n- [^\\n]*-> Opening answer\\n"
+        },
+        {
+          "type": "regex",
+          "path": "design/larchmont-electric/larchmont-electric-design-inventory.md",
+          "pattern": "## Template: Contact Page\\n\\nFrame: [^\\n]*\\nHolds H2 sections: [^\\n]*\\nSections:\\n(?:- [^\\n]*\\n){2}- [^\\n]*-> Phone and Email\\n"
+        },
+        {
+          "type": "contains",
+          "path": "design/larchmont-electric/larchmont-electric-design-inventory.md",
+          "text": "Source: designer"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "larchmont-electric-design-inventory\\.md"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says no check was run because there is no design inventory yet, says a blank inventory was written for the designer to fill (or that a Figma link would let it read the templates), and does not invent any design details or a result."
+          ]
+        }
+      ]
+    }
+  ]
+}
