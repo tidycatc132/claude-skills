@@ -1,0 +1,65 @@
+{
+  "report": "fixtures/contracts/site-structure-optimizer-dev-index-report.md",
+  "URL map": [
+    {
+      "Page": "Home",
+      "URL": "/",
+      "Parent": "none",
+      "Priority": "high (not in SOW scope)"
+    },
+    {
+      "Page": "Roof Replacement",
+      "URL": "/services/roof-replacement/",
+      "Parent": "/",
+      "Priority": "high"
+    },
+    {
+      "Page": "Roof Repair",
+      "URL": "/services/roof-repair/",
+      "Parent": "/",
+      "Priority": "high"
+    },
+    {
+      "Page": "Gutter Installation",
+      "URL": "/services/gutter-installation/",
+      "Parent": "/",
+      "Priority": "medium"
+    },
+    {
+      "Page": "Redmond Roofer",
+      "URL": "/redmond-roofer/",
+      "Parent": "/",
+      "Priority": "high"
+    },
+    {
+      "Page": "About",
+      "URL": "/about/",
+      "Parent": "/",
+      "Priority": "medium"
+    },
+    {
+      "Page": "Contact",
+      "URL": "/contact/",
+      "Parent": "/",
+      "Priority": "high (not in SOW scope)"
+    },
+    {
+      "Page": "Storm Damage Roof Guide",
+      "URL": "/blog/storm-damage-roof-guide/",
+      "Parent": "/blog/",
+      "Priority": "low (post-launch)"
+    }
+  ],
+  "Redirect map": [
+    {
+      "Old URL": "/about-us/",
+      "New URL": "/about/",
+      "Note": "301, same page renamed"
+    },
+    {
+      "Old URL": "/roofing-services/",
+      "New URL": "/services/roof-replacement/",
+      "Note": "301, old catch-all services page"
+    }
+  ]
+}

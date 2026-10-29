@@ -1,0 +1,17 @@
+{
+  "name": "seo-content-writer-to-dev-handoff-index",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "dev-handoff-index",
+  "format": "json",
+  "fixture": "fixtures/contracts/seo-content-writer-to-dev-handoff-index.json",
+  "keys": [
+    "Meta title",
+    "Meta description",
+    "H1",
+    "URL slug"
+  ],
+  "producer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py content fixtures/contracts/seo-content-writer-dev-index-page/roof-repair",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/dev-handoff-index/scripts/dev_index.py content --validate {fixture}"
+}
