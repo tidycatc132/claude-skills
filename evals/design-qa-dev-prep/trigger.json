@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Run the design quality checklist for Larchmont Electric's page templates before we hand them to dev.",
+    "The designers finished the service and contact templates in Figma for Copperline Plumbing. Check them against the page-type design briefs: https://www.figma.com/design/AbC123/Copperline-Templates",
+    "Do the inner-page templates for Atlas Physio hold the longest service page, and do the colours and fonts match the brand kit?",
+    "Write the asset checklist for dev from the Maple Row Bakery templates: images with sizes, icons, fonts, colours, spacing, interactive bits.",
+    "Design QA and dev prep for Brightwater Dental, the designer filled in the inventory.",
+    "Before dev starts on Fernhollow Landscaping, check every brief section has a container in the templates and no container is empty.",
+    "Re-run the design QA for Harbor & Pine, Tris fixed the missing FAQ block on the service template.",
+    "Our designer wants to know if the Juniper Ridge templates are ready for development. Check them and list the assets dev will need."
+  ],
+  "should_not_trigger": [
+    "Write the design briefs for the service, location, about and contact page templates for Larchmont Electric.",
+    "Build the dev handoff index for Larchmont Electric and tell me which pages dev can start.",
+    "Write the homepage design brief for Copperline Plumbing now that the homepage copy is edited.",
+    "Run the Week 2 handoff check for Atlas Physio; can Week 3 start?",
+    "Crawl the staging site for Maple Row Bakery and check Core Web Vitals and broken links.",
+    "Build the brand.md, voice.md and style.md reference kit for Brightwater Dental.",
+    "Critique this landing page mockup: is the hierarchy clear and does the CTA stand out?",
+    "Sort the client's reply about the homepage design options and draft the AM's answer."
+  ]
+}
