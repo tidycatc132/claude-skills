@@ -1,0 +1,434 @@
+{
+  "note": "Wireframe step cases for page-type-design-briefs (Week 3 queue row 3), run from a scratch copy because outputs.json and trigger.json are frozen. Append them to those files only with the owner's unlock.",
+  "outputs": [
+    {
+      "id": "hollis-creek-wireframes-sourced-colours",
+      "prompt": "Use the page-type-design-briefs skill for Hollis Creek Pest Control (slug hollis-creek-pest). The page-type design briefs are finished and checked in design/hollis-creek-pest/. Design wants template wireframes they can pull into Figma with their HTML-to-Figma plugin: one HTML starter per template. Today is 2026-10-30.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/client-reference/holliscreekpest/audience.md",
+          "dest": "client-reference/holliscreekpest/audience.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/client-reference/holliscreekpest/brand.md",
+          "dest": "client-reference/holliscreekpest/brand.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/article.md",
+          "dest": "content/ant-control/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/metadata.md",
+          "dest": "content/ant-control/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/article.md",
+          "dest": "content/pest-control-cedar-junction/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/metadata.md",
+          "dest": "content/pest-control-cedar-junction/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/article.md",
+          "dest": "content/pest-control-maple-falls/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/metadata.md",
+          "dest": "content/pest-control-maple-falls/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/article.md",
+          "dest": "content/rodent-removal/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/metadata.md",
+          "dest": "content/rodent-removal/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "dest": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-about-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-contact-wireframe.html"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-resource-wireframe.html"
+        },
+        {
+          "type": "regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "(?s)data-section=\"Opening answer\".*?data-section=\"Key Takeaways\".*?data-section=\"Question sections\".*?data-section=\"FAQ\".*?data-section=\"Booking\"",
+          "label": "service sections in the brief's Content Map order"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "Copy from: content/ant-control/article.md (longest of 2 pages, 283 words)"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "Which ants does Hollis Creek Pest Control treat?"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "[NEEDS INPUT: follow-up visit terms for ant treatments]"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "#E0A526"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html",
+          "text": "Copy from content/pest-control-cedar-junction/article.md (not on the longest page)"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html",
+          "text": ">05 · Directions · 1 of 2</p>"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-about-wireframe.html",
+          "text": "Luis Ferreira, licensed pest technician"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-contact-wireframe.html",
+          "text": "[NEEDS INPUT: office hours]"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "(?i)<script|<img|https?://|href=",
+          "label": "self-contained, no scripts, images or outside links"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "text": "- Forest Green `#2E5E3A` for headings and the header [kit: brand.md]"
+        },
+        {
+          "type": "not_contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "text": "<fill>"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "hollis-creek-pest-service-wireframe\\.html",
+          "label": "reports the wireframe paths"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)cedar[- ]junction",
+          "label": "reports the section copied from another page"
+        },
+        {
+          "type": "regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "(?s)data-section=\"Question sections\".*?Is ant bait safe around pets\\?.*?data-section=\"FAQ\"",
+          "label": "question copy sits in the Question sections section"
+        },
+        {
+          "type": "regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "(?s)data-section=\"FAQ\".*?Do I need to leave the house during treatment\\?.*?data-section=\"Booking\"",
+          "label": "FAQ copy sits in the FAQ section"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "h1,h2,h3,h4{color:#2E5E3A}"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": ".wf-section[data-cta=\"yes\"] .wf-label{background:#E0A526"
+        },
+        {
+          "type": "regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "data-section=\"Booking\" data-component=\"section\" data-cta=\"yes\"",
+          "label": "Booking marked as the CTA section"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "data-section=\"(?:Opening answer|Key Takeaways|Question sections|FAQ)\" data-component=\"section\" data-cta",
+          "label": "no other service section marked as a CTA"
+        }
+      ]
+    },
+    {
+      "id": "hollis-creek-wireframes-no-colours",
+      "prompt": "Use the page-type-design-briefs skill for Hollis Creek Pest Control (slug hollis-creek-pest). The page-type design briefs in design/hollis-creek-pest/ are done and pass their check. Make the HTML starter for the templates so Design can import them into Figma. Today is 2026-10-30.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/client-reference/holliscreekpest/audience.md",
+          "dest": "client-reference/holliscreekpest/audience.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/variants/no-colours/client-reference/holliscreekpest/brand.md",
+          "dest": "client-reference/holliscreekpest/brand.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/article.md",
+          "dest": "content/ant-control/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/metadata.md",
+          "dest": "content/ant-control/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/article.md",
+          "dest": "content/pest-control-cedar-junction/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/metadata.md",
+          "dest": "content/pest-control-cedar-junction/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/article.md",
+          "dest": "content/pest-control-maple-falls/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/metadata.md",
+          "dest": "content/pest-control-maple-falls/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/article.md",
+          "dest": "content/rodent-removal/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/metadata.md",
+          "dest": "content/rodent-removal/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/variants/no-colours/design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "dest": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-about-wireframe.html"
+        },
+        {
+          "type": "file_exists",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-contact-wireframe.html"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "Colours: neutral greys only (the brief gives no sourced colours)"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "pattern": "(?i)#2E5E3A|#E0A526|#33302C",
+          "label": "no colour the brief does not give"
+        },
+        {
+          "type": "not_regex",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html",
+          "pattern": "(?i)#2E5E3A|#E0A526|#33302C",
+          "label": "no colour the brief does not give (location)"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html",
+          "text": "How do I book ant control?"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)gr[ae]ys?",
+          "label": "says the wireframes are greys only"
+        }
+      ]
+    },
+    {
+      "id": "hollis-creek-brief-unfinished-no-wireframes",
+      "prompt": "Use the page-type-design-briefs skill for Hollis Creek Pest Control (slug hollis-creek-pest). Priya is still writing the page-type design brief in design/hollis-creek-pest/; do not edit it. Can Design have the template wireframes yet? Today is 2026-10-30.",
+      "fixtures": [
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/client-reference/holliscreekpest/audience.md",
+          "dest": "client-reference/holliscreekpest/audience.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/client-reference/holliscreekpest/brand.md",
+          "dest": "client-reference/holliscreekpest/brand.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/about/metadata.md",
+          "dest": "content/about/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/article.md",
+          "dest": "content/ant-control/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/ant-control/metadata.md",
+          "dest": "content/ant-control/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/contact/metadata.md",
+          "dest": "content/contact/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/article.md",
+          "dest": "content/pest-control-cedar-junction/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-cedar-junction/metadata.md",
+          "dest": "content/pest-control-cedar-junction/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/article.md",
+          "dest": "content/pest-control-maple-falls/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/pest-control-maple-falls/metadata.md",
+          "dest": "content/pest-control-maple-falls/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/article.md",
+          "dest": "content/rodent-removal/article.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/base/content/rodent-removal/metadata.md",
+          "dest": "content/rodent-removal/metadata.md"
+        },
+        {
+          "src": "fixtures/page-type-design-briefs/hollis-creek/variants/unfinished/design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "dest": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-service-wireframe.html"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-location-wireframe.html"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-about-wireframe.html"
+        },
+        {
+          "type": "file_absent",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-contact-wireframe.html"
+        },
+        {
+          "type": "contains",
+          "path": "design/hollis-creek-pest/hollis-creek-pest-page-type-design-briefs.md",
+          "text": "| 1 | <fill> | <fill> | <fill> | <fill> |"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)brief (is not|isn't|is still|still|has to|must|needs)|finish(ed)? the brief|not (yet )?(finished|pass)|does not pass|unfinished|incomplete|RESULT: FAIL|brief (that )?pass(es)? its check|once [^\\n]*brief passes",
+          "label": "says the brief has to be finished first"
+        }
+      ]
+    }
+  ],
+  "trigger": {
+    "should_trigger": [
+      "Design asked for template wireframes for Hollis Creek's service, location, About and Contact pages. The page-type briefs are done.",
+      "Can you give the designers an HTML starter for the templates so they can pull the inner pages into Figma?",
+      "Turn Ridgeline Roofing's page-type design briefs into grey-box HTML wireframes, one per page type, with the real page copy.",
+      "Write the page-type design briefs for Kestrel HVAC and add a wireframe for each template."
+    ],
+    "should_not_trigger": [
+      "Build the HTML wireframe for the Bramblewood Plumbing homepage from the homepage design brief.",
+      "Check the designers' Figma templates for Oakmere Vet against the page-type briefs and list the assets dev needs.",
+      "Code the approved service page template from Figma into a WordPress theme.",
+      "Assemble the dev handoff index for Fernway Landscaping and tell me if dev can start."
+    ]
+  }
+}
