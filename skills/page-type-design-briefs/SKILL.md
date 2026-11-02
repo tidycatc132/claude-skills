@@ -1,6 +1,6 @@
 ---
 name: page-type-design-briefs
-description: Writes one design brief per page type (service, location, about, contact, resource) for the designers' inner-page templates. Reads the written pages in content/, the client reference kit, the homepage design brief and the chosen homepage direction from feedback/, and writes slug-page-type-design-briefs.md with, for each page type found, a section-by-section content map, repeating blocks, content length, CTA placement, sourced brand cues, mobile-first priorities and the homepage link. Content structure and brand rules only, no visual styling. Use when the inner pages are written and the designers need template or page-type briefs. Do NOT use for the homepage design brief (use homepage-design-brief), writing the pages (use seo-content-writer), brand files (use client-reference-kit), planning the sitemap (use site-structure-optimizer), sorting client feedback (use client-feedback), client emails (use week-1-client-email), or checking the finished templates (use design-qa-dev-prep).
+description: Writes one design brief per page type (service, location, about, contact, resource) for the inner-page templates, and on request one HTML wireframe per type. Reads the written pages, the client reference kit, the homepage design brief and the homepage choice in feedback/, and writes slug-page-type-design-briefs.md with, per page type, a content map, repeating blocks, content length, CTA placement, sourced brand cues, mobile-first priorities and the homepage link. Content structure and brand rules only, no visual styling. Use when the inner pages are written and the designers need template briefs, template wireframes or an HTML starter for the templates. Do NOT use for the homepage brief or wireframe (use homepage-design-brief), writing the pages (use seo-content-writer), brand files (use client-reference-kit), the sitemap (use site-structure-optimizer), client feedback (use client-feedback), client emails (use week-1-client-email), or checking the finished templates (use design-qa-dev-prep).
 ---
 
 # Page-type design briefs
@@ -29,6 +29,8 @@ The script decides each page's type, in this order: a `--type <url-slug>=<type>`
 
 `design/<slug>/<slug>-page-type-design-briefs.md`. The layout, every subsection and the evidence tags are in `references/brief-spec.md`; read it before filling the brief.
 
+Only when the user asks for template wireframes, an HTML starter or something to pull into Figma: `design/<slug>/<slug>-<page-type>-wireframe.html`, one per page type in the brief (`service`, `location`, `about`, `contact`, `resource`). What goes in them is in `references/wireframe-spec.md`; read it before the wireframe step.
+
 ## Running the scripts
 
 The script is `scripts/ptdb.py` in this skill's folder. Run it from the client's working folder by its full path, as one plain command: `python3 <skill-folder>/scripts/ptdb.py <mode> --slug <slug> ...`. Nothing chained before or after it (no `cd`, `&&`, pipes or loops). If a call is denied, send the same single `python3` command again, and use `python` if `python3` is missing. Never write the scaffold or the check result by hand because a call failed.
@@ -45,7 +47,8 @@ The script is `scripts/ptdb.py` in this skill's folder. Run it from the client's
    - When the client picked a homepage option, each Homepage Relationship names it and says what the template carries over from the homepage brief. When they have not, it says `direction not chosen yet` and names no option: do not guess which one they will pick.
    - Flags on the pages are boxes the designer must leave room for; they are already copied into Open Questions. Add a question for anything else the designer is waiting on.
 5. **Check.** `python3 <skill-folder>/scripts/ptdb.py check design/<slug>/<slug>-page-type-design-briefs.md --slug <slug>`. Fix every FAIL in the brief and run it again until it prints `RESULT: PASS`.
-6. **Report** in a few lines: the brief's path, the page types and page counts, the homepage direction, how many open questions the client or AM must answer, and the hand-off for Design (this brief, the content files, the homepage design brief).
+6. **Wireframes, only when asked.** Once the check prints `RESULT: PASS`, run `python3 <skill-folder>/scripts/wireframe.py build --slug <slug>` (same `--type` options; `--only <page-type>` for one). It builds every file from the brief and the pages and checks what it wrote; it refuses while the brief fails its check, so finish the brief first. Do not write or edit the HTML by hand. If the user asked only for wireframes and the brief already passes, skip steps 3 to 5.
+7. **Report** in a few lines: the brief's path, the page types and page counts, the homepage direction, how many open questions the client or AM must answer, and the hand-off for Design (this brief, the content files, the homepage design brief). With wireframes, add each file's path, the page its copy came from, and whether it uses the brief's colours or greys only.
 
 ## Scripts
 
@@ -54,6 +57,9 @@ The script is `scripts/ptdb.py` in this skill's folder. Run it from the client's
 | `scripts/ptdb.py scan` | Page types, lengths, sections, flags, brand cues, homepage option (`--json` for machine output) |
 | `scripts/ptdb.py scaffold` | The brief with computed parts filled (`--force` to start again) |
 | `scripts/ptdb.py check` | The brief against the files: sections, pages, content map, length lines, tags, colours, quotes, flags, no visual design |
+| `scripts/wireframe.py build` | One grey-box HTML wireframe per page type from a passing brief, then `check` |
+| `scripts/wireframe.py check` | The wireframes against the brief and the pages: section order and labels, copy, colours, no outside files |
 | `scripts/selftest_ptdb.py` | Small cases for the checker; run after changing `ptdb.py` |
+| `scripts/selftest_wireframe.py` | Small cases for the wireframes; run after changing `wireframe.py` |
 
 Standard-library Python 3 only.
