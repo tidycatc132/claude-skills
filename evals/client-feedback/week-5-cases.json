@@ -1,0 +1,284 @@
+{
+  "note": "Week 5 cases for client-feedback, run from a scratch copy because outputs.json and trigger.json are frozen. Append them to those files only with the owner's unlock.",
+  "outputs": [
+    {
+      "id": "wrenfield-week-5-staging-edits",
+      "prompt": "Use the client-feedback skill. Dana Whitlock at Wrenfield Landscaping sent her edits to the staging site: her email is in `client-email.txt`, and the two tasks she left as a guest on our BugHerd project are already saved at `feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json`. The kickoff folder is `kickoff/wrenfield-landscaping/`; the staging QA report, dev handoff index and `qa/routing.md` are in this folder. I'm the AM, Riley Shaw. Class every edit, write the BugHerd task rows and draft my reply. Don't create anything in BugHerd yet, just show me the preview.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/wrenfield/kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md",
+          "dest": "kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md",
+          "dest": "handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md",
+          "dest": "qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json",
+          "dest": "feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/client-email.txt",
+          "dest": "client-email.txt"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-bugherd-tasks.json"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?m)^Week: 5\\s*$",
+          "label": "report marked Week 5"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*555-0148[^\\n]*\\|\\s*Mechanical\\s*\\|\\s*Content\\s*\\|",
+          "label": "footer phone is Mechanical, Content"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Hollaway[^\\n]*\\|\\s*Mechanical\\s*\\|\\s*Content\\s*\\|",
+          "label": "name spelling is Mechanical, Content"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Weekends Free[^\\n]*\\|\\s*Strategic\\s*\\|\\s*SEO\\s*\\|",
+          "label": "heading change is Strategic, SEO"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*snow removal[^\\n]*\\|\\s*Scope Change\\s*\\|\\s*Account Management\\s*\\|",
+          "label": "snow removal page is a Scope Change"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*navy[^\\n]*\\|\\s*Scope Change\\s*\\|\\s*Account Management\\s*\\|",
+          "label": "design opinion is a Scope Change"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*deck[^\\n]*\\|\\s*BugHerd #14\\s*\\|[^\\n]*\\|\\s*Mechanical\\s*\\|\\s*Design\\s*\\|",
+          "label": "BugHerd photo task is Mechanical, Design"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?im)^\\|[^\\n]*Submit[^\\n]*\\|\\s*BugHerd #15\\s*\\|[^\\n]*\\|\\s*Mechanical\\s*\\|\\s*Development\\s*\\|",
+          "label": "BugHerd form task is Mechanical, Development"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-bugherd-tasks.json",
+          "pattern": "\\\"column\\\": \\\"SEO Review\\\"",
+          "label": "Strategic edit goes to SEO Review"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "pattern": "(?m)^- #\\d+ [^\\n]*: PM/AM: \\S[^\\n]*\\n- #\\d+ [^\\n]*: PM/AM: \\S",
+          "label": "both Scope Changes carry a PM/AM note"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-bugherd-tasks.json",
+          "pattern": "\\\"bugherd_task_id\\\": \\\"14\\\"",
+          "label": "guest task 14 is moved, not re-created"
+        },
+        {
+          "type": "not_regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-bugherd-tasks.json",
+          "pattern": "(?i)snow removal|navy",
+          "label": "no task for Scope Changes"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "rubric",
+          "target": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "context": [
+            "client-email.txt",
+            "feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json"
+          ],
+          "criteria": [
+            "The reply draft tells Dana the phone number, the name spelling, the photo and the estimate form will be fixed, and treats the lawn care heading as something the SEO team reviews before it changes, not as already agreed."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "feedback/wrenfield-landscaping/2026-11-12-feedback.md",
+          "context": [
+            "client-email.txt",
+            "feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json"
+          ],
+          "criteria": [
+            "The reply draft does not agree to the snow removal page or the navy homepage; it says they go beyond this build and offers a call about them."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wrenfield-week-5-bugherd-only",
+      "prompt": "Use the client-feedback skill. Dana at Wrenfield Landscaping didn't email; she left her staging edits as tasks on our BugHerd project, and I've saved them at `feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json`. Kickoff folder `kickoff/wrenfield-landscaping/`, QA report, dev index and routing are here. AM is Riley Shaw. Sort them and draft a short reply; no BugHerd changes yet. The tasks were created on 2026-11-11, so that is the date of these edits.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/wrenfield/kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md",
+          "dest": "kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md",
+          "dest": "handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md",
+          "dest": "qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json",
+          "dest": "feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-feedback.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-bugherd-tasks.json"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-feedback.md",
+          "pattern": "(?m)^From: 2026-11-12-bugherd-client-tasks\\.json\\s*$",
+          "label": "From names the BugHerd file"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-feedback.md",
+          "pattern": "(?m)^- Items: 2 \\(2 Mechanical, 0 Strategic, 0 Scope Change, 0 Question, 0 Approval\\)",
+          "label": "two Mechanical edits"
+        },
+        {
+          "type": "regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-bugherd-tasks.json",
+          "pattern": "\\\"bugherd_task_id\\\": \\\"15\\\"",
+          "label": "guest task 15 carried"
+        },
+        {
+          "type": "not_regex",
+          "path": "feedback/wrenfield-landscaping/2026-11-11-bugherd-tasks.json",
+          "pattern": "\\\"create\\\": true",
+          "label": "nothing re-created"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        }
+      ]
+    },
+    {
+      "id": "wrenfield-week-5-preview-gate",
+      "prompt": "Use the client-feedback skill. Dana Whitlock at Wrenfield Landscaping sent her edits to the staging site: her email is in `client-email.txt`, and the two tasks she left as a guest on our BugHerd project are already saved at `feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json`. The kickoff folder is `kickoff/wrenfield-landscaping/`; the staging QA report, dev handoff index and `qa/routing.md` are in this folder. I'm the AM, Riley Shaw. Class every edit, write the BugHerd task rows and draft my reply.",
+      "fixtures": [
+        {
+          "src": "fixtures/client-feedback/wrenfield/kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md",
+          "dest": "kickoff/wrenfield-landscaping/wrenfield-landscaping-context.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md",
+          "dest": "handoff/wrenfield-landscaping/wrenfield-landscaping-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md",
+          "dest": "qa/wrenfield-landscaping/wrenfield-landscaping-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json",
+          "dest": "feedback/wrenfield-landscaping/2026-11-12-bugherd-client-tasks.json"
+        },
+        {
+          "src": "fixtures/client-feedback/wrenfield/client-email.txt",
+          "dest": "client-email.txt"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-feedback.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "feedback/wrenfield-landscaping/2026-11-12-bugherd-tasks.json"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "checker passed"
+        },
+        {
+          "type": "not_regex",
+          "path": "stdout",
+          "pattern": "RECORDED \\d+ BugHerd id",
+          "label": "no task ids recorded (nothing created)"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The answer shows the PM a preview of the BugHerd tasks (what would be created or moved, by column or department) and stops to ask for the go before creating or moving anything in BugHerd; it does not claim any task was created or moved."
+          ]
+        }
+      ]
+    }
+  ],
+  "trigger": {
+    "should_trigger": [
+      "Dana from Wrenfield sent her edits to the staging site. Sort them into mechanical, strategic and scope changes and draft my reply.",
+      "The client left six comments on the staging site in BugHerd. Class each one, route it to the right department and give me the task rows.",
+      "Our client replied to the staging review email with a list of changes, including a new page and a different colour. Who handles what?",
+      "Process the client's staging edits for Wrenfield before we launch."
+    ],
+    "should_not_trigger": [
+      "QA the Wrenfield staging site against the dev handoff index and send the issues to BugHerd.",
+      "Draft the email that sends Dana the staging link for her last review before launch.",
+      "Is Wrenfield ready to launch? Run the final sweep and write the go message to dev.",
+      "Re-run QA on the Wrenfield staging site after the fixes and tell me what is still open."
+    ]
+  }
+}
