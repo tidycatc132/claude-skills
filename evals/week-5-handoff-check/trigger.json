@@ -1,0 +1,21 @@
+{
+  "should_trigger": [
+    "Do the Week 5 final sweep for Quillfeather Plumbing and tell me if we're a go for launch.",
+    "Is Tidewater Roofing cleared to deploy? Check QA, BugHerd, the client's edits and the AM sign-off, then write the all good to go message for dev.",
+    "Launch go/no-go for Fernhollow Bakery: everything in BugHerd should be closed or deferred now.",
+    "Write the go message to the dev team for Copperline Plumbing once you've confirmed nothing is still blocking launch.",
+    "The client never replied to the staging email and the reply-by date has passed. Can Oakhurst Landscape Co. go live? Run the final check.",
+    "Final pre-launch check for Harbor Pine Dental: is anything still open that stops dev from deploying?"
+  ],
+  "should_not_trigger": [
+    "Run QA on the Quillfeather Plumbing staging site and push the issues to BugHerd for each department.",
+    "Re-run staging QA for Tidewater Roofing now that dev says the fixes are in, and show me what's fixed.",
+    "Ade replied to the staging email with three edits. Sort them and draft our reply.",
+    "Draft the Week 5 email that sends Fernhollow Bakery the staging link for their review.",
+    "Run the Week 2 handoff check for Copperline Plumbing. Are we ready for Week 3?",
+    "Is Week 1 done for Oakhurst Landscape Co.? Can SEO start the Growth Blueprint?",
+    "Build the dev handoff index for Harbor Pine Dental so dev knows which pages they can start.",
+    "Draft the email telling Quillfeather Plumbing their new site is live and what happens in the first 30 days.",
+    "Run a pre-launch technical SEO audit of the Tidewater Roofing staging site: canonicals, robots.txt, redirects and page speed."
+  ]
+}

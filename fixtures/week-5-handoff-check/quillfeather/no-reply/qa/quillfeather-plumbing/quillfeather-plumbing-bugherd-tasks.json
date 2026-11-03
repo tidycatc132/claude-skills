@@ -1,0 +1,16 @@
+[
+  {
+    "finding_id": "QA-dcc6e684",
+    "status": "OPEN",
+    "create": false,
+    "bugherd_task_id": "25",
+    "page_url": "https://quillfeather.staging-wise.site/services/drain-cleaning/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "Sam Ortiz",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/drain-cleaning/: The image /wp-content/uploads/drain-header.webp has no alt text.",
+    "description": "The image /wp-content/uploads/drain-header.webp has no alt text. Add alt text that says what the image shows. (Staging QA 2026-11-17, QA-dcc6e684)"
+  }
+]

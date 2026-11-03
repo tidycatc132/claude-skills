@@ -1,0 +1,87 @@
+{
+  "Staging:": "https://quillfeather.staging-wise.site",
+  "## Findings": [
+    {
+      "id": "QA-daf2e19b",
+      "page": "/services/water-heater-repair/",
+      "department": "Content",
+      "severity": "CRITICAL",
+      "finding": "Placeholder text is on the page: \"Lorem ipsum\".",
+      "fix": "Replace it with the approved page content."
+    },
+    {
+      "id": "QA-81660a68",
+      "page": "/",
+      "department": "SEO",
+      "severity": "MAJOR",
+      "finding": "The link to /about/ with the text \"Meet the crew\" is missing.",
+      "fix": "Add the link to /about/ with the text \"Meet the crew\"."
+    },
+    {
+      "id": "QA-dcc6e684",
+      "page": "/services/drain-cleaning/",
+      "department": "SEO",
+      "severity": "MAJOR",
+      "finding": "The image /wp-content/uploads/drain-header.webp has no alt text.",
+      "fix": "Add alt text that says what the image shows."
+    }
+  ],
+  "## Re-run Status": [
+    {
+      "Finding ID": "QA-daf2e19b",
+      "Status": "NEW",
+      "Page URL": "/services/water-heater-repair/",
+      "Department": "Content",
+      "Severity": "CRITICAL",
+      "Finding": "Placeholder text is on the page: \"Lorem ipsum\"."
+    },
+    {
+      "Finding ID": "QA-81660a68",
+      "Status": "NEW",
+      "Page URL": "/",
+      "Department": "SEO",
+      "Severity": "MAJOR",
+      "Finding": "The link to /about/ with the text \"Meet the crew\" is missing."
+    },
+    {
+      "Finding ID": "QA-dcc6e684",
+      "Status": "OPEN",
+      "Page URL": "/services/drain-cleaning/",
+      "Department": "SEO",
+      "Severity": "MAJOR",
+      "Finding": "The image /wp-content/uploads/drain-header.webp has no alt text."
+    }
+  ],
+  "## Launch Toggles": [
+    "/: noindex on staging. Remove it at launch so the page can be indexed. (Development)",
+    "/services/drain-cleaning/: noindex on staging. Remove it at launch so the page can be indexed. (Development)",
+    "/services/water-heater-repair/: noindex on staging. Remove it at launch so the page can be indexed. (Development)",
+    "/about/: noindex on staging. Remove it at launch so the page can be indexed. (Development)",
+    "/contact/: noindex on staging. Remove it at launch so the page can be indexed. (Development)",
+    "4 theme, menu or file URL(s) use the staging domain (for example https://quillfeather.staging-wise.site/about/). Switch the site URL to the live domain at launch and re-check. (Development)"
+  ],
+  "RESULT:": "NOT READY",
+  "tasks": [
+    {
+      "finding_id": "QA-daf2e19b",
+      "status": "NEW",
+      "bugherd_task_id": "",
+      "severity": "CRITICAL",
+      "department": "Content"
+    },
+    {
+      "finding_id": "QA-81660a68",
+      "status": "NEW",
+      "bugherd_task_id": "",
+      "severity": "MAJOR",
+      "department": "SEO"
+    },
+    {
+      "finding_id": "QA-dcc6e684",
+      "status": "OPEN",
+      "bugherd_task_id": "25",
+      "severity": "MAJOR",
+      "department": "SEO"
+    }
+  ]
+}

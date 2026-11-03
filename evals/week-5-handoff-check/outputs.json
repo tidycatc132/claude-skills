@@ -1,0 +1,401 @@
+{
+  "cases": [
+    {
+      "id": "quillfeather-go-pm-statuses",
+      "prompt": "Use the week-5-handoff-check skill. Do the Week 5 final sweep for Quillfeather Plumbing (slug quillfeather-plumbing) and, if we're clear, write the all good to go message for dev. Today is 2026-11-17 and I'm Jordan Vale, the PM. There's no BugHerd connector in this session, so here is the board as I read it this morning: tasks #20, #21, #22, #23, #24, #26, #27 and #28 are closed, #31 and #32 are done, and #25 (the drain cleaning header image alt text) is still in SEO Review. Defer #25 to post-launch: the client is sending a new header photo and the alt text goes on with it. Nothing else is on the board. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md",
+          "dest": "emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/go/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/go/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/go/feedback/quillfeather-plumbing/2026-11-12-feedback.md",
+          "dest": "feedback/quillfeather-plumbing/2026-11-12-feedback.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/go/feedback/quillfeather-plumbing/2026-11-12-bugherd-tasks.json",
+          "dest": "feedback/quillfeather-plumbing/2026-11-12-bugherd-tasks.json"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json"
+        },
+        {
+          "type": "json_valid",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "pattern": "\"read_on\":\\s*\"2026-11-17\"",
+          "label": "statuses dated today"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "pattern": "\"bugherd_task_id\":\\s*\"20\"",
+          "label": "tasks beyond the template added from the PM's list"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "pattern": "\"deferred\":\\s*\"[^\"]*photo",
+          "label": "the PM's deferral reason recorded on #25"
+        },
+        {
+          "type": "file_exists",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "\\nGO\\s*$",
+          "label": "handoff ends GO"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "text": "| 4 | Open MAJOR | PASS |",
+          "label": "the deferred MAJOR passes"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "text": "| 5 | BugHerd tasks | PASS |",
+          "label": "BugHerd check passes"
+        },
+        {
+          "type": "file_exists",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Subject: All good to go: Quillfeather Plumbing"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Remove it at launch so the page can be indexed.",
+          "label": "noindex toggle carried from the QA report"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "QA-dcc6e684",
+          "label": "deferred item named for dev"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Winter Pipe Guide",
+          "label": "post-launch page listed as not in this launch"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Online booking",
+          "label": "scope change listed as not in this launch"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Jordan Vale",
+          "label": "PM sign-off"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?<!NO-)\\bGO\\b",
+          "label": "reply says GO"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the result is GO and gives the path of the go-live message as something the PM sends to dev; it does not claim the message was already sent to dev."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md"
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply names the deferred drain cleaning alt-text item as carried to post-launch and the online booking Scope Change as not in this launch."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quillfeather-regression-no-go",
+      "prompt": "Use the week-5-handoff-check skill. Run the Week 5 final sweep for Quillfeather Plumbing (slug quillfeather-plumbing). Today is 2026-11-17. QA was re-run this morning and the BugHerd statuses are already saved in the status file from this morning. Can dev deploy? If the only real problem is that placeholder text on the water heater page, just defer it so we can launch. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md",
+          "dest": "emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/feedback/quillfeather-plumbing/2026-11-12-feedback.md",
+          "dest": "feedback/quillfeather-plumbing/2026-11-12-feedback.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/feedback/quillfeather-plumbing/2026-11-12-bugherd-tasks.json",
+          "dest": "feedback/quillfeather-plumbing/2026-11-12-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/regression/handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "\\nNO-GO\\s*$",
+          "label": "handoff ends NO-GO"
+        },
+        {
+          "type": "file_absent",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "label": "the stale go-live message from an earlier sweep is gone"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "text": "| 3 | Open CRITICAL | FAIL |"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "QA-daf2e19b[^\\n]*\\(owner: Content\\)",
+          "label": "critical placeholder text blocker owned by Content"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "QA-81660a68[^\\n]*No BugHerd task yet",
+          "label": "new MAJOR has no BugHerd task"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "BugHerd #31[^\\n]*Copy Review[^\\n]*\\(owner: Content\\)",
+          "label": "open client edit blocks"
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "text": "\"status\": \"Copy Review\"",
+          "label": "saved statuses left as BugHerd gave them"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "NO-GO",
+          "label": "reply says NO-GO"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply leads with NO-GO and lists the placeholder text on the water heater repair page, the missing Meet the crew link, the missing alt text and the open opening-hours edit (BugHerd #31) as blocking, each with the team that owns it."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply does not suggest deferring the CRITICAL placeholder-text finding or treating any blocking item as optional."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the CRITICAL placeholder-text finding cannot be deferred and must be fixed before launch."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+          ]
+        },
+        {
+          "type": "not_contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "text": "placeholder",
+          "label": "no deferral written for the CRITICAL"
+        }
+      ]
+    },
+    {
+      "id": "quillfeather-no-reply-go",
+      "prompt": "Use the week-5-handoff-check skill. Final sweep for Quillfeather Plumbing (slug quillfeather-plumbing): can dev deploy? Today is 2026-11-17. Ade never replied to the staging email. The BugHerd status file was updated this morning and is current. Write the go message if we're clear; I'm Jordan Vale, the PM. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-02.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-06.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-am-review.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/common/emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md",
+          "dest": "emails/quillfeather-plumbing/quillfeather-plumbing-week-5-email.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/no-reply/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/no-reply/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/week-5-handoff-check/quillfeather/no-reply/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "pattern": "\\nGO\\s*$",
+          "label": "handoff ends GO"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "text": "client not verified: no reply by 2026-11-13",
+          "label": "no reply after the reply-by date, and the email said we'd go ahead"
+        },
+        {
+          "type": "file_exists",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md"
+        },
+        {
+          "type": "contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "DEFERRED: The client is sending a new header photo",
+          "label": "PM's deferral carried to dev"
+        },
+        {
+          "type": "not_contains",
+          "path": "handoff/quillfeather-plumbing/quillfeather-plumbing-go-live-message.md",
+          "text": "Lorem",
+          "label": "nothing from the regression case"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the result is GO and tells the PM that the client did not reply by the reply-by date (November 13), so the site goes ahead without the client having verified it."
+          ],
+          "context": [
+            "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+          ]
+        }
+      ]
+    }
+  ]
+}
