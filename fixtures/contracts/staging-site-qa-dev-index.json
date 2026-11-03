@@ -1,0 +1,178 @@
+[
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Home",
+    "URL": "/",
+    "Content file": "content/home/article.md",
+    "Meta title": "Redmond Roofing Company | Thistlewood Roofing",
+    "Meta description": "Roof replacement, repairs and gutters from a Redmond crew that has worked Central Oregon roofs since 2009. Free inspections.",
+    "H1": "Redmond Roofing Company for Replacements, Repairs and Gutters",
+    "Internal links": [
+      {
+        "target": "/contact/",
+        "anchor": "Book a free roof inspection",
+        "flag": ""
+      },
+      {
+        "target": "/services/roof-replacement/",
+        "anchor": "Roof replacement",
+        "flag": ""
+      },
+      {
+        "target": "/services/roof-repair/",
+        "anchor": "Roof repair",
+        "flag": ""
+      },
+      {
+        "target": "/services/gutter-installation/",
+        "anchor": "Seamless gutters",
+        "flag": ""
+      },
+      {
+        "target": "/contact/",
+        "anchor": "Request an inspection",
+        "flag": ""
+      }
+    ],
+    "Priority": "Build",
+    "Status": "READY"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Roof Replacement",
+    "URL": "/services/roof-replacement/",
+    "Content file": "content/roof-replacement/article.md",
+    "Meta title": "Roof Replacement in Redmond, OR | Thistlewood Roofing",
+    "Meta description": "What a roof replacement costs in Redmond, how long it takes, and when a repair is enough. Free inspection with a written quote.",
+    "H1": "Roof Replacement in Redmond, OR",
+    "Internal links": [
+      {
+        "target": "/services/roof-repair/",
+        "anchor": "roof repair",
+        "flag": ""
+      },
+      {
+        "target": "/gallery/",
+        "anchor": "past projects",
+        "flag": "NOT IN SITEMAP, no redirect target"
+      },
+      {
+        "target": "/contact/",
+        "anchor": "Book a free roof inspection",
+        "flag": ""
+      }
+    ],
+    "Priority": "Build",
+    "Status": "READY"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Roof Repair",
+    "URL": "/services/roof-repair/",
+    "Content file": "content/roof-repair/article.md",
+    "Meta title": "Roof Repair in Redmond: Leaks, Flashing and Storm Damage | Thistlewood Roofing",
+    "Meta description": "Leak, flashing and storm repairs for Redmond homes, usually done in a day. What a repair costs and when it is not worth it.",
+    "H1": "Roof Repair in Redmond: Leaks, Flashing and Storm Damage",
+    "Internal links": [
+      {
+        "target": "/services/roof-replacement/",
+        "anchor": "full roof replacement",
+        "flag": ""
+      },
+      {
+        "target": "/contact/",
+        "anchor": "Book a repair visit",
+        "flag": ""
+      }
+    ],
+    "Priority": "Build",
+    "Status": "WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #1)"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Redmond Roofer",
+    "URL": "/redmond-roofer/",
+    "Content file": "content/redmond-roofer/article.md",
+    "Meta title": "Roofer in Redmond, OR | Thistlewood Roofing",
+    "Meta description": "A Redmond roofing crew for asphalt, metal and flat roofs. Local references, free inspections and directions to the yard on SW Veterans Way.",
+    "H1": "Your Redmond Roofer",
+    "Internal links": [
+      {
+        "target": "/services/roof-replacement/",
+        "anchor": "Roof replacement in Redmond",
+        "flag": ""
+      },
+      {
+        "target": "/services/roof-repair/",
+        "anchor": "Roof repair in Redmond",
+        "flag": ""
+      },
+      {
+        "target": "/contact/",
+        "anchor": "Book your free inspection",
+        "flag": ""
+      }
+    ],
+    "Priority": "Build",
+    "Status": "WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #3)"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "About",
+    "URL": "/about/",
+    "Content file": "content/about/article.md",
+    "Meta title": "About Thistlewood Roofing | Redmond Roofers Since 2009",
+    "Meta description": "Family-run since 2009, licensed in Oregon (CCB #214477), with a crew of eleven. Meet the people who will be on your roof.",
+    "H1": "About Thistlewood Roofing",
+    "Internal links": [
+      {
+        "target": "/redmond-roofer/",
+        "anchor": "Redmond",
+        "flag": ""
+      },
+      {
+        "target": "/contact/",
+        "anchor": "Book a free roof inspection",
+        "flag": ""
+      }
+    ],
+    "Priority": "Build",
+    "Status": "READY"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Contact",
+    "URL": "/contact/",
+    "Content file": "content/contact/article.md",
+    "Meta title": "Contact Thistlewood Roofing | Book a Free Roof Inspection",
+    "Meta description": "Call 541-555-0182 or send the form to book a free roof inspection in Redmond, Bend or Sisters.",
+    "H1": "Contact Thistlewood Roofing",
+    "Internal links": [],
+    "Priority": "Build",
+    "Status": "READY"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Gutter Installation",
+    "URL": "/services/gutter-installation/",
+    "Content file": "none",
+    "Meta title": "none",
+    "Meta description": "none",
+    "H1": "none",
+    "Internal links": [],
+    "Priority": "Build",
+    "Status": "NOT WRITTEN"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Storm Damage Roof Guide",
+    "URL": "/blog/storm-damage-roof-guide/",
+    "Content file": "none",
+    "Meta title": "none",
+    "Meta description": "none",
+    "H1": "none",
+    "Internal links": [],
+    "Priority": "Post-Launch",
+    "Status": "NOT WRITTEN"
+  }
+]

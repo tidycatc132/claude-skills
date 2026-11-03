@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "QA the staging site for Quillfeather Plumbing before the client sees it: https://quillfeather.staging-wise.site",
+    "Run QA automation on staging for Larchmont Electric and get the issues into BugHerd for each department.",
+    "Staging QA for Thistlewood Roofing. The staging password is in the vault, user wise-review.",
+    "Check the staging pages against the dev handoff index: titles, H1s, sections, internal links, anything still pointing at the staging domain.",
+    "Dev says Copperline Plumbing's staging build is done. Find what's wrong and route each issue to Content, SEO, Design or Dev.",
+    "Send the QA issues to BugHerd for Atlas Physio, the PM looked at the preview and said go.",
+    "Re-run QA after fixes on the Harbor & Pine staging site and tell me what's fixed, what's still open and what's new.",
+    "Staging is behind an IP allowlist, so I saved every page's HTML into staging-pages/. Run the pre-launch QA on those for Maple Row Bakery.",
+    "Before Quillfeather Plumbing launches, check the staging site's canonicals, noindex tags and HTTPS against what we approved."
+  ],
+  "should_not_trigger": [
+    "Run a technical SEO audit on brightwaterdental.com, the live site: Core Web Vitals, crawlability and indexing.",
+    "Take an SEO snapshot of fernhillvet.com and compare it with last month's to catch regressions after launch.",
+    "Build the dev handoff index for Quillfeather Plumbing and tell me which pages dev can start.",
+    "Check the designers' inner-page templates for Larchmont Electric against the page-type design briefs before dev starts.",
+    "The client replied to the staging link with a list of edits. Sort them and draft the AM's reply.",
+    "Run the Week 2 handoff check for Atlas Physio; can Week 3 start?",
+    "Audit this blog post's E-E-A-T and tell me if it's ready to publish."
+  ]
+}

@@ -1,0 +1,479 @@
+{
+  "cases": [
+    {
+      "id": "quillfeather-first-run",
+      "prompt": "Use the staging-site-qa skill. Run QA automation on the Quillfeather Plumbing staging site, https://quillfeather.staging-wise.site. It's blocked from here, so I saved every page's HTML into staging/. The working folder is the current folder; date the run 2026-11-03. Show me the BugHerd preview but don't create any tasks yet.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/drain-cleaning/article.md",
+          "dest": "content/drain-cleaning/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/water-heater-repair/article.md",
+          "dest": "content/water-heater-repair/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
+          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/staging/about/index.html",
+          "dest": "staging/about/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/staging/contact/index.html",
+          "dest": "staging/contact/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/staging/index.html",
+          "dest": "staging/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/staging/services/drain-cleaning/index.html",
+          "dest": "staging/services/drain-cleaning/index.html"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "type": "json_valid",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "type": "json_has_keys",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "keys": [
+            "finding_id",
+            "page_url",
+            "department",
+            "column",
+            "assignee",
+            "severity",
+            "description"
+          ]
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-76c273e5 \\| /about/ \\| SEO \\| MAJOR \\| The meta title is ",
+          "label": "wrong meta title on /about/, SEO"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-65f2ee1c \\| /services/drain-cleaning/ \\| Content \\| CRITICAL \\| The section \\\"Do you inspect the main line with a camera\\?\\\" is missing",
+          "label": "missing H2, Content"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-81660a68 \\| / \\| SEO \\| MAJOR \\| The link to /about/ ",
+          "label": "dropped internal link on home"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-9b522990 \\| /contact/ \\| Development \\| MAJOR \\| 1 link\\(s\\) or image\\(s\\) in the page content still point at the staging domain",
+          "label": "staging-domain link, Development"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-d1bfad17 \\| /services/water-heater-repair/ \\| Development \\| CRITICAL \\| The page is missing on staging",
+          "label": "missing page is CRITICAL"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-dcc6e684 \\| /services/drain-cleaning/ \\| SEO \\| MAJOR \\| The image [^\\n|]*drain-header\\.webp has no alt text",
+          "label": "missing alt"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-2fd83d99 \\| /contact/ \\| Content \\| CRITICAL \\| The phone number 503-555-0174",
+          "label": "wrong phone vs context"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^## Launch Toggles\\n\\n- /: noindex on staging",
+          "label": "noindex is a launch toggle"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\|[^\\n]*noindex",
+          "label": "noindex is not a finding row"
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "text": "Structured data: not in the current process"
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "text": "Compared with: none (first run)"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^- 4 theme, menu or file URL\\(s\\) use the staging domain",
+          "label": "theme and menu staging URLs are one launch toggle"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\|[^\\n]*(?:wp-content/themes|The meta title is \"Menu\")",
+          "label": "no finding per theme URL, no svg title read as meta title"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^## AM Items$",
+          "label": "AM section present"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "\\nRESULT: NOT READY\\s*$",
+          "label": "result line"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-[0-9a-f]{8} \\| /about/ \\| [A-Za-z]+ \\| [A-Z]+ \\| [^\\n]*(?:canonical|H1|meta description)",
+          "label": "no false finding on /about/ head tags"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
+          "pattern": "^\\| QA-[0-9a-f]{8} \\| [^|]+ \\| Design \\| (?![^\\n]*\\((?:seen in qa/quillfeather-plumbing/screens/|asset checklist: ))",
+          "label": "every Design finding cites a screenshot or the asset checklist"
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "text": "\"column\": \"Copy Review\""
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "text": "\"column\": \"SEO Review\""
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "text": "\"column\": \"Dev Ready\""
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "text": "\"assignee\": \"Sam Ortiz\"",
+          "label": "assignee comes from qa/routing.md"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "\\\"department\\\": \\\"(?:Account Management|AM)\\\"",
+          "label": "no AM task"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "[Nn]oindex",
+          "label": "noindex never becomes a task"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "\\\"status\\\": \\\"(?:OPEN|FIXED)\\\"",
+          "label": "first run: all NEW"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply shows the PM a preview of the BugHerd tasks (or points to the task file) and asks for the go-ahead before creating them; it does not say any BugHerd task was created."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply names the missing water heater repair page as a launch blocker."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quillfeather-rerun",
+      "prompt": "Use the staging-site-qa skill. Dev fixed the Quillfeather Plumbing QA tasks. Re-run QA after fixes; the saved staging pages are now in staging-after/ (staging is https://quillfeather.staging-wise.site). Working folder is the current folder, date the run 2026-11-04. Just the preview, no BugHerd yet.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/drain-cleaning/article.md",
+          "dest": "content/drain-cleaning/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/water-heater-repair/article.md",
+          "dest": "content/water-heater-repair/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
+          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-10-27.md",
+          "dest": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-10-27.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/staging-after/about/index.html",
+          "dest": "staging-after/about/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/staging-after/contact/index.html",
+          "dest": "staging-after/contact/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/staging-after/index.html",
+          "dest": "staging-after/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/staging-after/services/drain-cleaning/index.html",
+          "dest": "staging-after/services/drain-cleaning/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/after-fixes/staging-after/services/water-heater-repair/index.html",
+          "dest": "staging-after/services/water-heater-repair/index.html"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md"
+        },
+        {
+          "type": "json_valid",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "type": "contains",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "text": "Compared with: qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-10-27.md"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-76c273e5 \\| FIXED \\| /about/ ",
+          "label": "meta title FIXED"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-65f2ee1c \\| FIXED \\| ",
+          "label": "H2 FIXED"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-d1bfad17 \\| FIXED \\| ",
+          "label": "page now present: FIXED"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-9b522990 \\| FIXED \\| ",
+          "label": "staging link FIXED"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-81660a68 \\| OPEN \\| / ",
+          "label": "dropped link still OPEN"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-dcc6e684 \\| OPEN \\| ",
+          "label": "alt still OPEN"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^\\| QA-daf2e19b \\| NEW \\| /services/water-heater-repair/ \\| Content \\| CRITICAL \\| Placeholder text",
+          "label": "new lorem placeholder is NEW"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "^Re-run: 7 FIXED, 2 OPEN, 1 NEW$",
+          "label": "re-run counts"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "\\\"finding_id\\\": \\\"QA-daf2e19b\\\",\\n\\s*\\\"status\\\": \\\"NEW\\\",\\n\\s*\\\"create\\\": true",
+          "label": "only NEW is created"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "\\\"finding_id\\\": \\\"QA-81660a68\\\",\\n\\s*\\\"status\\\": \\\"OPEN\\\",\\n\\s*\\\"create\\\": false",
+          "label": "OPEN is not created again"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json",
+          "pattern": "\\\"finding_id\\\": \\\"QA-76c273e5\\\",\\n\\s*\\\"status\\\": \\\"FIXED\\\",\\n\\s*\\\"create\\\": false",
+          "label": "FIXED is not created"
+        },
+        {
+          "type": "regex",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-04.md",
+          "pattern": "\\nRESULT: NOT READY\\s*$",
+          "label": "result line"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says which issues are fixed, which are still open and which are new, and says only the new one would become a new BugHerd task."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply does not say any BugHerd task was created."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "unreachable-staging",
+      "prompt": "Use the staging-site-qa skill. QA the Quillfeather Plumbing staging site at https://quillfeather.staging-wise.invalid. Working folder is the current folder, date the run 2026-11-03.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/drain-cleaning/article.md",
+          "dest": "content/drain-cleaning/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/content/water-heater-repair/article.md",
+          "dest": "content/water-heater-repair/article.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
+          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/quillfeather/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-tasks.json"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the staging site could not be reached and that no QA report was written."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply offers a way forward: check the URL or password, or save the pages' HTML into a folder and run again. It does not invent any findings."
+          ]
+        }
+      ]
+    }
+  ]
+}

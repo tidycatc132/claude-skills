@@ -1,0 +1,12 @@
+{
+  "name": "seo-content-writer-to-staging-site-qa",
+  "version": 1,
+  "producer": "seo-content-writer",
+  "consumer": "staging-site-qa",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-article.json",
+  "keys": ["article.md", "<!-- section: Final CTA -->"],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py article fixtures/dev-handoff-index/thistlewood/base/content/about/article.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/staging-site-qa/scripts/qa.py article --validate {fixture}"
+}

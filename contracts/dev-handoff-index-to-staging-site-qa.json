@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-staging-site-qa",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "staging-site-qa",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-dev-index.json",
+  "keys": ["Page", "Content file", "Meta title", "Meta description", "H1", "Internal links", "Priority"],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py index fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/staging-site-qa/scripts/qa.py index --validate {fixture}"
+}

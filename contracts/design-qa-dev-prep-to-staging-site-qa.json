@@ -1,0 +1,12 @@
+{
+  "name": "design-qa-dev-prep-to-staging-site-qa",
+  "version": 1,
+  "producer": "design-qa-dev-prep",
+  "consumer": "staging-site-qa",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-asset-checklist.json",
+  "keys": ["## Asset Checklist", "### Images", "RESULT:"],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py devprep fixtures/contracts/design-qa-dev-prep-sample.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/staging-site-qa/scripts/qa.py devprep --validate {fixture}"
+}
