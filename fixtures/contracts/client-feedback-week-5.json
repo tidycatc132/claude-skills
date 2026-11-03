@@ -1,0 +1,115 @@
+{
+  "Week:": "5",
+  "Class": [
+    {
+      "#": "1",
+      "Class": "Approval",
+      "Department": "Account Management",
+      "Task": "none",
+      "PM/AM note": ""
+    },
+    {
+      "#": "2",
+      "Class": "Mechanical",
+      "Department": "Content",
+      "Task": "CE-3bdf2113",
+      "PM/AM note": ""
+    },
+    {
+      "#": "3",
+      "Class": "Mechanical",
+      "Department": "Content",
+      "Task": "CE-129f02ae",
+      "PM/AM note": ""
+    },
+    {
+      "#": "4",
+      "Class": "Strategic",
+      "Department": "SEO",
+      "Task": "CE-81b653cf",
+      "PM/AM note": ""
+    },
+    {
+      "#": "5",
+      "Class": "Scope Change",
+      "Department": "Account Management",
+      "Task": "none",
+      "PM/AM note": "A sixth page is beyond the five-page SOW; quote it as a change order or plan it after launch"
+    },
+    {
+      "#": "6",
+      "Class": "Scope Change",
+      "Department": "Account Management",
+      "Task": "none",
+      "PM/AM note": "Design direction was confirmed in Week 3; a navy redesign goes back to design and needs a change order"
+    },
+    {
+      "#": "7",
+      "Class": "Question",
+      "Department": "Account Management",
+      "Task": "none",
+      "PM/AM note": ""
+    },
+    {
+      "#": "8",
+      "Class": "Mechanical",
+      "Department": "Design",
+      "Task": "CE-42055f96 (BugHerd #14)",
+      "PM/AM note": ""
+    },
+    {
+      "#": "9",
+      "Class": "Mechanical",
+      "Department": "Development",
+      "Task": "CE-5fc6c968 (BugHerd #15)",
+      "PM/AM note": ""
+    }
+  ],
+  "tasks": [
+    {
+      "finding_id": "CE-3bdf2113",
+      "status": "NEW",
+      "create": true,
+      "bugherd_task_id": "",
+      "department": "Content",
+      "column": "Copy Review",
+      "severity": "CRITICAL"
+    },
+    {
+      "finding_id": "CE-129f02ae",
+      "status": "NEW",
+      "create": true,
+      "bugherd_task_id": "",
+      "department": "Content",
+      "column": "Copy Review",
+      "severity": "MAJOR"
+    },
+    {
+      "finding_id": "CE-81b653cf",
+      "status": "NEW",
+      "create": true,
+      "bugherd_task_id": "",
+      "department": "SEO",
+      "column": "SEO Review",
+      "severity": "MAJOR"
+    },
+    {
+      "finding_id": "CE-42055f96",
+      "status": "NEW",
+      "create": false,
+      "bugherd_task_id": "14",
+      "department": "Design",
+      "column": "Design Review",
+      "severity": "MAJOR"
+    },
+    {
+      "finding_id": "CE-5fc6c968",
+      "status": "NEW",
+      "create": false,
+      "bugherd_task_id": "15",
+      "department": "Development",
+      "column": "Dev Ready",
+      "severity": "CRITICAL"
+    }
+  ]
+}

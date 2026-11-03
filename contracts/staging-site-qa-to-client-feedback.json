@@ -1,0 +1,12 @@
+{
+  "name": "staging-site-qa-to-client-feedback",
+  "version": 1,
+  "producer": "staging-site-qa",
+  "consumer": "client-feedback",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-staging-qa-header.json",
+  "keys": ["Staging:"],
+  "producer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract staging-qa fixtures/staging-site-qa/quillfeather/after-fixes/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-10-27.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract --validate {fixture}"
+}

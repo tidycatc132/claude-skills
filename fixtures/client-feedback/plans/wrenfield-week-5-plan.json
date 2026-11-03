@@ -1,0 +1,25 @@
+{
+  "week": 5,
+  "date": "2026-11-12",
+  "from": "client-email.txt",
+  "contact": "Dana Whitlock",
+  "am": "Riley Shaw",
+  "items": [
+    {"feedback": "Everything else looks great, nice work!", "source": "email", "page": "site-wide", "class": "Approval", "department": "Account Management", "action": "Record approval of the rest of the site"},
+    {"feedback": "The phone number in the footer is wrong. It should be (503) 555-0148, not (503) 555-0184.", "source": "email", "page": "site-wide", "class": "Mechanical", "department": "Content", "severity": "CRITICAL", "action": "Change the footer phone number to (503) 555-0148 on every page"},
+    {"feedback": "On the About page, Marcus's last name is spelled Hollaway. It's Holloway.", "source": "email", "page": "/about/", "class": "Mechanical", "department": "Content", "severity": "MAJOR", "action": "Correct the spelling to Marcus Holloway"},
+    {"feedback": "Can we change the big heading on the lawn care page to \"Lawn Care That Keeps Your Weekends Free\"? The current one sounds stiff to me.", "source": "email", "page": "/services/lawn-care/", "class": "Strategic", "department": "SEO", "severity": "MAJOR", "action": "Review the requested H1 \"Lawn Care That Keeps Your Weekends Free\" before it changes"},
+    {"feedback": "We started offering snow removal this winter, so we'd love a page for it too.", "source": "email", "page": "new page", "class": "Scope Change", "department": "Account Management", "action": "Discuss a snow removal page", "pm_am_note": "A sixth page is beyond the five-page SOW; quote it as a change order or plan it after launch"},
+    {"feedback": "Honestly I'm not crazy about the green on the homepage. Could it be more of a navy look?", "source": "email", "page": "/", "class": "Scope Change", "department": "Account Management", "action": "Talk through the homepage colour", "pm_am_note": "Design direction was confirmed in Week 3; a navy redesign goes back to design and needs a change order"},
+    {"feedback": "When will the site go live?", "source": "email", "page": "site-wide", "class": "Question", "department": "Account Management", "action": "Answer once the edits are in and the final check is done"},
+    {"feedback": "The photo in the middle of this page shows a deck. We don't build decks. Please swap it for one of the patio photos we sent.", "source": "bugherd:14", "page": "/services/hardscaping/", "class": "Mechanical", "department": "Design", "severity": "MAJOR", "action": "Replace the deck photo with one of the client's patio photos"},
+    {"feedback": "The estimate form says Submit but nothing happens when I press it.", "source": "bugherd:15", "page": "/contact/", "class": "Mechanical", "department": "Development", "severity": "CRITICAL", "action": "Fix the estimate form so it sends and shows a confirmation"}
+  ],
+  "facts": [
+    {"section": "Services", "fact": "Snow removal, offered from this winter", "evidence": "We started offering snow removal this winter"}
+  ],
+  "reply": {
+    "subject": "Re: Your new website is ready for a last look",
+    "body": "Hi Dana,\n\nThank you for going through the whole site so carefully, and for the notes in BugHerd too.\n\nWe will fix the footer phone number, correct Marcus Holloway's name on the About page, swap the deck photo on the hardscaping page for one of your patio photos, and fix the estimate form on the contact page.\n\nThe new lawn care heading is a good idea. Our SEO team will review it first, because that heading is what the page is found for, and I'll come back to you once they have.\n\nA snow removal page and a navy look for the homepage both go beyond what we agreed for this build. Could we have a short call this week to talk them through? I can then send a quote for anything you want to add.\n\nOn launch: we go live once these edits are in and our final check is done. I'll confirm the date as soon as we have it."
+  }
+}

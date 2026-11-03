@@ -2,7 +2,7 @@
 
 The reply goes out from the Account Manager in WISE Digital Partners' voice: the agency talking to its client. The homepage copy is in the client's brand voice; none of its slogans or style belong in the reply.
 
-A reply to the Week 2 email follows the same rules, plus the framing and the strategy rules in [Week 2](week-2.md).
+A reply to the Week 2 email follows the same rules, plus the framing and the strategy rules in [Week 2](week-2.md). A Week 5 reply follows them too, plus the order and the Strategic and Scope Change rules in [Week 5](week-5.md).
 
 ## What the reply does, in this order
 

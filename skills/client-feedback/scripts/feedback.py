@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Sort client feedback on the Week 1 or Week 2 deliverables into a feedback file, an updates file and a reply draft.
+"""Sort client feedback on the Week 1, Week 2 or Week 5 (staging) deliverables into a feedback file, an updates file and a reply draft.
 
 Usage:
   python3 feedback.py scope kickoff/<slug> [--week 2]
@@ -7,7 +7,9 @@ Usage:
   python3 feedback.py check kickoff/<slug> --feedback <client text file> --report feedback/<slug>/<file>-feedback.md
   python3 feedback.py updates-json kickoff/<slug> --feedback <client text file> --plan feedback-plan.json
   python3 feedback.py nudge kickoff/<slug> --plan nudge-plan.json --today YYYY-MM-DD [--email <week-2 email>] [--dry-run]
-  python3 feedback.py contract week-2-email <email.md> | contract blueprint <blueprint.md> | contract --validate <file.json>
+  python3 feedback.py render kickoff/<slug> [--feedback <client email>] [--bugherd <saved client tasks.json>] --plan feedback-plan.json [--dry-run]   (Week 5)
+  python3 feedback.py created feedback/<slug>/<date>-bugherd-tasks.json CE-xxxxxxxx=<task id> ...
+  python3 feedback.py contract week-2-email <email.md> | contract blueprint <blueprint.md> | contract week-5 <feedback.md> | contract staging-qa <staging-qa report.md> | contract --validate <file.json>
 
 scope         prints the scope source from <slug>-context.md as JSON (source, SOW pages, services, quote lines).
 render        validates the plan against the client's text and the scope source, writes
@@ -18,12 +20,14 @@ check         re-reads the written files and prints a `| Check | Result | Detail
 updates-json  prints the updates the plan would write as JSON (keys Client, Source, Date, From, rows).
 nudge         when the Week 2 email's `Reply by:` date has passed with no Week 2 feedback logged, checks the
               nudge plan and writes feedback/<slug>/<today>-week-2-nudge.md, then checks it.
+created       records the BugHerd ids of the client-edit tasks created after the PM's go.
 contract      prints, as JSON, what this skill reads from a Week 2 email's header (`Client:`, `Send date:`,
               `Reply by:`) or a Growth Blueprint (its `##` sections); --validate checks such a JSON file.
 
 A plan with "week": 2 is a reply to the Week 2 email (Growth Blueprint, deck and page content): it reads
 blueprint/<slug>/<slug>-growth-blueprint.md, content/<url-slug>/article.md and, when present,
 emails/<slug>/<slug>-week-2-email.md from the working folder (the parent of kickoff/).
+A plan with "week": 5 is the client's staging review (email and/or BugHerd guest tasks): see week5.py.
 
 Standard library only.
 """
@@ -250,7 +254,12 @@ def week2_info(kdir: Path) -> dict:
 
 
 def plan_week(plan: dict) -> int:
-    return 2 if str(plan.get("week", 1)) == "2" else 1
+    return {"2": 2, "5": 5}.get(str(plan.get("week", 1)), 1)
+
+
+def staging_qa_ran(kdir: Path) -> bool:
+    """staging-site-qa has written a report, so a reply now is the Week 5 staging review."""
+    return any((kdir.parent.parent / "qa" / kdir.name).glob(f"{kdir.name}-staging-qa-*.md"))
 
 
 def changes_of(it: dict) -> tuple[list[str], list[int], list[str]]:
@@ -338,9 +347,13 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
         errs.append(f"date '{plan['date']}' must be YYYY-MM-DD")
     if not str(plan["contact"]).strip():
         errs.append("contact must name the person who wrote the feedback")
-    if str(plan.get("week", 1)) not in ("1", "2"):
-        errs.append("week is 1 (the reply to the Week 1 email) or 2 (the reply to the Week 2 email)")
+    if str(plan.get("week", 1)) not in ("1", "2", "5"):
+        errs.append("week is 1 (the reply to the Week 1 email), 2 (the reply to the Week 2 email) "
+                    "or 5 (the client's edits to the staging site)")
     week = plan_week(plan)
+    if staging_qa_ran(scope_dir(scope)):
+        errs.append("staging-site-qa has run for this client, so these are the client's staging edits: "
+                    "set \"week\": 5 (references/week-5.md)")
     types, affects = (TYPES_W2, AFFECTS_W2) if week == 2 else (TYPES, AFFECTS)
     w2 = week2_info(scope_dir(scope)) if week == 2 else None
     if week == 1 and week2_info(scope_dir(scope))["email"] and re.search(r"(?i)\b(blueprint|deck)\b", raw):
@@ -413,6 +426,34 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
     quotes = [str(it.get("feedback", "")) for it in items]
     for q in uncovered_questions(own, quotes):
         errs.append(f"the client's question is in no item's feedback quote: \"{q[:70]}\"")
+    fact_errs, conflicts = validate_facts(plan, scope, own, own_n)
+    errs += fact_errs
+    if conflicts < open_scope:
+        errs.append(f"{open_scope} scope request(s) are outside or unclear but only {conflicts} Scope Summary "
+                    "CONFLICT fact(s); add one per request so client-context-update logs it")
+    reply = plan.get("reply") or {}
+    subj, body = str(reply.get("subject", "")).strip(), str(reply.get("body", "")).strip()
+    if not subj or len(subj) > 90 or "\n" in subj:
+        errs.append("reply subject must be one line of at most 90 characters")
+    if not body:
+        errs.append("reply body is empty")
+    if SIGNOFF_TITLE.lower() in body.lower():
+        errs.append("leave the sign-off out of the reply body; the script adds the AM's name and title")
+    n_strategy = sum(1 for it in items if it.get("type") == "strategy")
+    extra_text = w2["text"] if w2 else ""
+    errs += [f"reply: {e}" for e in reply_problems(body, own, scope["context_text"] + "\n" + extra_text,
+                                                   open_scope > 0, week, n_strategy)]
+    blob = json.dumps(plan, ensure_ascii=False)
+    for s in secrets:
+        if s in blob:
+            errs.append("the plan copies a login or password from the client's text; leave it out everywhere")
+            break
+    return errs
+
+
+def validate_facts(plan: dict, scope: dict, own: str, own_n: str) -> tuple[list[str], int]:
+    """Check the plan's facts for the updates file; returns the errors and the CONFLICT count."""
+    errs: list[str] = []
     facts = plan.get("facts", []) or []
     conflicts = 0
     for n, f in enumerate(facts, 1):
@@ -450,27 +491,7 @@ def validate_plan(plan: dict, scope: dict, raw: str) -> list[str]:
             conflicts += 1
             if "until a signed change" not in fact:
                 errs.append(f"{p}: a scope CONFLICT says the build follows the scope source until a signed change")
-    if conflicts < open_scope:
-        errs.append(f"{open_scope} scope request(s) are outside or unclear but only {conflicts} Scope Summary "
-                    "CONFLICT fact(s); add one per request so client-context-update logs it")
-    reply = plan.get("reply") or {}
-    subj, body = str(reply.get("subject", "")).strip(), str(reply.get("body", "")).strip()
-    if not subj or len(subj) > 90 or "\n" in subj:
-        errs.append("reply subject must be one line of at most 90 characters")
-    if not body:
-        errs.append("reply body is empty")
-    if SIGNOFF_TITLE.lower() in body.lower():
-        errs.append("leave the sign-off out of the reply body; the script adds the AM's name and title")
-    n_strategy = sum(1 for it in items if it.get("type") == "strategy")
-    extra_text = w2["text"] if w2 else ""
-    errs += [f"reply: {e}" for e in reply_problems(body, own, scope["context_text"] + "\n" + extra_text,
-                                                   open_scope > 0, week, n_strategy)]
-    blob = json.dumps(plan, ensure_ascii=False)
-    for s in secrets:
-        if s in blob:
-            errs.append("the plan copies a login or password from the client's text; leave it out everywhere")
-            break
-    return errs
+    return errs, conflicts
 
 
 def reply_problems(body: str, own: str, context: str, has_open_scope: bool, week: int = 1,
@@ -632,6 +653,42 @@ def parse_table(text: str, header: str) -> list[list[str]] | None:
     return rows
 
 
+def updates_result(up_path: Path, rep: str, own_n: str, open_scope: int) -> tuple[str, bool, str]:
+    """The `updates file` check row: client-context-update's format, evidence verbatim, named in the Summary."""
+    summary_names = re.search(r"(?m)^- Context updates: (\d+) facts in `(.+?)`", rep)
+    if up_path.exists():
+        up = read(up_path)
+        uerr = []
+        for k in ("Client", "Source", "Date", "From"):
+            if not re.search(rf"(?m)^{k}:\s*\S", up):
+                uerr.append(f"no {k}: line")
+        if not re.search(r"(?m)^Source: client$", up):
+            uerr.append("Source is not client")
+        urows = parse_table(up, UPDATES_HEADER) or []
+        if not urows:
+            uerr.append("no update rows")
+        conflicts = 0
+        for r in urows:
+            if len(r) != 4 or r[1] not in UPDATES_SECTIONS:
+                uerr.append(f"row {r[:1]} malformed or bad section")
+                continue
+            if TAG_END_RE.search(r[2]):
+                uerr.append(f"row {r[0]} fact carries a tag")
+            q = re.search(r'"(.*)"\s*$', r[3])
+            if not q or norm(q.group(1)) not in own_n:
+                uerr.append(f"row {r[0]} evidence is not the client's words")
+            if r[1] == "Scope Summary" and r[2].startswith("CONFLICT:"):
+                conflicts += 1
+        if conflicts < open_scope:
+            uerr.append(f"{open_scope} open scope request(s), {conflicts} CONFLICT row(s)")
+        if not summary_names or summary_names.group(2) != up_path.name or int(summary_names.group(1)) != len(urows):
+            uerr.append("Summary does not name this updates file with its row count")
+        return ("updates file", not uerr, "; ".join(uerr[:3]) or f"{len(urows)} rows in client-context-update's format")
+    else:
+        return ("updates file", open_scope == 0 and "- Context updates: none" in rep,
+                    "none written, and none needed" if open_scope == 0 else "open scope requests need a CONFLICT row")
+
+
 def check(kdir: Path, fb_path: Path, rep_path: Path) -> int:
     scope = scope_info(kdir)
     raw = read(fb_path)
@@ -689,38 +746,7 @@ def check(kdir: Path, fb_path: Path, rep_path: Path) -> int:
     res.append(("scope check", bool(ok_scope), f"{len(listed)} scope line(s) for {len(scope_rows)} scope row(s)"))
     open_scope = sum(1 for _, v in listed if v in ("outside scope", "to confirm"))
     up_path = rep_path.with_name(rep_path.name.replace("-feedback.md", "-feedback-updates.md"))
-    summary_names = re.search(r"(?m)^- Context updates: (\d+) facts in `(.+?)`", rep)
-    if up_path.exists():
-        up = read(up_path)
-        uerr = []
-        for k in ("Client", "Source", "Date", "From"):
-            if not re.search(rf"(?m)^{k}:\s*\S", up):
-                uerr.append(f"no {k}: line")
-        if not re.search(r"(?m)^Source: client$", up):
-            uerr.append("Source is not client")
-        urows = parse_table(up, UPDATES_HEADER) or []
-        if not urows:
-            uerr.append("no update rows")
-        conflicts = 0
-        for r in urows:
-            if len(r) != 4 or r[1] not in UPDATES_SECTIONS:
-                uerr.append(f"row {r[:1]} malformed or bad section")
-                continue
-            if TAG_END_RE.search(r[2]):
-                uerr.append(f"row {r[0]} fact carries a tag")
-            q = re.search(r'"(.*)"\s*$', r[3])
-            if not q or norm(q.group(1)) not in own_n:
-                uerr.append(f"row {r[0]} evidence is not the client's words")
-            if r[1] == "Scope Summary" and r[2].startswith("CONFLICT:"):
-                conflicts += 1
-        if conflicts < open_scope:
-            uerr.append(f"{open_scope} open scope request(s), {conflicts} CONFLICT row(s)")
-        if not summary_names or summary_names.group(2) != up_path.name or int(summary_names.group(1)) != len(urows):
-            uerr.append("Summary does not name this updates file with its row count")
-        res.append(("updates file", not uerr, "; ".join(uerr[:3]) or f"{len(urows)} rows in client-context-update's format"))
-    else:
-        res.append(("updates file", open_scope == 0 and "- Context updates: none" in rep,
-                    "none written, and none needed" if open_scope == 0 else "open scope requests need a CONFLICT row"))
+    res.append(updates_result(up_path, rep, own_n, open_scope))
     blob = rep + (read(up_path) if up_path.exists() else "")
     leaked = [s for s in secrets if s in blob]
     res.append(("no secrets copied", not leaked, "a login or password from the client's text was copied" if leaked else
@@ -905,7 +931,12 @@ def check_nudge(kdir: Path, path: Path, email: Path, today: str) -> int:
 def contract(kind: str | None, file: str, validate: bool) -> int:
     if validate:
         data = json.loads(read(Path(file)))
-        if "Reply by:" in data or "Send date:" in data:
+        if "Staging:" in data:
+            bad = [] if re.match(r"^https?://[^/\s]+$", str(data["Staging:"])) else ["Staging: <base URL>"]
+        elif "Class" in data or "tasks" in data:
+            import week5
+            bad = week5.validate_contract(data)
+        elif "Reply by:" in data or "Send date:" in data:
             bad = [k for k in EMAIL_KEYS if k not in data] + \
                   [k for k in ("Send date:", "Reply by:") if k in data and not DATE_RE.match(str(data[k]))]
         else:
@@ -916,6 +947,14 @@ def contract(kind: str | None, file: str, validate: bool) -> int:
         print("CONTRACT OK")
         return 0
     text = read(Path(file))
+    if kind == "staging-qa":
+        import week5
+        print(json.dumps({"Staging:": week5.staging_line(text)}, indent=2, ensure_ascii=False))
+        return 0
+    if kind == "week-5":
+        import week5
+        print(json.dumps(week5.contract(Path(file)), indent=2, ensure_ascii=False))
+        return 0
     data = email_header(text) if kind == "week-2-email" else blueprint_sections(text)
     print(json.dumps(data, indent=2, ensure_ascii=False))
     return 0
@@ -935,9 +974,12 @@ def main() -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("scope")
     s.add_argument("kickoff")
-    s.add_argument("--week", choices=["1", "2"], default="1")
+    s.add_argument("--week", choices=["1", "2", "5"], default="1")
+    cr = sub.add_parser("created")
+    cr.add_argument("tasks")
+    cr.add_argument("ids", nargs="+")
     ct = sub.add_parser("contract")
-    ct.add_argument("kind", nargs="?", choices=["week-2-email", "blueprint"])
+    ct.add_argument("kind", nargs="?", choices=["week-2-email", "blueprint", "week-5", "staging-qa"])
     ct.add_argument("file")
     ct.add_argument("--validate", action="store_true")
     nd = sub.add_parser("nudge")
@@ -949,24 +991,34 @@ def main() -> int:
     for name in ("render", "updates-json"):
         r = sub.add_parser(name)
         r.add_argument("kickoff")
-        r.add_argument("--feedback", required=True)
+        r.add_argument("--feedback")
+        r.add_argument("--bugherd")
         r.add_argument("--plan", required=True)
         if name == "render":
             r.add_argument("--dry-run", action="store_true")
     c = sub.add_parser("check")
     c.add_argument("kickoff")
-    c.add_argument("--feedback", required=True)
+    c.add_argument("--feedback")
+    c.add_argument("--bugherd")
     c.add_argument("--report", required=True)
     a = ap.parse_args()
     if a.cmd == "contract":
         if not a.validate and not a.kind:
             ap.error("contract needs week-2-email or blueprint, or --validate")
         return contract(a.kind, a.file, a.validate)
+    if a.cmd == "created":
+        import week5
+        return week5.created(Path(a.tasks), a.ids)
     kdir = Path(a.kickoff.rstrip("/"))
     if a.cmd == "scope":
         info = scope_info(kdir)
         info.pop("context_text")
         info.pop("kdir")
+        if a.week == "5":
+            import week5
+            w5 = week5.info(kdir)
+            info["week5"] = {k: w5[k] for k in ("index", "urls", "routing", "project", "columns", "assignees",
+                                                 "qa", "staging", "email", "reply_by")}
         if a.week == "2":
             w2 = week2_info(kdir)
             w2.pop("text")
@@ -977,10 +1029,37 @@ def main() -> int:
     if a.cmd == "nudge":
         return nudge(kdir, Path(a.plan), a.today, a.email, a.dry_run)
     if a.cmd == "check":
-        return check(kdir, Path(a.feedback), Path(a.report))
+        rep_path = Path(a.report)
+        if rep_path.exists() and re.search(r"(?m)^Week: 5\s*$", read(rep_path)):
+            import week5
+            bh = a.bugherd
+            m = re.search(r"(?m)^BugHerd export:\s*(\S+)\s*$", read(rep_path))
+            if not bh and m and m.group(1) != "none":
+                bh = str(kdir.parent.parent / m.group(1))
+            raw = read(Path(a.feedback)) if a.feedback else ""
+            return week5.check(kdir, raw, rep_path, week5.info(kdir, bh))
+        if not a.feedback:
+            ap.error("check needs --feedback")
+        return check(kdir, Path(a.feedback), rep_path)
     scope = scope_info(kdir)
-    raw = read(Path(a.feedback))
     plan = load_plan(Path(a.plan))
+    if plan_week(plan) == 5:
+        import week5
+        raw = read(Path(a.feedback)) if a.feedback else ""
+        w5 = week5.info(kdir, a.bugherd)
+        if a.cmd == "updates-json":
+            errs = week5.validate(plan, scope, raw, w5)
+            if errs:
+                print("PLAN REJECTED")
+                for e in errs:
+                    print(f"- {e}")
+                return 1
+            print(json.dumps(build_updates(plan, scope), indent=2, ensure_ascii=False))
+            return 0
+        return week5.render(kdir, plan, scope, raw, w5, a.dry_run)
+    if not a.feedback:
+        ap.error(f"{a.cmd} needs --feedback (only a Week 5 plan can use --bugherd alone)")
+    raw = read(Path(a.feedback))
     errs = validate_plan(plan, scope, raw)
     if errs:
         print("PLAN REJECTED")

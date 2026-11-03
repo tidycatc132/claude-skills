@@ -36,7 +36,7 @@ How to turn the client's reply into `feedback-plan.json`. The script rejects a p
 
 ## Types
 
-A reply to the Week 2 email (Blueprint, deck and page content) has a sixth type, `strategy`, two more Affects (`blueprint: <section>`, `page: <url-slug>`) and a `changes` list per item: see [Week 2](week-2.md). The rest of this file applies to both weeks.
+A reply to the Week 2 email (Blueprint, deck and page content) has a sixth type, `strategy`, two more Affects (`blueprint: <section>`, `page: <url-slug>`) and a `changes` list per item: see [Week 2](week-2.md). The Week 5 staging review uses its own classes, table and plan fields instead of the types, Affects, Impact and Owner below: see [Week 5](week-5.md). The rest of this file applies to Weeks 1 and 2, and its rules on quotes, questions, facts and secrets apply to Week 5 too.
 
 | Type | When | Impact |
 |---|---|---|

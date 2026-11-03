@@ -76,7 +76,7 @@ Structured data: not in the current process
 RESULT: READY | CONDITIONAL | NOT READY
 ```
 
-The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)` or `(asset checklist: <line>)`.
+The `Staging:` header line is read by client-feedback for the staging base URL (contract `staging-site-qa-to-client-feedback`). The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)` or `(asset checklist: <line>)`.
 
 ## Task file: `qa/<slug>/<slug>-bugherd-tasks.json`
 

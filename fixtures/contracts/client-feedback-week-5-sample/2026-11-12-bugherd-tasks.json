@@ -1,0 +1,72 @@
+[
+  {
+    "finding_id": "CE-3bdf2113",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://wrenfield.staging-wise.site/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "Avery Quinn",
+    "severity": "CRITICAL",
+    "bugherd_severity": "critical",
+    "title": "Site-wide: Change the footer phone number to (503) 555-0148 on every page.",
+    "description": "Client edit: \"The phone number in the footer is wrong. It should be (503) 555-0148, not (503) 555-0184.\" Change the footer phone number to (503) 555-0148 on every page. (Client edits 2026-11-12, CE-3bdf2113)"
+  },
+  {
+    "finding_id": "CE-129f02ae",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://wrenfield.staging-wise.site/about/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "Avery Quinn",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/about/: Correct the spelling to Marcus Holloway.",
+    "description": "Client edit: \"On the About page, Marcus's last name is spelled Hollaway. It's Holloway.\" Correct the spelling to Marcus Holloway. (Client edits 2026-11-12, CE-129f02ae)"
+  },
+  {
+    "finding_id": "CE-81b653cf",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://wrenfield.staging-wise.site/services/lawn-care/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "Rowan Patel",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/lawn-care/: Review the requested H1 \"Lawn Care That Keeps Your Weekends Free\" before it changes.",
+    "description": "Client edit: \"Can we change the big heading on the lawn care page to \"Lawn Care That Keeps Your Weekends Free\"? The current one sounds stiff to me.\" Review the requested H1 \"Lawn Care That Keeps Your Weekends Free\" before it changes. SEO reviews this before it is built. (Client edits 2026-11-12, CE-81b653cf)"
+  },
+  {
+    "finding_id": "CE-42055f96",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "14",
+    "page_url": "https://wrenfield.staging-wise.site/services/hardscaping/",
+    "department": "Design",
+    "column": "Design Review",
+    "assignee": "Ellis Moreno",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/hardscaping/: Replace the deck photo with one of the client's patio photos.",
+    "description": "Client edit: \"The photo in the middle of this page shows a deck. We don't build decks. Please swap it for one of the patio photos we sent.\" Replace the deck photo with one of the client's patio photos. (Client edits 2026-11-12, CE-42055f96)"
+  },
+  {
+    "finding_id": "CE-5fc6c968",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "15",
+    "page_url": "https://wrenfield.staging-wise.site/contact/",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "Kit Okafor",
+    "severity": "CRITICAL",
+    "bugherd_severity": "critical",
+    "title": "/contact/: Fix the estimate form so it sends and shows a confirmation.",
+    "description": "Client edit: \"The estimate form says Submit but nothing happens when I press it.\" Fix the estimate form so it sends and shows a confirmation. (Client edits 2026-11-12, CE-5fc6c968)"
+  }
+]
