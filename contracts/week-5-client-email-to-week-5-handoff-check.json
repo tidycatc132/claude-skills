@@ -1,0 +1,12 @@
+{
+  "name": "week-5-client-email-to-week-5-handoff-check",
+  "version": 1,
+  "producer": "week-5-client-email",
+  "consumer": "week-5-handoff-check",
+  "format": "json",
+  "fixture": "fixtures/contracts/week-5-client-email-header.json",
+  "keys": ["Client:", "Send date:", "Reply by:"],
+  "producer_cmd": "python3 skills/week-5-client-email/scripts/week5_email.py contract email fixtures/contracts/week-5-client-email-sample/marrowbrook-electric-week-5-email.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-5-handoff-check/scripts/week5_handoff.py contract --validate {fixture}"
+}

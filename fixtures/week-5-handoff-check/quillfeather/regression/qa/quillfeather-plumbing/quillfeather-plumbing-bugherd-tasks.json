@@ -1,0 +1,44 @@
+[
+  {
+    "finding_id": "QA-daf2e19b",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://quillfeather.staging-wise.site/services/water-heater-repair/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "Morgan Lee",
+    "severity": "CRITICAL",
+    "bugherd_severity": "critical",
+    "title": "/services/water-heater-repair/: Placeholder text is on the page: \"Lorem ipsum\".",
+    "description": "Placeholder text is on the page: \"Lorem ipsum\". Replace it with the approved page content. (Staging QA 2026-11-17, QA-daf2e19b)"
+  },
+  {
+    "finding_id": "QA-81660a68",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://quillfeather.staging-wise.site/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "Sam Ortiz",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/: The link to /about/ with the text \"Meet the crew\" is missing.",
+    "description": "The link to /about/ with the text \"Meet the crew\" is missing. Add the link to /about/ with the text \"Meet the crew\". (Staging QA 2026-11-17, QA-81660a68)"
+  },
+  {
+    "finding_id": "QA-dcc6e684",
+    "status": "OPEN",
+    "create": false,
+    "bugherd_task_id": "25",
+    "page_url": "https://quillfeather.staging-wise.site/services/drain-cleaning/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "Sam Ortiz",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/drain-cleaning/: The image /wp-content/uploads/drain-header.webp has no alt text.",
+    "description": "The image /wp-content/uploads/drain-header.webp has no alt text. Add alt text that says what the image shows. (Staging QA 2026-11-17, QA-dcc6e684)"
+  }
+]

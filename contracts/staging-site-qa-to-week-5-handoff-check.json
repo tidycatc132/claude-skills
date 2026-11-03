@@ -1,0 +1,18 @@
+{
+  "name": "staging-site-qa-to-week-5-handoff-check",
+  "version": 1,
+  "producer": "staging-site-qa",
+  "consumer": "week-5-handoff-check",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-week-5-handoff.json",
+  "keys": [
+    "Staging:",
+    "## Re-run Status",
+    "## Launch Toggles",
+    "RESULT:",
+    "tasks"
+  ],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py week-5 fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-17.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-5-handoff-check/scripts/week5_handoff.py contract --validate {fixture}"
+}

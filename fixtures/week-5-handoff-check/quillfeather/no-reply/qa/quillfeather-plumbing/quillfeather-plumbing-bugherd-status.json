@@ -1,0 +1,78 @@
+{
+  "read_on": "2026-11-17",
+  "source": "BugHerd connector",
+  "tasks": [
+    {
+      "bugherd_task_id": "20",
+      "finding_id": "QA-65f2ee1c",
+      "title": "/services/drain-cleaning/: The section \"Do you inspect the main line with a camera?\" is missing.",
+      "status": "done",
+      "severity": "critical",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "21",
+      "finding_id": "QA-d1bfad17",
+      "title": "/services/water-heater-repair/: The page is missing on staging (not in the saved pages).",
+      "status": "closed",
+      "severity": "critical",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "22",
+      "finding_id": "QA-2fd83d99",
+      "title": "/contact/: The phone number 503-555-0174 does not match the client's number (503-555-0147).",
+      "status": "done",
+      "severity": "critical",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "23",
+      "finding_id": "QA-81660a68",
+      "title": "/: The link to /about/ with the text \"Meet the crew\" is missing.",
+      "status": "closed",
+      "severity": "important",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "24",
+      "finding_id": "QA-2cf94f4a",
+      "title": "/: The link to /services/water-heater-repair/ is broken: that page is not on staging.",
+      "status": "done",
+      "severity": "important",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "25",
+      "finding_id": "QA-dcc6e684",
+      "title": "/services/drain-cleaning/: The image /wp-content/uploads/drain-header.webp has no alt text.",
+      "status": "SEO Review",
+      "severity": "important",
+      "deferred": "The client is sending a new header photo; the alt text goes on with it after launch"
+    },
+    {
+      "bugherd_task_id": "26",
+      "finding_id": "QA-d7e9d0c5",
+      "title": "/services/drain-cleaning/: The link to /services/water-heater-repair/ is broken: that page is not on staging.",
+      "status": "done",
+      "severity": "important",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "27",
+      "finding_id": "QA-76c273e5",
+      "title": "/about/: The meta title is \"About Us \\| Quillfeather Plumbing\"; the approved title is \"About Quillfeather Plumbing \\| Po",
+      "status": "closed",
+      "severity": "important",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "28",
+      "finding_id": "QA-9b522990",
+      "title": "/contact/: 1 link(s) or image(s) in the page content still point at the staging domain: https://quillfeather.staging-wis",
+      "status": "done",
+      "severity": "important",
+      "deferred": ""
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+[
+  {
+    "finding_id": "CE-66f3ebb0",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "31",
+    "page_url": "https://quillfeather.staging-wise.site/contact/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "Morgan Lee",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/contact/: Change the opening hours to 7 to 6 on weekdays.",
+    "description": "Client edit: \"On the contact page our hours say 8 to 5. We're open 7 to 6 on weekdays now.\" Change the opening hours to 7 to 6 on weekdays. (Client edits 2026-11-12, CE-66f3ebb0)"
+  },
+  {
+    "finding_id": "CE-b68a1b66",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "32",
+    "page_url": "https://quillfeather.staging-wise.site/services/drain-cleaning/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "Sam Ortiz",
+    "severity": "MINOR",
+    "bugherd_severity": "minor",
+    "title": "/services/drain-cleaning/: Review the requested H1 \"Drain Cleaning Without the Guesswork\" before it changes.",
+    "description": "Client edit: \"Could the big heading on the drain cleaning page say \"Drain Cleaning Without the Guesswork\"? It sounds more like us.\" Review the requested H1 \"Drain Cleaning Without the Guesswork\" before it changes. SEO reviews this before it is built. (Client edits 2026-11-12, CE-b68a1b66)"
+  }
+]

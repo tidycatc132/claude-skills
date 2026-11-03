@@ -76,7 +76,7 @@ Structured data: not in the current process
 RESULT: READY | CONDITIONAL | NOT READY
 ```
 
-The `Staging:` header line is read by client-feedback for the staging base URL (contract `staging-site-qa-to-client-feedback`). The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)` or `(asset checklist: <line>)`.
+week-5-handoff-check reads the Findings table, `## Re-run Status`, `## Launch Toggles`, `RESULT:` and `Staging:`, and from the task file beside the report its `tasks` (`finding_id`, `status`, `bugherd_task_id`, `severity`, `department`); `qa.py week-5 <report>` prints exactly that (contract `staging-site-qa-to-week-5-handoff-check`). The `Staging:` header line is read by client-feedback for the staging base URL (contract `staging-site-qa-to-client-feedback`). The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)` or `(asset checklist: <line>)`.
 
 ## Task file: `qa/<slug>/<slug>-bugherd-tasks.json`
 

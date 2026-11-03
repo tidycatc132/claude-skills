@@ -10,6 +10,8 @@ Commands (run from the client's working folder, or pass --root):
   check    validate a report and its task file
   index | article | devprep   print what this skill reads from a producer file
            (JSON); with --validate, accept such JSON (used by the contracts)
+  week-5   print what week-5-handoff-check reads from a report and the task file
+           beside it (contract staging-site-qa-to-week-5-handoff-check)
 
 Standard library only. Screenshots use Playwright when it is installed (Python
 package, or Node with the playwright module); without it the scan says so.
@@ -275,6 +277,33 @@ def parse_devprep(text: str) -> dict:
 def devprep_json(path: str, text: str) -> dict:
     d = parse_devprep(text)
     return {"file": path, "## Asset Checklist": d["checklist"], "### Images": d["images"], "RESULT:": d["result"]}
+
+
+def week5_json(path: str, text: str) -> dict:
+    """What week-5-handoff-check reads: the report's staging URL, findings, re-run marks, launch
+    toggles and result, plus the task file beside it."""
+    def bullets(heading):
+        m = re.search(rf"(?m)^{re.escape(heading)}\s*$", text)
+        if not m:
+            return []
+        rest = text[m.end():]
+        n = re.search(r"(?m)^(## |RESULT: )", rest)
+        out = [ln[2:].strip() for ln in (rest[: n.start()] if n else rest).splitlines() if ln.startswith("- ")]
+        return [b for b in out if b.lower() not in ("none", "nothing")]
+    unesc = lambda r: [c.replace("\\|", "|") for c in r]  # noqa: E731
+    keys = ["Finding ID", "Status", "Page URL", "Department", "Severity", "Finding"]
+    rerun = [dict(zip(keys, unesc(r))) for r in parse_table(text, RERUN_HEADER) if len(r) == 6]
+    findings = [dict(zip(["id", "page", "department", "severity", "finding", "fix"], unesc(r)))
+                for r in parse_table(text, TABLE_HEADER) if len(r) == 6 and r[0] != "none"]
+    res = re.findall(r"(?m)^RESULT: (READY|CONDITIONAL|NOT READY)\s*$", text)
+    staging = re.sub(r"\s*\(saved pages:.*\)$", "", (re.findall(r"(?m)^Staging: (.+?)\s*$", text) or [""])[0])
+    tasks_file = Path(path).parent / (Path(path).name.split("-staging-qa-")[0] + "-bugherd-tasks.json")
+    tasks = json.loads(read(tasks_file)) if tasks_file.exists() else []
+    keep = ["finding_id", "status", "bugherd_task_id", "severity", "department"]
+    return {"Staging:": staging, "## Findings": findings,
+            "## Re-run Status": rerun if "## Re-run Status" in text else None,
+            "## Launch Toggles": bullets("## Launch Toggles"), "RESULT:": res[-1] if res else "",
+            "tasks": [{k: t.get(k) for k in keep} for t in tasks]}
 
 
 def parse_context(text: str) -> dict:
@@ -1366,7 +1395,7 @@ def main() -> int:
     cr.add_argument("--root", default=".")
     cr.add_argument("--slug", required=True)
     cr.add_argument("pairs", nargs="+", help="QA-xxxxxxxx=<BugHerd task id>")
-    for name in ("index", "article", "devprep"):
+    for name in ("index", "article", "devprep", "week-5"):
         x = sub.add_parser(name)
         x.add_argument("file")
         x.add_argument("--validate", action="store_true")
@@ -1383,6 +1412,8 @@ def main() -> int:
         return cmd_reader(a, index_json, ["Page", "URL", "Content file", "Meta title", "Meta description", "H1", "Internal links", "Priority"])
     if a.cmd == "article":
         return cmd_reader(a, article_json, ["article.md", "<!-- section: Final CTA -->"])
+    if a.cmd == "week-5":
+        return cmd_reader(a, week5_json, ["Staging:", "## Findings", "## Re-run Status", "## Launch Toggles", "RESULT:", "tasks"])
     return cmd_reader(a, devprep_json, ["## Asset Checklist", "### Images", "RESULT:"])
 
 
