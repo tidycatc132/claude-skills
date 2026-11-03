@@ -1,0 +1,12 @@
+{
+  "name": "staging-site-qa-to-week-5-client-email",
+  "version": 1,
+  "producer": "staging-site-qa",
+  "consumer": "week-5-client-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-week-5-email-qa.json",
+  "keys": ["Staging:", "## AM Items", "RESULT:"],
+  "producer_cmd": "python3 skills/week-5-client-email/scripts/week5_email.py contract qa fixtures/staging-site-qa/quillfeather/after-fixes/qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-10-27.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-5-client-email/scripts/week5_email.py contract --validate {fixture}"
+}
