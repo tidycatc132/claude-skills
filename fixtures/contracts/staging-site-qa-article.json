@@ -1,0 +1,17 @@
+{
+  "article.md": "fixtures/dev-handoff-index/thistlewood/base/content/about/article.md",
+  "H2": [
+    "Our story",
+    "Work with us"
+  ],
+  "<!-- section: Final CTA -->": {
+    "heading": "Work with us",
+    "links": [
+      {
+        "anchor": "Book a free roof inspection",
+        "target": "/contact/"
+      }
+    ],
+    "marked": true
+  }
+}
