@@ -1,0 +1,320 @@
+{
+  "cases": [
+    {
+      "id": "marrowbrook-ready-protected-bugherd",
+      "prompt": "Use the week-5-client-email skill. Draft the Week 5 staging review email for Marrowbrook Electric (slug marrowbrook-electric). It goes to Priya Raman; I'm Marco Silva, the AM. We send it today, Tuesday 2026-11-10. Staging is password protected (the guest password is Volt-Ridge-88) and Priya has guest access in BugHerd. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/kickoff/marrowbrook-electric/marrowbrook-electric-context.md",
+          "dest": "kickoff/marrowbrook-electric/marrowbrook-electric-context.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/client-reference/marrowbrook-electric/voice.md",
+          "dest": "client-reference/marrowbrook-electric/voice.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-04.md",
+          "dest": "qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-04.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09.md",
+          "dest": "qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md"
+        },
+        {
+          "type": "max_words",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "n": 200,
+          "label": "header plus a body under 150 words"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "^Client: Marrowbrook Electric\\n",
+          "label": "starts with the header: no warning, the newest report is READY"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^Send date: 2026-11-10$",
+          "label": "send date"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^Reply by: 2026-11-13$",
+          "label": "three business days after Tuesday is Friday"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^QA report: qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09\\.md \\(RESULT: READY\\)$",
+          "label": "newest QA report named"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "WARNING",
+          "label": "the older NOT READY report does not raise a warning"
+        },
+        {
+          "type": "contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "Friday, November 13",
+          "label": "reply-by written out"
+        },
+        {
+          "type": "contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "https://marrowbrook.staging-wise.site",
+          "label": "staging link"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^Password: \\[AM: paste the staging password here\\]$",
+          "label": "password placeholder for the AM"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "Volt-Ridge-88",
+          "label": "the password is never written to the file"
+        },
+        {
+          "type": "not_contains",
+          "path": "stdout",
+          "text": "Volt-Ridge-88",
+          "label": "the password is not repeated in chat"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?i)bugherd",
+          "label": "BugHerd offered as a way to send edits"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?i)go ahead",
+          "label": "go-ahead line by default"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^Hi Priya,$",
+          "label": "greets Priya"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "Marco Silva\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "default sign-off"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "\\bQA\\b(?! report: )|(?i:punch list|severity|finding|noindex|launch toggle)|\\b(CRITICAL|MAJOR|MINOR)\\b",
+          "label": "no internal terms outside the QA report header line"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "!",
+          "label": "voice.md email row: no exclamation marks"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "the script check was run and passed"
+        },
+        {
+          "type": "rubric",
+          "target": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "criteria": [
+            "Below the Subject line, the email reads as a short, calm note from the account manager in the agency's own voice: it says the site is ready for the client's last check before launch, asks them to look for wrong facts, names, numbers, services and contact details, explains they can reply to the email or comment in BugHerd, gives one reply-by date, and says the agency will go ahead with the site as it is if there is no reply by then, without sounding pushy or like marketing copy. The line \"Password: [AM: paste the staging password here]\" is a deliberate slot the AM fills by hand before sending; it is not a defect."
+          ],
+          "context": [
+            "client-reference/marrowbrook-electric/voice.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fernhollow-not-ready-no-go-ahead",
+      "prompt": "Use the week-5-client-email skill. Write the staging review email for Fernhollow Bakery (slug fernhollow-bakery). I'm Dana Whitfield, the AM. We'll send it Friday 2026-11-06. The site isn't password protected and Lena doesn't use BugHerd, so edits come by email only. Please leave out the line about going ahead if they don't reply; Lena won't like it. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-client-email/fernhollow/kickoff/fernhollow-bakery/fernhollow-bakery-context.md",
+          "dest": "kickoff/fernhollow-bakery/fernhollow-bakery-context.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/fernhollow/qa/fernhollow-bakery/fernhollow-bakery-staging-qa-2026-11-05.md",
+          "dest": "qa/fernhollow-bakery/fernhollow-bakery-staging-qa-2026-11-05.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "^WARNING \\(not part of the email\\): the latest QA report \\(qa/fernhollow-bakery/fernhollow-bakery-staging-qa-2026-11-05\\.md\\) ends RESULT: NOT READY\\.",
+          "label": "NOT READY warning is the first line"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?s)2 open AM items.*catering menu prices.*online ordering cart.*\\nClient: Fernhollow Bakery\\n",
+          "label": "both AM items warned above the header"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?m)^Reply by: 2026-11-11$",
+          "label": "three business days after Friday is Wednesday"
+        },
+        {
+          "type": "contains",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "text": "Wednesday, November 11",
+          "label": "reply-by written out"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?m)^No-reply line: dropped$",
+          "label": "AM's request recorded"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?i)go ahead|go live with|proceed",
+          "label": "no go-ahead sentence"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?i)bugherd",
+          "label": "BugHerd not mentioned"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?is)Subject:.*\\npassword",
+          "label": "no password line in the email"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?m)^Hi Lena,$",
+          "label": "contact taken from the context"
+        },
+        {
+          "type": "contains",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "text": "https://fernhollow.staging-wise.site",
+          "label": "staging link taken from the QA report"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "(?is)Subject:.*(catering menu|ordering cart|not ready)",
+          "label": "QA and AM items stay out of the email itself"
+        },
+        {
+          "type": "regex",
+          "path": "emails/fernhollow-bakery/fernhollow-bakery-week-5-email.md",
+          "pattern": "Dana Whitfield\\nAccount Manager, WISE Digital Partners\\s*$",
+          "label": "sign-off"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)not ready",
+          "label": "tells the AM in chat that QA is not ready"
+        }
+      ]
+    },
+    {
+      "id": "marrowbrook-fix-hand-edited-draft",
+      "prompt": "Use the week-5-client-email skill. I edited the Week 5 email for Marrowbrook Electric (slug marrowbrook-electric) by hand; it's at emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md. Check it and fix whatever the check finds, keeping my wording where you can. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/kickoff/marrowbrook-electric/marrowbrook-electric-context.md",
+          "dest": "kickoff/marrowbrook-electric/marrowbrook-electric-context.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-04.md",
+          "dest": "qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-04.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/marrowbrook/qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09.md",
+          "dest": "qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09.md"
+        },
+        {
+          "src": "fixtures/week-5-client-email/drafts/marrowbrook-electric-week-5-email-edited.md",
+          "dest": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^QA report: qa/marrowbrook-electric/marrowbrook-electric-staging-qa-2026-11-09\\.md \\(RESULT: READY\\)$",
+          "label": "missing QA report header line added"
+        },
+        {
+          "type": "regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?m)^Reply by: 2026-11-13$",
+          "label": "header reply-by kept"
+        },
+        {
+          "type": "contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "Friday, November 13",
+          "label": "body date fixed to the header date"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "Thursday, November 12",
+          "label": "wrong date gone"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "bugherd.com/projects",
+          "label": "BugHerd board link removed"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "pattern": "(?s)Subject:.*(\\bQA\\b|CRITICAL|(?i:finding))",
+          "label": "internal terms removed from subject and body"
+        },
+        {
+          "type": "contains",
+          "path": "emails/marrowbrook-electric/marrowbrook-electric-week-5-email.md",
+          "text": "Please look over the facts, names, numbers, services and contact details on each page.",
+          "label": "the AM's own sentence kept"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "check re-run and passed"
+        }
+      ]
+    }
+  ]
+}

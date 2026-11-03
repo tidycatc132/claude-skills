@@ -1,0 +1,20 @@
+{
+  "should_trigger": [
+    "Draft the Week 5 email to Marrowbrook Electric that sends Priya the staging site link for her review.",
+    "Staging is ready for Fernhollow Bakery. Write the client email with the link and a spot for the password, and ask for edits in three business days.",
+    "QA is done on the Tidewater Roofing staging site. Put together the email that sends it to the client for their final check before launch.",
+    "Write the 'your new site is ready to review' email for Oakhurst Landscape Co. with https://oakhurst.staging-wise.site and tell them they can leave comments in BugHerd.",
+    "Draft the AM email that gives Copperline Plumbing the staging link and says we'll launch what's there if we don't hear back by the reply-by date.",
+    "Send-out for Harbor Pine Dental's staging review: write the email to Dr. Lee with the review link."
+  ],
+  "should_not_trigger": [
+    "Draft the Week 2 email to Larkspur Family Dental that sends the Growth Blueprint deck and the page content.",
+    "Write the Week 1 email to Fernhollow Bakery with the three homepage design options and the homepage copy.",
+    "Priya replied to the staging email with five edits and two BugHerd comments. Sort them and draft our reply.",
+    "Run QA on the Marrowbrook Electric staging site and push the issues to BugHerd for each department.",
+    "Do the final sweep for Marrowbrook Electric and write the all good to go message to dev.",
+    "Write the welcome email for Copperline Plumbing with the intake form link and the access checklist.",
+    "Draft the email telling Oakhurst Landscape Co. their new site is live and what happens in the first 30 days after launch.",
+    "Priya still hasn't answered the staging email we sent Marrowbrook Electric last week. Draft a short chase note."
+  ]
+}
