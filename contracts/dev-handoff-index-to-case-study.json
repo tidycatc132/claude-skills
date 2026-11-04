@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-case-study",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "case-study",
+  "format": "json",
+  "fixture": "fixtures/contracts/case-study-dev-index.json",
+  "keys": ["Homepage", "Service Pages", "Location Pages", "About Page", "Contact Page", "Resource Pages", "Pages Without a Template", "### Redirects"],
+  "producer_cmd": "python3 skills/case-study/scripts/case_study.py index fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/case-study/scripts/case_study.py index --validate {fixture}"
+}

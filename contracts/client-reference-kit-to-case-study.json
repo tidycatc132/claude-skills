@@ -1,0 +1,12 @@
+{
+  "name": "client-reference-kit-to-case-study",
+  "version": 1,
+  "producer": "client-reference-kit",
+  "consumer": "case-study",
+  "format": "json",
+  "fixture": "fixtures/contracts/case-study-kit.json",
+  "keys": ["brand.md", "style.md", "Retired, do not use"],
+  "producer_cmd": "python3 skills/case-study/scripts/case_study.py kit fixtures/contracts/case-study-kit-sample",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/case-study/scripts/case_study.py kit --validate {fixture}"
+}

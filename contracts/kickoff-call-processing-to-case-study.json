@@ -1,0 +1,12 @@
+{
+  "name": "kickoff-call-processing-to-case-study",
+  "version": 1,
+  "producer": "kickoff-call-processing",
+  "consumer": "case-study",
+  "format": "json",
+  "fixture": "fixtures/contracts/case-study-quote-bank.json",
+  "keys": ["Timestamp", "Use for"],
+  "producer_cmd": "python3 skills/case-study/scripts/case_study.py quotes fixtures/contracts/case-study-quote-bank-sample.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/case-study/scripts/case_study.py quotes --validate {fixture}"
+}

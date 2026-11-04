@@ -1,0 +1,20 @@
+{
+  "should_trigger": [
+    "Kestrel Garage Doors launched last week. Write up the case study for our portfolio from the build files.",
+    "Write the case study narrative for Ashgrove Dental now that the site is live, plus the brief Design needs for the showcase assets.",
+    "Can you put together a showcase write-up for Pinecrest Roofing? Pages built, words written, old URLs redirected, that kind of thing.",
+    "We need a portfolio piece for Harbor Pine Plumbing's new website. Use the dev handoff index and the blueprint.",
+    "It's been 90 days since Willowbend Vet went live. Here's the metrics file; refresh their case study with the results.",
+    "Draft the WISE case study for Oakhurst Landscape Co. and tell Design which pages to screenshot and which before/after pairs to use."
+  ],
+  "should_not_trigger": [
+    "Write the Growth Blueprint for Oakhurst Landscape Co. from the Week 1 files.",
+    "Turn the Ashgrove Dental Growth Blueprint into the branded client deck.",
+    "Write the homepage design brief for Pinecrest Roofing from the approved homepage copy.",
+    "Write the design briefs for the service and location page templates for Harbor Pine Plumbing.",
+    "Kestrel Garage Doors is live. Write the close-out package: project summary, transition email and retainer handoff brief.",
+    "Draft the go-live confirmation email for Willowbend Vet; the site is ready to launch on Thursday.",
+    "Build the brand.md, voice.md and style.md reference files for Oakhurst Landscape Co.",
+    "Pull the quote bank from the Ashgrove Dental kickoff call transcript."
+  ]
+}
