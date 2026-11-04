@@ -1,0 +1,58 @@
+[
+  {
+    "finding_id": "QA-b4932d69",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "4101",
+    "page_url": "https://saltmarshtreecare.com/services/tree-pruning/",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "Tobin Marsh",
+    "severity": "CRITICAL",
+    "bugherd_severity": "critical",
+    "title": "/services/tree-pruning/: The page is still set to noindex, so search engines will drop it.",
+    "description": "The page is still set to noindex, so search engines will drop it. Remove the noindex robots tag (and any X-Robots-Tag header) from the page. (Launch check 2026-11-18, QA-b4932d69)"
+  },
+  {
+    "finding_id": "QA-8fd79815",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "4102",
+    "page_url": "https://saltmarshtreecare.com/services/tree-removal/",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "Tobin Marsh",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/tree-removal/: 1 link(s), image(s) or file(s) on the live page still point at the staging domain: https://saltmarsh.staging-wise.site/wp-content/uploads/2026/11/crane-removal.webp.",
+    "description": "1 link(s), image(s) or file(s) on the live page still point at the staging domain: https://saltmarsh.staging-wise.site/wp-content/uploads/2026/11/crane-removal.webp. Change them to the live domain (or relative links) and re-check the page. (Launch check 2026-11-18, QA-8fd79815)"
+  },
+  {
+    "finding_id": "QA-36f63ead",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "4103",
+    "page_url": "https://saltmarshtreecare.com/contact/",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "Tobin Marsh",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/contact/: The canonical tag points at the staging domain (https://saltmarsh.staging-wise.site/contact/).",
+    "description": "The canonical tag points at the staging domain (https://saltmarsh.staging-wise.site/contact/). Point the canonical tag at https://saltmarshtreecare.com/contact/. (Launch check 2026-11-18, QA-36f63ead)"
+  },
+  {
+    "finding_id": "QA-a6d0b724",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "4104",
+    "page_url": "https://saltmarshtreecare.com/trimming.html",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "Tobin Marsh",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/trimming.html: https://saltmarshtreecare.com/trimming.html does not redirect (HTTP 404); it should answer 301 to /services/tree-pruning/.",
+    "description": "https://saltmarshtreecare.com/trimming.html does not redirect (HTTP 404); it should answer 301 to /services/tree-pruning/. Add a 301 redirect from /trimming.html to /services/tree-pruning/. (Launch check 2026-11-18, QA-a6d0b724)"
+  }
+]

@@ -12,6 +12,12 @@ Commands (run from the client's working folder, or pass --root):
            (JSON); with --validate, accept such JSON (used by the contracts)
   week-5   print what week-5-handoff-check reads from a report and the task file
            beside it (contract staging-site-qa-to-week-5-handoff-check)
+  scan --launch | report --launch | created --launch
+           the launch check against the production site after deployment
+           (launch.py) -> qa/<slug>/<slug>-launch-check-<date>.md and
+           qa/<slug>/<slug>-launch-bugherd-tasks.json; check accepts that report
+  redirects     print the dev handoff index's ### Redirects rows (JSON)
+  launch-check  print what later skills read from a launch check report
 
 Standard library only. Screenshots use Playwright when it is installed (Python
 package, or Node with the playwright module); without it the scan says so.
@@ -1237,6 +1243,9 @@ def cmd_check(a) -> int:
     if not rp.is_absolute():
         rp = Path(a.root).resolve() / rp
     root = Path(a.root).resolve()
+    if "-launch-check-" in rp.name:
+        import launch
+        return launch.cmd_check(rp, root)
     text = read(rp)
     errs = []
     m = re.match(r"^(.+)-staging-qa-(\d{4}-\d{2}-\d{2})\.md$", rp.name)
@@ -1332,6 +1341,9 @@ def cmd_created(a) -> int:
     """Record the BugHerd task ids that create_tasks returned, so no run creates them again."""
     root = Path(a.root).resolve()
     tp = paths_for(root, a.slug)["tasks"]
+    if a.launch:
+        import launch
+        tp = launch.paths_for(root, a.slug)["tasks"]
     if not tp.exists():
         die(f"STOP: {tp.relative_to(root)} does not exist; run report first.")
     tasks = json.loads(read(tp))
@@ -1384,26 +1396,41 @@ def main() -> int:
     s.add_argument("--password", default="")
     s.add_argument("--date", default="")
     s.add_argument("--no-screens", action="store_true")
+    s.add_argument("--launch", action="store_true", help="launch check against the production base URL")
+    s.add_argument("--staging-url", default="", help="launch: staging domain if no staging QA report has it")
+    s.add_argument("--redirects-file", default="", help="launch with --saved: saved redirect responses")
     r = sub.add_parser("report")
     r.add_argument("--root", default=".")
     r.add_argument("--slug", required=True)
     r.add_argument("--date", default="")
+    r.add_argument("--launch", action="store_true")
     c = sub.add_parser("check")
     c.add_argument("report")
     c.add_argument("--root", default=".")
     cr = sub.add_parser("created")
     cr.add_argument("--root", default=".")
     cr.add_argument("--slug", required=True)
+    cr.add_argument("--launch", action="store_true")
     cr.add_argument("pairs", nargs="+", help="QA-xxxxxxxx=<BugHerd task id>")
-    for name in ("index", "article", "devprep", "week-5"):
+    for name in ("index", "article", "devprep", "week-5", "redirects", "launch-check"):
         x = sub.add_parser(name)
         x.add_argument("file")
         x.add_argument("--validate", action="store_true")
     a = ap.parse_args()
+    if a.cmd in ("scan", "report") and a.launch:
+        import launch
+        return launch.cmd_scan(a) if a.cmd == "scan" else launch.cmd_report(a)
     if a.cmd == "scan":
+        if a.staging_url or a.redirects_file:
+            die("--staging-url and --redirects-file are for the launch check (scan --launch).")
         return cmd_scan(a)
     if a.cmd == "report":
         return cmd_report(a)
+    if a.cmd in ("redirects", "launch-check"):
+        import launch
+        if a.cmd == "redirects":
+            return cmd_reader(a, launch.redirects_json, ["Old URL", "New URL", "Note"])
+        return cmd_reader(a, launch.launch_json, ["Live:", "## Findings", "## Re-run Status", "RESULT:", "tasks"])
     if a.cmd == "check":
         return cmd_check(a)
     if a.cmd == "created":
