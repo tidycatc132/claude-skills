@@ -1,0 +1,397 @@
+{
+  "cases": [
+    {
+      "id": "quillfeather-go-ask-to-confirm",
+      "prompt": "Use the week-6-go-live-email skill. Write the go-live confirmation email for Quillfeather Plumbing (slug quillfeather-plumbing). We don't have a launch date yet, so ask Ade to confirm he's ready for us to go live. Going live with the site: the contact form and Google Analytics. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/client-reference/quillfeather-plumbing/voice.md",
+          "dest": "client-reference/quillfeather-plumbing/voice.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/go/handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "\\AClient: Quillfeather Plumbing\\n",
+          "label": "starts with the header: no warning, the handoff ends GO"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "text": "WARNING",
+          "label": "no warning on a GO handoff"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^To: Ade Okafor$",
+          "label": "contact from the context file"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Week 5 handoff: handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff\\.md \\(GO\\)$",
+          "label": "handoff named with its result"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Pages launching: 5 \\(",
+          "label": "Build pages only: the Post-Launch guide is not counted"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Launch: client to confirm$",
+          "label": "no launch date given"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Subject: \\S",
+          "label": "subject line"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Hi Ade,$",
+          "label": "greets Ade by first name"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\b(5|five)\\b(\\s+[a-z-]+){0,2}\\s+pages\\b",
+          "label": "the real page count is in the email"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\b(6|six)\\b(\\s+[a-z-]+){0,2}\\s+pages\\b",
+          "label": "the Post-Launch page is not counted"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "text": "Winter Pipe",
+          "label": "the Post-Launch page is not listed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\bconfirm",
+          "label": "asks the client to confirm"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\bdesign\\b",
+          "label": "recap names the new design"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)sitemap",
+          "label": "sitemap submission after launch"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\bindex",
+          "label": "watching indexing after launch"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)monthly",
+          "label": "monthly work starts after launch"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)contact form",
+          "label": "named integration: contact form"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)analytics",
+          "label": "named integration: analytics"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\bchat\\b|\\bjuvo\\b",
+          "label": "no unnamed integrations"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|rich (results|snippets)|json-ld",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^(?!Week 5 handoff:)[^\\n]*?(?i:bugherd|\\bQA\\b|\\bcritical\\b|\\bmajor\\b|\\bminor\\b|\\bdeferred\\b|\\bhandoff\\b|\\bnoindex\\b)",
+          "label": "no internal terms outside the header's handoff line"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^(?!Week 5 handoff:)[^\\n]*\\bGO\\b",
+          "label": "GO appears only on the header's handoff line"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Account Manager, WISE Digital Partners\\s*\\Z",
+          "label": "default sign-off is the last line"
+        },
+        {
+          "type": "max_words",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "n": 230,
+          "label": "header plus a body under 200 words (header is about 30)"
+        },
+        {
+          "type": "rubric",
+          "label": "a short go-live note a PM can send",
+          "criteria": [
+            "Below the header, the email tells Ade the new site is ready to launch and asks him to confirm he is ready for it to go live.",
+            "It recaps what launches: the new design and content across 5 pages, without listing internal checks, issues or items held back for later.",
+            "It names the contact form and analytics as going live and names no other integration.",
+            "It says what happens right after launch in plain words: every page is checked, the sitemap is submitted and indexing is watched.",
+            "It says the monthly work starts after launch and that a close-out summary and a plan for the next months will follow.",
+            "It is short and plain, uses first names, and has at most one exclamation mark, as the client's voice file asks."
+          ],
+          "target": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md"
+        }
+      ]
+    },
+    {
+      "id": "quillfeather-no-go-agreed-date",
+      "prompt": "Use the week-6-go-live-email skill. Draft the go-live email for Quillfeather Plumbing (slug quillfeather-plumbing). We agreed with Ade to launch on Tuesday 2026-11-24 at 10:00. Going live with the site: the contact form, live chat and the Juvo leads dashboard. I'm Jordan Vale, the PM, so sign it from me. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/client-reference/quillfeather-plumbing/voice.md",
+          "dest": "client-reference/quillfeather-plumbing/voice.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/no-go/handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-week-5-handoff.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "\\AWARNING: [^\\n]*NO-GO",
+          "label": "first line warns the handoff ends NO-GO"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Client: Quillfeather Plumbing$",
+          "label": "the email is still drafted below the warning"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Week 5 handoff: \\S+ \\(NO-GO\\)$",
+          "label": "header names the NO-GO result"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Launch: 2026-11-24 10:00$",
+          "label": "agreed launch in the header"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)November 24",
+          "label": "agreed date written out in the email"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)live chat",
+          "label": "named integration: live chat"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\bjuvo\\b",
+          "label": "named integration: Juvo"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)analytics|\\bGA4\\b",
+          "label": "analytics was not named"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|rich (results|snippets)|json-ld",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "Subject:.*\\b(NO-GO|GO|handoff|final sweep|blocking)\\b",
+          "label": "no internal terms from the Subject line down"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)bugherd|lorem ipsum|alt text|opening hours|\\bQA\\b",
+          "label": "blocking items do not leak into the email"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\b(5|five)\\b(\\s+[a-z-]+){0,2}\\s+pages\\b",
+          "label": "the real page count is in the email"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Jordan Vale\\nProject Manager, WISE Digital Partners\\s*\\Z",
+          "label": "signed by the PM who asked"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)no-go",
+          "label": "tells the PM the handoff is NO-GO"
+        },
+        {
+          "type": "rubric",
+          "label": "warns the PM not to send yet",
+          "criteria": [
+            "The reply tells the PM not to send the email yet because the Week 5 handoff ends NO-GO, and that it can go once a new final sweep (week-5-handoff-check) ends GO."
+          ],
+          "target": "stdout"
+        },
+        {
+          "type": "rubric",
+          "label": "states the agreed launch",
+          "criteria": [
+            "Below the warning and header, the email states the agreed launch on Tuesday, November 24 at 10:00 (or 10am) rather than asking the client to pick a date.",
+            "It names the contact form, live chat and the Juvo leads dashboard as going live, and no other integration.",
+            "It says nothing about open issues, fixes still in progress or anything blocking the launch."
+          ],
+          "target": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md"
+        }
+      ]
+    },
+    {
+      "id": "quillfeather-missing-handoff",
+      "prompt": "Use the week-6-go-live-email skill. Go-live email for Quillfeather Plumbing (slug quillfeather-plumbing). The Week 5 final sweep hasn't been run yet, but draft the email now so it's ready. No launch date yet. Only the contact form goes live with the site. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
+          "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md",
+          "dest": "kickoff/quillfeather-plumbing/quillfeather-plumbing-context.md"
+        },
+        {
+          "src": "fixtures/week-6-go-live-email/quillfeather/common/client-reference/quillfeather-plumbing/voice.md",
+          "dest": "client-reference/quillfeather-plumbing/voice.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\AWARNING: [^\\n]*handoff",
+          "label": "first line warns the handoff is missing"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Week 5 handoff: \\S+ \\(missing\\)$",
+          "label": "header says the handoff is missing"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?m)^Launch: client to confirm$",
+          "label": "no launch date given"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)contact form",
+          "label": "named integration: contact form"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)analytics|\\bGA4\\b|\\bchat\\b|\\bjuvo\\b",
+          "label": "no unnamed integrations"
+        },
+        {
+          "type": "not_regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|rich (results|snippets)|json-ld",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_contains",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "text": "Winter Pipe",
+          "label": "the Post-Launch page is not listed"
+        },
+        {
+          "type": "regex",
+          "path": "emails/quillfeather-plumbing/quillfeather-plumbing-go-live-email.md",
+          "pattern": "(?i)\\b(5|five)\\b(\\s+[a-z-]+){0,2}\\s+pages\\b",
+          "label": "the real page count is in the email"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)week-5-handoff-check|final sweep",
+          "label": "tells the PM to run the final sweep first"
+        }
+      ]
+    }
+  ]
+}

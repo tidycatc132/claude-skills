@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-week-6-go-live-email",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "week-6-go-live-email",
+  "format": "json",
+  "fixture": "fixtures/contracts/week-6-go-live-email-dev-index.json",
+  "keys": ["Page", "Priority"],
+  "producer_cmd": "python3 skills/week-6-go-live-email/scripts/golive_email.py contract index fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/week-6-go-live-email/scripts/golive_email.py contract --validate {fixture}"
+}
