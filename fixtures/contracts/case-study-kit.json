@@ -1,0 +1,25 @@
+{
+  "brand.md": [
+    {
+      "Colour": "Larkspur Violet",
+      "Hex": "#5B4B8A",
+      "Use": "headings and the header",
+      "Source": "brand.md"
+    },
+    {
+      "Colour": "Sage",
+      "Hex": "#8FB39A",
+      "Use": "calls to action",
+      "Source": "brand.md"
+    }
+  ],
+  "style.md": [],
+  "Retired, do not use": [
+    {
+      "Colour": "Hospital Blue",
+      "Hex": "#0055A4",
+      "Use": "from the old sign",
+      "Source": "brand.md"
+    }
+  ]
+}

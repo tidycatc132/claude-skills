@@ -1,0 +1,12 @@
+{
+  "name": "new-build-kickoff-to-case-study",
+  "version": 1,
+  "producer": "new-build-kickoff",
+  "consumer": "case-study",
+  "format": "csv",
+  "fixture": "fixtures/contracts/new-build-kickoff-url-inventory.csv",
+  "columns": ["url", "title", "page_type", "status", "source"],
+  "required_non_empty": ["url"],
+  "min_rows": 1,
+  "consumer_cmd": "python3 skills/case-study/scripts/case_study.py inventory {fixture}"
+}

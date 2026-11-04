@@ -1,0 +1,12 @@
+{
+  "name": "keyword-research-to-case-study",
+  "version": 1,
+  "producer": "keyword-research",
+  "consumer": "case-study",
+  "format": "json",
+  "fixture": "fixtures/contracts/case-study-keywords.json",
+  "keys": ["primary_keyword"],
+  "producer_cmd": "python3 skills/case-study/scripts/case_study.py keywords fixtures/contracts/keyword-research-report.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/case-study/scripts/case_study.py keywords --validate {fixture}"
+}
