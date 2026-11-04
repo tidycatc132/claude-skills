@@ -1,0 +1,85 @@
+{
+  "Client:": "Larkspur Family Dental",
+  "Keyword Opportunity": {
+    "Tier 1": [
+      {
+        "Keyword": "emergency dentist boise",
+        "Monthly searches": "1300",
+        "Difficulty": "32",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "family dentist boise",
+        "Monthly searches": "720",
+        "Difficulty": "28",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "dental implants boise",
+        "Monthly searches": "880",
+        "Difficulty": "44",
+        "Intent": "commercial"
+      },
+      {
+        "Keyword": "sedation dentistry boise",
+        "Monthly searches": "210",
+        "Difficulty": "21",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "dentist meridian idaho",
+        "Monthly searches": "1600",
+        "Difficulty": "37",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "pediatric dentist boise",
+        "Monthly searches": "1000",
+        "Difficulty": "39",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "invisalign boise",
+        "Monthly searches": "590",
+        "Difficulty": "42",
+        "Intent": "commercial"
+      },
+      {
+        "Keyword": "teeth whitening boise",
+        "Monthly searches": "480",
+        "Difficulty": "26",
+        "Intent": "commercial"
+      }
+    ],
+    "Tier 2": [
+      {
+        "Keyword": "dentist boise",
+        "Monthly searches": "6600",
+        "Difficulty": "61",
+        "Intent": "transactional"
+      },
+      {
+        "Keyword": "how much do dental implants cost",
+        "Monthly searches": "9900",
+        "Difficulty": "48",
+        "Intent": "informational"
+      },
+      {
+        "Keyword": "what to do for a cracked tooth",
+        "Monthly searches": "2900",
+        "Difficulty": "17",
+        "Intent": "informational"
+      }
+    ],
+    "Tier 3": [
+      {
+        "Keyword": "are dental x rays safe",
+        "Monthly searches": "1900",
+        "Difficulty": "22",
+        "Intent": "informational"
+      }
+    ]
+  },
+  "### Phase 2": "After launch, the focus moves to Tier 2. The head search \"dentist boise\" is the biggest prize but needs authority the domain does not have yet, so the service pages come first. The three-month content calendar in the keyword research covers the cracked-tooth guide, the implant cost guide and an explainer on whether dental x-rays are safe. The cracked-tooth guide has the lowest difficulty in the set, and the implant cost guide supports the implants page and competes for the AI citations Boise Bright Dental holds today. Blog writing is outside the current scope, so these pages need a separate agreement or an in-house writer.",
+  "### Phase 3": "This phase works on Tier 3 and on the authority gaps the competitor comparison shows. The new domain has far fewer referring domains than every competitor, so earning local links is the main long-term task. The practice's 4.9 average rating from 212 Google reviews is a strength to keep current and visible, while Treasure Valley Smiles shows how reviews on a service page can build trust. Consistent business listings and Google Business Profile upkeep support the same goal."
+}

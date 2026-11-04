@@ -1,0 +1,12 @@
+{
+  "name": "keyword-research-to-retainer-roadmap",
+  "version": 1,
+  "producer": "keyword-research",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/contracts/retainer-roadmap-calendar.json",
+  "keys": ["Month", "Page", "Primary keyword", "Format", "Why now"],
+  "producer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract keywords fixtures/contracts/keyword-research-report.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}

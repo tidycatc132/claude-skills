@@ -1,0 +1,12 @@
+{
+  "name": "growth-blueprint-to-retainer-roadmap",
+  "version": 1,
+  "producer": "growth-blueprint",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/contracts/retainer-roadmap-blueprint.json",
+  "keys": ["Client:", "Keyword Opportunity", "### Phase 2", "### Phase 3"],
+  "producer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract blueprint evals/growth-blueprint/golden/larkspur-full/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}

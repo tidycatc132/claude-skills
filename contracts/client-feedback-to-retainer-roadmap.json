@@ -1,0 +1,12 @@
+{
+  "name": "client-feedback-to-retainer-roadmap",
+  "version": 1,
+  "producer": "client-feedback",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/contracts/client-feedback-week-5.json",
+  "keys": ["Week:", "Class", "tasks"],
+  "producer_cmd": "python3 skills/client-feedback/scripts/feedback.py contract week-5 fixtures/contracts/client-feedback-week-5-sample/2026-11-12-feedback.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}

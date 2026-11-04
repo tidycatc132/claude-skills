@@ -1,0 +1,44 @@
+[
+  {
+    "finding_id": "QA-4c1e9a20",
+    "status": "OPEN",
+    "create": false,
+    "bugherd_task_id": "512",
+    "page_url": "https://larkspur.staging-wise.site/services/invisalign/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/invisalign/: The section \"Is Invisalign right for me?\" is missing.",
+    "description": "The section \"Is Invisalign right for me?\" is missing. Add the section from the approved page content. (Staging QA 2026-11-16, QA-4c1e9a20)"
+  },
+  {
+    "finding_id": "QA-90ae2c47",
+    "status": "OPEN",
+    "create": false,
+    "bugherd_task_id": "513",
+    "page_url": "https://larkspur.staging-wise.site/new-patients/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/new-patients/: The section \"What to bring to your first visit\" is missing.",
+    "description": "The section \"What to bring to your first visit\" is missing. Add the section from the approved page content. (Staging QA 2026-11-16, QA-90ae2c47)"
+  },
+  {
+    "finding_id": "QA-7b3d5f11",
+    "status": "OPEN",
+    "create": false,
+    "bugherd_task_id": "514",
+    "page_url": "https://larkspur.staging-wise.site/about/team/",
+    "department": "SEO",
+    "column": "SEO Review",
+    "assignee": "",
+    "severity": "MINOR",
+    "bugherd_severity": "minor",
+    "title": "/about/team/: The image /wp-content/uploads/team-group.webp has no alt text.",
+    "description": "The image /wp-content/uploads/team-group.webp has no alt text. Add alt text that says what the image shows. (Staging QA 2026-11-16, QA-7b3d5f11)"
+  }
+]

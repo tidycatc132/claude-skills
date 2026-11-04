@@ -94,7 +94,7 @@ Report sections in order:
 1. **Executive Summary**: 3 to 5 sentences, the single best move first, with numbers.
 2. **Top Opportunities**: Quick Wins, Growth, GEO. At least 3 in total, each with volume, KD, intent, tier, bucket, score and a reason.
 3. **Topic Clusters**: cluster blocks.
-4. **Content Calendar**: 3 months, 2 to 4 items a month, keyword, format, funnel, cluster, why now.
+4. **Content Calendar**: 3 months, 2 to 4 items a month, keyword, format, funnel, cluster, why now. In the saved report it is the `## Content Calendar (3 months)` table with the columns `Month`, `Page`, `Primary keyword`, `Format`, `Why now`, in that order; retainer-roadmap reads it after launch.
 5. **Next Steps**: what the client must do, what the next skill is.
 
 Then the handoff block (see SKILL.md). In the saved file, finish with the `targets:` block described in SKILL.md, one row per calendar page.
