@@ -1,0 +1,34 @@
+{
+  "Build": [
+    "/",
+    "/services/roof-replacement/",
+    "/services/roof-repair/",
+    "/redmond-roofer/",
+    "/about/",
+    "/contact/",
+    "/services/gutter-installation/"
+  ],
+  "Post-Launch": [
+    {
+      "page": "Storm Damage Roof Guide",
+      "url": "/blog/storm-damage-roof-guide/"
+    }
+  ],
+  "### Redirects": [
+    {
+      "Old URL": "https://thistlewoodroofing.com/about-us/",
+      "New URL": "/about/",
+      "Note": "301, same page renamed"
+    },
+    {
+      "Old URL": "https://thistlewoodroofing.com/roofing-services/",
+      "New URL": "/services/roof-replacement/",
+      "Note": "301, old catch-all services page"
+    },
+    {
+      "Old URL": "https://thistlewoodroofing.com/gallery/",
+      "New URL": "NO TARGET",
+      "Note": "SEO to decide: not in the sitemap or the redirect map"
+    }
+  ]
+}

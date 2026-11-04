@@ -1,0 +1,12 @@
+{
+  "name": "staging-site-qa-to-retainer-roadmap",
+  "version": 1,
+  "producer": "staging-site-qa",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-launch-check.json",
+  "keys": ["Live:", "## Findings", "## Re-run Status", "RESULT:", "tasks"],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py launch-check fixtures/staging-site-qa/saltmarsh/after-launch-check/qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}

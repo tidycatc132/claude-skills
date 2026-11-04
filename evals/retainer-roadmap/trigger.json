@@ -1,0 +1,22 @@
+{
+  "should_trigger": [
+    "Larkspur Family Dental went live yesterday. Write their three-month SEO/GEO roadmap for the retainer team.",
+    "Build the post-launch roadmap for Copperline Plumbing from the Blueprint, the keyword report and whatever QA left open.",
+    "We need the GEO roadmap for Fernhollow Bakery now the site is launched: months 1 to 3, with owners and hours.",
+    "Close-out is done for Oakhurst Landscape Co. Turn Month 1 of their roadmap into ClickUp tasks in Client Monthly Work.",
+    "Put Month 1 in ClickUp for Harbor Pine Dental, but show me the list before you create anything.",
+    "Transition Tidewater Roofing to the monthly retainer: what are the Month 1 tasks and who owns each?",
+    "Write the SEO roadmap for Marrowbrook Electric and make sure the deferred BugHerd items and the client's scope changes are in it.",
+    "Give me the Month 1 tasks for Quillfeather Plumbing's retainer, with estimated time for each."
+  ],
+  "should_not_trigger": [
+    "Write the Growth Blueprint for Larkspur Family Dental from the Week 1 files.",
+    "Do keyword research for a Boise family dentist and give me a 3-month content calendar.",
+    "Take an SEO baseline snapshot of copperlineplumbing.com and compare it with last month's.",
+    "Write the close-out package for Fernhollow Bakery: project summary, transition email and retainer handoff brief.",
+    "Run the launch check on the live Oakhurst Landscape Co. site now that dev has deployed.",
+    "Draft the go-live confirmation email telling Harbor Pine Dental their site is ready to launch.",
+    "The sub-agent finished the Tidewater Roofing audit task; update ClickUp with its report and mark it done.",
+    "Write the case study for Marrowbrook Electric's new website for our showcase."
+  ]
+}

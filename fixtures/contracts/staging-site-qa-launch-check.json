@@ -1,0 +1,69 @@
+{
+  "Live:": "https://saltmarshtreecare.com",
+  "## Findings": [
+    {
+      "id": "QA-b4932d69",
+      "page": "/services/tree-pruning/",
+      "department": "Development",
+      "severity": "CRITICAL",
+      "finding": "The page is still set to noindex, so search engines will drop it.",
+      "fix": "Remove the noindex robots tag (and any X-Robots-Tag header) from the page."
+    },
+    {
+      "id": "QA-8fd79815",
+      "page": "/services/tree-removal/",
+      "department": "Development",
+      "severity": "MAJOR",
+      "finding": "1 link(s), image(s) or file(s) on the live page still point at the staging domain: https://saltmarsh.staging-wise.site/wp-content/uploads/2026/11/crane-removal.webp.",
+      "fix": "Change them to the live domain (or relative links) and re-check the page."
+    },
+    {
+      "id": "QA-36f63ead",
+      "page": "/contact/",
+      "department": "Development",
+      "severity": "MAJOR",
+      "finding": "The canonical tag points at the staging domain (https://saltmarsh.staging-wise.site/contact/).",
+      "fix": "Point the canonical tag at https://saltmarshtreecare.com/contact/."
+    },
+    {
+      "id": "QA-a6d0b724",
+      "page": "/trimming.html",
+      "department": "Development",
+      "severity": "MAJOR",
+      "finding": "https://saltmarshtreecare.com/trimming.html does not redirect (HTTP 404); it should answer 301 to /services/tree-pruning/.",
+      "fix": "Add a 301 redirect from /trimming.html to /services/tree-pruning/."
+    }
+  ],
+  "## Re-run Status": null,
+  "RESULT:": "LIVE ISSUES",
+  "tasks": [
+    {
+      "finding_id": "QA-b4932d69",
+      "status": "NEW",
+      "bugherd_task_id": "4101",
+      "severity": "CRITICAL",
+      "department": "Development"
+    },
+    {
+      "finding_id": "QA-8fd79815",
+      "status": "NEW",
+      "bugherd_task_id": "4102",
+      "severity": "MAJOR",
+      "department": "Development"
+    },
+    {
+      "finding_id": "QA-36f63ead",
+      "status": "NEW",
+      "bugherd_task_id": "4103",
+      "severity": "MAJOR",
+      "department": "Development"
+    },
+    {
+      "finding_id": "QA-a6d0b724",
+      "status": "NEW",
+      "bugherd_task_id": "4104",
+      "severity": "MAJOR",
+      "department": "Development"
+    }
+  ]
+}

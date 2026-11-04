@@ -1,0 +1,16 @@
+[
+  {
+    "finding_id": "CE-2a7c41d9",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://larkspur.staging-wise.site/about/team/",
+    "department": "Content",
+    "column": "Copy Review",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/about/team/: Correct the spelling to Dr. Chidi Okafor",
+    "description": "\"Dr. Okafor's first name is spelled Chidi, not Chedi, on the team page.\" Correct the spelling to Dr. Chidi Okafor. (Client edits 2026-11-10, item 1)"
+  }
+]

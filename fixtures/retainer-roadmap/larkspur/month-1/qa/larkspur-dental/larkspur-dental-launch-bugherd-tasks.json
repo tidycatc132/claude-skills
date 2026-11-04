@@ -1,0 +1,30 @@
+[
+  {
+    "finding_id": "QA-5e2f8a33",
+    "status": "FIXED",
+    "create": false,
+    "bugherd_task_id": "601",
+    "page_url": "https://larkspurdental.com/meet-us.html",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/meet-us.html: https://larkspurdental.com/meet-us.html does not redirect (HTTP 404); it should answer 301 to /about/team/.",
+    "description": "https://larkspurdental.com/meet-us.html does not redirect (HTTP 404); it should answer 301 to /about/team/. Add a 301 redirect from /meet-us.html to /about/team/. (Launch check 2026-11-20, QA-5e2f8a33)"
+  },
+  {
+    "finding_id": "QA-c81d0e6b",
+    "status": "NEW",
+    "create": true,
+    "bugherd_task_id": "",
+    "page_url": "https://larkspurdental.com/services/sedation-dentistry/",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/services/sedation-dentistry/: The meta description is \"Sedation dentistry\" ; the approved description is \"Calm, comfortable visits with oral and IV sedation in Boise. Ask about options for anxious patients and longer treatments.\".",
+    "description": "The meta description is \"Sedation dentistry\" ; the approved description is \"Calm, comfortable visits with oral and IV sedation in Boise. Ask about options for anxious patients and longer treatments.\". Set the meta description to the approved text. (Launch check 2026-11-24, QA-c81d0e6b)"
+  }
+]

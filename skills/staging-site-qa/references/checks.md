@@ -38,3 +38,5 @@ Not findings:
 - A page whose index status is not READY becomes an AM item.
 
 `finding_id` is `QA-` plus the first 8 hex digits of a SHA-1 over the page path, the check name and a detail. Where there is an approved value (meta title, description, H1, an H2, an index link, the full approved section order), the detail is that value, so the problem keeps its id while its wrong value changes. Otherwise the detail is the problem itself: the wrong phone, email or address, the image path without alt text, the broken link target, which placeholder pattern matched, or a fixed word (staging-domain content, canonical, viewport). If such a value changes, the old id shows FIXED and the new one NEW.
+
+The launch check (Dev, live site, after deployment) has its own checks, where noindex and a staging canonical are findings: `references/launch-check.md`.

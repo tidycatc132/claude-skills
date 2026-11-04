@@ -1,0 +1,10 @@
+{
+  "name": "week-5-handoff-check-to-retainer-roadmap",
+  "version": 1,
+  "producer": "week-5-handoff-check",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+  "keys": ["read_on", "tasks"],
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}

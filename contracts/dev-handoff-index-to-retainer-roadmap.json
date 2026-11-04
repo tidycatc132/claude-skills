@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-retainer-roadmap",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "retainer-roadmap",
+  "format": "json",
+  "fixture": "fixtures/contracts/retainer-roadmap-dev-index.json",
+  "keys": ["Build", "Post-Launch", "### Redirects"],
+  "producer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract index fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/retainer-roadmap/scripts/roadmap.py contract --validate {fixture}"
+}
