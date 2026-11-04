@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-project-close-out",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "project-close-out",
+  "format": "json",
+  "fixture": "fixtures/contracts/project-close-out-dev-index.json",
+  "keys": ["Page", "URL", "Content file", "Priority"],
+  "producer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract index fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract --validate {fixture}"
+}

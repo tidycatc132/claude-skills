@@ -1,0 +1,30 @@
+{
+  "read_on": "2026-11-17",
+  "source": "BugHerd connector",
+  "tasks": [
+    {
+      "bugherd_task_id": "512",
+      "finding_id": "QA-4c1e9a20",
+      "title": "/services/invisalign/: The section \"Is Invisalign right for me?\" is missing.",
+      "status": "Copy Review",
+      "severity": "important",
+      "deferred": "Client is rewriting this section with their orthodontist after launch"
+    },
+    {
+      "bugherd_task_id": "513",
+      "finding_id": "QA-90ae2c47",
+      "title": "/new-patients/: The section \"What to bring to your first visit\" is missing.",
+      "status": "done",
+      "severity": "important",
+      "deferred": ""
+    },
+    {
+      "bugherd_task_id": "514",
+      "finding_id": "QA-7b3d5f11",
+      "title": "/about/team/: The image /wp-content/uploads/team-group.webp has no alt text.",
+      "status": "SEO Review",
+      "severity": "minor",
+      "deferred": ""
+    }
+  ]
+}

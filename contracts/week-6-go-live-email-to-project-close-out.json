@@ -1,0 +1,17 @@
+{
+  "name": "week-6-go-live-email-to-project-close-out",
+  "version": 1,
+  "producer": "week-6-go-live-email",
+  "consumer": "project-close-out",
+  "format": "json",
+  "fixture": "fixtures/contracts/project-close-out-golive.json",
+  "keys": [
+    "Client:",
+    "Launch:",
+    "Pages launching:",
+    "Integrations:"
+  ],
+  "producer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract golive fixtures/project-close-out/larkspur/base/emails/larkspur-dental/larkspur-dental-go-live-email.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract --validate {fixture}"
+}

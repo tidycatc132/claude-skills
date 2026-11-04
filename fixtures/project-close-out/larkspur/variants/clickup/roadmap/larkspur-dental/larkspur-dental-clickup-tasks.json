@@ -1,0 +1,218 @@
+{
+  "client": "Larkspur Family Dental",
+  "space": "Client Monthly Work",
+  "list": "Larkspur Family Dental",
+  "list_id": "901400000001",
+  "approved_by": "SEO, 2026-11-25",
+  "tasks": [
+    {
+      "n": 1,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00001",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Submit the XML sitemap to Search Console and Bing",
+          "markdown_description": "Submit https://larkspurdental.com/sitemap.xml in Google Search Console and Bing Webmaster Tools, and check both read it without errors.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "30",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 2,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00002",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Request indexing for the homepage and top priority pages",
+          "markdown_description": "Use URL Inspection in Search Console to request indexing for /, /emergency-dentist/, /services/family-dentistry/, /services/dental-implants/, /new-patients/, /contact/.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 3,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00003",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Confirm GA4 and Search Console are connected",
+          "markdown_description": "Check that GA4 records visits from the live domain and that the Search Console property is verified for it, and that the two are linked.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "30",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 4,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00004",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Take a baseline with seo-drift-monitor",
+          "markdown_description": "Snapshot every Build page on https://larkspurdental.com with seo-drift-monitor so later changes can be compared.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 5,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00005",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Capture Core Web Vitals",
+          "markdown_description": "Record LCP, INP and CLS for /, /emergency-dentist/, /services/family-dentistry/ on mobile and desktop.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 6,
+      "source": "launch carry-over",
+      "clickup_task_id": "86b00006",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Update the Google Business Profile website link",
+          "markdown_description": "Point the Google Business Profile website link at https://larkspurdental.com.\n\nOwner: SEO\nSource: launch carry-over\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "30",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 7,
+      "source": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md > QA-4c1e9a20",
+      "clickup_task_id": "86b00007",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "/services/invisalign/: Add the section from the approved page content",
+          "markdown_description": "The section \"Is Invisalign right for me?\" is missing. Deferred at the Week 5 sweep: Client is rewriting this section with their orthodontist after launch.\n\nOwner: Content\nSource: qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md > QA-4c1e9a20\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "content"
+          ]
+        }
+      }
+    },
+    {
+      "n": 8,
+      "source": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md > QA-5e2f8a33",
+      "clickup_task_id": "86b00008",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "/meet-us.html: Add a 301 redirect from /meet-us.html to /about/team/",
+          "markdown_description": "https://larkspurdental.com/meet-us.html does not redirect (HTTP 404); it should answer 301 to /about/team/. Open on the launch check of 2026-11-20.\n\nOwner: Dev\nSource: qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md > QA-5e2f8a33\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "dev"
+          ]
+        }
+      }
+    },
+    {
+      "n": 9,
+      "source": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md > Redirects: https://larkspurdental.com/specials/",
+      "clickup_task_id": "86b00009",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Choose a 301 target for https://larkspurdental.com/specials/",
+          "markdown_description": "The dev handoff index has no New URL for it (SEO to decide: not in the sitemap or the redirect map). Pick the closest launched page and ask Dev to add the redirect.\n\nOwner: SEO\nSource: handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md > Redirects: https://larkspurdental.com/specials/\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "30",
+          "tags": [
+            "month 1",
+            "seo"
+          ]
+        }
+      }
+    },
+    {
+      "n": 10,
+      "source": "research/keyword-research/2026-10-14-larkspur-dental.md > Content Calendar: January: what to do for a cracked tooth; blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 2: what to do for a cracked tooth",
+      "clickup_task_id": "86b000010",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Write and publish /blog/cracked-tooth/ (explainer + FAQ)",
+          "markdown_description": "Keyword: what to do for a cracked tooth. Why now: lowest KD in the set. Brief it with content-brief, then write it with seo-content-writer.\n\nOwner: Content\nSource: research/keyword-research/2026-10-14-larkspur-dental.md > Content Calendar: January: what to do for a cracked tooth; blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 2: what to do for a cracked tooth\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "high",
+          "time_estimate": "360",
+          "tags": [
+            "month 1",
+            "content"
+          ]
+        }
+      }
+    },
+    {
+      "n": 11,
+      "source": "feedback/larkspur-dental/2026-11-10-feedback.md > #2",
+      "clickup_task_id": "",
+      "call": {
+        "tool": "clickup_create_task",
+        "args": {
+          "list_id": "901400000001",
+          "name": "Discuss a sleep apnea mouthguard page",
+          "markdown_description": "The client asked: \"Our hygienists keep getting asked about sleep apnea mouthguards. Could we have a page for that?\" PM/AM note: A thirteenth page is beyond the twelve-page SOW; plan it as retainer content after launch.\n\nOwner: AM\nSource: feedback/larkspur-dental/2026-11-10-feedback.md > #2\nRoadmap: roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "priority": "normal",
+          "time_estimate": "60",
+          "tags": [
+            "month 1",
+            "am"
+          ]
+        }
+      }
+    }
+  ]
+}

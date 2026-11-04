@@ -1,0 +1,16 @@
+{
+  "name": "case-study-to-project-close-out",
+  "version": 1,
+  "producer": "case-study",
+  "consumer": "project-close-out",
+  "format": "json",
+  "fixture": "fixtures/contracts/project-close-out-case-study.json",
+  "keys": [
+    "Client:",
+    "Launch:",
+    "Feature consent:"
+  ],
+  "producer_cmd": "python3 skills/case-study/scripts/case_study.py contract fixtures/project-close-out/larkspur/base/case-study/larkspur-dental/larkspur-dental-case-study.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract --validate {fixture}"
+}
