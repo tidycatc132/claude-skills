@@ -1,0 +1,21 @@
+{
+  "should_trigger": [
+    "Larkspur Family Dental went live last week. Close out the project: project summary, transition email and the retainer handoff brief.",
+    "Write the close-out package for Ashgrove Dental now that the site has launched.",
+    "Draft the transition email to Pinecrest Roofing that hands them over to the monthly retainer, with the real numbers from the build.",
+    "SEO is taking over Harbor Pine Plumbing next month. Write the retainer handoff brief so they know the deferred items, Month 1 priorities and where the ClickUp list is.",
+    "We launched Willowbend Vet on Monday. Is the build actually complete? Give me the internal project summary with anything still outstanding.",
+    "Close out the Oakhurst Landscape Co. build and write the email moving them to monthly work."
+  ],
+  "should_not_trigger": [
+    "Draft the go-live confirmation email for Willowbend Vet; the site is ready to launch on Thursday.",
+    "Write the three-month SEO/GEO roadmap for Ashgrove Dental now that the site is live.",
+    "Put Month 1 of the Pinecrest Roofing roadmap into ClickUp for the retainer.",
+    "Write the case study narrative for Harbor Pine Plumbing for our portfolio.",
+    "Run the Week 5 final sweep for Oakhurst Landscape Co. and tell me if dev can go live.",
+    "Check the live site for Larkspur Family Dental right after deployment: redirects, noindex, sitemap.",
+    "Draft the Week 5 staging review email for Willowbend Vet.",
+    "Write this month's progress report for Ashgrove Dental's retainer.",
+    "Do the transition to monthly retainer card for Harbor Pine Plumbing: get Month 1 into their ClickUp list."
+  ]
+}

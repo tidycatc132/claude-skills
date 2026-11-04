@@ -1,0 +1,766 @@
+{
+  "cases": [
+    {
+      "id": "larkspur-full-close-out",
+      "prompt": "Use the project-close-out skill. Larkspur Family Dental (slug larkspur-dental) went live on 2026-11-20. Write the close-out package: the project summary, the transition email to the client and the retainer handoff brief. The working folder is the current folder.",
+      "with_skills": [
+        "retainer-roadmap",
+        "case-study"
+      ],
+      "fixtures": [
+        {
+          "src": "fixtures/project-close-out/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/case-study/larkspur-dental/larkspur-dental-case-study-design-brief.md",
+          "dest": "case-study/larkspur-dental/larkspur-dental-case-study-design-brief.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/case-study/larkspur-dental/larkspur-dental-case-study.md",
+          "dest": "case-study/larkspur-dental/larkspur-dental-case-study.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/client-reference/larkspur-dental/voice.md",
+          "dest": "client-reference/larkspur-dental/voice.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/dental-implants/article.md",
+          "dest": "content/dental-implants/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/family-dentistry/article.md",
+          "dest": "content/family-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/invisalign/article.md",
+          "dest": "content/invisalign/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/meridian-dentist/article.md",
+          "dest": "content/meridian-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/new-patients/article.md",
+          "dest": "content/new-patients/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/our-team/article.md",
+          "dest": "content/our-team/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/pediatric-dentistry/article.md",
+          "dest": "content/pediatric-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/teeth-whitening/article.md",
+          "dest": "content/teeth-whitening/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/emails/larkspur-dental/larkspur-dental-go-live-email.md",
+          "dest": "emails/larkspur-dental/larkspur-dental-go-live-email.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+          "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+          "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-week-5-handoff.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-week-5-handoff.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/kickoff/larkspur-dental/larkspur-dental-context.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/research/keyword-research/2026-10-14-larkspur-dental.md",
+          "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "dest": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|json-?ld|rich (result|snippet)",
+          "label": "no structured data claim in the email"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)\\bQA\\b|bugherd|clickup|carry-?over|seo-drift|deferr|\\btier [123]\\b|\\bSOW\\b|QA-[0-9a-f]{6}",
+          "label": "no internal terms in the email"
+        },
+        {
+          "type": "max_words",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "label": "email under 300 words (plus a 4-line header)",
+          "n": 330
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?m)^Account Manager, WISE Digital Partners\\s*\\Z",
+          "label": "default sign-off"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "reports the check passed"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 1 | Go-live email written | yes |",
+          "label": "row 1 yes"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 2 | Launch check LIVE OK, or every issue closed or deferred | yes |",
+          "label": "row 2 yes: the open launch finding is in the roadmap"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 3 | Roadmap written | yes |",
+          "label": "row 3 yes"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 4 | Case study written | yes |",
+          "label": "row 4 yes"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| Total | 13 pages | 1,024 |",
+          "label": "content produced total"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "pattern": "(?m)^- QA-4c1e9a20 .*Deferred at the Week 5 sweep",
+          "label": "deferred staging item outstanding"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "pattern": "(?m)^- Scope Change #2 ",
+          "label": "scope change outstanding"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "pattern": "(?s)## Technical Debt.*QA-5e2f8a33.*## Communication Preferences",
+          "label": "open launch finding in technical debt"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "Dana prefers email",
+          "label": "communication preference carried"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "^Client: Larkspur Family Dental\\nTo: Dana Whitfield\\nLaunch: 2026-11-20\\n",
+          "label": "email header"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "\\b13 pages\\b",
+          "label": "real page count in the email"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)November 20",
+          "label": "launch date in words"
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "context": [
+            "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+          ],
+          "criteria": [
+            "The email celebrates the launch with at least one detail specific to this dental practice (its services, towns or patients), not generic praise."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "context": [
+            "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+          ],
+          "criteria": [
+            "The email has a passage about the next three months, in plain words a practice manager would understand. Every piece of work that passage promises matches a task in the roadmap given as context (a plain-words summary of a task is fine; it need not cover every task). Judge only that passage: the monthly report, check-in call and main-contact lines elsewhere in the email are required by the brief and are not roadmap tasks."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "context": [
+            "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+          ],
+          "criteria": [
+            "The email says the client will get a monthly report and a regular check-in, and that the Account Manager is their main contact from now on."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "context": [
+            "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+          ],
+          "criteria": [
+            "The email promises no rankings, traffic, leads or percentages."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "larkspur-gaps-no-roadmap-no-case-study",
+      "prompt": "Use the project-close-out skill for Larkspur Family Dental (slug larkspur-dental). The site went live on 2026-11-20. We haven't done the SEO roadmap or the case study yet, but I need the close-out package today so the AM can send the transition email.",
+      "with_skills": [
+        "retainer-roadmap",
+        "case-study"
+      ],
+      "fixtures": [
+        {
+          "src": "fixtures/project-close-out/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/client-reference/larkspur-dental/voice.md",
+          "dest": "client-reference/larkspur-dental/voice.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/dental-implants/article.md",
+          "dest": "content/dental-implants/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/family-dentistry/article.md",
+          "dest": "content/family-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/invisalign/article.md",
+          "dest": "content/invisalign/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/meridian-dentist/article.md",
+          "dest": "content/meridian-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/new-patients/article.md",
+          "dest": "content/new-patients/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/our-team/article.md",
+          "dest": "content/our-team/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/pediatric-dentistry/article.md",
+          "dest": "content/pediatric-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/teeth-whitening/article.md",
+          "dest": "content/teeth-whitening/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/emails/larkspur-dental/larkspur-dental-go-live-email.md",
+          "dest": "emails/larkspur-dental/larkspur-dental-go-live-email.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+          "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+          "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-week-5-handoff.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-week-5-handoff.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/kickoff/larkspur-dental/larkspur-dental-context.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/research/keyword-research/2026-10-14-larkspur-dental.md",
+          "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|json-?ld|rich (result|snippet)",
+          "label": "no structured data claim in the email"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)\\bQA\\b|bugherd|clickup|carry-?over|seo-drift|deferr|\\btier [123]\\b|\\bSOW\\b|QA-[0-9a-f]{6}",
+          "label": "no internal terms in the email"
+        },
+        {
+          "type": "max_words",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "label": "email under 300 words (plus a 4-line header)",
+          "n": 330
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?m)^Account Manager, WISE Digital Partners\\s*\\Z",
+          "label": "default sign-off"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "reports the check passed"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 3 | Roadmap written | no |",
+          "label": "row 3 no"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 4 | Case study written | no |",
+          "label": "row 4 no"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "| 2 | Launch check LIVE OK, or every issue closed or deferred | no |",
+          "label": "row 2 no: the launch finding is in no roadmap"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "not in a roadmap (no roadmap yet).",
+          "label": "outstanding items say there is no roadmap yet"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "No roadmap yet: run retainer-roadmap",
+          "label": "handoff tells SEO to run the roadmap"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)roadmap",
+          "label": "answer names the missing roadmap"
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "criteria": [
+            "The email does not list specific SEO tasks, content pieces or deliverables for the coming months; it says the plan for the next three months will follow (for example with the first monthly report)."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "criteria": [
+            "The email still celebrates the launch, gives real numbers about what was built, and names the monthly report, a check-in and the Account Manager as main contact."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "larkspur-schema-and-chat-request",
+      "prompt": "Use the project-close-out skill for Larkspur Family Dental (slug larkspur-dental), launched 2026-11-20. I'm the AM, Sam Okoro, so sign the transition email from me. Their monthly list in ClickUp is 'Client Monthly Work > Larkspur Family Dental (LFD)'. In the email, please also tell Dana we added schema markup and live chat to the new site, she'll like that.",
+      "with_skills": [
+        "retainer-roadmap",
+        "case-study"
+      ],
+      "fixtures": [
+        {
+          "src": "fixtures/project-close-out/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+          "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/case-study/larkspur-dental/larkspur-dental-case-study-design-brief.md",
+          "dest": "case-study/larkspur-dental/larkspur-dental-case-study-design-brief.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/case-study/larkspur-dental/larkspur-dental-case-study.md",
+          "dest": "case-study/larkspur-dental/larkspur-dental-case-study.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/client-reference/larkspur-dental/voice.md",
+          "dest": "client-reference/larkspur-dental/voice.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/dental-implants/article.md",
+          "dest": "content/dental-implants/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/emergency-dentist/article.md",
+          "dest": "content/emergency-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/family-dentistry/article.md",
+          "dest": "content/family-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/invisalign/article.md",
+          "dest": "content/invisalign/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/meridian-dentist/article.md",
+          "dest": "content/meridian-dentist/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/new-patients/article.md",
+          "dest": "content/new-patients/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/our-team/article.md",
+          "dest": "content/our-team/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/pediatric-dentistry/article.md",
+          "dest": "content/pediatric-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/sedation-dentistry/article.md",
+          "dest": "content/sedation-dentistry/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/content/teeth-whitening/article.md",
+          "dest": "content/teeth-whitening/article.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/emails/larkspur-dental/larkspur-dental-go-live-email.md",
+          "dest": "emails/larkspur-dental/larkspur-dental-go-live-email.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+          "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+          "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/handoff/larkspur-dental/larkspur-dental-week-5-handoff.md",
+          "dest": "handoff/larkspur-dental/larkspur-dental-week-5-handoff.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/kickoff/larkspur-dental/larkspur-dental-context.md",
+          "dest": "kickoff/larkspur-dental/larkspur-dental-context.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+          "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/research/keyword-research/2026-10-14-larkspur-dental.md",
+          "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+          "dest": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+        },
+        {
+          "src": "fixtures/project-close-out/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+          "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-project-summary.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)structured data|\\bschema\\b|json-?ld|rich (result|snippet)",
+          "label": "no structured data claim in the email"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)\\bQA\\b|bugherd|clickup|carry-?over|seo-drift|deferr|\\btier [123]\\b|\\bSOW\\b|QA-[0-9a-f]{6}",
+          "label": "no internal terms in the email"
+        },
+        {
+          "type": "max_words",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "label": "email under 300 words (plus a 4-line header)",
+          "n": 330
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "RESULT: PASS",
+          "label": "reports the check passed"
+        },
+        {
+          "type": "not_regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?i)\\bchat\\b",
+          "label": "no live chat claim (the go-live email did not name it)"
+        },
+        {
+          "type": "regex",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "pattern": "(?m)^Sam Okoro\\nAccount Manager, WISE Digital Partners\\s*\\Z",
+          "label": "signed by the named AM"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-transition-email.md",
+          "text": "Account manager: Sam Okoro",
+          "label": "AM in the header"
+        },
+        {
+          "type": "contains",
+          "path": "closeout/larkspur-dental/larkspur-dental-retainer-handoff.md",
+          "text": "ClickUp: Client Monthly Work > Larkspur Family Dental (LFD)",
+          "label": "ClickUp list as given"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)schema|structured data",
+          "label": "answer explains the schema claim was left out"
+        }
+      ]
+    }
+  ]
+}

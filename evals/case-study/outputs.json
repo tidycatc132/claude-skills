@@ -1,0 +1,695 @@
+{
+  "cases": [
+    {
+      "id": "kestrel-launch-no-approved-quote",
+      "prompt": "Use the case-study skill. Kestrel Garage Doors (slug kestrel-garage-doors) launched on 2026-11-18. Write the case study narrative and the showcase design brief from the build's files. The working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/case-study/kestrel/base/blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md",
+          "dest": "blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/client-reference/kestrelgaragedoors/brand.md",
+          "dest": "client-reference/kestrelgaragedoors/brand.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-installation/article.md",
+          "dest": "content/garage-door-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-repair/article.md",
+          "dest": "content/garage-door-repair/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/meridian-garage-doors/article.md",
+          "dest": "content/meridian-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/nampa-garage-doors/article.md",
+          "dest": "content/nampa-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/opener-installation/article.md",
+          "dest": "content/opener-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/spring-replacement/article.md",
+          "dest": "content/spring-replacement/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md",
+          "dest": "handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/research/keyword-research/2026-09-28-kestrel-garage-doors.md",
+          "dest": "research/keyword-research/2026-09-28-kestrel-garage-doors.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "^Client: Kestrel Garage Doors\\nLaunch: 2026-11-18\\n",
+          "label": "header from the context and the given launch date"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^> AM: .*featured",
+          "label": "note reminding the AM to confirm the client agrees to be featured"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## Client Snapshot.*## The Challenge.*## The Approach.*## What We Built.*## Results.*## In Their Words.*## Quick Stats",
+          "label": "sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## What We Built.*\\b9 pages\\b.*\\b805\\b.*## Results",
+          "label": "real page and word counts in What We Built"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)schema|structured data|json-ld|rich snippet",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "pattern": "(?i)schema|structured data|json-ld",
+          "label": "no structured data claim in the brief"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)game-chang|cutting-edge|world-class|skyrocket|revolutionary|seamless|unparalleled|transformative",
+          "label": "no hype words"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| About Us | https://kestrelgaragedoors.com/about-us/ | About | https://kestrelgaragedoors.com/about/ |",
+          "label": "before/after pair from the redirects table"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "#1E4D7B",
+          "label": "brand colour from brand.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| Retired",
+          "label": "retired colour not offered as a brand colour"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "/specials/",
+          "label": "the NO TARGET old URL is not a before/after pair"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS",
+          "label": "the check passed and was reported"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^Feature consent: not confirmed$",
+          "label": "no approvals file, so consent is not confirmed"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^QUOTE NEEDED: .*\\?",
+          "label": "quote placeholder with a suggested question"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "roll a truck",
+          "label": "no unapproved quote from the quote bank"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "built in 2010, because it was",
+          "label": "no unapproved quote from the quote bank"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?is)## Results.*too early.*\\b90\\b.*## In Their Words",
+          "label": "Results says it is too early and names the 90-day measures"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## Results[^#]*\\d+%",
+          "label": "no percentage claims at launch"
+        },
+        {
+          "type": "rubric",
+          "target": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "criteria": [
+            "The Challenge describes problems the old site had that the client context states (for example no page per service, no Meridian or Nampa page, the phone number only in the footer), not invented ones."
+          ],
+          "context": [
+            "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md",
+            "blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md"
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "criteria": [
+            "The writing is specific to Kestrel Garage Doors (names its services, towns or what was built) and makes no promise of rankings, traffic or leads."
+          ],
+          "context": [
+            "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kestrel-approved-quotes",
+      "prompt": "Use the case-study skill for Kestrel Garage Doors (slug kestrel-garage-doors). The site went live on 2026-11-18 and Mira has signed off which kickoff quotes we can use publicly. Write the case study and the design brief for the showcase. Working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/case-study/kestrel/base/blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md",
+          "dest": "blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/client-reference/kestrelgaragedoors/brand.md",
+          "dest": "client-reference/kestrelgaragedoors/brand.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-installation/article.md",
+          "dest": "content/garage-door-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-repair/article.md",
+          "dest": "content/garage-door-repair/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/meridian-garage-doors/article.md",
+          "dest": "content/meridian-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/nampa-garage-doors/article.md",
+          "dest": "content/nampa-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/opener-installation/article.md",
+          "dest": "content/opener-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/spring-replacement/article.md",
+          "dest": "content/spring-replacement/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md",
+          "dest": "handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/research/keyword-research/2026-09-28-kestrel-garage-doors.md",
+          "dest": "research/keyword-research/2026-09-28-kestrel-garage-doors.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/variants/approved/case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md",
+          "dest": "case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "^Client: Kestrel Garage Doors\\nLaunch: 2026-11-18\\n",
+          "label": "header from the context and the given launch date"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^> AM: .*featured",
+          "label": "note reminding the AM to confirm the client agrees to be featured"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## Client Snapshot.*## The Challenge.*## The Approach.*## What We Built.*## Results.*## In Their Words.*## Quick Stats",
+          "label": "sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## What We Built.*\\b9 pages\\b.*\\b805\\b.*## Results",
+          "label": "real page and word counts in What We Built"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)schema|structured data|json-ld|rich snippet",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "pattern": "(?i)schema|structured data|json-ld",
+          "label": "no structured data claim in the brief"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)game-chang|cutting-edge|world-class|skyrocket|revolutionary|seamless|unparalleled|transformative",
+          "label": "no hype words"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| About Us | https://kestrelgaragedoors.com/about-us/ | About | https://kestrelgaragedoors.com/about/ |",
+          "label": "before/after pair from the redirects table"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "#1E4D7B",
+          "label": "brand colour from brand.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| Retired",
+          "label": "retired colour not offered as a brand colour"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "/specials/",
+          "label": "the NO TARGET old URL is not a before/after pair"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS",
+          "label": "the check passed and was reported"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^Feature consent: confirmed \\(Mira Halvorsen, 2026-11-24\\)$",
+          "label": "consent from the approvals file"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## In Their Words.*(We tell people the price on the phone before we roll a truck\\.|If we fix it today, they call us again when they want a new door\\.).*## Quick Stats",
+          "label": "an approved quote, word for word"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "built in 2010, because it was",
+          "label": "quote 5 is not approved"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "Nobody can find our phone number",
+          "label": "quote 7 is not approved"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "QUOTE NEEDED",
+          "label": "no placeholder when a quote is approved"
+        }
+      ]
+    },
+    {
+      "id": "kestrel-90-day-metrics",
+      "prompt": "Use the case-study skill. It's been 90 days since Kestrel Garage Doors (slug kestrel-garage-doors) launched on 2026-11-18, and the metrics file is saved in their case-study folder. Write the case study with the results, and the showcase design brief. Working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/case-study/kestrel/base/blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md",
+          "dest": "blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/client-reference/kestrelgaragedoors/brand.md",
+          "dest": "client-reference/kestrelgaragedoors/brand.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-installation/article.md",
+          "dest": "content/garage-door-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-repair/article.md",
+          "dest": "content/garage-door-repair/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/meridian-garage-doors/article.md",
+          "dest": "content/meridian-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/nampa-garage-doors/article.md",
+          "dest": "content/nampa-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/opener-installation/article.md",
+          "dest": "content/opener-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/spring-replacement/article.md",
+          "dest": "content/spring-replacement/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md",
+          "dest": "handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/research/keyword-research/2026-09-28-kestrel-garage-doors.md",
+          "dest": "research/keyword-research/2026-09-28-kestrel-garage-doors.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/variants/metrics/case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md",
+          "dest": "case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/variants/metrics/case-study/kestrel-garage-doors/kestrel-garage-doors-metrics.md",
+          "dest": "case-study/kestrel-garage-doors/kestrel-garage-doors-metrics.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "^Client: Kestrel Garage Doors\\nLaunch: 2026-11-18\\n",
+          "label": "header from the context and the given launch date"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?m)^> AM: .*featured",
+          "label": "note reminding the AM to confirm the client agrees to be featured"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## Client Snapshot.*## The Challenge.*## The Approach.*## What We Built.*## Results.*## In Their Words.*## Quick Stats",
+          "label": "sections in order"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## What We Built.*\\b9 pages\\b.*\\b805\\b.*## Results",
+          "label": "real page and word counts in What We Built"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "text": "[WRITE",
+          "label": "no placeholder left"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)schema|structured data|json-ld|rich snippet",
+          "label": "no structured data claim"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "pattern": "(?i)schema|structured data|json-ld",
+          "label": "no structured data claim in the brief"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?i)game-chang|cutting-edge|world-class|skyrocket|revolutionary|seamless|unparalleled|transformative",
+          "label": "no hype words"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| About Us | https://kestrelgaragedoors.com/about-us/ | About | https://kestrelgaragedoors.com/about/ |",
+          "label": "before/after pair from the redirects table"
+        },
+        {
+          "type": "contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "#1E4D7B",
+          "label": "brand colour from brand.md"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "| Retired",
+          "label": "retired colour not offered as a brand colour"
+        },
+        {
+          "type": "not_contains",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md",
+          "text": "/specials/",
+          "label": "the NO TARGET old URL is not a before/after pair"
+        },
+        {
+          "type": "contains",
+          "path": "stdout",
+          "text": "RESULT: PASS",
+          "label": "the check passed and was reported"
+        },
+        {
+          "type": "regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?s)## Results.*(1,038|1038).*## In Their Words",
+          "label": "a measured figure from the metrics file in Results"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "\\d+(\\.\\d+)?\\s?%",
+          "label": "no computed percentages: the metrics file states none"
+        },
+        {
+          "type": "not_regex",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "pattern": "(?is)## Results.*too early.*## In Their Words",
+          "label": "not the launch wording once metrics exist"
+        },
+        {
+          "type": "rubric",
+          "target": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md",
+          "criteria": [
+            "Every figure in the Results section is copied from the metrics file, and the section states what period it compares."
+          ],
+          "context": [
+            "case-study/kestrel-garage-doors/kestrel-garage-doors-metrics.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "kestrel-client-declined",
+      "prompt": "Use the case-study skill to write the case study for Kestrel Garage Doors (slug kestrel-garage-doors); they launched on 2026-11-18. Working folder is the current folder.",
+      "fixtures": [
+        {
+          "src": "fixtures/case-study/kestrel/base/blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md",
+          "dest": "blueprint/kestrel-garage-doors/kestrel-garage-doors-growth-blueprint.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/client-reference/kestrelgaragedoors/brand.md",
+          "dest": "client-reference/kestrelgaragedoors/brand.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/about/article.md",
+          "dest": "content/about/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/contact/article.md",
+          "dest": "content/contact/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-installation/article.md",
+          "dest": "content/garage-door-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/garage-door-repair/article.md",
+          "dest": "content/garage-door-repair/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/home/article.md",
+          "dest": "content/home/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/meridian-garage-doors/article.md",
+          "dest": "content/meridian-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/nampa-garage-doors/article.md",
+          "dest": "content/nampa-garage-doors/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/opener-installation/article.md",
+          "dest": "content/opener-installation/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/content/spring-replacement/article.md",
+          "dest": "content/spring-replacement/article.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md",
+          "dest": "handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-context.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-quote-bank.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv",
+          "dest": "kickoff/kestrel-garage-doors/kestrel-garage-doors-url-inventory.csv"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/base/research/keyword-research/2026-09-28-kestrel-garage-doors.md",
+          "dest": "research/keyword-research/2026-09-28-kestrel-garage-doors.md"
+        },
+        {
+          "src": "fixtures/case-study/kestrel/variants/declined/case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md",
+          "dest": "case-study/kestrel-garage-doors/kestrel-garage-doors-approvals.md"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_absent",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study.md"
+        },
+        {
+          "type": "file_absent",
+          "path": "case-study/kestrel-garage-doors/kestrel-garage-doors-case-study-design-brief.md"
+        },
+        {
+          "type": "regex",
+          "path": "stdout",
+          "pattern": "(?i)declin|featured: no|not.{0,20}featured",
+          "label": "says the client declined to be featured"
+        }
+      ]
+    }
+  ]
+}

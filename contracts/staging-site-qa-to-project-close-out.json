@@ -1,0 +1,16 @@
+{
+  "name": "staging-site-qa-to-project-close-out",
+  "version": 1,
+  "producer": "staging-site-qa",
+  "consumer": "project-close-out",
+  "format": "json",
+  "fixture": "fixtures/contracts/staging-site-qa-launch-check.json",
+  "keys": [
+    "Live:",
+    "## Findings",
+    "RESULT:"
+  ],
+  "producer_cmd": "python3 skills/staging-site-qa/scripts/qa.py launch-check fixtures/staging-site-qa/saltmarsh/after-launch-check/qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract --validate {fixture}"
+}

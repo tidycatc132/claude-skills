@@ -1,0 +1,50 @@
+[
+  {
+    "Group": "Homepage",
+    "Page": "Home",
+    "URL": "/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Service Pages",
+    "Page": "Roof Replacement",
+    "URL": "/services/roof-replacement/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Service Pages",
+    "Page": "Roof Repair",
+    "URL": "/services/roof-repair/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Location Pages",
+    "Page": "Redmond Roofer",
+    "URL": "/redmond-roofer/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "About Page",
+    "Page": "About",
+    "URL": "/about/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Contact Page",
+    "Page": "Contact",
+    "URL": "/contact/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Pages Without a Template",
+    "Page": "Gutter Installation",
+    "URL": "/services/gutter-installation/",
+    "Priority": "Build"
+  },
+  {
+    "Group": "Pages Without a Template",
+    "Page": "Storm Damage Roof Guide",
+    "URL": "/blog/storm-damage-roof-guide/",
+    "Priority": "Post-Launch"
+  }
+]

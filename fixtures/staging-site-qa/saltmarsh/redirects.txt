@@ -1,0 +1,4 @@
+# curl -s -o /dev/null -w '%{url_effective} %{http_code} %{redirect_url}\n' <old URL>, run 2026-11-18
+https://saltmarshtreecare.com/our-services/ 301 https://saltmarshtreecare.com/services/tree-removal/
+https://saltmarshtreecare.com/trimming.html 404
+https://saltmarshtreecare.com/contact-us/ 301 https://saltmarshtreecare.com/contact/

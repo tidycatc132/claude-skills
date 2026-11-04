@@ -1,0 +1,361 @@
+{
+ "cases": [
+  {
+   "id": "larkspur-roadmap",
+   "prompt": "Use the retainer-roadmap skill. Larkspur Family Dental (slug larkspur-dental) launched on 2026-11-20. Write their three-month SEO/GEO roadmap for the retainer team. Today is 2026-11-21. The working folder is the current folder.",
+   "fixtures": [
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+     "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+     "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+     "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/research/keyword-research/2026-10-14-larkspur-dental.md",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+     "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+    },
+    {
+     "type": "contains",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "text": "| Month | Task | Description | Priority | Est. hours | Owner | Source |"
+    },
+    {
+     "type": "not_contains",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "text": "[WRITE"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\| Submit the XML sitemap[^\\n]*\\| launch carry-over \\|",
+     "label": "sitemap carry-over in Month 1"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\|[^\\n]*seo-drift-monitor[^\\n]*\\| launch carry-over \\|",
+     "label": "drift baseline carry-over in Month 1"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\|[^\\n]*Business Profile[^\\n]*\\| launch carry-over \\|",
+     "label": "GBP carry-over in Month 1"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\|[^\\n]*\\| [^|\\n]*> QA-4c1e9a20 \\|",
+     "label": "deferred MAJOR staging item in Month 1"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\|[^\\n]*\\| AM \\| feedback/larkspur-dental/2026-11-10-feedback.md > #2 \\|",
+     "label": "client Scope Change in Month 1 for the AM"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 1 \\|[^\\n]*what to do for a cracked tooth[^\\n]*Tier 2",
+     "label": "Tier 2 calendar keyword in its calendar month"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\| 2 \\|[^\\n]*dentist boise\"[^\\n]*Tier 2: dentist boise \\|",
+     "label": "Tier 2 keyword outside the calendar in Month 2"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "> QA-5e2f8a33 \\|",
+     "label": "open launch check finding planned"
+    },
+    {
+     "type": "not_contains",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "text": "QA-90ae2c47",
+     "label": "item fixed in BugHerd is not planned"
+    },
+    {
+     "type": "not_regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "(?i)structured data|\\bschema\\b|json-ld|rich result",
+     "label": "no structured data task"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "CHECK PASS",
+     "label": "check run and reported"
+    },
+    {
+     "type": "rubric",
+     "target": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "criteria": [
+      "The Summary section is three to five sentences long and talks about both Month 1 and the later months (Months 2 and 3)."
+     ]
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "## Not Planned\\n\\n(- none|- [^\\n]+ > [^\\n]+: \\S)",
+     "label": "Not Planned has none or reasoned lines"
+    }
+   ]
+  },
+  {
+   "id": "larkspur-calendar-conflict",
+   "prompt": "Use the retainer-roadmap skill. Write the post-launch SEO roadmap for Larkspur Family Dental (slug larkspur-dental). Today is 2026-11-21. The working folder is the current folder.",
+   "fixtures": [
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+     "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+     "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+     "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/variants/calendar-conflict/research/keyword-research/2026-10-14-larkspur-dental.md",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+     "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+    },
+    {
+     "type": "not_regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "\\n\\|[^\\n]*\\| Content \\|[^\\n]*Content Calendar: February: dental implants boise",
+     "label": "build keyword not planned as new content"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "## Not Planned[\\s\\S]*Content Calendar: February: dental implants boise",
+     "label": "the skipped calendar row is explained"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "pattern": "Tier 2: how much do dental implants cost",
+     "label": "Tier 2 keyword still planned"
+    },
+    {
+     "type": "regex",
+     "path": "stdout",
+     "pattern": "CHECK PASS"
+    }
+   ]
+  },
+  {
+   "id": "larkspur-month-1-preview",
+   "prompt": "Use the retainer-roadmap skill. Close-out is done for Larkspur Family Dental (slug larkspur-dental) and the retainer starts now. Put Month 1 of their roadmap into ClickUp. Today is 2026-11-26. The working folder is the current folder.",
+   "fixtures": [
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md",
+     "dest": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-bugherd-tasks.json",
+     "dest": "feedback/larkspur-dental/2026-11-10-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/feedback/larkspur-dental/2026-11-10-feedback.md",
+     "dest": "feedback/larkspur-dental/2026-11-10-feedback.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md",
+     "dest": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-status.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-status.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/month-1/qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/research/keyword-research/2026-10-14-larkspur-dental.md",
+     "dest": "research/keyword-research/2026-10-14-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/base/seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md",
+     "dest": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/month-1/feedback/larkspur-dental/2026-11-14-bugherd-tasks.json",
+     "dest": "feedback/larkspur-dental/2026-11-14-bugherd-tasks.json"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/month-1/feedback/larkspur-dental/2026-11-14-feedback.md",
+     "dest": "feedback/larkspur-dental/2026-11-14-feedback.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/month-1/qa/larkspur-dental/larkspur-dental-launch-check-2026-11-24.md",
+     "dest": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-24.md"
+    },
+    {
+     "src": "fixtures/retainer-roadmap/larkspur/month-1/roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md",
+     "dest": "roadmap/larkspur-dental/larkspur-dental-seo-roadmap.md"
+    }
+   ],
+   "assertions": [
+    {
+     "type": "file_exists",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md"
+    },
+    {
+     "type": "file_exists",
+     "path": "roadmap/larkspur-dental/larkspur-dental-clickup-tasks.json"
+    },
+    {
+     "type": "json_valid",
+     "path": "roadmap/larkspur-dental/larkspur-dental-clickup-tasks.json"
+    },
+    {
+     "type": "contains",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "text": "| # | Name | Description | Priority | Est. time | Owner | Source |"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "pattern": "QA-c81d0e6b \\|",
+     "label": "launch re-run finding added"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "pattern": "(?s)Submit the XML sitemap.*Request indexing.*GA4.*seo-drift-monitor.*Core Web Vitals.*Business Profile",
+     "label": "six carry-over tasks in the Month 1 list"
+    },
+    {
+     "type": "not_regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "pattern": "\\n\\| \\d+ \\|[^\\n]*\\| (?!SEO \\||Content \\||AM \\||Dev \\|)[^|\\n]+ \\| [^|\\n]+ \\|\\n",
+     "label": "owners are roles"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "pattern": "2026-11-14-feedback.md > #1 \\|",
+     "label": "later Scope Change added"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-month-1-tasks.md",
+     "pattern": "## Left Out[\\s\\S]*QA-5e2f8a33",
+     "label": "fixed redirect left out"
+    },
+    {
+     "type": "regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-clickup-tasks.json",
+     "pattern": "\"space\": \"Client Monthly Work\""
+    },
+    {
+     "type": "not_regex",
+     "path": "roadmap/larkspur-dental/larkspur-dental-clickup-tasks.json",
+     "pattern": "\"clickup_task_id\": \"[^\"]+\"",
+     "label": "nothing recorded as created before approval"
+    },
+    {
+     "type": "rubric",
+     "target": "stdout",
+     "criteria": [
+      "The answer shows or summarises the Month 1 task list and asks the SEO to approve it before anything is created in ClickUp; it does not claim any task was created."
+     ]
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,162 @@
+[
+  {
+    "Month": "1",
+    "Task": "Submit the XML sitemap to Search Console and Bing",
+    "Priority": "high",
+    "Est. hours": "0.5",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "Request indexing for the homepage and top priority pages",
+    "Priority": "high",
+    "Est. hours": "1",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "Confirm GA4 and Search Console are connected",
+    "Priority": "high",
+    "Est. hours": "0.5",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "Take a baseline with seo-drift-monitor",
+    "Priority": "high",
+    "Est. hours": "1",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "Capture Core Web Vitals",
+    "Priority": "high",
+    "Est. hours": "1",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "Update the Google Business Profile website link",
+    "Priority": "high",
+    "Est. hours": "0.5",
+    "Owner": "SEO",
+    "Source": "launch carry-over"
+  },
+  {
+    "Month": "1",
+    "Task": "/services/invisalign/: Add the section from the approved page content",
+    "Priority": "high",
+    "Est. hours": "1",
+    "Owner": "Content",
+    "Source": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md > QA-4c1e9a20"
+  },
+  {
+    "Month": "1",
+    "Task": "/meet-us.html: Add a 301 redirect from /meet-us.html to /about/team/",
+    "Priority": "high",
+    "Est. hours": "1",
+    "Owner": "Dev",
+    "Source": "qa/larkspur-dental/larkspur-dental-launch-check-2026-11-20.md > QA-5e2f8a33"
+  },
+  {
+    "Month": "1",
+    "Task": "Choose a 301 target for https://larkspurdental.com/specials/",
+    "Priority": "high",
+    "Est. hours": "0.5",
+    "Owner": "SEO",
+    "Source": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md > Redirects: https://larkspurdental.com/specials/"
+  },
+  {
+    "Month": "1",
+    "Task": "Write and publish /blog/cracked-tooth/ (explainer + FAQ)",
+    "Priority": "high",
+    "Est. hours": "6",
+    "Owner": "Content",
+    "Source": "research/keyword-research/2026-10-14-larkspur-dental.md > Content Calendar: January: what to do for a cracked tooth; blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 2: what to do for a cracked tooth"
+  },
+  {
+    "Month": "1",
+    "Task": "Discuss a sleep apnea mouthguard page",
+    "Priority": "medium",
+    "Est. hours": "1",
+    "Owner": "AM",
+    "Source": "feedback/larkspur-dental/2026-11-10-feedback.md > #2"
+  },
+  {
+    "Month": "2",
+    "Task": "Write and publish /blog/dental-implant-cost/ (cost guide)",
+    "Priority": "high",
+    "Est. hours": "6",
+    "Owner": "Content",
+    "Source": "research/keyword-research/2026-10-14-larkspur-dental.md > Content Calendar: February: how much do dental implants cost; blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 2: how much do dental implants cost"
+  },
+  {
+    "Month": "2",
+    "Task": "Write and publish Dental Anxiety Guide (/blog/dental-anxiety-guide/)",
+    "Priority": "medium",
+    "Est. hours": "6",
+    "Owner": "Content",
+    "Source": "handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md > Dental Anxiety Guide"
+  },
+  {
+    "Month": "2",
+    "Task": "Choose the page that targets \"dentist boise\"",
+    "Priority": "medium",
+    "Est. hours": "2",
+    "Owner": "SEO",
+    "Source": "blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 2: dentist boise"
+  },
+  {
+    "Month": "2",
+    "Task": "Start local link building",
+    "Priority": "medium",
+    "Est. hours": "4",
+    "Owner": "SEO",
+    "Source": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md > Competitive Landscape: Referring domains"
+  },
+  {
+    "Month": "2",
+    "Task": "/about/team/: Add alt text that says what the image shows",
+    "Priority": "low",
+    "Est. hours": "1",
+    "Owner": "SEO",
+    "Source": "qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-16.md > QA-7b3d5f11"
+  },
+  {
+    "Month": "3",
+    "Task": "Write and publish /blog/are-dental-x-rays-safe/ (explainer)",
+    "Priority": "medium",
+    "Est. hours": "6",
+    "Owner": "Content",
+    "Source": "research/keyword-research/2026-10-14-larkspur-dental.md > Content Calendar: March: are dental x rays safe; blueprint/larkspur-dental/larkspur-dental-growth-blueprint.md > Tier 3: are dental x rays safe"
+  },
+  {
+    "Month": "3",
+    "Task": "Collect reviews for the implant and Invisalign pages",
+    "Priority": "medium",
+    "Est. hours": "2",
+    "Owner": "AM",
+    "Source": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md > Strengths to Learn From #1"
+  },
+  {
+    "Month": "3",
+    "Task": "Add direct cost answers to the implants page FAQ",
+    "Priority": "medium",
+    "Est. hours": "2",
+    "Owner": "Content",
+    "Source": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md > Strengths to Learn From #2"
+  },
+  {
+    "Month": "3",
+    "Task": "Pitch the implant cost guide for AI citations",
+    "Priority": "medium",
+    "Est. hours": "2",
+    "Owner": "SEO",
+    "Source": "seo-reports/competitor-analysis/2026-10-16-larkspur-dental.md > Priority Opportunities #3"
+  }
+]

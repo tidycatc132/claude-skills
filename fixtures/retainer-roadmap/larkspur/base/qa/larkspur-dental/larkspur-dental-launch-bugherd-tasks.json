@@ -1,0 +1,16 @@
+[
+  {
+    "finding_id": "QA-5e2f8a33",
+    "status": "NEW",
+    "create": false,
+    "bugherd_task_id": "601",
+    "page_url": "https://larkspurdental.com/meet-us.html",
+    "department": "Development",
+    "column": "Dev Ready",
+    "assignee": "",
+    "severity": "MAJOR",
+    "bugherd_severity": "important",
+    "title": "/meet-us.html: https://larkspurdental.com/meet-us.html does not redirect (HTTP 404); it should answer 301 to /about/team/.",
+    "description": "https://larkspurdental.com/meet-us.html does not redirect (HTTP 404); it should answer 301 to /about/team/. Add a 301 redirect from /meet-us.html to /about/team/. (Launch check 2026-11-20, QA-5e2f8a33)"
+  }
+]

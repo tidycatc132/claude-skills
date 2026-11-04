@@ -1,0 +1,13 @@
+{
+  "name": "week-5-handoff-check-to-project-close-out",
+  "version": 1,
+  "producer": "week-5-handoff-check",
+  "consumer": "project-close-out",
+  "format": "json",
+  "fixture": "fixtures/week-5-handoff-check/quillfeather/regression/qa/quillfeather-plumbing/quillfeather-plumbing-bugherd-status.json",
+  "keys": [
+    "read_on",
+    "tasks"
+  ],
+  "consumer_cmd": "python3 skills/project-close-out/scripts/closeout.py contract --validate {fixture}"
+}

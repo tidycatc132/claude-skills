@@ -1,0 +1,367 @@
+{
+  "note": "Launch check cases for staging-site-qa (Week 6 queue row 2), run from a scratch copy because outputs.json and trigger.json are frozen. Append them to those files only with the owner's unlock.",
+  "cases": [
+    {
+      "id": "saltmarsh-launch-issues",
+      "prompt": "Use the staging-site-qa skill. Saltmarsh Tree Care went live an hour ago at https://saltmarshtreecare.com. Run the launch check. Our CDN blocks your network, so I saved the live pages (with robots.txt and the sitemaps) into live/ and the redirect responses into redirects.txt with curl. The working folder is the current folder; date the run 2026-11-18. Show me the BugHerd preview but don't create any tasks yet.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md",
+          "dest": "handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md",
+          "dest": "kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/index.html",
+          "dest": "live/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/contact/index.html",
+          "dest": "live/contact/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/services/tree-removal/index.html",
+          "dest": "live/services/tree-removal/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/services/tree-pruning/index.html",
+          "dest": "live/services/tree-pruning/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/robots.txt",
+          "dest": "live/robots.txt"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/sitemap.xml",
+          "dest": "live/sitemap.xml"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live/page-sitemap.xml",
+          "dest": "live/page-sitemap.xml"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/redirects.txt",
+          "dest": "redirects.txt"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md"
+        },
+        {
+          "type": "file_exists",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json"
+        },
+        {
+          "type": "json_valid",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "pattern": "^\\| QA-b4932d69 \\| /services/tree-pruning/ \\| Development \\| CRITICAL \\| The page is still set to noindex",
+          "label": "noindex is a CRITICAL Development finding"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "pattern": "^\\| QA-36f63ead \\| /contact/ \\| Development \\| MAJOR \\| The canonical tag points at the staging domain",
+          "label": "canonical on staging"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "pattern": "^\\| QA-a6d0b724 \\| /trimming\\.html \\| Development \\| MAJOR \\| [^\\n]*does not redirect \\(HTTP 404\\)",
+          "label": "missing redirect"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "pattern": "^\\| QA-8fd79815 \\| /services/tree-removal/ \\| Development \\| MAJOR \\| [^\\n]*staging-wise\\.site/wp-content/uploads/2026/11/crane-removal\\.webp",
+          "label": "staging-domain image"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "text": "Open findings: 1 CRITICAL, 3 MAJOR, 0 MINOR"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "text": "- [ ] Juvo snippet installed"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "text": "Redirects: 2 of 3 tested answer 301 or 308 to their New URL"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "pattern": "\\nRESULT: LIVE ISSUES\\s*\\Z",
+          "label": "last line LIVE ISSUES"
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json",
+          "pattern": "\"department\": \"(?:Content|SEO|Design)\"",
+          "label": "every task is Development"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json",
+          "text": "\"column\": \"Dev Ready\""
+        },
+        {
+          "type": "not_regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json",
+          "pattern": "QA-",
+          "label": "staging task file untouched"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply shows a preview of the BugHerd tasks (or points to the task file) and asks for the go-ahead before creating them; it does not say any BugHerd task was created."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply names the tree pruning page being left noindex as the first thing to fix (critical or blocking)."
+          ]
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply tells Dev to work through the hand checks: forms, live chat, analytics, the Juvo snippet and the SSL certificate (all five, in any wording)."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "saltmarsh-launch-clean-rerun",
+      "prompt": "Use the staging-site-qa skill. Dev fixed the four launch issues on Saltmarsh Tree Care (https://saltmarshtreecare.com) and the BugHerd tasks exist. Re-run the launch check: the saved live pages are now in live-clean/ and the redirect responses in redirects-clean.txt. Working folder is the current folder, date the run 2026-11-19. Preview only.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md",
+          "dest": "handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md",
+          "dest": "kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/after-launch-check/qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/after-launch-check/qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/index.html",
+          "dest": "live-clean/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/contact/index.html",
+          "dest": "live-clean/contact/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/services/tree-removal/index.html",
+          "dest": "live-clean/services/tree-removal/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/services/tree-pruning/index.html",
+          "dest": "live-clean/services/tree-pruning/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/robots.txt",
+          "dest": "live-clean/robots.txt"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/sitemap.xml",
+          "dest": "live-clean/sitemap.xml"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/page-sitemap.xml",
+          "dest": "live-clean/page-sitemap.xml"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/redirects-clean.txt",
+          "dest": "redirects-clean.txt"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "text": "Compared with: qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-18.md"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "text": "Re-run: 4 FIXED, 0 OPEN, 0 NEW"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "text": "Redirects: 3 of 3 tested answer 301 or 308 to their New URL"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "pattern": "\\nRESULT: LIVE OK\\s*\\Z",
+          "label": "last line LIVE OK"
+        },
+        {
+          "type": "not_contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json",
+          "text": "\"create\": true"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-bugherd-tasks.json",
+          "text": "\"bugherd_task_id\": \"4101\""
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the live site passed the launch check (LIVE OK) with nothing new to create in BugHerd, and says the four fixed findings' existing BugHerd tasks can be closed."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "saltmarsh-launch-no-redirect-file",
+      "prompt": "Use the staging-site-qa skill. Post-launch check for Saltmarsh Tree Care, live at https://saltmarshtreecare.com. The live site blocks your network; I saved the pages, robots.txt and sitemaps into live-clean/ but I didn't get round to saving the redirect responses. Working folder is the current folder; date it 2026-11-19. Preview only, no BugHerd.",
+      "fixtures": [
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md",
+          "dest": "handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md",
+          "dest": "kickoff/saltmarsh-tree-care/saltmarsh-tree-care-context.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/routing.md",
+          "dest": "qa/routing.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-staging-qa-2026-11-10.md"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/base/qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json",
+          "dest": "qa/saltmarsh-tree-care/saltmarsh-tree-care-bugherd-tasks.json"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/index.html",
+          "dest": "live-clean/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/contact/index.html",
+          "dest": "live-clean/contact/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/services/tree-removal/index.html",
+          "dest": "live-clean/services/tree-removal/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/services/tree-pruning/index.html",
+          "dest": "live-clean/services/tree-pruning/index.html"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/robots.txt",
+          "dest": "live-clean/robots.txt"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/sitemap.xml",
+          "dest": "live-clean/sitemap.xml"
+        },
+        {
+          "src": "fixtures/staging-site-qa/saltmarsh/live-clean/page-sitemap.xml",
+          "dest": "live-clean/page-sitemap.xml"
+        }
+      ],
+      "assertions": [
+        {
+          "type": "file_exists",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md"
+        },
+        {
+          "type": "contains",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "text": "Redirects: not tested (saved pages, no redirect-response file); 3 in the index"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "pattern": "^\\| QA-[0-9a-f]{8} \\| / \\| Development \\| MAJOR \\| These launch checks could not run from the saved pages: 3 redirect\\(s\\)",
+          "label": "untested redirects are a finding"
+        },
+        {
+          "type": "regex",
+          "path": "qa/saltmarsh-tree-care/saltmarsh-tree-care-launch-check-2026-11-19.md",
+          "pattern": "\\nRESULT: LIVE ISSUES\\s*\\Z",
+          "label": "not LIVE OK"
+        },
+        {
+          "type": "rubric",
+          "target": "stdout",
+          "criteria": [
+            "The reply says the redirects were not tested and asks for the redirect responses to be saved (or the check run where the live site can be reached); it does not say the redirects work or that the launch check passed."
+          ]
+        }
+      ]
+    }
+  ],
+  "should_trigger": [
+    "Saltmarsh Tree Care is live. Run the launch check against https://saltmarshtreecare.com.",
+    "Dev just deployed Larchmont Electric to production. Check the live site after deployment: noindex, canonicals, redirects, sitemap.",
+    "Post-launch check for Atlas Physio, please. Make sure every old URL redirects to its new page and nothing still points at staging.",
+    "We pushed Copperline Plumbing live an hour ago. Run the launch check and put anything broken into BugHerd for dev.",
+    "The live site is behind Cloudflare so I saved the pages and the curl redirect output. Run the post-launch check on those for Maple Row Bakery."
+  ],
+  "should_not_trigger": [
+    "Write the email telling Saltmarsh Tree Care their site is ready to go live and asking them to confirm the launch date.",
+    "Take a baseline SEO snapshot of saltmarshtreecare.com now that it has launched, so we can catch drift next month.",
+    "Run a full technical SEO audit on the live site: Core Web Vitals, crawl errors and indexing coverage.",
+    "Is Fernhill Vet ready to launch? Run the Week 5 final sweep and write the go message to dev."
+  ]
+}

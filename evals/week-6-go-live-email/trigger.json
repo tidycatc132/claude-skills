@@ -1,0 +1,21 @@
+{
+  "should_trigger": [
+    "Write the go-live email to Quillfeather Plumbing telling Ade the site is ready to launch and asking him to confirm we can go live.",
+    "Draft the launch confirmation email for Marrowbrook Electric. We agreed launch on Thursday at 9am and the contact form and live chat go live with it.",
+    "Email the client that the site is ready to launch: Fernhollow Bakery, slug fernhollow-bakery. Analytics and the order form are going live.",
+    "The final sweep came back GO for Tidewater Roofing. Write the client email that confirms the site is ready and asks when they want it live.",
+    "Draft the Week 6 go-live confirmation email for Copperline Plumbing with the page recap and what we do right after launch.",
+    "Put together the 'your new website is ready to go live' email for Harbor Pine Dental. Juvo and the booking form launch with the site."
+  ],
+  "should_not_trigger": [
+    "Draft the Week 5 email to Marrowbrook Electric that sends Priya the staging link and asks for edits in three business days.",
+    "Do the final sweep for Quillfeather Plumbing and write the all good to go message for dev.",
+    "The Oakhurst Landscape Co. site launched last week. Write the close-out transition email that hands them over to the monthly retainer.",
+    "Run the launch check on the live Quillfeather Plumbing site now that dev has deployed it.",
+    "Write the Week 1 email to Fernhollow Bakery with the three homepage design options and the homepage copy.",
+    "Ade replied to the staging email with four edits. Sort them and draft our reply.",
+    "Write the welcome email for Copperline Plumbing with the intake form link and the access checklist.",
+    "Write the case study for Tidewater Roofing now that the new site is live.",
+    "Send the client the staging QA results and the list of fixes before launch."
+  ]
+}
