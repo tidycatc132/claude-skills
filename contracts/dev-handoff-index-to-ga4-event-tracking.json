@@ -1,0 +1,12 @@
+{
+  "name": "dev-handoff-index-to-ga4-event-tracking",
+  "version": 1,
+  "producer": "dev-handoff-index",
+  "consumer": "ga4-event-tracking",
+  "format": "json",
+  "fixture": "fixtures/contracts/ga4-event-tracking-dev-index.json",
+  "keys": ["Page", "URL", "Priority"],
+  "producer_cmd": "python3 skills/ga4-event-tracking/scripts/tracking.py contract index fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+  "producer_output_equals_fixture": true,
+  "consumer_cmd": "python3 skills/ga4-event-tracking/scripts/tracking.py contract --validate {fixture}"
+}
