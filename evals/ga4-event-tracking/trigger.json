@@ -1,0 +1,20 @@
+{
+  "should_trigger": [
+    "Set up the goal tracking events in GA4 for Fernwick Pest Control now that the site is live. GA4 is G-7QX3LM2K9P.",
+    "Make the GTM container import file for Oakmere Bookkeeping so Dev can add event tracking to Google Analytics.",
+    "Add event tracking to Google Analytics via Google Tag Manager for the Brindlewood Dental site: calls, emails and form leads as conversions.",
+    "Week 6 Step 5 for Quarry Hill Plumbing: we need the conversion events in GA4 through Tag Manager. Measurement ID G-4KD92LMX7Q, container GTM-P9QX2LT.",
+    "Dev published the tracking container for Fernwick Pest Control. Check the GTM tracking is installed on every page.",
+    "Which GA4 key events and Tag Manager triggers should we set up for Harbor Pine Dental's new site? Build them for us."
+  ],
+  "should_not_trigger": [
+    "Run the launch check on the live Fernwick Pest Control site now that dev has deployed it.",
+    "Build the dev handoff index for Oakmere Bookkeeping so dev can start.",
+    "Write the three-month SEO/GEO roadmap for Fernwick Pest Control and put Month 1 into ClickUp.",
+    "Audit our Google Ads account; I think the conversion tracking in Ads is broken.",
+    "Run a technical SEO audit on brindlewooddental.com: crawlability, Core Web Vitals and canonicals.",
+    "Write the go-live email to Fernwick Pest Control telling them the site is ready to launch.",
+    "Close out the Oakmere Bookkeeping project and write the transition email.",
+    "QA the staging site for Quarry Hill Plumbing and send the issues to BugHerd."
+  ]
+}
