@@ -1,0 +1,38 @@
+{
+  "name": "wise-paid-media",
+  "owner": {
+    "name": "WISE Digital Partners"
+  },
+  "plugins": [
+    {
+      "name": "paid-media-ops",
+      "source": "./plugins/paid-media-ops",
+      "description": "Day-to-day paid media operations: client intake, pacing, account health, weekly optimization, anomaly triage, wasted spend, impression share, and task pushing."
+    },
+    {
+      "name": "paid-media-measurement",
+      "source": "./plugins/paid-media-measurement",
+      "description": "Conversion tracking audits, platform vs GA4 reconciliation, UTM governance, offline conversion imports, and lead quality audits."
+    },
+    {
+      "name": "paid-media-search",
+      "source": "./plugins/paid-media-search",
+      "description": "Search advertising: keyword research, search term mining, campaign builds, bid strategy, Google Ads and Performance Max audits, Local Services Ads."
+    },
+    {
+      "name": "paid-media-social",
+      "source": "./plugins/paid-media-social",
+      "description": "Paid social: Meta and LinkedIn audits, audience building, campaign builds, and creative fatigue checks."
+    },
+    {
+      "name": "paid-media-creative-compliance",
+      "source": "./plugins/paid-media-creative-compliance",
+      "description": "Ad copy, creative briefs, swipe files, test planning, landing page message match, policy prechecks, industry restrictions, and launch readiness."
+    },
+    {
+      "name": "paid-media-strategy-reporting",
+      "source": "./plugins/paid-media-strategy-reporting",
+      "description": "Unit economics, media plans, forecasts, auction insights, monthly reports, executive summaries, and QBR decks."
+    }
+  ]
+}
