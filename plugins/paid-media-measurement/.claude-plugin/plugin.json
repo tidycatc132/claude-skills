@@ -1,0 +1,8 @@
+{
+  "name": "paid-media-measurement",
+  "version": "0.1.0",
+  "description": "Conversion tracking audits, platform vs GA4 reconciliation, UTM governance, offline conversion imports, and lead quality audits.",
+  "author": {
+    "name": "WISE Digital Partners"
+  }
+}
