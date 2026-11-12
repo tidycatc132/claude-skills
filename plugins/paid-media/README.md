@@ -14,7 +14,7 @@ Located at `plugins/paid-media/`. Future departments get their own sibling folde
 ## Install (after merge)
 ```
 /plugin marketplace add tidycatc132/claude-skills
-/plugin install paid-media-ops@wise-paid-media
+/plugin install paid-media-ops@wise-skills
 ```
 
 ## Shared conventions

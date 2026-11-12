@@ -1,7 +1,10 @@
 {
-  "name": "wise-paid-media",
+  "name": "wise-skills",
   "owner": {
     "name": "WISE Digital Partners"
+  },
+  "metadata": {
+    "description": "WISE Digital Partners department plugins. One folder per department under plugins/."
   },
   "plugins": [
     {
