@@ -1,6 +1,6 @@
-# Paid media plugins
+# Paid media department plugins
 
-Six thematic plugin bundles (41 skills) for an agentic paid media team. They live outside `skills/` on purpose: these are drafts that have not been through the `/new-skill` harness (no trigger or output evals yet). Promote individual skills into `skills/` one per session through `/new-skill` when they are ready.
+Located at `plugins/paid-media/`. Future departments get their own sibling folder under `plugins/`. Six thematic plugin bundles (41 skills) for an agentic paid media team. They live outside `skills/` on purpose: these are drafts that have not been through the `/new-skill` harness (no trigger or output evals yet). Promote individual skills into `skills/` one per session through `/new-skill` when they are ready.
 
 | Plugin | Skills |
 |---|---|
