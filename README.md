@@ -34,7 +34,7 @@ The skills are also published as Claude Code plugins through `.claude-plugin/mar
 /plugin install agency-tools@wise-skills
 ```
 
-Which skill is in which plugin, and how to add a new one: [plugins/website-build/README.md](plugins/website-build/README.md). Paid media: [plugins/paid-media/README.md](plugins/paid-media/README.md).
+Every plugin has a folder under `plugins/<category>/` whose README lists its skills: start at [plugins/README.md](plugins/README.md), which also says where a new skill goes.
 
 ## Layout
 
@@ -42,7 +42,7 @@ Which skill is in which plugin, and how to add a new one: [plugins/website-build
 |---|---|
 | `CLAUDE.md` | Short rules (advisory guide) |
 | `skills/<name>/` | The product |
-| `.claude-plugin/marketplace.json`, `plugins/` | Plugin packaging; `plugins/check_marketplace.py` checks every skill is in one plugin |
+| `.claude-plugin/marketplace.json`, `plugins/` | Plugin packaging; `plugins/catalog.py` writes the plugin READMEs and `--check` confirms every skill is in one plugin |
 | `evals/<name>/` | `trigger.json`, `outputs.json`, optional `golden/` |
 | `contracts/`, `fixtures/` | Machine-checked interfaces between pipeline skills, and their test data |
 | `skills_backlog.json` | Kept as an empty list; the scripts read it but nothing is planned there |
