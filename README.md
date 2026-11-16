@@ -19,12 +19,30 @@ Requirements: Python 3.9+, git, the `claude` CLI (only for the real eval runners
 
 The "frozen once committed" rules are based on git, so an eval, fixture or contract is only frozen once it is tracked.
 
+## Install as plugins
+
+The skills are also published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build, plus agency tools and paid media.
+
+```
+/plugin marketplace add tidycatc132/claude-skills
+/plugin install website-build@wise-skills          # every build department
+/plugin install build-account-management@wise-skills
+/plugin install build-seo-content@wise-skills
+/plugin install build-design@wise-skills
+/plugin install build-development@wise-skills
+/plugin install build-shared@wise-skills           # pulled in by each department plugin
+/plugin install agency-tools@wise-skills
+```
+
+Which skill is in which plugin, and how to add a new one: [plugins/website-build/README.md](plugins/website-build/README.md). Paid media: [plugins/paid-media/README.md](plugins/paid-media/README.md).
+
 ## Layout
 
 | Path | Role |
 |---|---|
 | `CLAUDE.md` | Short rules (advisory guide) |
 | `skills/<name>/` | The product |
+| `.claude-plugin/marketplace.json`, `plugins/` | Plugin packaging; `plugins/check_marketplace.py` checks every skill is in one plugin |
 | `evals/<name>/` | `trigger.json`, `outputs.json`, optional `golden/` |
 | `contracts/`, `fixtures/` | Machine-checked interfaces between pipeline skills, and their test data |
 | `skills_backlog.json` | Kept as an empty list; the scripts read it but nothing is planned there |
