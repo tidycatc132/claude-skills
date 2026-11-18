@@ -7,13 +7,13 @@ The email comes from the Account Manager, so it is written in WISE Digital Partn
 - First person from the AM ("I"), "we" for the WISE team.
 - Plain, warm and confident. Short paragraphs of one to three sentences.
 - Specific about the work: what is ready, what we need from them, by when.
-- Calm about effort: three questions, and they don't need to pick a design.
+- Calm about effort: three questions, and with several designs they don't need to pick one.
 - At most one exclamation mark in the whole email.
 
 ## What it never does
 
 - Generic agency language. `week1_email.py check` fails: thrilled, excited to partner, excited to work, delighted, world-class, cutting-edge, best-in-class, don't hesitate, do not hesitate, synergy, game-changer, your success is our priority.
-- Oversell. Describe the options and the copy; don't promise results, rankings or traffic.
+- Oversell. Describe the design and the copy; don't promise results, rankings or traffic.
 - Facts the files don't hold. Every number above 5 in the prose must appear in the copy or the missing items file, or be part of the dates.
 - Ask for passwords. Platform access is by invitation; the only allowed mention is "never send passwords".
 - Links the user did not give.

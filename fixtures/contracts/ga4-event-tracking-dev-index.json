@@ -43,6 +43,14 @@
     ]
   },
   {
+    "Page": "Gutter Installation",
+    "URL": "/services/gutter-installation/",
+    "Priority": "Build",
+    "Section": "Service Pages",
+    "Internal links": [],
+    "Conversion points": []
+  },
+  {
     "Page": "Redmond Roofer",
     "URL": "/redmond-roofer/",
     "Priority": "Build",
@@ -78,18 +86,10 @@
     ]
   },
   {
-    "Page": "Gutter Installation",
-    "URL": "/services/gutter-installation/",
-    "Priority": "Build",
-    "Section": "Pages Without a Template",
-    "Internal links": [],
-    "Conversion points": []
-  },
-  {
     "Page": "Storm Damage Roof Guide",
     "URL": "/blog/storm-damage-roof-guide/",
     "Priority": "Post-Launch",
-    "Section": "Pages Without a Template",
+    "Section": "Resource Pages",
     "Internal links": [],
     "Conversion points": []
   }

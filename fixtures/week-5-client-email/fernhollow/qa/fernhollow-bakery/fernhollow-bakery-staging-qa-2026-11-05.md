@@ -2,7 +2,6 @@ Client: Fernhollow Bakery
 Checked: 2026-11-05
 Staging: https://fernhollow.staging-wise.site
 Dev handoff index: handoff/fernhollow-bakery/fernhollow-bakery-dev-handoff-index.md (GO)
-Design QA and dev prep: none
 Compared with: none (first run)
 Screenshots: none (Playwright not available)
 

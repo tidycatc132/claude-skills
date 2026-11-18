@@ -1,6 +1,6 @@
 {
   "name": "website-build",
-  "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content, Design and Development plugins and the shared build skills. It holds no skills of its own.",
+  "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content and Development plugins and the shared build skills. It holds no skills of its own.",
   "author": {
     "name": "WISE Digital Partners"
   },
@@ -8,7 +8,6 @@
     "build-shared",
     "build-account-management",
     "build-seo-content",
-    "build-design",
     "build-development"
   ]
 }

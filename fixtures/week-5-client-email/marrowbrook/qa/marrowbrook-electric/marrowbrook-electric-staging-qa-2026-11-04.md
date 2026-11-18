@@ -2,7 +2,6 @@ Client: Marrowbrook Electric
 Checked: 2026-11-04
 Staging: https://marrowbrook.staging-wise.site
 Dev handoff index: handoff/marrowbrook-electric/marrowbrook-electric-dev-handoff-index.md (GO)
-Design QA and dev prep: design/marrowbrook-electric/marrowbrook-electric-design-qa-devprep.md
 Compared with: none (first run)
 Screenshots: qa/marrowbrook-electric/screens/ (12 files)
 

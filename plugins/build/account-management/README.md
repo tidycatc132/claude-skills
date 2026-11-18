@@ -12,7 +12,7 @@ Installing it also installs: [`build-shared`](../shared/README.md).
 | [`welcome-email`](../../../skills/welcome-email/SKILL.md) | Writes the Week 1 welcome email a WISE Account Manager sends a new website client right after kickoff. |
 | [`kickoff-call-brief`](../../../skills/kickoff-call-brief/SKILL.md) | Writes the brief an account manager reads before a new website client's Kickoff Call, once the Day 1 kickoff files already exist. |
 | [`kickoff-call-processing`](../../../skills/kickoff-call-processing/SKILL.md) | Turns a new-build client's Kickoff Call (orientation call) transcript into the Blueprint inputs. |
-| [`week-1-client-email`](../../../skills/week-1-client-email/SKILL.md) | Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design options and the homepage copy. |
+| [`week-1-client-email`](../../../skills/week-1-client-email/SKILL.md) | Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design (at least one, sometimes more) and the homepage copy. |
 | [`week-1-handoff-check`](../../../skills/week-1-handoff-check/SKILL.md) | Go/no-go check that a website build's Week 1 is finished before Week 2. |
 | [`week-2-client-email`](../../../skills/week-2-client-email/SKILL.md) | Drafts the end-of-Week-2 email a WISE AM sends a website client with the Growth Blueprint deck and the sitemap page content. |
 | [`week-2-handoff-check`](../../../skills/week-2-handoff-check/SKILL.md) | Go/no-go gate on a website build's Week 2 deliverables. |

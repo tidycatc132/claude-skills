@@ -2,13 +2,11 @@ Client: Fernwick Pest Control
 Checked: 2026-11-03
 Sitemap report: seo-reports/site-structure-optimizer/2026-10-20-fernwick-pest-control.md
 Week 2 handoff: handoff/fernwick-pest-control/fernwick-pest-control-week-2-handoff.md (GO)
-Page-type design briefs: design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md
-Design QA and dev prep: design/fernwick-pest-control/fernwick-pest-control-design-qa-devprep.md (RESULT: PASS)
 Client feedback: feedback/fernwick-pest-control/2026-10-30-feedback.md
 
 # Dev Handoff Index: Fernwick Pest Control
 
-Pages: 6 READY, 0 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN, 0 NO TEMPLATE
+Pages: 6 READY, 0 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN
 
 Every value below is copied from the file named beside it. Re-run the skill after any change; only statuses move.
 
@@ -19,7 +17,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Home
 - URL: /
 - Content file: content/home/article.md
-- Template: Homepage (design/fernwick-pest-control/fernwick-pest-control-homepage-design-brief.md)
+- Template: Homepage (page type from URL /)
 - Meta title: Pest Control in Ashby, MA | Fernwick Pest Control
 - Meta description: Ants, mice, wasps and termites handled by a licensed Ashby crew. Same-week visits and a written plan for every home.
 - H1: Pest Control for Ashby Homes
@@ -37,7 +35,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Termite Treatment
 - URL: /services/termite-treatment/
 - Content file: content/termite-treatment/article.md
-- Template: Service page (design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md)
+- Template: Service page (page type from URL /services/termite-treatment/)
 - Meta title: Termite Treatment in Ashby, MA | Fernwick Pest Control
 - Meta description: How we find and treat termites in Ashby homes, what it costs and how long the barrier lasts.
 - H1: Termite Treatment in Ashby
@@ -52,7 +50,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Rodent Control
 - URL: /services/rodent-control/
 - Content file: content/rodent-control/article.md
-- Template: Service page (design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md)
+- Template: Service page (page type from URL /services/rodent-control/)
 - Meta title: Mouse and Rat Control in Ashby, MA | Fernwick Pest Control
 - Meta description: Mice in the walls or rats in the shed? We seal entry points and clear them out, with a follow-up visit included.
 - H1: Mouse and Rat Control in Ashby
@@ -69,7 +67,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Townsend Pest Control
 - URL: /townsend-pest-control/
 - Content file: content/townsend-pest-control/article.md
-- Template: Location page (design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md)
+- Template: Location page (page type from URL /townsend-pest-control/)
 - Meta title: Pest Control in Townsend, MA | Fernwick Pest Control
 - Meta description: The same licensed crew and same-week visits for Townsend homes, ten minutes from our Ashby base.
 - H1: Pest Control in Townsend
@@ -86,7 +84,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: About
 - URL: /about/
 - Content file: content/about/article.md
-- Template: About page (design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md)
+- Template: About page (page type from URL /about/)
 - Meta title: About Fernwick Pest Control | Ashby Since 2012
 - Meta description: A family pest control company in Ashby since 2012, licensed in Massachusetts. Meet the crew.
 - H1: About Fernwick Pest Control
@@ -102,7 +100,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Contact
 - URL: /contact/
 - Content file: content/contact/article.md
-- Template: Contact page (design/fernwick-pest-control/fernwick-pest-control-page-type-design-briefs.md)
+- Template: Contact page (page type from URL /contact/)
 - Meta title: Contact Fernwick Pest Control | Book an Inspection
 - Meta description: Call 978-555-0147 or send the form to book a pest inspection in Ashby or Townsend.
 - H1: Contact Fernwick Pest Control

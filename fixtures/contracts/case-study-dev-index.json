@@ -4,7 +4,7 @@
       "Page": "Home",
       "URL": "/",
       "Content file": "content/home/article.md",
-      "Template": "Homepage (design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md)",
+      "Template": "Homepage (page type from URL /)",
       "Priority": "Build",
       "Status": "READY"
     }
@@ -14,7 +14,7 @@
       "Page": "Roof Replacement",
       "URL": "/services/roof-replacement/",
       "Content file": "content/roof-replacement/article.md",
-      "Template": "Service page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)",
+      "Template": "Service page (page type from URL /services/roof-replacement/)",
       "Priority": "Build",
       "Status": "READY"
     },
@@ -22,9 +22,17 @@
       "Page": "Roof Repair",
       "URL": "/services/roof-repair/",
       "Content file": "content/roof-repair/article.md",
-      "Template": "Service page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)",
+      "Template": "Service page (page type from URL /services/roof-repair/)",
       "Priority": "Build",
       "Status": "WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #1)"
+    },
+    {
+      "Page": "Gutter Installation",
+      "URL": "/services/gutter-installation/",
+      "Content file": "none",
+      "Template": "Service page (page type from URL /services/gutter-installation/)",
+      "Priority": "Build",
+      "Status": "NOT WRITTEN"
     }
   ],
   "Location Pages": [
@@ -32,7 +40,7 @@
       "Page": "Redmond Roofer",
       "URL": "/redmond-roofer/",
       "Content file": "content/redmond-roofer/article.md",
-      "Template": "Location page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)",
+      "Template": "Location page (page type from section markers)",
       "Priority": "Build",
       "Status": "WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #3)"
     }
@@ -42,7 +50,7 @@
       "Page": "About",
       "URL": "/about/",
       "Content file": "content/about/article.md",
-      "Template": "About page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)",
+      "Template": "About page (page type from section markers)",
       "Priority": "Build",
       "Status": "READY"
     }
@@ -52,30 +60,22 @@
       "Page": "Contact",
       "URL": "/contact/",
       "Content file": "content/contact/article.md",
-      "Template": "Contact page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)",
+      "Template": "Contact page (page type from section markers)",
       "Priority": "Build",
       "Status": "READY"
     }
   ],
-  "Resource Pages": [],
-  "Pages Without a Template": [
-    {
-      "Page": "Gutter Installation",
-      "URL": "/services/gutter-installation/",
-      "Content file": "none",
-      "Template": "none",
-      "Priority": "Build",
-      "Status": "NOT WRITTEN"
-    },
+  "Resource Pages": [
     {
       "Page": "Storm Damage Roof Guide",
       "URL": "/blog/storm-damage-roof-guide/",
       "Content file": "none",
-      "Template": "none",
+      "Template": "Resource page (page type from URL /blog/storm-damage-roof-guide/)",
       "Priority": "Post-Launch",
       "Status": "NOT WRITTEN"
     }
   ],
+  "Pages Without a Template": [],
   "### Redirects": [
     {
       "Old URL": "https://thistlewoodroofing.com/about-us/",

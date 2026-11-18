@@ -2,7 +2,6 @@ Client: Larkspur Family Dental
 Checked: 2026-11-16
 Staging: https://larkspur.staging-wise.site (saved pages: staging-final/)
 Dev handoff index: handoff/larkspur-dental/larkspur-dental-dev-handoff-index.md (GO)
-Design QA and dev prep: design/larkspur-dental/larkspur-dental-design-qa-devprep.md
 Compared with: qa/larkspur-dental/larkspur-dental-staging-qa-2026-11-09.md
 Screenshots: none (turned off (--no-screens))
 

@@ -2,13 +2,11 @@ Client: Larkspur Family Dental
 Checked: 2026-10-30
 Sitemap report: seo-reports/site-structure-optimizer/2026-10-15-larkspurdental.md
 Week 2 handoff: handoff/larkspur-dental/larkspur-dental-week-2-handoff.md (GO)
-Page-type design briefs: design/larkspur-dental/larkspur-dental-page-type-design-briefs.md
-Design QA and dev prep: design/larkspur-dental/larkspur-dental-design-qa-devprep.md (RESULT: PASS)
 Client feedback: none
 
 # Dev Handoff Index: Larkspur Family Dental
 
-Pages: 13 READY, 0 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN, 0 NO TEMPLATE
+Pages: 13 READY, 0 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN
 
 Every value below is copied from the file named beside it. Re-run the skill after any change; only statuses move.
 

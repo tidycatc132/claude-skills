@@ -161,10 +161,6 @@
           "dest": "content/sports-injury-care/qa_report.md"
         },
         {
-          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
-          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
-        },
-        {
           "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
           "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
         },
@@ -236,7 +232,7 @@
         {
           "type": "not_regex",
           "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
-          "pattern": "\\| (Week 1 handoff|Growth Blueprint|AM Briefing|Blueprint deck|Deck compliance|Sitemap report|Page: (Home|Spinal Adjustments|Prenatal Chiropractic|Ashby Location|About|Contact)|Page-type design briefs|Week 2 client email) \\| yes \\| (missing|stale) \\|"
+          "pattern": "\\| (Week 1 handoff|Growth Blueprint|AM Briefing|Blueprint deck|Deck compliance|Sitemap report|Page: (Home|Spinal Adjustments|Prenatal Chiropractic|Ashby Location|About|Contact)|Week 2 client email) \\| yes \\| (missing|stale) \\|"
         },
         {
           "type": "file_absent",
@@ -417,10 +413,6 @@
         {
           "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
           "dest": "content/sports-injury-care/qa_report.md"
-        },
-        {
-          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
-          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
         },
         {
           "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
@@ -681,10 +673,6 @@
         {
           "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
           "dest": "content/sports-injury-care/qa_report.md"
-        },
-        {
-          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
-          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
         },
         {
           "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
@@ -952,10 +940,6 @@
           "dest": "content/sports-injury-care/qa_report.md"
         },
         {
-          "src": "fixtures/week-2-handoff-check/variants/stale/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
-          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
-        },
-        {
           "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",
           "dest": "emails/fernway-chiro/fernway-chiro-week-2-email.md"
         },
@@ -1027,11 +1011,6 @@
           "type": "regex",
           "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
           "pattern": "\\| Deck compliance \\| yes \\| stale \\|[^\\n]*2026-10-20"
-        },
-        {
-          "type": "regex",
-          "path": "handoff/fernway-chiro/fernway-chiro-week-2-handoff.md",
-          "pattern": "\\| Page-type design briefs \\| yes \\| stale \\|[^\\n]*ashby-chiropractor"
         },
         {
           "type": "regex",
@@ -1213,10 +1192,6 @@
         {
           "src": "fixtures/week-2-handoff-check/full/content/sports-injury-care/qa_report.md",
           "dest": "content/sports-injury-care/qa_report.md"
-        },
-        {
-          "src": "fixtures/week-2-handoff-check/full/design/fernway-chiro/fernway-chiro-page-type-design-briefs.md",
-          "dest": "design/fernway-chiro/fernway-chiro-page-type-design-briefs.md"
         },
         {
           "src": "fixtures/week-2-handoff-check/full/emails/fernway-chiro/fernway-chiro-week-2-email.md",

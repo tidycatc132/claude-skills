@@ -195,14 +195,13 @@ def main() -> int:
         rc, out = run("scaffold", "--slug", SLUG, cwd=d4)
         case("declined client: scaffold writes nothing", rc == 1 and "Featured: no" in out and not (d4 / CS).exists(), out)
 
-        # no kit: colours from the index's palette
+        # no kit: no colours (the dev index has no design palette)
         d5 = setup(tmp, None, ["client-reference"])
         rc, out = run("scaffold", "--slug", SLUG, cwd=d5)
         case("no launch date: scaffold refuses", rc == 1 and "no launch date" in out and not (d5 / CS).exists(), out)
         rc, out = run("scaffold", "--slug", SLUG, "--launch", "2026-11-18", cwd=d5)
         b = (d5 / BRIEF).read_text()
-        case("no kit: colours from the dev index asset checklist", "Colours from: handoff/kestrel-garage-doors/kestrel-garage-doors-dev-handoff-index.md (Asset Checklist, Colour palette)" in b
-             and "#F28C28" in b, b)
+        case("no kit: no colours taken from the dev index", "Colours from: none" in b and "#F28C28" not in b, b)
 
         # launch date from the go-live email
         d6 = setup(tmp)

@@ -2,13 +2,11 @@ Client: Oakmere Bookkeeping
 Checked: 2026-10-28
 Sitemap report: seo-reports/site-structure-optimizer/2026-10-15-oakmere-bookkeeping.md
 Week 2 handoff: handoff/oakmere-bookkeeping/oakmere-bookkeeping-week-2-handoff.md (GO)
-Page-type design briefs: design/oakmere-bookkeeping/oakmere-bookkeeping-page-type-design-briefs.md
-Design QA and dev prep: not run yet (design-qa-dev-prep)
 Client feedback: none
 
 # Dev Handoff Index: Oakmere Bookkeeping
 
-Pages: 3 READY, 0 WAITING ON CLIENT CHANGES, 0 NOT WRITTEN, 0 NO TEMPLATE
+Pages: 3 READY, 0 WAITING ON CLIENT CHANGES, 0 NOT WRITTEN
 
 Every value below is copied from the file named beside it. Re-run the skill after any change; only statuses move.
 
@@ -19,7 +17,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Home
 - URL: /
 - Content file: content/home/article.md
-- Template: Homepage (design/oakmere-bookkeeping/oakmere-bookkeeping-homepage-design-brief.md)
+- Template: Homepage (page type from URL /)
 - Meta title: Bookkeeping for Small Businesses in Oakmere | Oakmere Bookkeeping
 - Meta description: Monthly bookkeeping, payroll and year-end packs for Oakmere small businesses, with a named bookkeeper.
 - H1: Bookkeeping for Oakmere Small Businesses
@@ -35,7 +33,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Monthly Bookkeeping
 - URL: /services/monthly-bookkeeping/
 - Content file: content/monthly-bookkeeping/article.md
-- Template: Service page (design/oakmere-bookkeeping/oakmere-bookkeeping-page-type-design-briefs.md)
+- Template: Service page (page type from URL /services/monthly-bookkeeping/)
 - Meta title: Monthly Bookkeeping in Oakmere | Oakmere Bookkeeping
 - Meta description: Reconciled books by the 10th of every month, with a short call to go through the numbers.
 - H1: Monthly Bookkeeping
@@ -51,7 +49,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: About
 - URL: /about/
 - Content file: content/about/article.md
-- Template: About page (design/oakmere-bookkeeping/oakmere-bookkeeping-page-type-design-briefs.md)
+- Template: About page (page type from URL /about/)
 - Meta title: About Oakmere Bookkeeping
 - Meta description: Three bookkeepers, one office on Mill Lane, and clients who have stayed since 2015.
 - H1: About Oakmere Bookkeeping

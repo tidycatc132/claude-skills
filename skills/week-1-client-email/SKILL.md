@@ -1,17 +1,17 @@
 ---
 name: week-1-client-email
-description: Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design options and the homepage copy. Use when the AM asks for the Week 1 client email, the homepage design or calibration email, or the email that sends the design variants and content, for a client with homepage copy in content/[url-slug]/ and a kickoff/[slug]/[slug]-missing-items.md file. Writes emails/[slug]/[slug]-week-1-email.md in WISE's voice, not the client's, with the design links, the feedback asked for by a reply-by date, and what the client still owes. Do NOT use for the Day 1 welcome email (use welcome-email), sorting or replying to the client's feedback on the designs (use client-feedback), the design brief (use homepage-design-brief), the homepage copy itself (use seo-content-writer), updating the missing items (use client-context-update), the Week 2 or 5 emails (use week-2-client-email, week-5-client-email), or checking that Week 1 is complete before Week 2 (use week-1-handoff-check).
+description: Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design (at least one, sometimes more) and the homepage copy. Use when the AM asks for the Week 1 client email, the homepage design or calibration email, or the email that sends the homepage design and content, for a client with homepage copy in content/[url-slug]/ and a kickoff/[slug]/[slug]-missing-items.md file. Writes emails/[slug]/[slug]-week-1-email.md in WISE's voice, not the client's, with the design links, the feedback asked for by a reply-by date, and what the client still owes. Do NOT use for the Day 1 welcome email (use welcome-email), sorting or replying to the client's feedback on the design (use client-feedback), the homepage copy itself (use seo-content-writer), updating the missing items (use client-context-update), the Week 2 or 5 emails (use week-2-client-email, week-5-client-email), or checking that Week 1 is complete before Week 2 (use week-1-handoff-check).
 ---
 
 # Week 1 client email
 
-Writes the email that puts the homepage in front of the client at the end of Week 1: the design options, the copy, what we want back and by when. The run is done when `scripts/week1_email.py check` prints `RESULT: PASS`.
+Writes the email that puts the homepage in front of the client at the end of Week 1: the homepage design (one or more), the copy, what we want back and by when. The run is done when `scripts/week1_email.py check` prints `RESULT: PASS`.
 
 ## Inputs
 
 - Homepage copy in `content/<url-slug>/` (usually `content/home/`), written by seo-content-writer and edited by the team. The skill reads `article.md` for its client-input flags: `[CLIENT INPUT NEEDED #n: ...]` and `[NEEDS INPUT: ...]`.
 - `kickoff/<slug>/<slug>-missing-items.md` from client-context-update: its `Client:` line, the `| Item | Status | Note |` intake table and the `| Platform | Status | Note |` access table, with the exact item names, platform names and statuses listed in `references/email-spec.md`. If `facts` prints `MISSING ITEMS INVALID`, report the errors and stop; never fix the file by hand.
-- From the AM: the contact's name, the AM's full name, and each design option's name and link. Optional: a link to the shared copy, which option design recommends, a reply-by date. The send date is today unless the AM says otherwise.
+- From the AM: the contact's name, the AM's full name, and the name and link of each homepage design (one is the minimum; Design may send more). Optional: a link to the shared copy, which option design recommends, a reply-by date. The send date is today unless the AM says otherwise.
 
 Stop and ask, writing nothing, when the design option links, the contact name or the AM's name are missing, or when either file is missing: an email without the designs does not do its job. Do not ask about anything optional; use the defaults in `references/email-spec.md`.
 
