@@ -418,15 +418,6 @@ def gather(root: Path, slug: str, launch: str | None, client_slug: str | None) -
         I.retired = kit["Retired, do not use"]
         if I.colours:
             I.colour_src = rel(I.kit_d) + "/brand.md" if kit["brand.md"] else rel(I.kit_d) + "/style.md"
-    if not I.colours:
-        pal = section(I.idx_t, "Colour palette", 3) or []
-        k, _r = colour_lines("\n".join(pal), rel(I.idx_p) + " (Colour palette)")
-        for c in k:
-            if c["Colour"] == "unnamed":
-                c["Colour"] = "from the design asset checklist"
-        I.colours = k
-        if k:
-            I.colour_src = rel(I.idx_p) + " (Asset Checklist, Colour palette)"
     return I
 
 

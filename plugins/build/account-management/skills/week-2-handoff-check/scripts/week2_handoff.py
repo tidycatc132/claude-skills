@@ -30,7 +30,6 @@ BLUEPRINT_SECTIONS = ["Executive Summary", "Business and Market Overview", "Comp
 STRATEGY_SUBSECTIONS = ["Phase 1", "Phase 2", "Phase 3", "Trajectory"]
 BRIEFING_SECTIONS = ["Executive Summary", "Key Strategic Bets", "Numbers the AM Should Know",
                      "Anticipated Client Questions", "Calibration Framing"]
-DESIGN_SECTIONS = ["Page Types", "Open Questions", "Hand-off", "Sources"]
 DECK_HIT_CHECKS = ["em-dashes", "prescribe", "figures", "quotes"]
 PAGE_FILES = ["article.md", "metadata.md", "article.html", "qa_report.md", "handoff.md"]
 GOOD_BRIEF = {"DONE", "DONE_WITH_CONCERNS"}
@@ -48,7 +47,6 @@ OWNERS = {
     "sitemap": "SEO, site-structure-optimizer",
     "brief": "Content, content-brief",
     "page": "Content, seo-content-writer",
-    "design": "Design, page-type-design-briefs",
     "email": "AM, week-2-client-email",
     "feedback": "AM, client-feedback",
 }
@@ -368,30 +366,6 @@ def check_pages(root: Path, sitemap: dict) -> tuple[list[Row], list[str]]:
     return rows, extra
 
 
-def check_design(root: Path, slug: str, sitemap: dict) -> Row:
-    p = root / "design" / slug / f"{slug}-page-type-design-briefs.md"
-    r = Row("Page-type design briefs", True, rel(root, p))
-    if not p.is_file():
-        return r.set("missing", f"not written ({OWNERS['design']})")
-    text = read(p)
-    lacking = [s for s in DESIGN_SECTIONS if s not in h2s(text)]
-    problems = (["lacks " + ", ".join(lacking)] if lacking else []) + (["<fill> left in it"] if "<fill>" in text else [])
-    if problems:
-        return r.set("missing", "incomplete: " + "; ".join(problems) + f" ({OWNERS['design']})")
-    planned = {pg["url_slug"] for pg in sitemap.get("pages", []) if pg["checked"]}
-    written = [s for s in sorted(planned) if s != "home" and (root / "content" / s / "article.md").is_file()]
-    unlisted = [f"content/{s}/" for s in written if f"content/{s}/" not in text]
-    listed = sorted(set(re.findall(r"`(content/[^/`]+)/article\.md`", text)))
-    # A listed sitemap page that is not written yet is already a blocking page row; only pages
-    # dropped from the sitemap and deleted make the design brief stale.
-    gone = [f"{x}/" for x in listed if not (root / x / "article.md").is_file() and x.split("/", 1)[1] not in planned]
-    if unlisted or gone:
-        parts = (["does not list " + ", ".join(unlisted)] if unlisted else []) + (["lists pages that no longer exist: " + ", ".join(gone)] if gone else [])
-        return r.set("stale", "written before the pages changed: " + "; ".join(parts) + f"; rerun it ({OWNERS['design']})")
-    direction = line_value(text, "Homepage direction")
-    return r.set("present", f"homepage direction: {direction}" if direction else "")
-
-
 def check_email(root: Path, slug: str) -> tuple[Row, str]:
     p = root / "emails" / slug / f"{slug}-week-2-email.md"
     r = Row("Week 2 client email", True, rel(root, p))
@@ -476,7 +450,6 @@ def build(root: Path, slug: str, today: dt.date) -> tuple[str, list[Row]]:
             sm.set("present", note)
         rows.append(sm)
     rows += page_rows
-    rows.append(check_design(root, slug, sitemap))
     email_row, reply_by = check_email(root, slug)
     rows += [email_row, check_feedback(root, slug, reply_by, today)]
     return client, rows

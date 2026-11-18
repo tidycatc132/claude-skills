@@ -13,7 +13,7 @@ The welcome email comes from the Account Manager at WISE, so it is written in WI
 ## What it never does
 
 - Generic agency language. `check_email.py` fails these phrases: thrilled, excited to partner, excited to work, delighted, world-class, cutting-edge, best-in-class, don't hesitate, do not hesitate, synergy, game-changer.
-- Facts the kickoff files don't hold: no results, rankings, traffic, review counts, prices or team sizes beyond what the context file says. Every number in the prose must appear in the kickoff files, except 1, 2, 3 and 15 (Week 1, 2 to 3 design options, a 15-minute form).
+- Facts the kickoff files don't hold: no results, rankings, traffic, review counts, prices or team sizes beyond what the context file says. Every number in the prose must appear in the kickoff files, except 1, 2, 3 and 15 (Week 1, a 15-minute form, short lists). Never promise a number of homepage designs.
 - Calendar promises. Say what happens and in what order; do not give dates unless the AM gave one.
 - Ask for passwords. Access is by invitation (see `week-1-for-clients.md`).
 - Links the AM did not give. No client website link, no social links, no made-up booking page.

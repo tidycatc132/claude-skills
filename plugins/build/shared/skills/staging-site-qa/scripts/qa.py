@@ -8,7 +8,7 @@ Commands (run from the client's working folder, or pass --root):
            routing and the newest earlier report -> the dated report and
            qa/<slug>/<slug>-bugherd-tasks.json, then run check
   check    validate a report and its task file
-  index | article | devprep   print what this skill reads from a producer file
+  index | article   print what this skill reads from a producer file
            (JSON); with --validate, accept such JSON (used by the contracts)
   week-5   print what week-5-handoff-check reads from a report and the task file
            beside it (contract staging-site-qa-to-week-5-handoff-check)
@@ -249,40 +249,6 @@ def parse_article(text: str) -> dict:
 def article_json(path: str, text: str) -> dict:
     a = parse_article(text)
     return {"article.md": path, "H2": a["H2"], "<!-- section: Final CTA -->": a["cta"]}
-
-
-def parse_devprep(text: str) -> dict:
-    lines = text.split("\n")
-    out, grab, images, in_img = [], False, [], False
-    for line in lines:
-        if line.startswith("## "):
-            grab = line.strip() == "## Asset Checklist"
-            in_img = False
-            continue
-        if not grab:
-            continue
-        if line.startswith("### "):
-            in_img = line.strip() == "### Images"
-        if line.startswith("RESULT:"):
-            break
-        out.append(line.rstrip())
-        if in_img and line.startswith("- "):
-            images.append(line[2:].strip())
-    while out and not out[-1]:
-        out.pop()
-    while out and not out[0]:
-        out.pop(0)
-    res = ""
-    for line in reversed([l.strip() for l in lines if l.strip()]):
-        if line.startswith("RESULT:"):
-            res = line.split(":", 1)[1].strip()
-            break
-    return {"checklist": out, "images": images, "result": res}
-
-
-def devprep_json(path: str, text: str) -> dict:
-    d = parse_devprep(text)
-    return {"file": path, "## Asset Checklist": d["checklist"], "### Images": d["images"], "RESULT:": d["result"]}
 
 
 def week5_json(path: str, text: str) -> dict:
@@ -910,7 +876,6 @@ def screenshots(jobs: list[dict]) -> tuple[list[str], str]:
 def paths_for(root: Path, slug: str) -> dict:
     return {
         "index": root / "handoff" / slug / f"{slug}-dev-handoff-index.md",
-        "devprep": root / "design" / slug / f"{slug}-design-qa-devprep.md",
         "context": root / "kickoff" / slug / f"{slug}-context.md",
         "routing": root / "qa" / "routing.md",
         "qa": root / "qa" / slug,
@@ -949,7 +914,6 @@ def cmd_scan(a) -> int:
     skipped = [p for p in idx["pages"] if p not in build]
     index_paths = {norm_path(p["URL"]) for p in idx["pages"]}
     F, notes, toggles, images, rels, am = Findings(), [], [], [], {}, []
-    devprep = parse_devprep(read(P["devprep"])) if P["devprep"].exists() else None
     checked, missing = [], []
     for pg in build:
         art = None
@@ -968,22 +932,11 @@ def cmd_scan(a) -> int:
             checked.append(pg["URL"])
         _ = before
     am.extend(rels.pop("_am", []))
-    raw_all = " ".join(rels.pop("_raw", []))
+    rels.pop("_raw", None)
     site_urls = sorted(rels.pop("_site_urls", set()))
     if site_urls:
         toggles.append(f"{len(site_urls)} theme, menu or file URL(s) use the staging domain (for example {site_urls[0]}). "
                        "Switch the site URL to the live domain at launch and re-check. (Development)")
-    # Asset checklist: named files must be used somewhere (matched on the file stem, so resized
-    # copies such as logo-300x80.png count)
-    if devprep:
-        for line in devprep["images"]:
-            for name in re.findall(r"\b[\w-]+\.(?:svg|png|jpe?g|webp|gif)\b", line, re.I):
-                if os.path.splitext(name.lower())[0] not in raw_all:
-                    F.add("/", "asset-missing", name, "Design", "MAJOR",
-                          f"The file {name} from the design asset checklist is not used on the site.",
-                          f"Add {name} where the design places it.", evidence=f"asset checklist: {line}")
-    else:
-        notes.append("No design QA and dev prep file, so images were not compared with an asset checklist.")
     if site.saved is None and site.scheme != "https":
         F.add("/", "https", "site", "Development", "MAJOR", "Staging is served over HTTP, not HTTPS.",
               "Install the certificate and redirect HTTP to HTTPS.")
@@ -1016,8 +969,6 @@ def cmd_scan(a) -> int:
         "base_url": site.base, "saved": os.path.relpath(saved, root) if saved else "",
         "production": prod, "index": str(P["index"].relative_to(root)),
         "index_last_line": idx["last_line"],
-        "devprep": str(P["devprep"].relative_to(root)) if devprep else "",
-        "asset_checklist": devprep["checklist"] if devprep else [],
         "build_pages": [p["URL"] for p in build], "checked": checked, "missing": missing,
         "skipped": [p["URL"] for p in skipped],
         "screenshots": [os.path.relpath(s, root).replace(os.sep, "/") for s in shots],
@@ -1061,7 +1012,6 @@ def parse_table(text: str, header: str) -> list[list[str]]:
 def parse_notes(text: str, root: Path, scan: dict) -> tuple[list[dict], list[str], list[str]]:
     errors, design, am = [], [], []
     rows = parse_table(text, "| Page URL | Severity | Finding | Fix | Evidence |")
-    checklist = [l[2:].strip() for l in scan.get("asset_checklist", []) if l.startswith("- ")]
     for i, r in enumerate(rows, 1):
         if len(r) != 5:
             errors.append(f"design row {i}: needs 5 cells")
@@ -1071,14 +1021,9 @@ def parse_notes(text: str, root: Path, scan: dict) -> tuple[list[dict], list[str
             errors.append(f"design row {i}: severity {sev!r} is not CRITICAL, MAJOR or MINOR")
         if norm_path(page) not in {norm_path(p) for p in scan["build_pages"]}:
             errors.append(f"design row {i}: {page} is not a Build page in the index")
-        if ev.startswith("asset checklist:"):
-            line = ev.split(":", 1)[1].strip()
-            if line not in checklist:
-                errors.append(f"design row {i}: evidence {ev!r} is not a line of the asset checklist")
-        else:
-            evp = ev.strip("`")
-            if evp not in scan.get("screenshots", []) or not (root / evp).exists():
-                errors.append(f"design row {i}: evidence {ev!r} is not a screenshot from this scan")
+        evp = ev.strip("`")
+        if evp not in scan.get("screenshots", []) or not (root / evp).exists():
+            errors.append(f"design row {i}: evidence {ev!r} is not a screenshot from this scan")
         if not finding or not fix:
             errors.append(f"design row {i}: finding and fix must be filled")
         design.append({"page": page, "severity": sev, "finding": finding, "fix": fix, "evidence": ev.strip("`")})
@@ -1131,7 +1076,7 @@ def cmd_report(a) -> int:
     for f in findings:
         if f["department"] == "Design" and f.get("evidence") and "(seen in" not in f["finding"]:
             ev = f["evidence"]
-            f["finding"] = f["finding"].rstrip() + (f" ({ev})" if ev.startswith(("asset checklist", "image request")) else f" (seen in {ev})")
+            f["finding"] = f["finding"].rstrip() + (f" ({ev})" if ev.startswith("image request") else f" (seen in {ev})")
     order = {s: i for i, s in enumerate(SEVERITIES)}
     findings.sort(key=lambda f: (order[f["severity"]], scan["build_pages"].index(f["page"]) if f["page"] in scan["build_pages"] else 99, DEPARTMENTS.index(f["department"])))
     prev_path = earlier_report(P["qa"], a.slug, date)
@@ -1154,7 +1099,6 @@ def cmd_report(a) -> int:
         f"Checked: {date}",
         f"Staging: {scan['base_url']}" + (f" (saved pages: {scan['saved']}/)" if scan["saved"] else ""),
         f"Dev handoff index: {scan['index']} ({scan['index_last_line'] or 'no result line'})",
-        f"Design QA and dev prep: {scan['devprep'] or 'none'}",
         f"Compared with: {prev_path.relative_to(root).as_posix() if prev_path else 'none (first run)'}",
         f"Screenshots: qa/{a.slug}/screens/ ({len(shots)} files)" if shots else f"Screenshots: none ({scan['screenshots_note']})",
         "",
@@ -1280,9 +1224,9 @@ def cmd_check(a) -> int:
         if not finding or not fix:
             errs.append(f"{fid}: finding and fix must be filled")
         if dep == "Design":
-            ev = re.search(r"\((?:seen in (\S+)|asset checklist: .+|image request failed)\)$", finding)
+            ev = re.search(r"\((?:seen in (\S+)|image request failed)\)$", finding)
             if not ev:
-                errs.append(f"{fid}: Design finding without evidence (screenshot or asset checklist)")
+                errs.append(f"{fid}: Design finding without evidence (a screenshot)")
             elif ev.group(1) and (not ev.group(1).startswith(shots_dir) or not (root / ev.group(1)).exists()):
                 errs.append(f"{fid}: screenshot {ev.group(1)} does not exist")
         if "noindex" in finding.lower() and "robots" not in finding.lower():
@@ -1412,7 +1356,7 @@ def main() -> int:
     cr.add_argument("--slug", required=True)
     cr.add_argument("--launch", action="store_true")
     cr.add_argument("pairs", nargs="+", help="QA-xxxxxxxx=<BugHerd task id>")
-    for name in ("index", "article", "devprep", "week-5", "redirects", "launch-check"):
+    for name in ("index", "article", "week-5", "redirects", "launch-check"):
         x = sub.add_parser(name)
         x.add_argument("file")
         x.add_argument("--validate", action="store_true")
@@ -1439,9 +1383,7 @@ def main() -> int:
         return cmd_reader(a, index_json, ["Page", "URL", "Content file", "Meta title", "Meta description", "H1", "Internal links", "Priority"])
     if a.cmd == "article":
         return cmd_reader(a, article_json, ["article.md", "<!-- section: Final CTA -->"])
-    if a.cmd == "week-5":
-        return cmd_reader(a, week5_json, ["Staging:", "## Findings", "## Re-run Status", "## Launch Toggles", "RESULT:", "tasks"])
-    return cmd_reader(a, devprep_json, ["## Asset Checklist", "### Images", "RESULT:"])
+    return cmd_reader(a, week5_json, ["Staging:", "## Findings", "## Re-run Status", "## Launch Toggles", "RESULT:", "tasks"])
 
 
 if __name__ == "__main__":

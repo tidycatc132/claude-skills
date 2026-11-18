@@ -1,6 +1,6 @@
 ---
 name: week-2-handoff-check
-description: Go/no-go gate on a website build's Week 2 deliverables. Use when the AM or PM asks for the Week 2 handoff or end-of-week checklist, whether Week 2 is done or anything from it is missing, or if Week 3 can begin. A script confirms Week 1 cleared, finds the competitor report, Growth Blueprint and briefing, the deck with a zero-hit compliance file, the page-type design briefs and the send-out, and compares the sitemap's pages with the briefs and written pages, naming any page not written. It writes handoff/[slug]/[slug]-week-2-handoff.md ending in GO or NO-GO and never waits on the client's answer. Do NOT use for producing what it checks, such as Week 1's check (use week-1-handoff-check), the Blueprint (use growth-blueprint), the deck (use blueprint-deck), missing briefs (use content-brief) or pages (use seo-content-writer), design briefs (use page-type-design-briefs), client emails (use week-2-client-email or week-1-client-email), the client's reply (use client-feedback) or ClickUp (use clickup-progress-sync).
+description: Go/no-go gate on a website build's Week 2 deliverables. Use when the AM or PM asks for the Week 2 handoff or end-of-week checklist, whether Week 2 is done or anything from it is missing, or if Week 3 can begin. A script confirms Week 1 cleared, finds the competitor report, Growth Blueprint and briefing, the deck with a zero-hit compliance file and the send-out, and compares the sitemap's pages with the content briefs and written pages, naming any page not written. It writes handoff/[slug]/[slug]-week-2-handoff.md ending in GO or NO-GO and never waits on the client's answer. Do NOT use for producing what it checks, such as Week 1's check (use week-1-handoff-check), the Blueprint (use growth-blueprint), the deck (use blueprint-deck), missing briefs (use content-brief) or pages (use seo-content-writer), client emails (use week-2-client-email or week-1-client-email), the client's reply (use client-feedback) or ClickUp (use clickup-progress-sync).
 ---
 
 # Week 2 handoff check
@@ -23,7 +23,6 @@ What the script reads, in report order (the full rules are in `references/checkl
 | Deck compliance | `blueprint/<slug>/<slug>-deck-compliance.md` |
 | Sitemap report | the last-named `seo-reports/site-structure-optimizer/*.md` with a `countable pages N / SOW cap M` line and a `| Page | URL |` URL map |
 | One row per sitemap page | its brief in `research/content-briefs/` (matched by `page_url`) and its page in `content/<url-slug>/`: `article.md`, `metadata.md`, `article.html`, `qa_report.md`, `handoff.md` |
-| Page-type design briefs | `design/<slug>/<slug>-page-type-design-briefs.md` |
 | Week 2 client email | `emails/<slug>/<slug>-week-2-email.md` |
 | Client feedback (not required) | the last `feedback/<slug>/*-feedback.md` with a `Week: 2` line, or a `*-week-2-nudge.md` |
 

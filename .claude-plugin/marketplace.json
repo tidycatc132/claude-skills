@@ -11,7 +11,7 @@
       "name": "website-build",
       "category": "build",
       "source": "./plugins/build/website-build",
-      "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content, Design and Development plugins and the shared build skills. Use it for someone who works across departments."
+      "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content and Development plugins and the shared build skills. Use it for someone who works across departments."
     },
     {
       "name": "build-shared",
@@ -30,12 +30,6 @@
       "category": "build",
       "source": "./plugins/build/seo-content",
       "description": "SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks."
-    },
-    {
-      "name": "build-design",
-      "category": "build",
-      "source": "./plugins/build/design",
-      "description": "Design website build skills: homepage design brief, page-type design briefs with optional wireframes, and the design quality check with dev prep."
     },
     {
       "name": "build-development",

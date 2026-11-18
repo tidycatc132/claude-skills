@@ -23,14 +23,14 @@ What `scripts/handoff_check.py run` checks, in report order. Paths are relative 
 | Sitemap within scope page cap | yes | the last-named `seo-reports/site-structure-optimizer/*.md` with a `countable pages N / SOW cap M` line | that line exists (the last one counts, after any trimming) and N is at most M; over the cap is reported `missing` | the cap differs from the context's `SOW pages:` number, or the report's cap is `Unknown` while the context now has a number |
 | Homepage content brief | yes | `research/content-briefs/*.md` with front-matter `format: homepage` (older `.vN.md` copies skipped) | `status` is `DONE` or `DONE_WITH_CONCERNS` | |
 | Homepage content | yes | `content/home/`, else the one `content/*/` whose `article.md` has `<!-- section: Hero -->`, or `--content` | `article.md`, `metadata.md`, `article.html`, `qa_report.md`, `handoff.md` all exist and the `VERDICT:` is `READY` or `NEEDS_INPUT`; the note counts open client flags | |
-| Editorial sign-off | yes | the design brief's `Content review:` line, or `--signoff` from the user | the line starts `confirmed` | |
-| Homepage design brief | yes | `design/<slug>/<slug>-homepage-design-brief.md` | has its ten sections, `## Goals` to `## Sources` | its Section Map rows do not match the article's `<!-- section: ... -->` markers, in order (when either side has none, the note says the map was not compared) |
-| Homepage wireframe | no | `design/<slug>/<slug>-homepage-wireframe.html` | exists; else `n/a` (optional) | |
-| Week 1 client email | yes | `emails/<slug>/<slug>-week-1-email.md` | has `Subject:` and a `Design options:` block with at least 2 `<name>: <link>` lines | |
+| Editorial sign-off | yes | `--signoff "<who>, <date>"` from the user | given | |
+| Week 1 client email | yes | `emails/<slug>/<slug>-week-1-email.md` | has `Subject:` and a `Design options:` block with at least 1 `<name>: <link>` line | |
+| Homepage design | yes | the Week 1 email's `Design options:` block | at least 1 `<name>: <link>` line (one homepage design is the minimum; more are optional); the note counts them | |
 | Client feedback | no | the last-named `feedback/<slug>/*-feedback.md` | exists; absent is listed but never blocks | a `*-feedback-updates.md` file is not named in any change log Source |
 
 ## Choices behind the rules
 
 - The scope page cap: with `SOW pages: unknown` (no page count in the scope source) and a report cap of `Unknown`, the sitemap row is `present` with a note that the AM confirms the page count. The check cannot hold a sitemap to a cap nobody signed.
-- Editorial sign-off is read from the design brief because homepage-design-brief records it there (`Content review: confirmed (<who>, <date>)`) and the design brief is written after the editorial review.
+- Editorial sign-off comes only from the user (`--signoff`): no Week 1 file records it, and the check never infers one.
+- Homepage design is read from the Week 1 email because that is where the design links reach the client. The process requires one homepage design for client review; Design may send more, and the check does not ask for more than one.
 - Client feedback and platform access are listed so nothing is forgotten, but Week 2 does not wait for them.

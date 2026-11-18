@@ -13,7 +13,7 @@ Installing it also installs: [`build-shared`](../shared/README.md).
 | [`kickoff-call-processing`](skills/kickoff-call-processing/SKILL.md) | Turns a new-build client's Kickoff Call (orientation call) transcript into the Blueprint inputs. |
 | [`new-build-kickoff`](skills/new-build-kickoff/SKILL.md) | Day 1 kickoff for a new WISE website build. |
 | [`project-close-out`](skills/project-close-out/SKILL.md) | Writes a launched website build's close-out package from the build's own files - the internal project summary with a Build complete table and outstanding items, the client transition email that mov... |
-| [`week-1-client-email`](skills/week-1-client-email/SKILL.md) | Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design options and the homepage copy. |
+| [`week-1-client-email`](skills/week-1-client-email/SKILL.md) | Drafts the end-of-Week-1 email a WISE Account Manager sends a website client with the homepage design (at least one, sometimes more) and the homepage copy. |
 | [`week-1-handoff-check`](skills/week-1-handoff-check/SKILL.md) | Go/no-go check that a website build's Week 1 is finished before Week 2. |
 | [`week-2-client-email`](skills/week-2-client-email/SKILL.md) | Drafts the end-of-Week-2 email a WISE AM sends a website client with the Growth Blueprint deck and the sitemap page content. |
 | [`week-2-handoff-check`](skills/week-2-handoff-check/SKILL.md) | Go/no-go gate on a website build's Week 2 deliverables. |

@@ -9,10 +9,9 @@ Usage (run from the client's working folder):
 Readers (each prints JSON; with --validate they check a JSON file of that shape instead):
   dev_index.py sitemap <report.md>        URL map and redirect map of a site-structure-optimizer report
   dev_index.py content <content/url-slug> metadata fields and internal links of one written page
-  dev_index.py briefs <briefs.md>         page type of each page file in the page-type design briefs
+  dev_index.py pagetype <content/url-slug> the page type of one written page and where it came from
   dev_index.py feedback <feedback.md>     the pages a client-feedback file holds back
   dev_index.py inventory <inventory.csv>  the old URLs of a new-build-kickoff URL inventory
-  dev_index.py devprep <devprep.md>       the asset checklist and RESULT line of the design QA file
 
 Standard library only. The index is regenerated in full on every run; nothing in it is typed by hand.
 """
@@ -27,7 +26,7 @@ import sys
 from pathlib import Path
 from urllib.parse import urlparse
 
-STATUSES = ["READY", "WAITING ON CLIENT CHANGES", "NOT WRITTEN", "NO TEMPLATE"]
+STATUSES = ["READY", "WAITING ON CLIENT CHANGES", "NOT WRITTEN"]
 TYPE_SECTIONS = ["Service Pages", "Location Pages", "About Page", "Contact Page", "Resource Pages"]
 TEMPLATE_NAMES = {
     "Homepage": "Homepage",
@@ -38,6 +37,28 @@ TEMPLATE_NAMES = {
     "Resource Pages": "Resource page",
 }
 GROUP_ORDER = ["Homepage"] + TYPE_SECTIONS + ["Pages Without a Template"]
+TYPE_GROUP = {"service": "Service Pages", "location": "Location Pages", "about": "About Page",
+              "contact": "Contact Page", "resource": "Resource Pages"}
+# Section markers seo-content-writer writes, and the page type each one names.
+MARKER_TYPES = {
+    "Company Story": "about", "Mission and Values": "about", "Team": "about", "Credentials": "about",
+    "Contact Form": "contact", "Phone and Email": "contact", "Address and Hours": "contact", "Map": "contact",
+    "How We Serve": "location", "Local Services": "location", "Local Proof": "location", "Directions": "location",
+}
+MARKER = re.compile(r"<!--\s*section:\s*(.+?)\s*-->")
+# content-brief `format:` values that name a page type; its article formats make a resource page.
+BRIEF_FORMATS = {"service-page": "service", "product-page": "service", "location-page": "location",
+                 "about-page": "about", "about": "about", "contact-page": "contact", "contact": "contact"}
+ARTICLE_FORMATS = {"explainer", "how-to", "comparison", "listicle", "definition", "cost-guide", "buyers-guide",
+                   "troubleshooting", "checklist", "faq-page", "pillar-guide"}
+URL_TYPES = [
+    (re.compile(r"^/about(-us)?/$"), "about"),
+    (re.compile(r"^/contact(-us)?/$"), "contact"),
+    (re.compile(r"(^|/)services?/"), "service"),
+    (re.compile(r"(^|/)(locations?|areas?|service-areas?|areas-we-serve)/"), "location"),
+    (re.compile(r"(^|/)(blog|resources?|guides?|articles?|news|learn|insights)/"), "resource"),
+]
+OLD_VERSION = re.compile(r"\.v\d+\.md$")
 META_FIELDS = ["Meta title", "Meta description", "H1", "URL slug"]
 INVENTORY_COLUMNS = ["url", "title", "page_type", "status", "source"]
 POST_LAUNCH = re.compile(r"post[- ]?launch|phase 2|after launch", re.I)
@@ -167,22 +188,61 @@ def read_content(folder: Path) -> dict:
     return out
 
 
-def read_briefs(path: Path) -> dict:
-    """Map each page file listed under a page-type section's ### Pages to that section."""
-    pages, section, sub = {}, "", ""
-    for ln in read(path).split("\n"):
-        if ln.startswith("## "):
-            section, sub = ln[3:].strip(), ""
-        elif ln.startswith("### "):
-            sub = ln[4:].strip()
-        elif section in TYPE_SECTIONS and sub == "Pages":
-            m = re.match(r"^\s*-\s+`?(content/[^`\s]+?)/(?:article\.md)?`?\s*$", ln)
-            if m:
-                pages[m.group(1).split("/", 1)[1]] = section
-    head = read(path).split("\n", 1)[0]
-    client = re.match(r"^Client:\s*(.+?)(?:\s+·.*)?$", head)
-    return {"brief": path.as_posix(), "client": client.group(1).strip() if client else "",
-            "## Page Types": sorted(set(pages.values()), key=TYPE_SECTIONS.index), "pages": pages}
+def front_field(text: str, *names: str) -> str:
+    for name in names:
+        m = re.search(rf"(?im)^\W*{re.escape(name)}\W*\s*:\s*\**\s*(.+?)\s*\**\s*$", text)
+        if m:
+            return m.group(1).strip().strip("\"'")
+    return ""
+
+
+def brief_formats(root: Path) -> dict[str, str]:
+    """URL path -> content-brief `format:`, from research/content-briefs/ (older .vN.md copies skipped).
+    A brief with no page_url is keyed by its file name as a one-segment path."""
+    out: dict[str, str] = {}
+    folder = root / "research" / "content-briefs"
+    if not folder.is_dir():
+        return out
+    for p in sorted(folder.glob("*.md")):
+        if OLD_VERSION.search(p.name):
+            continue
+        text = read(p)
+        url = front_field(text, "page_url", "url")
+        key = norm_path(url) if url.startswith(("/", "http")) else norm_path(p.stem)
+        out[key] = front_field(text, "format", "page type", "page_type").lower()
+    return out
+
+
+def page_type(url: str, folder: Path | None, formats: dict[str, str]) -> tuple[str, str]:
+    """(page type, where it came from). The page's own section markers win, then its content brief's
+    format, then the URL. An empty type means none of them names one."""
+    if norm_path(url) == "/":
+        return "homepage", "URL /"
+    art = folder / "article.md" if folder else None
+    if art and art.is_file():
+        kinds = {MARKER_TYPES[m.strip()] for m in MARKER.findall(read(art)) if m.strip() in MARKER_TYPES}
+        if len(kinds) == 1:
+            return kinds.pop(), "section markers"
+        if len(kinds) > 1:
+            return "", "section markers of more than one page type: " + ", ".join(sorted(kinds))
+    fmt = formats.get(norm_path(url))
+    if fmt in BRIEF_FORMATS:
+        return BRIEF_FORMATS[fmt], f"content brief format {fmt}"
+    if fmt in ARTICLE_FORMATS:
+        return "resource", f"content brief format {fmt}"
+    path = norm_path(url)
+    for rx, kind in URL_TYPES:
+        if rx.search(path):
+            return kind, f"URL {path}"
+    return "", "no section markers, content brief format or URL pattern names one"
+
+
+def read_pagetype(folder: Path) -> dict:
+    root = folder.resolve().parent.parent
+    meta = folder / "metadata.md"
+    url = read_metadata(meta).get("URL slug", "") if meta.is_file() else ""
+    kind, source = page_type(url or "/" + folder.name + "/", folder, brief_formats(root))
+    return {"folder": folder.as_posix(), "page type": kind or "unknown", "source": source}
 
 
 def read_feedback(path: Path) -> dict:
@@ -230,30 +290,6 @@ def read_inventory(path: Path) -> dict:
     return {"file": path.as_posix(), "rows": out}
 
 
-def read_devprep(path: Path) -> dict:
-    lines = read(path).rstrip("\n").split("\n")
-    checklist, inside = [], False
-    for ln in lines:
-        if ln.startswith("## "):
-            inside = ln[3:].strip().lower() == "asset checklist"
-            continue
-        if re.match(r"^RESULT:", ln):
-            inside = False
-        if inside:
-            checklist.append(ln)
-    while checklist and not checklist[0].strip():
-        checklist.pop(0)
-    while checklist and not checklist[-1].strip():
-        checklist.pop()
-    result = ""
-    for ln in reversed(lines):
-        m = re.match(r"^RESULT:\s*(PASS|FAIL)\s*$", ln.strip())
-        if m:
-            result = m.group(1)
-            break
-    return {"file": path.as_posix(), "## Asset Checklist": checklist, "RESULT:": result}
-
-
 def week2_result(path: Path) -> str:
     lines = [ln.strip() for ln in read(path).split("\n") if ln.strip()]
     return lines[-1] if lines else ""
@@ -261,10 +297,20 @@ def week2_result(path: Path) -> str:
 
 # ---------- the index ----------
 
+def client_name(root: Path, slug: str) -> str:
+    """The `Client:` line of the kickoff context, else the slug."""
+    ctx = root / "kickoff" / slug / f"{slug}-context.md"
+    if ctx.is_file():
+        m = re.search(r"(?m)^Client:\s*(.+?)\s*$", read(ctx))
+        if m:
+            return m.group(1).split(" · ")[0].strip()
+    return slug
+
+
 def find_slug(root: Path, slug: str | None) -> str:
     if slug:
         return slug
-    for parent in ("design", "handoff", "kickoff"):
+    for parent in ("handoff", "kickoff"):
         d = root / parent
         if d.is_dir():
             subs = sorted(p.name for p in d.iterdir() if p.is_dir())
@@ -272,7 +318,7 @@ def find_slug(root: Path, slug: str | None) -> str:
                 return subs[0]
             if len(subs) > 1:
                 raise SystemExit(f"several clients under {parent}/ ({', '.join(subs)}); pass --slug")
-    raise SystemExit("no client folder under design/, handoff/ or kickoff/; pass --slug")
+    raise SystemExit("no client folder under handoff/ or kickoff/; pass --slug")
 
 
 def content_folders(root: Path) -> dict[str, Path]:
@@ -328,19 +374,6 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
         blocking.append(f"Week 2 handoff: {rel(root, w2)} ends {w2_line or 'with no result'}, not GO "
                         "(PM, week-2-handoff-check)")
 
-    bpath = root / "design" / slug / f"{slug}-page-type-design-briefs.md"
-    briefs = read_briefs(bpath) if bpath.is_file() else {"pages": {}, "client": ""}
-    if not bpath.is_file():
-        blocking.append(f"Page-type design briefs: {rel(root, bpath)} missing (Design, page-type-design-briefs)")
-    hpath = root / "design" / slug / f"{slug}-homepage-design-brief.md"
-
-    dpath = root / "design" / slug / f"{slug}-design-qa-devprep.md"
-    devprep = read_devprep(dpath) if dpath.is_file() else None
-    if devprep and devprep["RESULT:"] != "PASS":
-        blocking.append(f"Design QA and dev prep: {rel(root, dpath)} ends "
-                        f"{'RESULT: ' + devprep['RESULT:'] if devprep['RESULT:'] else 'with no RESULT line'} "
-                        "(Design, design-qa-dev-prep)")
-
     fpath = latest_dated(root / "feedback" / slug, "-feedback.md")
     feedback = read_feedback(fpath) if fpath else {"page: <url-slug>": {}}
     held = feedback["page: <url-slug>"]
@@ -355,7 +388,8 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
     else:
         blocking.append(f"URL inventory: {rel(root, ipath)} missing (AM, new-build-kickoff)")
 
-    client = briefs.get("client") or slug
+    client = client_name(root, slug)
+    formats = brief_formats(root)
     folders = content_folders(root)
     sitemap_paths = {norm_path(r["URL"]) for r in sitemap["URL map"]}
     redirect_by_old = {norm_path(r["Old URL"]): r for r in sitemap["Redirect map"]}
@@ -368,13 +402,11 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
         priority = "Post-Launch" if POST_LAUNCH.search(row["Priority"]) else "Build"
         written = bool(info and info["article.md"] and info["metadata.md"]
                        and info["Meta title"] and info["Meta description"])
-        if norm_path(row["URL"]) == "/":
-            group = "Homepage" if hpath.is_file() else "Pages Without a Template"
-        else:
-            group = briefs["pages"].get(folder.name) if folder else None
-            group = group or "Pages Without a Template"
-        template = (f"{TEMPLATE_NAMES[group]} ({rel(root, hpath if group == 'Homepage' else bpath)})"
-                    if group in TEMPLATE_NAMES else "none")
+        kind, source = page_type(row["URL"], folder, formats)
+        group = "Homepage" if kind == "homepage" else TYPE_GROUP.get(kind, "Pages Without a Template")
+        template = f"{TEMPLATE_NAMES[group]} (page type from {source})" if group in TEMPLATE_NAMES else "none"
+        if group == "Pages Without a Template" and written and priority == "Build":
+            notes.append(f"{row['Page']} ({row['URL']}): page type not recognised ({source}); Dev picks the template")
         detail = ""
         if not written:
             status = "NOT WRITTEN"
@@ -382,8 +414,6 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
                 detail = "article.md has no metadata.md"
             elif info and info["metadata.md"] and not (info["Meta title"] and info["Meta description"]):
                 detail = "metadata.md has no Meta title or Meta description"
-        elif group == "Pages Without a Template":
-            status = "NO TEMPLATE"
         elif folder.name in held and (root / "content" / folder.name / "article.md").stat().st_mtime <= fpath.stat().st_mtime:
             status = "WAITING ON CLIENT CHANGES"
             detail = f"{rel(root, fpath)} row {', '.join('#' + n for n in held[folder.name])}"
@@ -391,10 +421,8 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
             status = "READY"
         pages.append({"row": row, "folder": folder, "info": info, "priority": priority, "group": group,
                       "template": template, "status": status, "detail": detail})
-        if priority == "Build" and status in ("NOT WRITTEN", "NO TEMPLATE"):
-            owner = ("Content, seo-content-writer" if status == "NOT WRITTEN"
-                     else "Design, page-type-design-briefs")
-            blocking.append(f"Page: {row['Page']} ({row['URL']}) is {status} ({owner})")
+        if priority == "Build" and status == "NOT WRITTEN":
+            blocking.append(f"Page: {row['Page']} ({row['URL']}) is {status} (Content, seo-content-writer)")
 
     counts = {s: sum(1 for p in pages if p["status"] == s) for s in STATUSES}
 
@@ -403,9 +431,6 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
     out.append(f"Sitemap report: {rel(root, report) if report else 'missing'}")
     out.append(f"Week 2 handoff: {rel(root, w2)} ({w2_line or 'missing'})" if w2.is_file()
                else f"Week 2 handoff: {rel(root, w2)} (missing)")
-    out.append(f"Page-type design briefs: {rel(root, bpath)}" + ("" if bpath.is_file() else " (missing)"))
-    out.append(f"Design QA and dev prep: {rel(root, dpath)} (RESULT: {devprep['RESULT:'] or 'none'})" if devprep
-               else "Design QA and dev prep: not run yet (design-qa-dev-prep)")
     out.append(f"Client feedback: {rel(root, fpath)}" if fpath else "Client feedback: none")
     out += ["", f"# Dev Handoff Index: {client}", ""]
     out.append("Pages: " + ", ".join(f"{counts[s]} {s}" for s in STATUSES))
@@ -494,11 +519,6 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
             out.append("| none | | every old URL keeps its address |")
     out.append("")
 
-    if devprep:
-        out += ["## Design Assets", "", f"Copied from {rel(root, dpath)}.", ""]
-        out += devprep["## Asset Checklist"] or ["No asset checklist in the file."]
-        out.append("")
-
     out += ["## Blocking", ""]
     out += [f"- {b}" for b in blocking] or ["- none"]
     if no_target:
@@ -507,9 +527,12 @@ def build(root: Path, slug: str, date: str) -> tuple[str, bool, list[str], dict]
     if waiting:
         out += ([] if no_target else [""]) + [f"Not blocking dev: waiting on client changes: {', '.join(waiting)}; build them after Content "
                 "rewrites the page and this index is re-run."]
+    if notes:
+        out += ([] if (no_target or waiting) else [""]) + [f"Not blocking dev: {n}." for n in notes]
     go = not blocking
     out += ["", "GO" if go else "NO-GO", ""]
     summary = {"counts": counts, "blocking": blocking, "go": go, "waiting": waiting, "no_target": no_target,
+               "notes": notes,
                "ready": [p["row"]["Page"] for p in pages if p["status"] == "READY" and p["priority"] == "Build"]}
     return "\n".join(out), go, blocking, summary
 
@@ -545,6 +568,8 @@ def cmd_run(a) -> int:
         print("Waiting on client changes: " + ", ".join(s["waiting"]))
     if s["no_target"]:
         print(f"Old URLs with NO TARGET: {s['no_target']}")
+    for n in s["notes"]:
+        print(f"Page type not recognised: {n}")
     print("Blocking:" + ("" if blocking else " none"))
     for b in blocking:
         print(f"- {b}")
@@ -557,10 +582,9 @@ def cmd_run(a) -> int:
 READERS = {
     "sitemap": (read_sitemap, ["URL map", "Redirect map"]),
     "content": (read_content, ["Meta title", "Meta description", "H1", "URL slug", "Internal links"]),
-    "briefs": (read_briefs, ["## Page Types", "pages"]),
+    "pagetype": (read_pagetype, ["page type", "source"]),
     "feedback": (read_feedback, ["## Feedback Items", "page: <url-slug>"]),
     "inventory": (read_inventory, ["rows"]),
-    "devprep": (read_devprep, ["## Asset Checklist", "RESULT:"]),
 }
 
 

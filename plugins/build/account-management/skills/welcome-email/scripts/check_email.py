@@ -27,7 +27,7 @@ BANNED = [
     "cutting-edge", "best-in-class", "don't hesitate", "do not hesitate", "synergy",
     "game-changer", "game changer",
 ]
-# Numbers the email may use without a source: Week 1, 2 to 3 design options, a 15-minute form.
+# Numbers the email may use without a source: Week 1, a 15-minute form, and 2 and 3 for short lists.
 ALLOWED_NUMBERS = {"1", "2", "3", "15"}
 
 

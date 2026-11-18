@@ -16,7 +16,7 @@ Every credential, license or registration number, certification, membership, awa
 
 ## Section map
 
-`article.md` has these eight sections, in this order, each opened by its marker comment on its own line. The marker names the section for the design brief and for `check_draft.py`; the heading under it is written for visitors.
+`article.md` has these eight sections, in this order, each opened by its marker comment on its own line. The marker names the section for Design, Dev and `check_draft.py`; the heading under it is written for visitors.
 
 | # | Marker | What it does | Heading |
 | --- | --- | --- | --- |

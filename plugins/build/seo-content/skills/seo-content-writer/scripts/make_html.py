@@ -16,7 +16,7 @@ Structure produced (no JavaScript, every fact in the initial HTML):
 
 A client page's (homepage, About, Contact, location) `<!-- section: Name -->` markers are never printed: each becomes a
 `data-section="name"` attribute on the section it opens (Hero goes on <header>
-and the intro), so the design brief can map content sections to layout.
+and the intro), so Design and Dev can map content sections to layout.
 
 Handles paragraphs, ordered and unordered lists, pipe tables, blockquotes,
 links, bold, italics and inline code. Leaves [NEEDS ...] flags visible so a

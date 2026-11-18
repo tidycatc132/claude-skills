@@ -10,6 +10,6 @@ Use these facts, in the client's terms, for the "what happens next" part of the 
    Anything they don't have handy can wait for the Kickoff Call.
 2. **The Kickoff Call.** Booked through the link in the email (or, with no link, by replying with a few times that suit them). It covers what the form left open and the goals for the new site.
 3. **After the call.** WISE researches their market and plans the site's pages, then writes the homepage copy.
-4. **The first thing they review.** 2 to 3 homepage design options, sent with the homepage copy, for their feedback.
+4. **The first thing they review.** A homepage design, sent with the homepage copy, for their feedback. Do not promise a number of designs.
 
 Do not mention Synup, listings, the Growth Blueprint, ClickUp, Claude, or internal steps such as editorial review.

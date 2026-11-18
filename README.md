@@ -28,7 +28,6 @@ The skills are published as Claude Code plugins through `.claude-plugin/marketpl
 /plugin install website-build@wise-skills          # every build department
 /plugin install build-account-management@wise-skills
 /plugin install build-seo-content@wise-skills
-/plugin install build-design@wise-skills
 /plugin install build-development@wise-skills
 /plugin install build-shared@wise-skills           # pulled in by each department plugin
 /plugin install agency-tools@wise-skills

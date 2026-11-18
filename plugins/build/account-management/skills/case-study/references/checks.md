@@ -20,6 +20,6 @@
 | `length` | Narrative body at most 900 words | Cut the Challenge and Approach first |
 | `brief layout` | Brief header lines and the five sections in order | Re-run scaffold with `--force` |
 | `brief tables` | Pages to Screenshot, Before and After and Brand Colours equal what the script builds from the sources | Do not edit these tables; fix the source file and re-scaffold |
-| `brief colours` | Every hex in the brief comes from the kit or the index palette | Use only the table's colours |
+| `brief colours` | Every hex in the brief comes from the kit | Use only the table's colours |
 | `callout stats` | 3 to 6 bullets, each led by a Quick Stats figure | Copy from Quick Stats |
 | `layout` | The Layout Suggestion is written | Write it |
