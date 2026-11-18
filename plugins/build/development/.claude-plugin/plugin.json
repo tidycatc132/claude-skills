@@ -1,0 +1,11 @@
+{
+  "name": "build-development",
+  "version": "0.1.0",
+  "description": "Development website build skills: the dev handoff index and GO / NO-GO gate.",
+  "author": {
+    "name": "WISE Digital Partners"
+  },
+  "dependencies": [
+    "build-shared"
+  ]
+}

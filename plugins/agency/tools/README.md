@@ -6,13 +6,11 @@ WISE skills outside the website build process: prospect digital audit for Sales,
 
 | Skill | What it does |
 |---|---|
-| [`prospect-digital-audit`](../../../skills/prospect-digital-audit/SKILL.md) | Fill WISE's Digital Audit sheet for a sales prospect after the sales manager's call, using the call transcript (CSV) and the prospect's website URL. |
-| [`google-ads-audit`](../../../skills/google-ads-audit/SKILL.md) | Structured Google Ads account audit across 7 dimensions (account structure, conversion tracking, keyword strategy, ad creative, bidding and budget, targeting, wasted spend). |
-| [`google-ads-analysis`](../../../skills/google-ads-analysis/SKILL.md) | Google Ads campaign performance analysis using GAQL (Google Ads Query Language) or Google Ads report exports. |
-| [`clickup-progress-sync`](../../../skills/clickup-progress-sync/SKILL.md) | For a managing agent that must write a sub-agent's progress report into ClickUp through the ClickUp connector. |
-| [`subagent-performance-review`](../../../skills/subagent-performance-review/SKILL.md) | For a managing agent that delegates work to sub-agents and must judge them. |
-
-The skills themselves live in [`skills/`](../../../skills/). This folder only shows which ones belong to this plugin.
+| [`clickup-progress-sync`](skills/clickup-progress-sync/SKILL.md) | For a managing agent that must write a sub-agent's progress report into ClickUp through the ClickUp connector. |
+| [`google-ads-analysis`](skills/google-ads-analysis/SKILL.md) | Google Ads campaign performance analysis using GAQL (Google Ads Query Language) or Google Ads report exports. |
+| [`google-ads-audit`](skills/google-ads-audit/SKILL.md) | Structured Google Ads account audit across 7 dimensions (account structure, conversion tracking, keyword strategy, ad creative, bidding and budget, targeting, wasted spend). |
+| [`prospect-digital-audit`](skills/prospect-digital-audit/SKILL.md) | Fill WISE's Digital Audit sheet for a sales prospect after the sales manager's call, using the call transcript (CSV) and the prospect's website URL. |
+| [`subagent-performance-review`](skills/subagent-performance-review/SKILL.md) | For a managing agent that delegates work to sub-agents and must judge them. |
 
 ## Install
 

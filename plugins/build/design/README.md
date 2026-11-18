@@ -8,11 +8,9 @@ Installing it also installs: [`build-shared`](../shared/README.md).
 
 | Skill | What it does |
 |---|---|
-| [`homepage-design-brief`](../../../skills/homepage-design-brief/SKILL.md) | Writes the one homepage design brief a designer works from, after human editorial review of the homepage copy. |
-| [`page-type-design-briefs`](../../../skills/page-type-design-briefs/SKILL.md) | Writes one design brief per page type (service, location, about, contact, resource) for the inner-page templates, and on request one HTML wireframe per type. |
-| [`design-qa-dev-prep`](../../../skills/design-qa-dev-prep/SKILL.md) | Checks the designers' inner-page templates against the page-type design briefs, the reference kit and the written pages before dev handoff, and writes dev's asset checklist. |
-
-The skills themselves live in [`skills/`](../../../skills/). This folder only shows which ones belong to this plugin.
+| [`design-qa-dev-prep`](skills/design-qa-dev-prep/SKILL.md) | Checks the designers' inner-page templates against the page-type design briefs, the reference kit and the written pages before dev handoff, and writes dev's asset checklist. |
+| [`homepage-design-brief`](skills/homepage-design-brief/SKILL.md) | Writes the one homepage design brief a designer works from, after human editorial review of the homepage copy. |
+| [`page-type-design-briefs`](skills/page-type-design-briefs/SKILL.md) | Writes one design brief per page type (service, location, about, contact, resource) for the inner-page templates, and on request one HTML wireframe per type. |
 
 ## Install
 

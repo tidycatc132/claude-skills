@@ -6,12 +6,10 @@ Shared website build skills used by more than one department: merging new client
 
 | Skill | What it does |
 |---|---|
-| [`client-context-update`](../../../skills/client-context-update/SKILL.md) | Merges new client information into an existing new-build kickoff client context. |
-| [`client-feedback`](../../../skills/client-feedback/SKILL.md) | Sorts a client's reply to a review email into a feedback table and drafts the Account Manager's answer, for Week 1 (homepage copy and designs), Week 2 (Growth Blueprint, deck and page content, or a... |
-| [`staging-site-qa`](../../../skills/staging-site-qa/SKILL.md) | Runs a website build's pre-launch staging QA against the build's own files (dev handoff index, written pages, design asset checklist, client context) and makes each issue a BugHerd task for the dep... |
-| [`ga4-event-tracking`](../../../skills/ga4-event-tracking/SKILL.md) | Sets up GA4 goal and conversion event tracking through Google Tag Manager for a launched WISE website build. |
-
-The skills themselves live in [`skills/`](../../../skills/). This folder only shows which ones belong to this plugin.
+| [`client-context-update`](skills/client-context-update/SKILL.md) | Merges new client information into an existing new-build kickoff client context. |
+| [`client-feedback`](skills/client-feedback/SKILL.md) | Sorts a client's reply to a review email into a feedback table and drafts the Account Manager's answer, for Week 1 (homepage copy and designs), Week 2 (Growth Blueprint, deck and page content, or a... |
+| [`ga4-event-tracking`](skills/ga4-event-tracking/SKILL.md) | Sets up GA4 goal and conversion event tracking through Google Tag Manager for a launched WISE website build. |
+| [`staging-site-qa`](skills/staging-site-qa/SKILL.md) | Runs a website build's pre-launch staging QA against the build's own files (dev handoff index, written pages, design asset checklist, client context) and makes each issue a BugHerd task for the dep... |
 
 ## Install
 

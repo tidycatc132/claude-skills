@@ -1,0 +1,11 @@
+{
+  "name": "build-seo-content",
+  "version": "0.1.0",
+  "description": "SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks.",
+  "author": {
+    "name": "WISE Digital Partners"
+  },
+  "dependencies": [
+    "build-shared"
+  ]
+}

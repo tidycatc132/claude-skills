@@ -1,0 +1,11 @@
+{
+  "name": "build-account-management",
+  "version": "0.1.0",
+  "description": "Account Management (AM / PM) website build skills: kickoff, welcome and weekly client emails, Kickoff Call brief and processing, end-of-week handoff checks, go-live email, case study and project close-out.",
+  "author": {
+    "name": "WISE Digital Partners"
+  },
+  "dependencies": [
+    "build-shared"
+  ]
+}
