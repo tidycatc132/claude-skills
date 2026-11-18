@@ -3,7 +3,7 @@
 This repo builds Claude skills. It is a harness: scripts and hooks check your work, and evidence (not your confidence) decides when a skill is done. Build ONE skill per session, always from scratch.
 
 ## Layout
-- `skills/<name>/SKILL.md` (+ `references/`, `scripts/`, `assets/`): the product.
+- `skills/<name>/SKILL.md` (+ `references/`, `scripts/`, `assets/`): the product while it is built. Done, it moves to `plugins/<category>/<plugin>/skills/<name>/` and its evals, fixtures and contracts are removed (`.harness-unlock`).
 - `evals/<name>/trigger.json` and `outputs.json`, `fixtures/<name>/`, `contracts/<a>-to-<b>.json` with its fixture in `fixtures/contracts/`: the definition of "correct". Add new ones freely; once committed they are frozen.
 - There is no backlog. Every skill starts from `/new-skill <description>`; `skills_backlog.json` stays an empty list.
 - `progress.md`, `failure_log.md`: session memory. Read them first, append to them last.

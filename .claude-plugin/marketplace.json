@@ -16,94 +16,32 @@
     {
       "name": "build-shared",
       "category": "build",
-      "source": "./",
-      "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, staging QA and the launch check, and GA4 goal tracking.",
-      "strict": false,
-      "skills": [
-        "./skills/client-context-update",
-        "./skills/client-feedback",
-        "./skills/staging-site-qa",
-        "./skills/ga4-event-tracking"
-      ]
+      "source": "./plugins/build/shared",
+      "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, staging QA and the launch check, and GA4 goal tracking."
     },
     {
       "name": "build-account-management",
       "category": "build",
-      "source": "./",
-      "description": "Account Management (AM / PM) website build skills: kickoff, welcome and weekly client emails, Kickoff Call brief and processing, end-of-week handoff checks, go-live email, case study and project close-out.",
-      "strict": false,
-      "skills": [
-        "./skills/new-build-kickoff",
-        "./skills/welcome-email",
-        "./skills/kickoff-call-brief",
-        "./skills/kickoff-call-processing",
-        "./skills/week-1-client-email",
-        "./skills/week-1-handoff-check",
-        "./skills/week-2-client-email",
-        "./skills/week-2-handoff-check",
-        "./skills/week-5-client-email",
-        "./skills/week-5-handoff-check",
-        "./skills/week-6-go-live-email",
-        "./skills/case-study",
-        "./skills/project-close-out"
-      ],
-      "dependencies": [
-        "build-shared"
-      ]
+      "source": "./plugins/build/account-management",
+      "description": "Account Management (AM / PM) website build skills: kickoff, welcome and weekly client emails, Kickoff Call brief and processing, end-of-week handoff checks, go-live email, case study and project close-out."
     },
     {
       "name": "build-seo-content",
       "category": "build",
-      "source": "./",
-      "description": "SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks.",
-      "strict": false,
-      "skills": [
-        "./skills/client-reference-kit",
-        "./skills/keyword-research",
-        "./skills/site-structure-optimizer",
-        "./skills/content-brief",
-        "./skills/seo-content-writer",
-        "./skills/content-quality-auditor",
-        "./skills/competitor-analysis",
-        "./skills/growth-blueprint",
-        "./skills/blueprint-deck",
-        "./skills/retainer-roadmap",
-        "./skills/serp-analysis",
-        "./skills/content-gap-analysis",
-        "./skills/technical-seo-checker",
-        "./skills/seo-drift-monitor",
-        "./skills/offsite-signal-analyzer"
-      ],
-      "dependencies": [
-        "build-shared"
-      ]
+      "source": "./plugins/build/seo-content",
+      "description": "SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks."
     },
     {
       "name": "build-development",
       "category": "build",
-      "source": "./",
-      "description": "Development website build skills: the dev handoff index and GO / NO-GO gate.",
-      "strict": false,
-      "skills": [
-        "./skills/dev-handoff-index"
-      ],
-      "dependencies": [
-        "build-shared"
-      ]
+      "source": "./plugins/build/development",
+      "description": "Development website build skills: the dev handoff index and GO / NO-GO gate."
     },
     {
       "name": "agency-tools",
       "category": "agency",
-      "source": "./",
-      "description": "WISE skills outside the website build process: prospect digital audit for Sales, Google Ads audit and analysis, ClickUp progress sync, and sub-agent performance review.",
-      "strict": false,
-      "skills": [
-        "./skills/prospect-digital-audit",
-        "./skills/google-ads-audit",
-        "./skills/google-ads-analysis",
-        "./skills/clickup-progress-sync",
-        "./skills/subagent-performance-review"
-      ]
+      "source": "./plugins/agency/tools",
+      "description": "WISE skills outside the website build process: prospect digital audit for Sales, Google Ads audit and analysis, ClickUp progress sync, and sub-agent performance review."
     },
     {
       "name": "paid-media-ops",

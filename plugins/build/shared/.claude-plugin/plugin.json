@@ -1,0 +1,8 @@
+{
+  "name": "build-shared",
+  "version": "0.1.0",
+  "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, staging QA and the launch check, and GA4 goal tracking.",
+  "author": {
+    "name": "WISE Digital Partners"
+  }
+}

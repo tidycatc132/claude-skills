@@ -8,9 +8,7 @@ Installing it also installs: [`build-shared`](../shared/README.md).
 
 | Skill | What it does |
 |---|---|
-| [`dev-handoff-index`](../../../skills/dev-handoff-index/SKILL.md) | Builds a website's dev handoff index and says which pages dev can start. |
-
-The skills themselves live in [`skills/`](../../../skills/). This folder only shows which ones belong to this plugin.
+| [`dev-handoff-index`](skills/dev-handoff-index/SKILL.md) | Builds a website's dev handoff index and says which pages dev can start. |
 
 ## Install
 

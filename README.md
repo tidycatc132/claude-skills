@@ -21,7 +21,7 @@ The "frozen once committed" rules are based on git, so an eval, fixture or contr
 
 ## Install as plugins
 
-The skills are also published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build (Design has no skills since its design brief steps were removed), plus agency tools and paid media.
+The skills are published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build, plus agency tools and paid media. Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skills/<name>/`.
 
 ```
 /plugin marketplace add tidycatc132/claude-skills
@@ -31,17 +31,18 @@ The skills are also published as Claude Code plugins through `.claude-plugin/mar
 /plugin install build-development@wise-skills
 /plugin install build-shared@wise-skills           # pulled in by each department plugin
 /plugin install agency-tools@wise-skills
+/plugin install paid-media-ops@wise-skills         # and the other paid-media-* plugins
 ```
 
-Every plugin has a folder under `plugins/<category>/` whose README lists its skills: start at [plugins/README.md](plugins/README.md), which also says where a new skill goes.
+Start at [plugins/README.md](plugins/README.md): the catalog, each plugin's skills, and where a new skill goes.
 
 ## Layout
 
 | Path | Role |
 |---|---|
 | `CLAUDE.md` | Short rules (advisory guide) |
-| `skills/<name>/` | The product |
-| `.claude-plugin/marketplace.json`, `plugins/` | Plugin packaging; `plugins/catalog.py` writes the plugin READMEs and `--check` confirms every skill is in one plugin |
+| `skills/<name>/` | The workbench: the skill being built; a finished skill moves into its plugin |
+| `.claude-plugin/marketplace.json`, `plugins/<category>/<plugin>/skills/` | The shipped skills, one plugin folder each; `plugins/catalog.py` writes the plugin READMEs and `--check` confirms every skill is in one plugin |
 | `evals/<name>/` | `trigger.json`, `outputs.json`, optional `golden/` |
 | `contracts/`, `fixtures/` | Machine-checked interfaces between pipeline skills, and their test data |
 | `skills_backlog.json` | Kept as an empty list; the scripts read it but nothing is planned there |

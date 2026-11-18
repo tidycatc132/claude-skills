@@ -2,7 +2,7 @@
 
 # Plugins
 
-Every skill lives once in [`skills/`](../skills/). Plugins group them so each person installs only what they use. Each plugin has a folder here, grouped by category, whose README lists its skills.
+Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skills/<name>/`, so each person installs only what they use. Each plugin's README lists its skills.
 
 ## Website build
 
@@ -40,9 +40,9 @@ Every skill lives once in [`skills/`](../skills/). Plugins group them so each pe
 
 ## Adding a new skill
 
-1. Build it as usual with `/new-skill`. It goes in `skills/<name>/`, like every other skill (the harness checks only look there).
-2. Pick the plugin it belongs to in `.claude-plugin/marketplace.json` and add `"./skills/<name>"` to that entry's `skills` list.
-3. If no plugin fits, add a new entry: `"source": "./"`, a `category` (an existing one such as `build` or `agency`, or a new one), a `description` and its `skills` list. Its folder appears at `plugins/<category>/<name without the category prefix>/`. A department plugin of the build also gets `"dependencies": ["build-shared"]`.
+1. Build it with `/new-skill`. It goes in `skills/<name>/` (the workbench) while the harness checks it.
+2. When it is done, move it into its plugin: `git mv skills/<name> plugins/<category>/<plugin>/skills/<name>`, and remove its `evals/<name>/`, `fixtures/<name>/` and any `contracts/*<name>*.json` (those are frozen once committed, so create `.harness-unlock` first and delete it afterwards).
+3. If no plugin fits, make one: a folder `plugins/<category>/<plugin>/` with `.claude-plugin/plugin.json` (copy a sibling's) and a `skills/` folder, plus an entry in `.claude-plugin/marketplace.json` with `"source": "./plugins/<category>/<plugin>"`, a `category` and a `description`.
 4. Run `python3 plugins/catalog.py` to write the READMEs, then `python3 plugins/catalog.py --check` and `claude plugin validate .`.
 
-Each skill goes in exactly one plugin. Paid media skills are drafts kept inside their own plugin folders under `paid-media/` until they go through `/new-skill`.
+Each skill goes in exactly one plugin.
