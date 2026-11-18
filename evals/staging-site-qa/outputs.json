@@ -25,10 +25,6 @@
           "dest": "content/water-heater-repair/article.md"
         },
         {
-          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
-          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
-        },
-        {
           "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
           "dest": "handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md"
         },
@@ -180,8 +176,8 @@
         {
           "type": "not_regex",
           "path": "qa/quillfeather-plumbing/quillfeather-plumbing-staging-qa-2026-11-03.md",
-          "pattern": "^\\| QA-[0-9a-f]{8} \\| [^|]+ \\| Design \\| (?![^\\n]*\\((?:seen in qa/quillfeather-plumbing/screens/|asset checklist: ))",
-          "label": "every Design finding cites a screenshot or the asset checklist"
+          "pattern": "^\\| QA-[0-9a-f]{8} \\| [^|]+ \\| Design \\| (?![^\\n]*\\(seen in qa/quillfeather-plumbing/screens/)",
+          "label": "every Design finding cites a screenshot"
         },
         {
           "type": "contains",
@@ -261,10 +257,6 @@
         {
           "src": "fixtures/staging-site-qa/quillfeather/base/content/water-heater-repair/article.md",
           "dest": "content/water-heater-repair/article.md"
-        },
-        {
-          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
-          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
         },
         {
           "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",
@@ -432,10 +424,6 @@
         {
           "src": "fixtures/staging-site-qa/quillfeather/base/content/water-heater-repair/article.md",
           "dest": "content/water-heater-repair/article.md"
-        },
-        {
-          "src": "fixtures/staging-site-qa/quillfeather/base/design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md",
-          "dest": "design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md"
         },
         {
           "src": "fixtures/staging-site-qa/quillfeather/base/handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md",

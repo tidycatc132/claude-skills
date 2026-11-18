@@ -2,7 +2,6 @@ Client: Saltmarsh Tree Care
 Checked: 2026-11-10
 Staging: https://saltmarsh.staging-wise.site (saved pages: staging/)
 Dev handoff index: handoff/saltmarsh-tree-care/saltmarsh-tree-care-dev-handoff-index.md (GO)
-Design QA and dev prep: none
 Compared with: none (first run)
 Screenshots: none (turned off (--no-screens))
 

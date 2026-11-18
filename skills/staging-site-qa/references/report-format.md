@@ -10,14 +10,13 @@ Written by you, only when you have Design findings or AM items to add. Both sect
 | Page URL | Severity | Finding | Fix | Evidence |
 |---|---|---|---|---|
 | /about/ | MAJOR | The crew photo is cut off on mobile. | Crop the photo to the 3:2 frame on small screens. | qa/<slug>/screens/about-mobile.png |
-| /services/drain-cleaning/ | MINOR | The header photo is 800 x 450; the checklist asks for 1600 x 900. | Upload the 1600 x 900 WebP. | asset checklist: Service header photo (2): 1600 x 900, WebP |
 
 ## AM Items
 
 - The client has not sent the team photo for the about page.
 ```
 
-`report` rejects a row whose page is not a Build page, whose severity is not CRITICAL, MAJOR or MINOR, or whose evidence is not a screenshot from this scan or a line of the asset checklist, copied exactly.
+`report` rejects a row whose page is not a Build page, whose severity is not CRITICAL, MAJOR or MINOR, or whose evidence is not a screenshot from this scan, copied exactly.
 
 ## Routing: `qa/routing.md`
 
@@ -43,7 +42,6 @@ Client: <client>
 Checked: <date>
 Staging: <base URL> (saved pages: <folder>/)
 Dev handoff index: <path> (<its last line>)
-Design QA and dev prep: <path or none>
 Compared with: <earlier report path> | none (first run)
 Screenshots: qa/<slug>/screens/ (<n> files) | none (<reason>)
 
@@ -76,7 +74,7 @@ Structured data: not in the current process
 RESULT: READY | CONDITIONAL | NOT READY
 ```
 
-week-5-handoff-check reads the Findings table, `## Re-run Status`, `## Launch Toggles`, `RESULT:` and `Staging:`, and from the task file beside the report its `tasks` (`finding_id`, `status`, `bugherd_task_id`, `severity`, `department`); `qa.py week-5 <report>` prints exactly that (contract `staging-site-qa-to-week-5-handoff-check`). The `Staging:` header line is read by client-feedback for the staging base URL (contract `staging-site-qa-to-client-feedback`). The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)` or `(asset checklist: <line>)`.
+week-5-handoff-check reads the Findings table, `## Re-run Status`, `## Launch Toggles`, `RESULT:` and `Staging:`, and from the task file beside the report its `tasks` (`finding_id`, `status`, `bugherd_task_id`, `severity`, `department`); `qa.py week-5 <report>` prints exactly that (contract `staging-site-qa-to-week-5-handoff-check`). The `Staging:` header line is read by client-feedback for the staging base URL (contract `staging-site-qa-to-client-feedback`). The Findings table holds open findings only (first run: all; re-run: OPEN and NEW), CRITICAL first. FIXED findings appear only in Re-run Status. A pipe inside a cell is written `\|`. Design findings end with `(seen in <screenshot>)`.
 
 ## Task file: `qa/<slug>/<slug>-bugherd-tasks.json`
 

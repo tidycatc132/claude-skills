@@ -4,7 +4,7 @@ Client feedback: none
 
 # Dev Handoff Index: Wrenfield Landscaping
 
-Pages: 5 READY, 0 WAITING ON CLIENT CHANGES, 0 NOT WRITTEN, 0 NO TEMPLATE
+Pages: 5 READY, 0 WAITING ON CLIENT CHANGES, 0 NOT WRITTEN
 
 ## Homepage
 

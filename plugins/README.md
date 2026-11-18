@@ -12,7 +12,6 @@ Every skill lives once in [`skills/`](../skills/). Plugins group them so each pe
 | `build-shared` | 4 | [build/shared/](build/shared/) |
 | `build-account-management` | 13 | [build/account-management/](build/account-management/) |
 | `build-seo-content` | 15 | [build/seo-content/](build/seo-content/) |
-| `build-design` | 3 | [build/design/](build/design/) |
 | `build-development` | 1 | [build/development/](build/development/) |
 
 ## Agency tools (outside the build)

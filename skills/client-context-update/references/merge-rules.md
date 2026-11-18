@@ -70,7 +70,7 @@ When an `R` item in `## Open Items` is now answered, add an `updated` change to 
 | The current website, its platform and what to keep (`ACC Website Platform` when it describes the site) | `## Website Today` |
 | Page counts, deliverables, scope requests | `## Scope Summary` (a `conflict` when it differs from the scope source, otherwise an `added` fact) |
 
-Websites the client names as design references are both: mark `Sites they like` received and add the names (and URLs if given) as a fact under `Goals and Conversion`, since the design brief reads them from the context. Other contact names and emails, approvers, logos, photos, testimonial text, preferences and access details are not context facts: they go in the missing items file as statuses and short notes. A testimonial's existence can be a fact in `## Differentiators and Proof` ("two client testimonials supplied on the intake form"); do not copy testimonial text into the context.
+Websites the client names as design references are both: mark `Sites they like` received and add the names (and URLs if given) as a fact under `Goals and Conversion`, so Design finds them in the context. Other contact names and emails, approvers, logos, photos, testimonial text, preferences and access details are not context facts: they go in the missing items file as statuses and short notes. A testimonial's existence can be a fact in `## Differentiators and Proof` ("two client testimonials supplied on the intake form"); do not copy testimonial text into the context.
 
 ## Gap answers
 

@@ -2,13 +2,11 @@ Client: Thistlewood Roofing
 Checked: 2026-10-22
 Sitemap report: seo-reports/site-structure-optimizer/2026-10-14-thistlewood-roofing.md
 Week 2 handoff: handoff/thistlewood-roofing/thistlewood-roofing-week-2-handoff.md (GO)
-Page-type design briefs: design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md
-Design QA and dev prep: not run yet (design-qa-dev-prep)
 Client feedback: feedback/thistlewood-roofing/2026-10-21-feedback.md
 
 # Dev Handoff Index: Thistlewood Roofing
 
-Pages: 6 READY, 0 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN, 0 NO TEMPLATE
+Pages: 4 READY, 2 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN
 
 Every value below is copied from the file named beside it. Re-run the skill after any change; only statuses move.
 
@@ -19,8 +17,8 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Home
 - URL: /
 - Content file: content/home/article.md
-- Template: Homepage (design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md)
-- Meta title: Redmond Roofing Company
+- Template: Homepage (page type from URL /)
+- Meta title: Redmond Roofing Company | Thistlewood Roofing
 - Meta description: Roof replacement, repairs and gutters from a Redmond crew that has worked Central Oregon roofs since 2009. Free inspections.
 - H1: Redmond Roofing Company for Replacements, Repairs and Gutters
 - Internal links:
@@ -39,8 +37,8 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Roof Replacement
 - URL: /services/roof-replacement/
 - Content file: content/roof-replacement/article.md
-- Template: Service page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)
-- Meta title: Roof Replacement in Redmond, OR
+- Template: Service page (page type from URL /services/roof-replacement/)
+- Meta title: Roof Replacement in Redmond, OR | Thistlewood Roofing
 - Meta description: What a roof replacement costs in Redmond, how long it takes, and when a repair is enough. Free inspection with a written quote.
 - H1: Roof Replacement in Redmond, OR
 - Internal links:
@@ -55,15 +53,28 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Roof Repair
 - URL: /services/roof-repair/
 - Content file: content/roof-repair/article.md
-- Template: Service page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)
-- Meta title: Roof Repair in Redmond: Leaks, Flashing and Storm Damage
+- Template: Service page (page type from URL /services/roof-repair/)
+- Meta title: Roof Repair in Redmond: Leaks, Flashing and Storm Damage | Thistlewood Roofing
 - Meta description: Leak, flashing and storm repairs for Redmond homes, usually done in a day. What a repair costs and when it is not worth it.
 - H1: Roof Repair in Redmond: Leaks, Flashing and Storm Damage
 - Internal links:
   - /services/roof-replacement/ (anchor: full roof replacement)
   - /contact/ (anchor: Book a repair visit)
 - Priority: Build
-- Status: READY
+- Status: WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #1)
+
+### Gutter Installation
+
+- Page: Gutter Installation
+- URL: /services/gutter-installation/
+- Content file: none
+- Template: Service page (page type from URL /services/gutter-installation/)
+- Meta title: none
+- Meta description: none
+- H1: none
+- Internal links: none
+- Priority: Build
+- Status: NOT WRITTEN
 
 ## Location Pages
 
@@ -72,8 +83,8 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Redmond Roofer
 - URL: /redmond-roofer/
 - Content file: content/redmond-roofer/article.md
-- Template: Location page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)
-- Meta title: Roofer in Redmond, OR
+- Template: Location page (page type from section markers)
+- Meta title: Roofer in Redmond, OR | Thistlewood Roofing
 - Meta description: A Redmond roofing crew for asphalt, metal and flat roofs. Local references, free inspections and directions to the yard on SW Veterans Way.
 - H1: Your Redmond Roofer
 - Internal links:
@@ -81,7 +92,7 @@ Every value below is copied from the file named beside it. Re-run the skill afte
   - /services/roof-repair/ (anchor: Roof repair in Redmond)
   - /contact/ (anchor: Book your free inspection)
 - Priority: Build
-- Status: READY
+- Status: WAITING ON CLIENT CHANGES (feedback/thistlewood-roofing/2026-10-21-feedback.md row #3)
 
 ## About Page
 
@@ -90,8 +101,8 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: About
 - URL: /about/
 - Content file: content/about/article.md
-- Template: About page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)
-- Meta title: About Thistlewood Roofing
+- Template: About page (page type from section markers)
+- Meta title: About Thistlewood Roofing | Redmond Roofers Since 2009
 - Meta description: Family-run since 2009, licensed in Oregon (CCB #214477), with a crew of eleven. Meet the people who will be on your roof.
 - H1: About Thistlewood Roofing
 - Internal links:
@@ -107,35 +118,22 @@ Every value below is copied from the file named beside it. Re-run the skill afte
 - Page: Contact
 - URL: /contact/
 - Content file: content/contact/article.md
-- Template: Contact page (design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md)
-- Meta title: Contact Thistlewood Roofing
+- Template: Contact page (page type from section markers)
+- Meta title: Contact Thistlewood Roofing | Book a Free Roof Inspection
 - Meta description: Call 541-555-0182 or send the form to book a free roof inspection in Redmond, Bend or Sisters.
 - H1: Contact Thistlewood Roofing
 - Internal links: none
 - Priority: Build
 - Status: READY
 
-## Pages Without a Template
-
-### Gutter Installation
-
-- Page: Gutter Installation
-- URL: /services/gutter-installation/
-- Content file: none
-- Template: none
-- Meta title: none
-- Meta description: none
-- H1: none
-- Internal links: none
-- Priority: Build
-- Status: NOT WRITTEN
+## Resource Pages
 
 ### Storm Damage Roof Guide
 
 - Page: Storm Damage Roof Guide
 - URL: /blog/storm-damage-roof-guide/
 - Content file: none
-- Template: none
+- Template: Resource page (page type from URL /blog/storm-damage-roof-guide/)
 - Meta title: none
 - Meta description: none
 - H1: none
@@ -193,8 +191,8 @@ Structured data: not in the current process
 
 | Old URL | New URL | Note |
 |---|---|---|
-| https://thistlewoodroofing.com/about-us/ | /about/ | 301 (301, same page renamed) |
-| https://thistlewoodroofing.com/roofing-services/ | /services/roof-replacement/ | 301 (301, old catch-all services page) |
+| https://thistlewoodroofing.com/about-us/ | /about/ | 301, same page renamed |
+| https://thistlewoodroofing.com/roofing-services/ | /services/roof-replacement/ | 301, old catch-all services page |
 | https://thistlewoodroofing.com/gallery/ | NO TARGET | SEO to decide: not in the sitemap or the redirect map |
 
 ## Blocking
@@ -202,5 +200,6 @@ Structured data: not in the current process
 - Page: Gutter Installation (/services/gutter-installation/) is NOT WRITTEN (Content, seo-content-writer)
 
 Not blocking dev: 1 old URL(s) with NO TARGET; SEO picks a 301 target before launch.
+Not blocking dev: waiting on client changes: Roof Repair, Redmond Roofer; build them after Content rewrites the page and this index is re-run.
 
 NO-GO

@@ -7,7 +7,7 @@ Usage:
   handoff_check.py inventory <url-inventory.csv>
 
 `run` reads the client's working folder (the folder holding kickoff/, client-reference/,
-research/, seo-reports/, content/, design/, emails/, welcome-email/, feedback/), writes
+research/, seo-reports/, content/, emails/, welcome-email/, feedback/), writes
 handoff/<slug>/<slug>-week-1-handoff.md (not with --dry-run) and prints the same report.
 Its last line is GO or NO-GO. Exit 0 on GO, 1 on NO-GO, 2 on a usage error.
 
@@ -31,13 +31,10 @@ PACKAGE_HEADINGS = ["Services Priority", "Audiences", "Service Area Tiers", "Voi
                     "Competitors", "Topics to Own", "Goals and Success Measures", "Scope Decisions", "Open Items"]
 CALL_BRIEF_HEADINGS = ["Call Goals", "What We Know", "Questions to Settle", "Scope to Confirm",
                        "Access to Confirm", "Relationship Notes"]
-DESIGN_HEADINGS = ["Goals", "Audience", "Brand Cues", "Design References", "Section Map", "Imagery",
-                   "Must-Haves", "Do-Nots", "Open Questions", "Sources"]
 MISSING_HEADINGS = ["Intake Items", "Platform Access", "Kickoff Call Agenda"]
 KIT_FILES = ["brand.md", "voice.md", "style.md", "audience.md", "compliance.md"]
 CONTENT_FILES = ["article.md", "metadata.md", "article.html", "qa_report.md", "handoff.md"]
 CAP_RE = re.compile(r"countable pages\W*(\d+)\s*/\s*SOW cap\W*(\d+|unknown)", re.I)
-MARKER_RE = re.compile(r"<!--\s*section:\s*(.+?)\s*-->")
 OPTION_RE = re.compile(r"^\s*[^:\n]{1,60}:\s*https?://\S+\s*$")
 
 OWNERS = {
@@ -53,7 +50,7 @@ OWNERS = {
     "cbrief": "SEO, content-brief",
     "content": "SEO, seo-content-writer",
     "editor": "SEO editor",
-    "design": "Design, homepage-design-brief",
+    "design": "Design",
     "email": "AM, week-1-client-email",
     "feedback": "AM, client-feedback",
 }
@@ -318,59 +315,39 @@ def build(root: Path, slug: str, kit: str | None, content: str | None, signoff: 
             r.note = f"VERDICT: {verdict.group(1)}" + (f"; {flags} open flags for the client" if flags else "")
     rows.append(r)
 
-    dbrief_p = root / "design" / slug / f"{slug}-homepage-design-brief.md"
-    dbrief = read(dbrief_p)
-    r = Row("Editorial sign-off", True, rel(root, dbrief_p), OWNERS["editor"])
-    review = re.search(r"^Content review:\s*(.+?)\s*$", dbrief, re.M)
+    r = Row("Editorial sign-off", True, "given by the user", OWNERS["editor"])
     if signoff:
-        r.path, r.note = "given by the user", f"signed off: {signoff}"
-    elif review and review.group(1).lower().startswith("confirmed"):
-        r.note = review.group(1)
-    elif review:
-        r.set("missing", f"design brief says `Content review: {review.group(1)}`; record the editor's sign-off")
+        r.note = f"signed off: {signoff}"
     else:
-        r.set("missing", "no record of the editor's sign-off (design brief `Content review:` line or --signoff)")
+        r.set("missing", "no record of the editor's sign-off; run again with --signoff once the editor has "
+                         "signed off the homepage copy")
     rows.append(r)
-
-    r = file_row(root, "Homepage design brief", True, dbrief_p, OWNERS["design"], DESIGN_HEADINGS)
-    if r.status == "present" and article and article.is_file():
-        page = MARKER_RE.findall(read(article))
-        mapped = [row[1] for row in table_rows(dbrief, "#", "Section") if len(row) > 1]
-        low_page, low_mapped = [s.lower() for s in page], [s.lower() for s in mapped]
-        if not page or not mapped:
-            r.note = "Section Map not compared: " + ("no section markers in the article" if not page
-                                                     else "no `| # | Section |` table in the brief")
-        elif low_page != low_mapped:
-            gone = [s for s in page if s.lower() not in low_mapped]
-            extra = [s for s in mapped if s.lower() not in low_page]
-            detail = "; ".join(x for x in (
-                ("page sections not mapped: " + ", ".join(gone)) if gone else "",
-                ("mapped sections no longer on the page: " + ", ".join(extra)) if extra else "",
-            ) if x) or "section order differs"
-            r.set("stale", f"Section Map does not match {rel(root, article)} ({detail}); rerun homepage-design-brief")
-    rows.append(r)
-    wf = root / "design" / slug / f"{slug}-homepage-wireframe.html"
-    rows.append(Row("Homepage wireframe", False, rel(root, wf), OWNERS["design"])
-                .set("present" if wf.is_file() else "n/a", "" if wf.is_file() else "optional, not made"))
 
     # 9. Week 1 email
     em_p = root / "emails" / slug / f"{slug}-week-1-email.md"
     r = file_row(root, "Week 1 client email", True, em_p, OWNERS["email"],
                  need_text=[("`Subject:` line", r"^Subject:\s*\S"), ("`Design options:` line", r"^Design options:\s*$")])
+    opts = []
     if r.status == "present":
         em = re.split(r"^Design options:\s*$", read(em_p), maxsplit=1, flags=re.M)[-1].lstrip("\n").splitlines()
-        opts = []
         for line in em:
             if not OPTION_RE.match(line):
                 break
             opts.append(line)
-        if len(opts) < 2:
-            r.set("missing", f"incomplete, {len(opts)} design option link(s); Week 1 sends 2 to 3; owner {OWNERS['email']}")
-        else:
-            r.note = f"{len(opts)} design options"
+        if not opts:
+            r.set("missing", f"incomplete, no homepage design link under `Design options:`; owner {OWNERS['email']}")
     rows.append(r)
 
-    # 10. Client feedback (never blocks)
+    # 10. Homepage design: at least one, sent with the Week 1 email; more are optional
+    r = Row("Homepage design", True, rel(root, em_p), OWNERS["design"])
+    if opts:
+        r.note = f"{len(opts)} homepage design{'s' if len(opts) > 1 else ''} sent for client review"
+    else:
+        r.set("missing", "no homepage design link in the Week 1 email; at least one homepage design goes to the "
+                         f"client (owner {OWNERS['design']}, sent by {OWNERS['email']})")
+    rows.append(r)
+
+    # 11. Client feedback (never blocks)
     fdir = root / "feedback" / slug
     fb = latest([p for p in fdir.glob("*-feedback.md")])
     r = Row("Client feedback", False, rel(root, fb) if fb else rel(root, fdir) + "/", OWNERS["feedback"])

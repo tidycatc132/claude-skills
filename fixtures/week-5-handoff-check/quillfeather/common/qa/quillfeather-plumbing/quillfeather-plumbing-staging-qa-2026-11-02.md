@@ -2,7 +2,6 @@ Client: Quillfeather Plumbing
 Checked: 2026-11-02
 Staging: https://quillfeather.staging-wise.site (saved pages: staging/)
 Dev handoff index: handoff/quillfeather-plumbing/quillfeather-plumbing-dev-handoff-index.md (GO)
-Design QA and dev prep: design/quillfeather-plumbing/quillfeather-plumbing-design-qa-devprep.md
 Compared with: none (first run)
 Screenshots: none (turned off (--no-screens))
 

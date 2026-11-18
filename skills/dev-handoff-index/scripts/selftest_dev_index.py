@@ -64,7 +64,7 @@ def main() -> int:
         d = make(); temps.append(d)
         rc, out, t = run(d)
         check("base: NO-GO, exit 1", rc == 1 and t.rstrip().endswith("\nNO-GO"), out[-200:])
-        check("base: summary counts", "Pages: 4 READY, 2 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN, 0 NO TEMPLATE" in t)
+        check("base: summary counts", "Pages: 4 READY, 2 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN" in t)
         check("held by page: Affects", status(t, "Roof Repair").startswith("WAITING ON CLIENT CHANGES (feedback/"),
               status(t, "Roof Repair"))
         check("held by Impact pages list", status(t, "Redmond Roofer").startswith("WAITING ON CLIENT CHANGES"))
@@ -84,7 +84,12 @@ def main() -> int:
         check("structured data line", "Structured data: not in the current process" in t)
         check("conversion routes", "- Contact: contact form (section: Contact Form)" in t
               and "- Contact: mailto:office@thistlewoodroofing.com" in t)
-        check("no design QA yet", "Design QA and dev prep: not run yet" in t and "## Design Assets" not in t)
+        check("no design files read", "Design QA" not in t and "design brief" not in t.lower()
+              and "## Design Assets" not in t)
+        check("client name from the context", t.startswith("Client: Thistlewood Roofing\n"))
+        check("page type from markers", "- Template: Location page (page type from section markers)" in t)
+        check("page type from URL", "- Template: Service page (page type from URL /services/roof-repair/)" in t)
+        check("homepage group", "### Home\n" in t.split("## Homepage")[1].split("\n## ")[0])
 
         touch(d, "content/roof-repair/article.md")
         rc, out, t = run(d)
@@ -95,25 +100,38 @@ def main() -> int:
         touch(d, "content/roof-repair/article.md")
         rc, out, t = run(d)
         check("complete: GO, exit 0", rc == 0 and t.rstrip().endswith("\nGO"), out[-300:])
-        check("complete: counts", "Pages: 6 READY, 1 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN, 0 NO TEMPLATE" in t)
+        check("complete: counts", "Pages: 6 READY, 1 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN" in t)
         check("complete: old index replaced", "Pages: 4 READY" not in t)
-        check("asset checklist copied", "- #2F4A3A forest green, #F4EFE6 cream, #1F1F1F text" in t
-              and "### Interactive elements" in t)
         rc2, _, t2 = run(d)
         check("rerun is identical", rc2 == rc and t2 == t)
 
         d = make("complete"); temps.append(d)
-        qa = d / "design" / SLUG / f"{SLUG}-design-qa-devprep.md"
-        qa.write_text(qa.read_text(encoding="utf-8").replace("RESULT: PASS", "RESULT: FAIL"), encoding="utf-8")
+        touch(d, "content/roof-repair/article.md")
+        rep = d / "seo-reports/site-structure-optimizer/2026-10-14-thistlewood-roofing.md"
+        rep.write_text(rep.read_text(encoding="utf-8").replace("| About | /about/ |", "| About | /our-story/ |"),
+                       encoding="utf-8")
+        for f, old, new in (("content/about/metadata.md", "/about/", "/our-story/"),
+                            ("content/about/article.md", "<!-- section: Company Story -->\n", "")):
+            (d / f).write_text((d / f).read_text(encoding="utf-8").replace(old, new), encoding="utf-8")
+            touch(d, f, 1_000_000)
         rc, out, t = run(d)
-        check("design QA FAIL blocks", rc == 1 and "Design QA and dev prep:" in t.split("## Blocking")[1])
+        check("unknown page type does not block", rc == 0 and status(t, "About") == "READY"
+              and "### About" in t.split("## Pages Without a Template")[1]
+              and "Not blocking dev: About (/our-story/): page type not recognised" in t, out[-300:])
 
         d = make("complete"); temps.append(d)
-        b = d / "design" / SLUG / f"{SLUG}-page-type-design-briefs.md"
-        b.write_text(b.read_text(encoding="utf-8").replace("- `content/about/article.md`\n", ""), encoding="utf-8")
+        (d / "research" / "content-briefs").mkdir(parents=True)
+        (d / "research/content-briefs/redmond-roofer.md").write_text(
+            "---\npage_url: /redmond-roofer/\nformat: service-page\n---\n", encoding="utf-8")
+        art = d / "content/redmond-roofer/article.md"
+        art.write_text(re.sub(r"<!-- section: (How We Serve|Local Services|Local Proof|Directions) -->\n", "",
+                              art.read_text(encoding="utf-8")), encoding="utf-8")
+        touch(d, "content/redmond-roofer/article.md", 1_000_000)
         rc, out, t = run(d)
-        check("no template blocks", status(t, "About") == "NO TEMPLATE" and rc == 1
-              and "### About" in t.split("## Pages Without a Template")[1])
+        check("unwritten page typed from its brief", "### Gutter Installation" in t.split("## Service Pages")[1].split("\n## ")[0])
+        check("page type from the content brief format",
+              "- Template: Service page (page type from content brief format service-page)" in t
+              and "### Redmond Roofer" in t.split("## Service Pages")[1].split("\n## ")[0], out[-300:])
 
         d = make("complete"); temps.append(d)
         (d / "content" / "gutter-installation" / "metadata.md").unlink()
@@ -140,6 +158,9 @@ def main() -> int:
         p = subprocess.run([sys.executable, str(SCRIPT), "sitemap", str(FIX / "base/handoff" / SLUG / f"{SLUG}-week-2-handoff.md")],
                            capture_output=True, text=True)
         check("sitemap reader refuses a file with no URL map", p.returncode == 1)
+        p = subprocess.run([sys.executable, str(SCRIPT), "pagetype", str(FIX / "base/content/contact")],
+                           capture_output=True, text=True)
+        check("pagetype reader", p.returncode == 0 and '"page type": "contact"' in p.stdout, p.stdout[:200])
     finally:
         for d in temps:
             shutil.rmtree(d, ignore_errors=True)

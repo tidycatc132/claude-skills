@@ -3,10 +3,10 @@
     "/",
     "/services/roof-replacement/",
     "/services/roof-repair/",
+    "/services/gutter-installation/",
     "/redmond-roofer/",
     "/about/",
-    "/contact/",
-    "/services/gutter-installation/"
+    "/contact/"
   ],
   "Post-Launch": [
     {

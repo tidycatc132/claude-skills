@@ -90,6 +90,18 @@
   },
   {
     "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+    "Page": "Gutter Installation",
+    "URL": "/services/gutter-installation/",
+    "Content file": "none",
+    "Meta title": "none",
+    "Meta description": "none",
+    "H1": "none",
+    "Internal links": [],
+    "Priority": "Build",
+    "Status": "NOT WRITTEN"
+  },
+  {
+    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
     "Page": "Redmond Roofer",
     "URL": "/redmond-roofer/",
     "Content file": "content/redmond-roofer/article.md",
@@ -150,18 +162,6 @@
     "Internal links": [],
     "Priority": "Build",
     "Status": "READY"
-  },
-  {
-    "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-    "Page": "Gutter Installation",
-    "URL": "/services/gutter-installation/",
-    "Content file": "none",
-    "Meta title": "none",
-    "Meta description": "none",
-    "H1": "none",
-    "Internal links": [],
-    "Priority": "Build",
-    "Status": "NOT WRITTEN"
   },
   {
     "file": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",

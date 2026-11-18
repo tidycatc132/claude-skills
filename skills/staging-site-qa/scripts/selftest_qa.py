@@ -68,11 +68,13 @@ def main() -> int:
         ok("design finding without a screenshot is rejected", r.returncode == 1 and "not a screenshot from this scan" in r.stderr, r.stderr)
         (qa / f"{SLUG}-review-notes.md").write_text(
             "## Design Findings\n\n| Page URL | Severity | Finding | Fix | Evidence |\n|---|---|---|---|---|\n"
-            "| /services/drain-cleaning/ | MINOR | The header photo is the wrong size. | Upload the 1600 x 900 WebP. | asset checklist: Service header photo (2): 1600 x 900, WebP |\n\n"
-            "## AM Items\n\n- The client has not sent the crew photo.\n")
+            "| /services/drain-cleaning/ | MINOR | The header photo is the wrong size. | Upload the 1600 x 900 WebP. | asset checklist: Service header photo (2): 1600 x 900, WebP |\n")
+        r = run(w, "report", "--slug", SLUG)
+        ok("asset checklist is no longer evidence", r.returncode == 1 and "not a screenshot from this scan" in r.stderr, r.stderr)
+        (qa / f"{SLUG}-review-notes.md").write_text("## AM Items\n\n- The client has not sent the crew photo.\n")
         r = run(w, "report", "--slug", SLUG)
         rep2 = (qa / f"{SLUG}-staging-qa-2026-11-03.md").read_text()
-        ok("asset checklist evidence accepted", r.returncode == 0 and "| Design | MINOR |" in rep2 and "(asset checklist: Service header photo" in rep2, r.stdout + r.stderr)
+        ok("AM-only review notes accepted", r.returncode == 0 and "Design QA" not in rep2, r.stdout + r.stderr)
         ok("AM item listed, not a task", "- The client has not sent the crew photo." in rep2 and "crew photo." not in (qa / f"{SLUG}-bugherd-tasks.json").read_text())
         (qa / f"{SLUG}-review-notes.md").unlink()
         run(w, "report", "--slug", SLUG)

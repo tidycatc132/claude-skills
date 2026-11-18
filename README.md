@@ -21,14 +21,13 @@ The "frozen once committed" rules are based on git, so an eval, fixture or contr
 
 ## Install as plugins
 
-The skills are also published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build, plus agency tools and paid media.
+The skills are also published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build (Design has no skills since its design brief steps were removed), plus agency tools and paid media.
 
 ```
 /plugin marketplace add tidycatc132/claude-skills
 /plugin install website-build@wise-skills          # every build department
 /plugin install build-account-management@wise-skills
 /plugin install build-seo-content@wise-skills
-/plugin install build-design@wise-skills
 /plugin install build-development@wise-skills
 /plugin install build-shared@wise-skills           # pulled in by each department plugin
 /plugin install agency-tools@wise-skills

@@ -6,7 +6,7 @@ Plugins group them. Each plugin entry in marketplace.json has a `category`, and 
 folder is plugins/<category>/<rest of the name>/, where "rest" is the plugin name
 with "<category>-" taken off the front (or nothing when the name equals the
 category). For example:
-    build-design        (category build)  -> plugins/build/design/
+    build-seo-content   (category build)  -> plugins/build/seo-content/
     agency-tools        (category agency) -> plugins/agency/tools/
     website-build       (category build)  -> plugins/build/website-build/
 

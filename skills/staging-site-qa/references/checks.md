@@ -20,7 +20,6 @@ What `scripts/qa.py scan` checks on each `Build` page of the dev handoff index, 
 | Placeholder text | Latin filler text, bracketed insert notes, template braces, "sample text" | Content | CRITICAL |
 | Alt text | an image with no alt attribute (an empty alt is decorative and allowed) | SEO | MAJOR |
 | Broken image | an image on the staging host that does not load (live mode) | Design | MAJOR |
-| Asset checklist | a file named in `### Images` is not used on any page | Design | MAJOR |
 | Viewport | no viewport meta tag | Development | MAJOR |
 | Favicon | no icon link (and, live, no /favicon.ico) | Development | MINOR |
 | Open Graph | no og:title or no og:description | SEO | MINOR |

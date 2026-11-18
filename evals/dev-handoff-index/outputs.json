@@ -53,14 +53,6 @@
           "dest": "content/roof-replacement/metadata.md"
         },
         {
-          "src": "fixtures/dev-handoff-index/thistlewood/base/design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md"
-        },
-        {
-          "src": "fixtures/dev-handoff-index/thistlewood/base/design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md"
-        },
-        {
           "src": "fixtures/dev-handoff-index/thistlewood/base/handoff/thistlewood-roofing/thistlewood-roofing-week-2-handoff.md",
           "dest": "handoff/thistlewood-roofing/thistlewood-roofing-week-2-handoff.md"
         },
@@ -83,6 +75,10 @@
         {
           "src": "fixtures/dev-handoff-index/thistlewood/base/feedback/thistlewood-roofing/2026-10-21-feedback.md",
           "dest": "feedback/thistlewood-roofing/2026-10-21-feedback.md"
+        },
+        {
+          "src": "fixtures/dev-handoff-index/thistlewood/base/kickoff/thistlewood-roofing/thistlewood-roofing-context.md",
+          "dest": "kickoff/thistlewood-roofing/thistlewood-roofing-context.md"
         }
       ],
       "assertions": [
@@ -93,7 +89,7 @@
         {
           "type": "contains",
           "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-          "text": "Pages: 4 READY, 2 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN, 0 NO TEMPLATE"
+          "text": "Pages: 4 READY, 2 WAITING ON CLIENT CHANGES, 2 NOT WRITTEN"
         },
         {
           "type": "regex",
@@ -194,12 +190,22 @@
           "type": "regex",
           "path": "stdout",
           "pattern": "(?i)gutter"
+        },
+        {
+          "type": "not_contains",
+          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+          "text": "design brief"
+        },
+        {
+          "type": "not_contains",
+          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+          "text": "NO TEMPLATE"
         }
       ]
     },
     {
       "id": "released-go-rerun",
-      "prompt": "Use the dev-handoff-index skill. Content rewrote the Roof Repair page after Marisol's notes, the gutter page is written, and Design finished the QA. Re-run the Thistlewood Roofing dev handoff index in this folder. Is it GO?",
+      "prompt": "Use the dev-handoff-index skill. Content rewrote the Roof Repair page after Marisol's notes and the gutter page is written. Re-run the Thistlewood Roofing dev handoff index in this folder. Is it GO?",
       "fixtures": [
         {
           "src": "fixtures/dev-handoff-index/thistlewood/base/content/about/article.md",
@@ -246,10 +252,6 @@
           "dest": "content/roof-replacement/metadata.md"
         },
         {
-          "src": "fixtures/dev-handoff-index/thistlewood/base/design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md"
-        },
-        {
           "src": "fixtures/dev-handoff-index/thistlewood/base/handoff/thistlewood-roofing/thistlewood-roofing-week-2-handoff.md",
           "dest": "handoff/thistlewood-roofing/thistlewood-roofing-week-2-handoff.md"
         },
@@ -274,14 +276,6 @@
           "dest": "content/gutter-installation/metadata.md"
         },
         {
-          "src": "fixtures/dev-handoff-index/thistlewood/variants/complete/design/thistlewood-roofing/thistlewood-roofing-design-qa-devprep.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-design-qa-devprep.md"
-        },
-        {
-          "src": "fixtures/dev-handoff-index/thistlewood/variants/complete/design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md"
-        },
-        {
           "src": "fixtures/dev-handoff-index/thistlewood/variants/complete/handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
           "dest": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md"
         },
@@ -296,6 +290,10 @@
         {
           "src": "fixtures/dev-handoff-index/thistlewood/base/content/roof-repair/article.md",
           "dest": "content/roof-repair/article.md"
+        },
+        {
+          "src": "fixtures/dev-handoff-index/thistlewood/base/kickoff/thistlewood-roofing/thistlewood-roofing-context.md",
+          "dest": "kickoff/thistlewood-roofing/thistlewood-roofing-context.md"
         }
       ],
       "assertions": [
@@ -306,7 +304,7 @@
         {
           "type": "contains",
           "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-          "text": "Pages: 6 READY, 1 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN, 0 NO TEMPLATE"
+          "text": "Pages: 6 READY, 1 WAITING ON CLIENT CHANGES, 1 NOT WRITTEN"
         },
         {
           "type": "not_contains",
@@ -334,21 +332,6 @@
           "text": "- Meta title: Seamless Gutter Installation in Redmond | Thistlewood Roofing"
         },
         {
-          "type": "contains",
-          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-          "text": "- #2F4A3A forest green, #F4EFE6 cream, #1F1F1F text"
-        },
-        {
-          "type": "contains",
-          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-          "text": "- Contact form: name, phone, email, address, message; sends to office@thistlewoodroofing.com"
-        },
-        {
-          "type": "regex",
-          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
-          "pattern": "Design QA and dev prep: design/thistlewood-roofing/thistlewood-roofing-design-qa-devprep.md \\(RESULT: PASS\\)"
-        },
-        {
           "type": "regex",
           "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
           "pattern": "\\nGO\\n?$"
@@ -362,6 +345,16 @@
           "type": "regex",
           "path": "stdout",
           "pattern": "(?i)redmond"
+        },
+        {
+          "type": "regex",
+          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+          "pattern": "### Gutter Installation\\n\\n(?:[ -][^\\n]*\\n)*?- Template: Service page \\(page type from "
+        },
+        {
+          "type": "not_contains",
+          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+          "text": "NO TEMPLATE"
         }
       ]
     },
@@ -418,14 +411,6 @@
           "dest": "content/roof-replacement/metadata.md"
         },
         {
-          "src": "fixtures/dev-handoff-index/thistlewood/base/design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-homepage-design-brief.md"
-        },
-        {
-          "src": "fixtures/dev-handoff-index/thistlewood/base/design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md",
-          "dest": "design/thistlewood-roofing/thistlewood-roofing-page-type-design-briefs.md"
-        },
-        {
           "src": "fixtures/dev-handoff-index/thistlewood/base/seo-reports/site-structure-optimizer/2026-10-14-thistlewood-roofing-targets.csv",
           "dest": "seo-reports/site-structure-optimizer/2026-10-14-thistlewood-roofing-targets.csv"
         },
@@ -448,6 +433,10 @@
         {
           "src": "fixtures/dev-handoff-index/thistlewood/base/feedback/thistlewood-roofing/2026-10-21-feedback.md",
           "dest": "feedback/thistlewood-roofing/2026-10-21-feedback.md"
+        },
+        {
+          "src": "fixtures/dev-handoff-index/thistlewood/base/kickoff/thistlewood-roofing/thistlewood-roofing-context.md",
+          "dest": "kickoff/thistlewood-roofing/thistlewood-roofing-context.md"
         }
       ],
       "assertions": [
@@ -489,6 +478,11 @@
           "type": "regex",
           "path": "stdout",
           "pattern": "(?i)no-go"
+        },
+        {
+          "type": "not_contains",
+          "path": "handoff/thistlewood-roofing/thistlewood-roofing-dev-handoff-index.md",
+          "text": "NO TEMPLATE"
         }
       ]
     }

@@ -2,9 +2,9 @@
 
 # website-build
 
-The whole WISE website build process in one install: adds the Account Management, SEO & Content, Design and Development plugins and the shared build skills. Use it for someone who works across departments.
+The whole WISE website build process in one install: adds the Account Management, SEO & Content and Development plugins and the shared build skills. Use it for someone who works across departments.
 
-Installing it also installs: [`build-shared`](../shared/README.md), [`build-account-management`](../account-management/README.md), [`build-seo-content`](../seo-content/README.md), [`build-design`](../design/README.md), [`build-development`](../development/README.md).
+Installing it also installs: [`build-shared`](../shared/README.md), [`build-account-management`](../account-management/README.md), [`build-seo-content`](../seo-content/README.md), [`build-development`](../development/README.md).
 
 This plugin has no skills of its own.
 

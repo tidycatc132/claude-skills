@@ -11,7 +11,7 @@
       "name": "website-build",
       "category": "build",
       "source": "./plugins/build/website-build",
-      "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content, Design and Development plugins and the shared build skills. Use it for someone who works across departments."
+      "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content and Development plugins and the shared build skills. Use it for someone who works across departments."
     },
     {
       "name": "build-shared",
@@ -73,21 +73,6 @@
         "./skills/technical-seo-checker",
         "./skills/seo-drift-monitor",
         "./skills/offsite-signal-analyzer"
-      ],
-      "dependencies": [
-        "build-shared"
-      ]
-    },
-    {
-      "name": "build-design",
-      "category": "build",
-      "source": "./",
-      "description": "Design website build skills: homepage design brief, page-type design briefs with optional wireframes, and the design quality check with dev prep.",
-      "strict": false,
-      "skills": [
-        "./skills/homepage-design-brief",
-        "./skills/page-type-design-briefs",
-        "./skills/design-qa-dev-prep"
       ],
       "dependencies": [
         "build-shared"
