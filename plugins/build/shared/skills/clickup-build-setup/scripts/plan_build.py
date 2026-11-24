@@ -10,7 +10,7 @@ Nothing is sent to ClickUp. Exit 0 and `PLAN: OK` when the plan is valid, exit 2
 Usage:
   plan_build.py --client "Client Name" --code ABC --kickoff 2026-11-30 --paid-media no
                 [--person AM="Name"] ... [--test-run] [--tag NAME] ...
-                [--holiday YYYY-MM-DD] ... [--no-default-holidays] [--out-dir DIR] [--plan FILE]
+                [--holiday YYYY-MM-DD] ... [--no-default-holidays] [--list-name NAME] [--out-dir DIR] [--plan FILE]
 """
 from __future__ import annotations
 
@@ -104,6 +104,7 @@ def main() -> int:
     ap.add_argument("--tag", action="append", default=[])
     ap.add_argument("--holiday", action="append", default=[])
     ap.add_argument("--no-default-holidays", action="store_true")
+    ap.add_argument("--list-name", help="use this exact list name instead of the plan's pattern")
     ap.add_argument("--out-dir")
     ap.add_argument("--plan", default=str(DEFAULT_PLAN))
     a = ap.parse_args()
@@ -188,6 +189,10 @@ def main() -> int:
     slug = slugify(client)
     list_client = f"TEST {client}" if a.test_run else client
     list_name = plan["list_name"].format(code=code, client=list_client)
+    if a.list_name:
+        list_name = a.list_name.strip()
+        if not list_name.startswith(f"[{code}] "):
+            fail(f"--list-name must start with the client code [{code}], got '{list_name}'")
     tags = sorted({x.strip().lower() for x in a.tag if x.strip()} | ({"test-run"} if a.test_run else set()))
     ctx = {"client": client, "code": f"[{code}]", "kickoff": kickoff.isoformat(), "test_run": a.test_run}
     st = plan["statuses"]
