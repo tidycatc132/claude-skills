@@ -115,6 +115,13 @@ def main() -> int:
         check("test tag everywhere", all("test-run" in it["tags"] for it in ops2["items"]))
         check("paid media created", "Paid Media (only if signed)" in n2 and ops2["counts"]["dependencies"] == 74)
         check("test schedule ends day 15", ops2["last_day"] == "2026-12-18")
+        p = run(plan, "--client", "Larkspur Pet Clinic", "--code", "LPC", "--kickoff", "2026-11-30", "--paid-media", "no",
+                "--test-run", "--list-name", "[LPC] Larkspur Pet Clinic TEST | Website Full Build", "--out-dir", "n", cwd=tmp)
+        ops3 = json.loads((tmp / "n/larkspur-pet-clinic-clickup-ops.json").read_text())
+        check("list name override", ops3["list"]["name"] == "[LPC] Larkspur Pet Clinic TEST | Website Full Build")
+        q = run(plan, "--client", "X Co", "--code", "XCO", "--kickoff", "2026-11-30", "--paid-media", "no",
+                "--list-name", "Wrong name", "--out-dir", "m", cwd=tmp)
+        check("override must start with code", q.returncode == 2)
         # bad input
         for args, label in (([ "--kickoff", "2026-11-28"], "weekend kickoff"), (["--code", "ABCD"], "bad code"),
                             (["--person", "Boss=X"], "unknown role")):
