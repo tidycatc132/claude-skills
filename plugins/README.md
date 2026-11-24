@@ -9,7 +9,7 @@ Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skil
 | Plugin | Skills | Folder |
 |---|---|---|
 | `website-build` | bundle of other plugins | [build/website-build/](build/website-build/) |
-| `build-shared` | 4 | [build/shared/](build/shared/) |
+| `build-shared` | 5 | [build/shared/](build/shared/) |
 | `build-account-management` | 13 | [build/account-management/](build/account-management/) |
 | `build-seo-content` | 15 | [build/seo-content/](build/seo-content/) |
 | `build-development` | 1 | [build/development/](build/development/) |
