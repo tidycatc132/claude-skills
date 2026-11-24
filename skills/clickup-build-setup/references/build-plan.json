@@ -1,0 +1,1276 @@
+{
+ "version": 1,
+ "source": "process-docs clickup-build-plan-setup, section 4 (regrouped 2026-11-22)",
+ "list_name": "[{code}] {client} | Website Full Build",
+ "location": {
+  "space": "Delivery",
+  "folder": "Website Projects"
+ },
+ "task_types": {
+  "group": "Deliverable",
+  "milestone": "Milestone"
+ },
+ "statuses": {
+  "ready": "to do",
+  "waiting": "internal dependency"
+ },
+ "date_hour_utc": 9,
+ "roles": {
+  "AM": {
+   "position": "Account Manager",
+   "department": "Accounts"
+  },
+  "PM": {
+   "position": "Project Manager",
+   "department": "Project Management"
+  },
+  "SEO": {
+   "position": "SEO Specialist",
+   "department": "SEO"
+  },
+  "Editor": {
+   "position": "Copy Editor",
+   "department": "Copy"
+  },
+  "Designer": {
+   "position": "Designer",
+   "department": "Design"
+  },
+  "Developer": {
+   "position": "Developer",
+   "department": "Development"
+  },
+  "PaidMedia": {
+   "position": "Paid Media Search Manager",
+   "department": "Paid Media"
+  }
+ },
+ "groups": [
+  {
+   "id": "W1-SETUP",
+   "name": "Week 1 · Project Setup",
+   "summary": "the day-one setup: the kickoff run, the ClickUp plan, the Claude Project, the gap questions and the welcome email"
+  },
+  {
+   "id": "W1-CALL",
+   "name": "Week 1 · Kickoff Call",
+   "summary": "the intake answers, platform access, the Kickoff Call brief, the call and the transcript"
+  },
+  {
+   "id": "W1-CONTENT",
+   "name": "Week 1 · Site Structure and Content",
+   "summary": "the Client Reference Kit, topic research and the sitemap, the homepage content brief, the homepage content and the editorial review"
+  },
+  {
+   "id": "W1-DESIGN",
+   "name": "Week 1 · Website Design",
+   "summary": "the Website Design task (open from Week 1 to the end of Week 3) and the Homepage Design for the Week 1 email"
+  },
+  {
+   "id": "W1-REVIEW",
+   "name": "Week 1 · Client Review",
+   "summary": "the Week 1 email, the client's feedback and the Week 1 handoff check"
+  },
+  {
+   "id": "W2-BLUEPRINT",
+   "name": "Week 2 · Growth Blueprint",
+   "summary": "the competitor analysis, the Growth Blueprint and AM briefing, the Blueprint deck and the AM briefing review"
+  },
+  {
+   "id": "W2-CONTENT",
+   "name": "Week 2 · Sitemap Page Content",
+   "summary": "the briefs and the content for the remaining sitemap pages"
+  },
+  {
+   "id": "W2-REVIEW",
+   "name": "Week 2 · Client Review",
+   "summary": "the Week 2 email, the client's reply and the Week 2 handoff check"
+  },
+  {
+   "id": "W3-HANDOFF",
+   "name": "Week 3 · Dev Handoff",
+   "summary": "rewriting pages the client asked to change and the dev handoff index"
+  },
+  {
+   "id": "W5-QA",
+   "name": "Week 5 · Internal QA",
+   "summary": "the staging QA run with its BugHerd tasks, working those tasks and the AM review of staging"
+  },
+  {
+   "id": "W5-CLIENT",
+   "name": "Week 5 · Client Staging Review",
+   "summary": "sending staging to the client, processing their edits and the final sweep"
+  },
+  {
+   "id": "W6-LAUNCH",
+   "name": "Week 6 · Website Launch",
+   "summary": "the go-live email, the launch and launch check, the leads dashboard, the SEO/GEO roadmap and goal tracking"
+  },
+  {
+   "id": "PL-CLOSE",
+   "name": "Post Launch · Project Close-out",
+   "summary": "closing out the project, the transition email and the move to the monthly retainer"
+  },
+  {
+   "id": "PL-CASE",
+   "name": "Post Launch · Case Study",
+   "summary": "the case study narrative, the showcase assets and the WISE showcase"
+  },
+  {
+   "id": "PAID",
+   "name": "Paid Media (only if signed)",
+   "summary": "the eight paid media steps"
+  }
+ ],
+ "tasks": [
+  {
+   "ref": "1",
+   "name": "Run the New Build Kickoff",
+   "week": "Week 1",
+   "group": "W1-SETUP",
+   "role": "AM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [],
+   "skill": "new-build-kickoff",
+   "message": "Run the new build kickoff for {client}. Here are the signed SOW and the Sales discovery notes.",
+   "done_when": "Claude has written the kickoff files and the gap questions.",
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "1b",
+   "name": "Create the ClickUp plan",
+   "week": "Week 1",
+   "group": "W1-SETUP",
+   "role": "PM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [
+    "1"
+   ],
+   "skill": "clickup-build-setup",
+   "message": "Set up the ClickUp plan for {client}. Code {code}. Kickoff date {kickoff}.",
+   "done_when": "This list exists with every task, and Claude's answer ends with RESULT: PASS. Close this task once you have checked the list.",
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "2",
+   "name": "Set up the Claude Project",
+   "week": "Week 1",
+   "group": "W1-SETUP",
+   "role": "AM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [
+    "1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The Claude Project is named, has its instructions pasted in, and has the kickoff files uploaded (see subtasks).",
+   "subtasks": [
+    "Name the Claude Project",
+    "Paste the project instructions",
+    "Upload the kickoff files"
+   ],
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "3",
+   "name": "Review the gap questions",
+   "week": "Week 1",
+   "group": "W1-SETUP",
+   "role": "AM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [
+    "1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Every gap question is either answered from what we already have or kept for the intake form.",
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "4",
+   "name": "Send the welcome email",
+   "week": "Week 1",
+   "group": "W1-SETUP",
+   "role": "AM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [
+    "2",
+    "3"
+   ],
+   "skill": "welcome-email",
+   "message": "Write the welcome email for {client}.",
+   "done_when": "The welcome email, with the intake form link, has been sent to the client.",
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "5",
+   "name": "Process the intake form answers",
+   "week": "Week 1",
+   "group": "W1-CALL",
+   "role": "AM",
+   "start": 2,
+   "due": 3,
+   "waits_on": [
+    "4"
+   ],
+   "skill": "client-context-update",
+   "message": "The intake form for {client} is in. Update the client context.",
+   "done_when": "The client context file is updated and any missing items are listed for the Kickoff Call.",
+   "test_start": 2,
+   "test_due": 2
+  },
+  {
+   "ref": "6",
+   "name": "Confirm platform access",
+   "week": "Week 1",
+   "group": "W1-CALL",
+   "role": "Developer",
+   "start": 3,
+   "due": 3,
+   "waits_on": [
+    "5"
+   ],
+   "skill": "client-context-update",
+   "message": "Check the platform access {client} gave us against the access checklist.",
+   "done_when": "Every invite on the access checklist is accepted, or the missing ones are on the Kickoff Call list.",
+   "test_start": 2,
+   "test_due": 2
+  },
+  {
+   "ref": "7",
+   "name": "Generate the Kickoff Call brief",
+   "week": "Week 1",
+   "group": "W1-CALL",
+   "role": "AM",
+   "start": 3,
+   "due": 3,
+   "waits_on": [
+    "5"
+   ],
+   "skill": "kickoff-call-brief",
+   "message": "Write the Kickoff Call brief for {client}.",
+   "done_when": "The brief is saved and shared with everyone on the call.",
+   "test_start": 2,
+   "test_due": 2
+  },
+  {
+   "ref": "8",
+   "name": "Hold the Kickoff Call",
+   "week": "Week 1",
+   "group": "W1-CALL",
+   "role": "AM",
+   "start": 4,
+   "due": 4,
+   "waits_on": [
+    "7"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The call is done and the transcript is saved.",
+   "test_start": 2,
+   "test_due": 2
+  },
+  {
+   "ref": "9",
+   "name": "Process the Kickoff Call transcript",
+   "week": "Week 1",
+   "group": "W1-CALL",
+   "role": "AM",
+   "start": 4,
+   "due": 4,
+   "waits_on": [
+    "8"
+   ],
+   "skill": "kickoff-call-processing, client-context-update",
+   "message": "Here is the Kickoff Call transcript for {client}. Process it and update the client context.",
+   "done_when": "The call summary is written and the client context is updated (see subtasks).",
+   "subtasks": [
+    "Process the transcript",
+    "Update the client context"
+   ],
+   "test_start": 2,
+   "test_due": 2
+  },
+  {
+   "ref": "10",
+   "name": "Build the Client Reference Kit",
+   "week": "Week 1",
+   "group": "W1-CONTENT",
+   "role": "SEO",
+   "start": 5,
+   "due": 5,
+   "waits_on": [
+    "9"
+   ],
+   "skill": "client-reference-kit",
+   "message": "Build the client reference kit for {client}.",
+   "done_when": "brand.md, voice.md, style.md and audience.md are saved in client-reference/.",
+   "test_start": 3,
+   "test_due": 3
+  },
+  {
+   "ref": "11",
+   "name": "Topic research and sitemap",
+   "week": "Week 1",
+   "group": "W1-CONTENT",
+   "role": "SEO",
+   "start": 5,
+   "due": 6,
+   "waits_on": [
+    "10"
+   ],
+   "skill": "keyword-research, site-structure-optimizer",
+   "message": "Run the keyword research and build the sitemap for {client}.",
+   "done_when": "The SEO has reviewed and approved the sitemap (no client approval needed) and the sitemap report is saved. Then type: Add the sitemap pages to ClickUp for {client}.",
+   "test_start": 3,
+   "test_due": 3
+  },
+  {
+   "ref": "12",
+   "name": "Generate the homepage content brief",
+   "week": "Week 1",
+   "group": "W1-CONTENT",
+   "role": "SEO",
+   "start": 6,
+   "due": 6,
+   "waits_on": [
+    "11"
+   ],
+   "skill": "content-brief",
+   "message": "Write the homepage content brief for {client}.",
+   "done_when": "The homepage brief is saved.",
+   "test_start": 3,
+   "test_due": 3
+  },
+  {
+   "ref": "13",
+   "name": "Produce the homepage content",
+   "week": "Week 1",
+   "group": "W1-CONTENT",
+   "role": "SEO",
+   "start": 6,
+   "due": 7,
+   "waits_on": [
+    "12"
+   ],
+   "skill": "seo-content-writer",
+   "message": "Write the homepage for {client} from its brief.",
+   "done_when": "content/home/article.md and metadata.md are saved.",
+   "test_start": 3,
+   "test_due": 3
+  },
+  {
+   "ref": "14",
+   "name": "Human editorial review",
+   "week": "Week 1",
+   "group": "W1-CONTENT",
+   "role": "Editor",
+   "start": 7,
+   "due": 7,
+   "waits_on": [
+    "13"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The editor has reviewed and edited the homepage content.",
+   "test_start": 4,
+   "test_due": 4
+  },
+  {
+   "ref": "WD",
+   "name": "Website Design",
+   "week": "Week 1",
+   "group": "W1-DESIGN",
+   "role": "Designer",
+   "start": 5,
+   "due": 19,
+   "waits_on": [
+    "9"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The whole website design is finished and ready for the dev handoff (W3-4). This is one task for all of the design work from Week 1 to the end of Week 3. It waits only on the Kickoff Call, has no required inputs, and client feedback reaches Design through the AM.",
+   "test_start": 2,
+   "test_due": 8
+  },
+  {
+   "ref": "16",
+   "name": "Homepage Design",
+   "week": "Week 1",
+   "group": "W1-DESIGN",
+   "role": "Designer",
+   "start": 5,
+   "due": 9,
+   "waits_on": [
+    "9"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "At least one homepage design is ready for the Week 1 email. Design can provide more, but one is the minimum.",
+   "test_start": 3,
+   "test_due": 4
+  },
+  {
+   "ref": "17",
+   "name": "Send the Week 1 email",
+   "week": "Week 1",
+   "group": "W1-REVIEW",
+   "role": "AM",
+   "start": 9,
+   "due": 9,
+   "waits_on": [
+    "14",
+    "16"
+   ],
+   "skill": "week-1-client-email",
+   "message": "Write the Week 1 email for {client}.",
+   "done_when": "The email with the homepage design and content is sent, with a reply-by date.",
+   "test_start": 4,
+   "test_due": 4
+  },
+  {
+   "ref": "18",
+   "name": "Process client feedback",
+   "week": "Week 1",
+   "group": "W1-REVIEW",
+   "role": "AM",
+   "start": 10,
+   "due": 12,
+   "waits_on": [
+    "17"
+   ],
+   "skill": "client-feedback, client-context-update",
+   "message": "Here is {client}'s reply to the Week 1 email. Process the feedback.",
+   "done_when": "The feedback file is saved. This does not hold up the handoff check.",
+   "test_start": 4,
+   "test_due": 4
+  },
+  {
+   "ref": "19",
+   "name": "Week 1 handoff check",
+   "week": "Week 1",
+   "group": "W1-REVIEW",
+   "role": "PM",
+   "start": 9,
+   "due": 9,
+   "waits_on": [
+    "17"
+   ],
+   "skill": "week-1-handoff-check",
+   "message": "Run the Week 1 handoff check for {client}.",
+   "done_when": "The check ends with GO.",
+   "test_start": 4,
+   "test_due": 4
+  },
+  {
+   "ref": "M1",
+   "name": "Week 1: Kickoff Stage",
+   "week": "Week 1",
+   "group": null,
+   "role": "PM",
+   "start": 9,
+   "due": 9,
+   "waits_on": [
+    "19"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Week 1 handoff check is GO.",
+   "kind": "milestone",
+   "test_start": 4,
+   "test_due": 4
+  },
+  {
+   "ref": "W2-1",
+   "name": "Run the competitor analysis",
+   "week": "Week 2",
+   "group": "W2-BLUEPRINT",
+   "role": "SEO",
+   "start": 10,
+   "due": 10,
+   "waits_on": [
+    "19"
+   ],
+   "skill": "competitor-analysis",
+   "message": "Run the competitor analysis for {client}.",
+   "done_when": "The competitor analysis is saved.",
+   "test_start": 5,
+   "test_due": 5
+  },
+  {
+   "ref": "W2-2",
+   "name": "Produce the Growth Blueprint and AM briefing",
+   "week": "Week 2",
+   "group": "W2-BLUEPRINT",
+   "role": "SEO",
+   "start": 10,
+   "due": 11,
+   "waits_on": [
+    "W2-1"
+   ],
+   "skill": "growth-blueprint",
+   "message": "Produce the Growth Blueprint for {client}.",
+   "done_when": "The Blueprint and the AM briefing are saved.",
+   "test_start": 5,
+   "test_due": 5
+  },
+  {
+   "ref": "W2-3",
+   "name": "Build the Blueprint deck",
+   "week": "Week 2",
+   "group": "W2-BLUEPRINT",
+   "role": "SEO",
+   "start": 11,
+   "due": 12,
+   "waits_on": [
+    "W2-2"
+   ],
+   "skill": "blueprint-deck",
+   "message": "Build the Blueprint deck for {client}.",
+   "done_when": "The branded deck is ready to send.",
+   "test_start": 5,
+   "test_due": 5
+  },
+  {
+   "ref": "W2-7",
+   "name": "Review the AM briefing",
+   "week": "Week 2",
+   "group": "W2-BLUEPRINT",
+   "role": "AM",
+   "start": 12,
+   "due": 12,
+   "waits_on": [
+    "W2-2"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The AM has read the briefing and is ready to present the Blueprint.",
+   "test_start": 6,
+   "test_due": 6
+  },
+  {
+   "ref": "W2-4",
+   "name": "Brief the remaining sitemap pages",
+   "week": "Week 2",
+   "group": "W2-CONTENT",
+   "role": "SEO",
+   "start": 10,
+   "due": 10,
+   "waits_on": [
+    "19"
+   ],
+   "skill": "content-brief",
+   "message": "Write content briefs for every sitemap page for {client} except the homepage.",
+   "done_when": "There is a brief for every sitemap page.",
+   "test_start": 5,
+   "test_due": 5
+  },
+  {
+   "ref": "W2-5",
+   "name": "Write the sitemap pages",
+   "week": "Week 2",
+   "group": "W2-CONTENT",
+   "role": "SEO",
+   "start": 10,
+   "due": 12,
+   "waits_on": [
+    "W2-4"
+   ],
+   "skill": "seo-content-writer (batch)",
+   "message": "Write all the sitemap pages for {client} from their briefs.",
+   "done_when": "Every page subtask is closed: each page has its article.md and metadata.md. The page subtasks are added after step 11.",
+   "test_start": 6,
+   "test_due": 6
+  },
+  {
+   "ref": "W2-8",
+   "name": "Send the Week 2 email",
+   "week": "Week 2",
+   "group": "W2-REVIEW",
+   "role": "AM",
+   "start": 13,
+   "due": 13,
+   "waits_on": [
+    "W2-3",
+    "W2-5",
+    "W2-7"
+   ],
+   "skill": "week-2-client-email",
+   "message": "Write the Week 2 email for {client}.",
+   "done_when": "The email with the Blueprint and the pages is sent, with a reply-by date.",
+   "test_start": 7,
+   "test_due": 7
+  },
+  {
+   "ref": "W2-9",
+   "name": "Process the client's Week 2 reply",
+   "week": "Week 2",
+   "group": "W2-REVIEW",
+   "role": "AM",
+   "start": 14,
+   "due": 17,
+   "waits_on": [
+    "W2-8"
+   ],
+   "skill": "client-feedback",
+   "message": "Here is {client}'s reply to the Week 2 email. Process it.",
+   "done_when": "The feedback file is saved. Pages the client wants changed are listed for W3-3.",
+   "test_start": 7,
+   "test_due": 7
+  },
+  {
+   "ref": "W2-10",
+   "name": "Week 2 handoff check",
+   "week": "Week 2",
+   "group": "W2-REVIEW",
+   "role": "PM",
+   "start": 14,
+   "due": 14,
+   "waits_on": [
+    "W2-8"
+   ],
+   "skill": "week-2-handoff-check",
+   "message": "Run the Week 2 handoff check for {client}.",
+   "done_when": "The check ends with GO.",
+   "test_start": 7,
+   "test_due": 7
+  },
+  {
+   "ref": "M2",
+   "name": "Week 2: Blueprint Stage",
+   "week": "Week 2",
+   "group": null,
+   "role": "PM",
+   "start": 14,
+   "due": 14,
+   "waits_on": [
+    "W2-10"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Week 2 handoff check is GO.",
+   "kind": "milestone",
+   "test_start": 7,
+   "test_due": 7
+  },
+  {
+   "ref": "W3-3",
+   "name": "Rewrite pages the client asked to change",
+   "week": "Week 3",
+   "group": "W3-HANDOFF",
+   "role": "SEO",
+   "start": 15,
+   "due": 19,
+   "waits_on": [
+    "W2-9"
+   ],
+   "skill": "seo-content-writer",
+   "message": "Rewrite the [page name] page for {client} from its brief, applying the client's changes in the processed Week 2 feedback file.",
+   "done_when": "Every page the client asked to change is rewritten. Close as not needed if the Week 2 reply asked for no page changes.",
+   "test_start": 8,
+   "test_due": 8
+  },
+  {
+   "ref": "W3-4",
+   "name": "Dev handoff index",
+   "week": "Week 3",
+   "group": "W3-HANDOFF",
+   "role": "Developer",
+   "start": 19,
+   "due": 19,
+   "waits_on": [
+    "WD",
+    "W2-10"
+   ],
+   "skill": "dev-handoff-index",
+   "message": "Build the dev handoff index for {client}. What can dev start building?",
+   "done_when": "The index's last line is GO.",
+   "test_start": 8,
+   "test_due": 8
+  },
+  {
+   "ref": "M3",
+   "name": "Week 3: Design + Dev Handoff Stage",
+   "week": "Week 3",
+   "group": null,
+   "role": "PM",
+   "start": 19,
+   "due": 19,
+   "waits_on": [
+    "W3-4"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Dev handoff index is GO.",
+   "kind": "milestone",
+   "test_start": 8,
+   "test_due": 8
+  },
+  {
+   "ref": "W4-1",
+   "name": "Development",
+   "week": "Week 4",
+   "group": null,
+   "role": "Developer",
+   "start": 20,
+   "due": 24,
+   "waits_on": [
+    "W3-4"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The site is built on staging from the dev handoff index, including pages released after client changes.",
+   "test_start": 9,
+   "test_due": 11
+  },
+  {
+   "ref": "M4",
+   "name": "Week 4: Development Stage",
+   "week": "Week 4",
+   "group": null,
+   "role": "PM",
+   "start": 24,
+   "due": 24,
+   "waits_on": [
+    "W4-1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Staging site is ready for QA.",
+   "kind": "milestone",
+   "test_start": 11,
+   "test_due": 11
+  },
+  {
+   "ref": "W5-1",
+   "name": "Run staging QA + create BugHerd tasks",
+   "week": "Week 5",
+   "group": "W5-QA",
+   "role": "PM",
+   "start": 25,
+   "due": 25,
+   "waits_on": [
+    "M4"
+   ],
+   "skill": "staging-site-qa",
+   "message": "Run the staging QA for {client}. Staging is at [staging URL], password [password].",
+   "done_when": "The QA report is saved and, after the PM approves the preview, the BugHerd tasks are created for each department.",
+   "test_start": 12,
+   "test_due": 12
+  },
+  {
+   "ref": "W5-2",
+   "name": "Work the QA tasks in BugHerd",
+   "week": "Week 5",
+   "group": "W5-QA",
+   "role": "PM",
+   "start": 25,
+   "due": 27,
+   "waits_on": [
+    "W5-1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Every department subtask is closed: that department's BugHerd column is empty.",
+   "subtasks": [
+    {
+     "name": "SEO QA tasks",
+     "role": "SEO"
+    },
+    {
+     "name": "Copy QA tasks",
+     "role": "Editor"
+    },
+    {
+     "name": "Design QA tasks",
+     "role": "Designer"
+    },
+    {
+     "name": "Development QA tasks",
+     "role": "Developer"
+    }
+   ],
+   "test_start": 12,
+   "test_due": 12
+  },
+  {
+   "ref": "W5-3",
+   "name": "AM review of staging",
+   "week": "Week 5",
+   "group": "W5-QA",
+   "role": "AM",
+   "start": 26,
+   "due": 26,
+   "waits_on": [
+    "W5-1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The AM has reviewed staging and signed off.",
+   "test_start": 12,
+   "test_due": 12
+  },
+  {
+   "ref": "W5-4",
+   "name": "Send the staging site to the client",
+   "week": "Week 5",
+   "group": "W5-CLIENT",
+   "role": "AM",
+   "start": 26,
+   "due": 26,
+   "waits_on": [
+    "W5-3"
+   ],
+   "skill": "week-5-client-email",
+   "message": "Write the Week 5 staging email for {client}.",
+   "done_when": "The staging link is sent to the client with an edits-by date.",
+   "test_start": 13,
+   "test_due": 13
+  },
+  {
+   "ref": "W5-5",
+   "name": "Process client edits",
+   "week": "Week 5",
+   "group": "W5-CLIENT",
+   "role": "SEO",
+   "start": 27,
+   "due": 29,
+   "waits_on": [
+    "W5-4"
+   ],
+   "skill": "client-feedback",
+   "message": "Here are {client}'s staging edits. Process them into BugHerd tasks.",
+   "done_when": "The client's edits are BugHerd tasks for the right departments, and every one is done or deferred by the PM.",
+   "test_start": 13,
+   "test_due": 13
+  },
+  {
+   "ref": "W5-6",
+   "name": "Final sweep + all good to go message to dev",
+   "week": "Week 5",
+   "group": "W5-CLIENT",
+   "role": "PM",
+   "start": 29,
+   "due": 29,
+   "waits_on": [
+    "W5-2",
+    "W5-5"
+   ],
+   "skill": "week-5-handoff-check",
+   "message": "Run the Week 5 handoff check for {client}.",
+   "done_when": "The check ends with GO and the PM has sent the go-live message to the Developer.",
+   "test_start": 13,
+   "test_due": 13
+  },
+  {
+   "ref": "M5",
+   "name": "Week 5: QA Stage",
+   "week": "Week 5",
+   "group": null,
+   "role": "PM",
+   "start": 29,
+   "due": 29,
+   "waits_on": [
+    "W5-6"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "Week 5 handoff check is GO.",
+   "kind": "milestone",
+   "test_start": 13,
+   "test_due": 13
+  },
+  {
+   "ref": "W6-1",
+   "name": "Send the go-live confirmation email",
+   "week": "Week 6",
+   "group": "W6-LAUNCH",
+   "role": "PM",
+   "start": 30,
+   "due": 30,
+   "waits_on": [
+    "M5"
+   ],
+   "skill": "week-6-go-live-email",
+   "message": "Write the go-live confirmation email for {client}.",
+   "done_when": "The email is sent and the client has confirmed the launch.",
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "W6-2",
+   "name": "Website goes live + launch check",
+   "week": "Week 6",
+   "group": "W6-LAUNCH",
+   "role": "Developer",
+   "start": 30,
+   "due": 30,
+   "waits_on": [
+    "W6-1"
+   ],
+   "skill": "staging-site-qa (launch check)",
+   "message": "Run the launch check for {client}. The live site is [live URL].",
+   "done_when": "The site is live with the Juvo snippet and live chat installed, and the launch check ends with RESULT: LIVE OK.",
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "W6-3",
+   "name": "Launch the Juvo leads dashboard",
+   "week": "Week 6",
+   "group": "W6-LAUNCH",
+   "role": "AM",
+   "start": 30,
+   "due": 30,
+   "waits_on": [
+    "W6-2"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The Juvo leads dashboard is active and the client has access.",
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "W6-4",
+   "name": "Build the SEO/GEO roadmap",
+   "week": "Week 6",
+   "group": "W6-LAUNCH",
+   "role": "SEO",
+   "start": 30,
+   "due": 31,
+   "waits_on": [
+    "W6-2"
+   ],
+   "skill": "retainer-roadmap",
+   "message": "Build the SEO/GEO roadmap for {client}.",
+   "done_when": "The roadmap is saved.",
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "W6-5",
+   "name": "Set up goal tracking events",
+   "week": "Week 6",
+   "group": "W6-LAUNCH",
+   "role": "SEO",
+   "start": 31,
+   "due": 31,
+   "waits_on": [
+    "W6-2"
+   ],
+   "skill": "ga4-event-tracking",
+   "message": "Set up the goal tracking events for {client}. The GA4 Measurement ID is [G-XXXXXXX].",
+   "done_when": "The tracking plan and GTM import file are written, the Developer has published the container (subtask), and the site check passes.",
+   "subtasks": [
+    {
+     "name": "Import and publish the GTM container",
+     "role": "Developer"
+    }
+   ],
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "M6",
+   "name": "Week 6: Launch Stage",
+   "week": "Week 6",
+   "group": null,
+   "role": "PM",
+   "start": 31,
+   "due": 31,
+   "waits_on": [
+    "W6-2",
+    "W6-3",
+    "W6-4",
+    "W6-5"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The site is live, tracked, and the roadmap is written.",
+   "kind": "milestone",
+   "test_start": 14,
+   "test_due": 14
+  },
+  {
+   "ref": "P-1",
+   "name": "Close out the project",
+   "week": "After launch",
+   "group": "PL-CLOSE",
+   "role": "PM",
+   "start": 32,
+   "due": 33,
+   "waits_on": [
+    "M6"
+   ],
+   "skill": "project-close-out",
+   "message": "Close out the project for {client}.",
+   "done_when": "The project summary and retainer handoff are written.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "P-2",
+   "name": "Send the transition email",
+   "week": "After launch",
+   "group": "PL-CLOSE",
+   "role": "AM",
+   "start": 33,
+   "due": 34,
+   "waits_on": [
+    "P-1"
+   ],
+   "skill": "project-close-out",
+   "message": "Write the transition email for {client}.",
+   "done_when": "The transition email is sent, 2 to 3 days after launch.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "P-3",
+   "name": "Transition to the monthly retainer",
+   "week": "After launch",
+   "group": "PL-CLOSE",
+   "role": "SEO",
+   "start": 34,
+   "due": 35,
+   "waits_on": [
+    "P-1"
+   ],
+   "skill": "retainer-roadmap (Month 1)",
+   "message": "Create the Month 1 retainer tasks for {client} in ClickUp.",
+   "done_when": "The Month 1 tasks exist in the client's list in Client Monthly Work.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "P-4",
+   "name": "Generate the case study narrative",
+   "week": "After launch",
+   "group": "PL-CASE",
+   "role": "AM",
+   "start": 32,
+   "due": 33,
+   "waits_on": [
+    "M6"
+   ],
+   "skill": "case-study",
+   "message": "Write the case study for {client}.",
+   "done_when": "The case study narrative and its showcase brief are saved, and the AM has recorded whether the client agrees to be featured.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "P-5",
+   "name": "Design the showcase assets",
+   "week": "After launch",
+   "group": "PL-CASE",
+   "role": "Designer",
+   "start": 34,
+   "due": 36,
+   "waits_on": [
+    "P-4"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The showcase assets are designed from the case study's showcase brief.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "P-6",
+   "name": "Add to the WISE showcase",
+   "week": "After launch",
+   "group": "PL-CASE",
+   "role": "Developer",
+   "start": 37,
+   "due": 37,
+   "waits_on": [
+    "P-5"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The project is live on the WISE showcase.",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "PL",
+   "name": "Post Launch",
+   "week": "After launch",
+   "group": null,
+   "role": "PM",
+   "start": 37,
+   "due": 37,
+   "waits_on": [
+    "P-2",
+    "P-3",
+    "P-6"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The build is closed and handed to the retainer.",
+   "kind": "milestone",
+   "test_start": 15,
+   "test_due": 15
+  },
+  {
+   "ref": "PM-1",
+   "name": "Send the paid media brief",
+   "week": "Week 1",
+   "group": "PAID",
+   "role": "AM",
+   "start": 1,
+   "due": 1,
+   "waits_on": [
+    "3"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 1,
+   "test_due": 1
+  },
+  {
+   "ref": "PM-2",
+   "name": "Paid media keyword research",
+   "week": "Week 1",
+   "group": "PAID",
+   "role": "PaidMedia",
+   "start": 2,
+   "due": 4,
+   "waits_on": [
+    "PM-1"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 2,
+   "test_due": 4
+  },
+  {
+   "ref": "PM-3",
+   "name": "Generate the paid media pre-call brief",
+   "week": "Week 2",
+   "group": "PAID",
+   "role": "AM",
+   "start": 10,
+   "due": 10,
+   "waits_on": [
+    "PM-2"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 5,
+   "test_due": 5
+  },
+  {
+   "ref": "PM-4",
+   "name": "Paid media strategy call",
+   "week": "Week 2",
+   "group": "PAID",
+   "role": "PaidMedia",
+   "start": 11,
+   "due": 11,
+   "waits_on": [
+    "PM-3"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 6,
+   "test_due": 6
+  },
+  {
+   "ref": "PM-5",
+   "name": "Process the paid media call transcript",
+   "week": "Week 2",
+   "group": "PAID",
+   "role": "AM",
+   "start": 11,
+   "due": 11,
+   "waits_on": [
+    "PM-4"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 6,
+   "test_due": 6
+  },
+  {
+   "ref": "PM-6",
+   "name": "Synthesize the paid media research",
+   "week": "Week 2",
+   "group": "PAID",
+   "role": "AM",
+   "start": 12,
+   "due": 12,
+   "waits_on": [
+    "PM-5"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 7,
+   "test_due": 7
+  },
+  {
+   "ref": "PM-7",
+   "name": "Landing page briefs + content",
+   "week": "Week 2",
+   "group": "PAID",
+   "role": "SEO",
+   "start": 12,
+   "due": 17,
+   "waits_on": [
+    "PM-6"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 7,
+   "test_due": 8
+  },
+  {
+   "ref": "PM-8",
+   "name": "Launch the paid ads campaign",
+   "week": "Week 6",
+   "group": "PAID",
+   "role": "PaidMedia",
+   "start": 31,
+   "due": 31,
+   "waits_on": [
+    "W6-2"
+   ],
+   "skill": "",
+   "message": "",
+   "done_when": "The step is done as in today's paid media process. Not yet rebuilt as part of the new process, so no Claude skill.",
+   "paid_media": true,
+   "test_start": 14,
+   "test_due": 14
+  }
+ ],
+ "issues_log": {
+  "name": "TEST · Issues log",
+  "description": "Log each issue found during the test run as a subtask of this task, named `[step] short problem`.\n\n- **Tag** where the fix goes: `skill`, `playbook`, `clickup`, `process` or `test-data`.\n- **Priority:** Urgent blocks the run, High is wrong output that would reach a client, Normal slows people down, Low is wording.\n- **Description:** what was typed, what came back, what was expected, and the Claude Project chat link.\n\nAnyone can log one. Log it when it happens, then keep going if you can."
+ }
+}
