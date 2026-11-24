@@ -22,6 +22,7 @@ Creates one build's ClickUp list from the fixed plan in [build-plan.json](refere
 | Paid media signed | the message; else whether `kickoff/<slug>/<slug>-paid-media-brief.md` exists | yes |
 | People by role | the message: `AM`, `PM`, `SEO`, `Editor`, `Designer`, `Developer`, `PaidMedia` | no: a role with no name gets no assignee |
 | Test run | the message says test or test run | no |
+| List name | only when the person gives an exact name (it must start with `[CODE] `): pass it as `--list-name` | no |
 | Readback | a readback file the person names; else the one you write in executing.md step 7 | check only |
 | Sitemap report | the report the person names, else the newest `seo-reports/site-structure-optimizer/*.md` with a table under a heading containing `URL map` (`Page`, `URL`, `Parent`, `Nav location`, `Priority`) | pages mode only |
 
