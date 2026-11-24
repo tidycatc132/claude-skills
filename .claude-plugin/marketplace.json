@@ -17,7 +17,7 @@
       "name": "build-shared",
       "category": "build",
       "source": "./plugins/build/shared",
-      "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, staging QA and the launch check, and GA4 goal tracking."
+      "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, setting up a build's ClickUp list from the plan, staging QA and the launch check, and GA4 goal tracking."
     },
     {
       "name": "build-account-management",

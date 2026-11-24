@@ -2,10 +2,11 @@
 
 # build-shared
 
-Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, staging QA and the launch check, and GA4 goal tracking.
+Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, setting up a build's ClickUp list from the plan, staging QA and the launch check, and GA4 goal tracking.
 
 | Skill | What it does |
 |---|---|
+| [`clickup-build-setup`](skills/clickup-build-setup/SKILL.md) | Creates a new WISE website build's ClickUp list with every step from Week 1 to Post Launch as a task, grouped under Deliverable parents, dated in business days from the kickoff date, with week mile... |
 | [`client-context-update`](skills/client-context-update/SKILL.md) | Merges new client information into an existing new-build kickoff client context. |
 | [`client-feedback`](skills/client-feedback/SKILL.md) | Sorts a client's reply to a review email into a feedback table and drafts the Account Manager's answer, for Week 1 (homepage copy and designs), Week 2 (Growth Blueprint, deck and page content, or a... |
 | [`ga4-event-tracking`](skills/ga4-event-tracking/SKILL.md) | Sets up GA4 goal and conversion event tracking through Google Tag Manager for a launched WISE website build. |
