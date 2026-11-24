@@ -21,15 +21,14 @@ The "frozen once committed" rules are based on git, so an eval, fixture or contr
 
 ## Install as plugins
 
-The skills are published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per department for the website build, plus agency tools and paid media. Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skills/<name>/`.
+The skills are published as Claude Code plugins through `.claude-plugin/marketplace.json` (marketplace `wise-skills`): one plugin per website build department plus `build-shared`, `agency-tools`, and six paid media plugins. Each plugin is one folder, `plugins/<plugin>/`, and every shipped skill lives in exactly one of them at `plugins/<plugin>/skills/<name>/`. There is no bundle plugin: install the plugins each person uses.
 
 ```
 /plugin marketplace add tidycatc132/claude-skills
-/plugin install website-build@wise-skills          # every build department
+/plugin install build-shared@wise-skills           # skills more than one build department uses
 /plugin install build-account-management@wise-skills
 /plugin install build-seo-content@wise-skills
 /plugin install build-development@wise-skills
-/plugin install build-shared@wise-skills           # pulled in by each department plugin
 /plugin install agency-tools@wise-skills
 /plugin install paid-media-ops@wise-skills         # and the other paid-media-* plugins
 ```
@@ -42,7 +41,7 @@ Start at [plugins/README.md](plugins/README.md): the catalog, each plugin's skil
 |---|---|
 | `CLAUDE.md` | Short rules (advisory guide) |
 | `skills/<name>/` | The workbench: the skill being built; a finished skill moves into its plugin |
-| `.claude-plugin/marketplace.json`, `plugins/<category>/<plugin>/skills/` | The shipped skills, one plugin folder each; `plugins/catalog.py` writes the plugin READMEs and `--check` confirms every skill is in one plugin |
+| `.claude-plugin/marketplace.json`, `plugins/<plugin>/skills/` | The shipped skills, one plugin folder each; `plugins/catalog.py` writes the plugin READMEs and `--check` confirms every skill is in one plugin |
 | `evals/<name>/` | `trigger.json`, `outputs.json`, optional `golden/` |
 | `contracts/`, `fixtures/` | Machine-checked interfaces between pipeline skills, and their test data |
 | `skills_backlog.json` | Kept as an empty list; the scripts read it but nothing is planned there |

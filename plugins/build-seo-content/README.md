@@ -4,7 +4,7 @@
 
 SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks.
 
-Installing it also installs: [`build-shared`](../shared/README.md).
+Installing it also installs: [`build-shared`](../build-shared/README.md).
 
 | Skill | What it does |
 |---|---|

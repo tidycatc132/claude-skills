@@ -399,3 +399,9 @@ Newest entries at the bottom. One entry per session: what shipped, what was hard
 - Dwayne asked for the new skill to go to `plugins/build/shared/`. `git mv skills/clickup-build-setup plugins/build/shared/skills/clickup-build-setup`; build-shared's description in `.claude-plugin/marketplace.json` and its `plugin.json` now mention the ClickUp list setup; `plugins/catalog.py` regenerated `plugins/README.md` and `plugins/build/shared/README.md`.
 - Checks: `make check` green (nothing left in `skills/`), `plugins/catalog.py --check` OK (80 skills, 12 plugins), the skill's own selftest 30/30 from its new path.
 - Left in place: `evals/clickup-build-setup/` and `fixtures/clickup-build-setup/` are committed and frozen, so removing them needs Dwayne's `.harness-unlock`. Older leftovers `fixtures/dev-handoff-index/` and `fixtures/week-1-handoff-check/` are in the same state.
+
+## 2026-11-24 Repo structure simplified (no new skill)
+- Flattened plugins to `plugins/<plugin>/` (folder = plugin name); marketplace sources updated.
+- Removed the empty `website-build` bundle plugin: the org Plugins & skills page showed it with no skills. `plugins/catalog.py --check` now fails on a plugin with no skills or a folder that does not match its name.
+- Removed leftover evals/fixtures for skills already shipped (clickup-build-setup, dev-handoff-index, week-1-handoff-check) and the hand-written paid-media README (its conventions moved into the generated catalog).
+- Checks: make check green, selftest 138/138, catalog --check OK (80 skills, 11 plugins), `claude plugin validate .` passed.

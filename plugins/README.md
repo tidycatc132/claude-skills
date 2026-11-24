@@ -2,34 +2,37 @@
 
 # Plugins
 
-Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skills/<name>/`, so each person installs only what they use. Each plugin's README lists its skills.
+Every shipped skill lives inside its plugin at `plugins/<plugin>/skills/<name>/`, so each person installs only what they use. Each plugin's README lists its skills.
 
 ## Website build
 
+Install the department plugins a person works in; `build-shared` holds the skills more than one department uses.
+
 | Plugin | Skills | Folder |
 |---|---|---|
-| `website-build` | bundle of other plugins | [build/website-build/](build/website-build/) |
-| `build-shared` | 5 | [build/shared/](build/shared/) |
-| `build-account-management` | 13 | [build/account-management/](build/account-management/) |
-| `build-seo-content` | 15 | [build/seo-content/](build/seo-content/) |
-| `build-development` | 1 | [build/development/](build/development/) |
+| `build-shared` | 5 | [build-shared/](build-shared/) |
+| `build-account-management` | 13 | [build-account-management/](build-account-management/) |
+| `build-seo-content` | 15 | [build-seo-content/](build-seo-content/) |
+| `build-development` | 1 | [build-development/](build-development/) |
 
 ## Agency tools (outside the build)
 
 | Plugin | Skills | Folder |
 |---|---|---|
-| `agency-tools` | 5 | [agency/tools/](agency/tools/) |
+| `agency-tools` | 5 | [agency-tools/](agency-tools/) |
 
 ## Paid media
 
+Client files live in `clients/<slug>/context.md` with outputs in `clients/<slug>/outputs/YYYY-MM/`. Skills are read-only against ad accounts by default; changes are marked `[NEEDS APPROVAL]`. Numbers are computed in code. These skills have not been through the harness (no trigger or output evals).
+
 | Plugin | Skills | Folder |
 |---|---|---|
-| `paid-media-ops` | 8 | [paid-media/paid-media-ops/](paid-media/paid-media-ops/) |
-| `paid-media-measurement` | 5 | [paid-media/paid-media-measurement/](paid-media/paid-media-measurement/) |
-| `paid-media-search` | 7 | [paid-media/paid-media-search/](paid-media/paid-media-search/) |
-| `paid-media-social` | 5 | [paid-media/paid-media-social/](paid-media/paid-media-social/) |
-| `paid-media-creative-compliance` | 9 | [paid-media/paid-media-creative-compliance/](paid-media/paid-media-creative-compliance/) |
-| `paid-media-strategy-reporting` | 7 | [paid-media/paid-media-strategy-reporting/](paid-media/paid-media-strategy-reporting/) |
+| `paid-media-ops` | 8 | [paid-media-ops/](paid-media-ops/) |
+| `paid-media-measurement` | 5 | [paid-media-measurement/](paid-media-measurement/) |
+| `paid-media-search` | 7 | [paid-media-search/](paid-media-search/) |
+| `paid-media-social` | 5 | [paid-media-social/](paid-media-social/) |
+| `paid-media-creative-compliance` | 9 | [paid-media-creative-compliance/](paid-media-creative-compliance/) |
+| `paid-media-strategy-reporting` | 7 | [paid-media-strategy-reporting/](paid-media-strategy-reporting/) |
 
 ## Install
 
@@ -41,8 +44,8 @@ Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skil
 ## Adding a new skill
 
 1. Build it with `/new-skill`. It goes in `skills/<name>/` (the workbench) while the harness checks it.
-2. When it is done, move it into its plugin: `git mv skills/<name> plugins/<category>/<plugin>/skills/<name>`, and remove its `evals/<name>/`, `fixtures/<name>/` and any `contracts/*<name>*.json` (those are frozen once committed, so create `.harness-unlock` first and delete it afterwards).
-3. If no plugin fits, make one: a folder `plugins/<category>/<plugin>/` with `.claude-plugin/plugin.json` (copy a sibling's) and a `skills/` folder, plus an entry in `.claude-plugin/marketplace.json` with `"source": "./plugins/<category>/<plugin>"`, a `category` and a `description`.
+2. When it is done, move it into its plugin: `git mv skills/<name> plugins/<plugin>/skills/<name>`, and remove its `evals/<name>/`, `fixtures/<name>/` and any `contracts/*<name>*.json` (those are frozen once committed, so create `.harness-unlock` first and delete it afterwards).
+3. If no plugin fits, make one: a folder `plugins/<plugin>/` named exactly like the plugin, with `.claude-plugin/plugin.json` (copy a sibling's) and a `skills/` folder, plus an entry in `.claude-plugin/marketplace.json` with `"source": "./plugins/<plugin>"`, a `category` and a `description`.
 4. Run `python3 plugins/catalog.py` to write the READMEs, then `python3 plugins/catalog.py --check` and `claude plugin validate .`.
 
 Each skill goes in exactly one plugin.
