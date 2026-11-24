@@ -4,79 +4,73 @@
     "name": "WISE Digital Partners"
   },
   "metadata": {
-    "description": "WISE Digital Partners plugins: the website build process by department, agency tools outside the build, and paid media."
+    "description": "WISE Digital Partners plugins: one plugin per website build department plus shared build skills, agency tools, and paid media. Install only the plugins you use."
   },
   "plugins": [
     {
-      "name": "website-build",
-      "category": "build",
-      "source": "./plugins/build/website-build",
-      "description": "The whole WISE website build process in one install: adds the Account Management, SEO & Content and Development plugins and the shared build skills. Use it for someone who works across departments."
-    },
-    {
       "name": "build-shared",
       "category": "build",
-      "source": "./plugins/build/shared",
+      "source": "./plugins/build-shared",
       "description": "Shared website build skills used by more than one department: merging new client info into the kickoff context, sorting client feedback and edits, setting up a build's ClickUp list from the plan, staging QA and the launch check, and GA4 goal tracking."
     },
     {
       "name": "build-account-management",
       "category": "build",
-      "source": "./plugins/build/account-management",
+      "source": "./plugins/build-account-management",
       "description": "Account Management (AM / PM) website build skills: kickoff, welcome and weekly client emails, Kickoff Call brief and processing, end-of-week handoff checks, go-live email, case study and project close-out."
     },
     {
       "name": "build-seo-content",
       "category": "build",
-      "source": "./plugins/build/seo-content",
+      "source": "./plugins/build-seo-content",
       "description": "SEO & Content website build skills: Client Reference Kit, keyword research, sitemap, content briefs, page copy, content QA, competitor research, Growth Blueprint and deck, the retainer roadmap, and live-site SEO checks."
     },
     {
       "name": "build-development",
       "category": "build",
-      "source": "./plugins/build/development",
+      "source": "./plugins/build-development",
       "description": "Development website build skills: the dev handoff index and GO / NO-GO gate."
     },
     {
       "name": "agency-tools",
       "category": "agency",
-      "source": "./plugins/agency/tools",
+      "source": "./plugins/agency-tools",
       "description": "WISE skills outside the website build process: prospect digital audit for Sales, Google Ads audit and analysis, ClickUp progress sync, and sub-agent performance review."
     },
     {
       "name": "paid-media-ops",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-ops",
+      "source": "./plugins/paid-media-ops",
       "description": "Day-to-day paid media operations: client intake, pacing, account health, weekly optimization, anomaly triage, wasted spend, impression share, and task pushing."
     },
     {
       "name": "paid-media-measurement",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-measurement",
+      "source": "./plugins/paid-media-measurement",
       "description": "Conversion tracking audits, platform vs GA4 reconciliation, UTM governance, offline conversion imports, and lead quality audits."
     },
     {
       "name": "paid-media-search",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-search",
+      "source": "./plugins/paid-media-search",
       "description": "Search advertising: keyword research, search term mining, campaign builds, bid strategy, Google Ads and Performance Max audits, Local Services Ads."
     },
     {
       "name": "paid-media-social",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-social",
+      "source": "./plugins/paid-media-social",
       "description": "Paid social: Meta and LinkedIn audits, audience building, campaign builds, and creative fatigue checks."
     },
     {
       "name": "paid-media-creative-compliance",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-creative-compliance",
+      "source": "./plugins/paid-media-creative-compliance",
       "description": "Ad copy, creative briefs, swipe files, test planning, landing page message match, policy prechecks, industry restrictions, and launch readiness."
     },
     {
       "name": "paid-media-strategy-reporting",
       "category": "paid-media",
-      "source": "./plugins/paid-media/paid-media-strategy-reporting",
+      "source": "./plugins/paid-media-strategy-reporting",
       "description": "Unit economics, media plans, forecasts, auction insights, monthly reports, executive summaries, and QBR decks."
     }
   ]

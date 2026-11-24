@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Keep the plugin READMEs in step with the plugin folders and .claude-plugin/marketplace.json.
 
-Every shipped skill lives inside its plugin: plugins/<category>/<plugin>/skills/<name>/.
+Every shipped skill lives inside its plugin: plugins/<plugin>/skills/<name>/.
 skills/ at the repo root is the workbench where /new-skill builds the next skill; a finished
 skill is moved into its plugin (and its evals, fixtures and contracts removed).
 
@@ -11,6 +11,8 @@ Usage:
 
 --check fails when:
   - an entry has no category, or its source folder has no .claude-plugin/plugin.json;
+  - a plugin folder is not plugins/<plugin name>, or the plugin.json name differs;
+  - a plugin has no skills (the org Plugins & skills page shows such a plugin as empty);
   - a skill name appears in more than one plugin;
   - a generated README is missing or out of date.
 """
@@ -36,6 +38,13 @@ CATEGORY_TITLES = {
     "build": "Website build",
     "agency": "Agency tools (outside the build)",
     "paid-media": "Paid media",
+}
+
+CATEGORY_NOTES = {
+    "build": "Install the department plugins a person works in; `build-shared` holds the skills more than one department uses.",
+    "paid-media": "Client files live in `clients/<slug>/context.md` with outputs in `clients/<slug>/outputs/YYYY-MM/`. "
+                  "Skills are read-only against ad accounts by default; changes are marked `[NEEDS APPROVAL]`. Numbers are computed in code. "
+                  "These skills have not been through the harness (no trigger or output evals).",
 }
 
 
@@ -78,8 +87,6 @@ def plugin_readme(entry: dict, plugins: list[dict]) -> str:
         for d in dirs:
             lines.append(f"| [`{d.name}`](skills/{d.name}/SKILL.md) | {summary(d)} |")
         lines.append("")
-    else:
-        lines += ["This plugin has no skills of its own.", ""]
     lines += ["## Install", "", "```",
               f"/plugin marketplace add {REPO_URL}",
               f"/plugin install {entry['name']}@{MARKET_NAME}", "```", ""]
@@ -88,20 +95,22 @@ def plugin_readme(entry: dict, plugins: list[dict]) -> str:
 
 def overview(plugins: list[dict]) -> str:
     lines = [GENERATED, "", "# Plugins", "",
-             "Every shipped skill lives inside its plugin at `plugins/<category>/<plugin>/skills/<name>/`, "
+             "Every shipped skill lives inside its plugin at `plugins/<plugin>/skills/<name>/`, "
              "so each person installs only what they use. Each plugin's README lists its skills.", ""]
     cats = []
     for p in plugins:
         if p["category"] not in cats:
             cats.append(p["category"])
     for cat in cats:
-        lines += [f"## {CATEGORY_TITLES.get(cat, cat)}", "", "| Plugin | Skills | Folder |", "|---|---|---|"]
+        lines += [f"## {CATEGORY_TITLES.get(cat, cat)}", ""]
+        if cat in CATEGORY_NOTES:
+            lines += [CATEGORY_NOTES[cat], ""]
+        lines += ["| Plugin | Skills | Folder |", "|---|---|---|"]
         for p in plugins:
             if p["category"] != cat:
                 continue
             folder = plugin_folder(p)
-            n = len(skill_dirs(folder))
-            count = str(n) if n else "bundle of other plugins"
+            count = str(len(skill_dirs(folder)))
             here = folder.relative_to(HERE).as_posix()
             lines.append(f"| `{p['name']}` | {count} | [{here}/]({here}/) |")
         lines.append("")
@@ -113,12 +122,12 @@ def overview(plugins: list[dict]) -> str:
         "## Install", "", "```", f"/plugin marketplace add {REPO_URL}", f"/plugin install <plugin>@{MARKET_NAME}", "```", "",
         "## Adding a new skill", "",
         "1. Build it with `/new-skill`. It goes in `skills/<name>/` (the workbench) while the harness checks it.",
-        "2. When it is done, move it into its plugin: `git mv skills/<name> plugins/<category>/<plugin>/skills/<name>`, "
+        "2. When it is done, move it into its plugin: `git mv skills/<name> plugins/<plugin>/skills/<name>`, "
         "and remove its `evals/<name>/`, `fixtures/<name>/` and any `contracts/*<name>*.json` "
         "(those are frozen once committed, so create `.harness-unlock` first and delete it afterwards).",
-        "3. If no plugin fits, make one: a folder `plugins/<category>/<plugin>/` with `.claude-plugin/plugin.json` "
+        "3. If no plugin fits, make one: a folder `plugins/<plugin>/` named exactly like the plugin, with `.claude-plugin/plugin.json` "
         "(copy a sibling's) and a `skills/` folder, plus an entry in `.claude-plugin/marketplace.json` with "
-        "`\"source\": \"./plugins/<category>/<plugin>\"`, a `category` and a `description`.",
+        "`\"source\": \"./plugins/<plugin>\"`, a `category` and a `description`.",
         "4. Run `python3 plugins/catalog.py` to write the READMEs, then `python3 plugins/catalog.py --check` and `claude plugin validate .`.",
         "",
         "Each skill goes in exactly one plugin.",
@@ -135,8 +144,15 @@ def main() -> int:
     for p in plugins:
         if not p.get("category"):
             errors.append(f"{p['name']}: no category")
+        if plugin_folder(p) != HERE / p["name"]:
+            errors.append(f"{p['name']}: source must be ./plugins/{p['name']}, not {p['source']}")
         if not (plugin_folder(p) / ".claude-plugin" / "plugin.json").is_file():
             errors.append(f"{p['name']}: {p['source']} has no .claude-plugin/plugin.json")
+            continue
+        if manifest(p).get("name") != p["name"]:
+            errors.append(f"{p['name']}: plugin.json name is {manifest(p).get('name')!r}")
+        if not skill_dirs(plugin_folder(p)):
+            errors.append(f"{p['name']}: has no skills (put skills in it or remove it from marketplace.json)")
         for d in skill_dirs(plugin_folder(p)):
             owner.setdefault(d.name, []).append(p["name"])
     for s, got in sorted(owner.items()):

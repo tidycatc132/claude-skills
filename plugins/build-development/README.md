@@ -4,7 +4,7 @@
 
 Development website build skills: the dev handoff index and GO / NO-GO gate.
 
-Installing it also installs: [`build-shared`](../shared/README.md).
+Installing it also installs: [`build-shared`](../build-shared/README.md).
 
 | Skill | What it does |
 |---|---|

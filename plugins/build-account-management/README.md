@@ -4,7 +4,7 @@
 
 Account Management (AM / PM) website build skills: kickoff, welcome and weekly client emails, Kickoff Call brief and processing, end-of-week handoff checks, go-live email, case study and project close-out.
 
-Installing it also installs: [`build-shared`](../shared/README.md).
+Installing it also installs: [`build-shared`](../build-shared/README.md).
 
 | Skill | What it does |
 |---|---|
