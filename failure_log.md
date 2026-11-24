@@ -55,3 +55,9 @@ Template:
 - Root cause: sensor without a guard. Python `re` has no timeout, and nested `(?:.*\n)*` groups backtrack catastrophically on a non-matching file.
 - Evidence: `ps` showed PIDs 6342/6344 at 00:59:28 CPU time, no children; reruns after the regex change finished in 29s and 41s.
 - Control added or proposed: (done) this skill's assertions use exact text or bounded `[^\n]*` patterns. (proposed, scripts/ frozen) evalkit runs each regex assertion with a time limit and reports a slow pattern as an error.
+
+## 2026-11-24 clickup-build-setup - no contract possible for a producer that lives in plugins/
+- What happened: the skill reads site-structure-optimizer's report, but `check_contracts.py` errors unless both skills are under `skills/`; since the 2026-11-18 move every shipped skill is in `plugins/`, so no new skill can have a contract with a shipped one.
+- Root cause: sensor too narrow (stale path assumption after the plugin move).
+- Evidence: `check_contracts.py` line "if not (C.SKILLS_DIR / c[role]).is_dir()".
+- Control proposed: let `check_contracts.py` (and `skill_text`) find a skill under `plugins/*/*/skills/<name>/` too, with a selftest case (status: proposed; scripts/ is frozen, needs the user's yes).
