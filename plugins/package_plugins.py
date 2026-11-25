@@ -17,8 +17,12 @@ Gates, all of which must pass before anything is written:
     every skills/<name>/SKILL.md has name == folder and a description, nothing else at the
     root but .claude-plugin/, skills/ and README.md.
 
+Combined zips (COMBINED below) merge every plugin of one marketplace category into a single
+upload, e.g. dist/plugins/website-build.zip holds all the build-* skills. Upload either the
+combined zip or its separate plugins, never both, or each skill shows up twice.
+
 Usage:
-  python3 plugins/package_plugins.py               build every plugin in the marketplace
+  python3 plugins/package_plugins.py               build every plugin, plus the combined zips
   python3 plugins/package_plugins.py agency-tools  build only the named plugins
   python3 plugins/package_plugins.py --out DIR     write the zips to DIR instead of dist/plugins
 """
@@ -45,6 +49,12 @@ SKIP_SUFFIXES = {".pyc", ".pyo"}
 ALLOWED_ROOT = {".claude-plugin", "skills", "README.md"}
 FIXED_TIME = (2020, 1, 1, 0, 0, 0)
 
+# combined plugin name -> (marketplace category it gathers, description)
+COMBINED = {
+    "website-build": ("build", "Every WISE website build skill in one plugin: shared build skills plus "
+                               "Account Management, SEO & Content and Development."),
+}
+
 
 def plugin_files(folder: Path) -> list[Path]:
     return sorted(
@@ -55,16 +65,46 @@ def plugin_files(folder: Path) -> list[Path]:
     )
 
 
+def write_entry(zf: zipfile.ZipFile, arc: str, data: bytes, executable: bool = False) -> None:
+    info = zipfile.ZipInfo(arc, date_time=FIXED_TIME)
+    info.external_attr = (0o100000 | (0o755 if executable else 0o644)) << 16
+    info.compress_type = zipfile.ZIP_DEFLATED
+    zf.writestr(info, data)
+
+
 def build_zip(folder: Path, files: list[Path]) -> bytes:
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
         for f in files:
-            info = zipfile.ZipInfo(f.relative_to(folder).as_posix(), date_time=FIXED_TIME)
-            mode = 0o755 if (f.stat().st_mode & 0o111) else 0o644
-            info.external_attr = (0o100000 | mode) << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
-            zf.writestr(info, f.read_bytes())
+            write_entry(zf, f.relative_to(folder).as_posix(), f.read_bytes(), bool(f.stat().st_mode & 0o111))
     return buf.getvalue()
+
+
+def build_combined(name: str, description: str, parts: list[Path]) -> tuple[bytes, int]:
+    """One plugin holding the skills/ of every part. catalog.py --check guarantees unique skill names."""
+    versions = sorted({json.loads((p / ".claude-plugin" / "plugin.json").read_text())["version"] for p in parts})
+    manifest = {"name": name, "version": versions[-1], "description": description,
+                "author": {"name": "WISE Digital Partners"}}
+    skills = sorted(d.name for p in parts for d in (p / "skills").iterdir() if (d / "SKILL.md").is_file())
+    readme = (f"# {name}\n\n{description}\n\n"
+              f"This upload combines the {', '.join(p.name for p in parts)} plugins, so install either this "
+              "plugin or those, not both, or each skill appears twice. It is built by plugins/package_plugins.py "
+              "and is not in the marketplace.\n\n## Skills\n\n" + "".join(f"- `{s}`\n" for s in skills))
+    entries: list[tuple[str, bytes, bool]] = [
+        (".claude-plugin/plugin.json", (json.dumps(manifest, indent=2) + "\n").encode(), False),
+        ("README.md", readme.encode(), False),
+    ]
+    for p in parts:
+        for f in plugin_files(p):
+            rel = f.relative_to(p).as_posix()
+            if rel.startswith("skills/"):
+                entries.append((rel, f.read_bytes(), bool(f.stat().st_mode & 0o111)))
+    entries.sort(key=lambda e: e[0])
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for arc, data, ex in entries:
+            write_entry(zf, arc, data, ex)
+    return buf.getvalue(), len(entries)
 
 
 def check_zip(data: bytes, plugin: str) -> list[str]:
@@ -107,8 +147,8 @@ def main() -> int:
     args = ap.parse_args()
 
     entries = {e["name"]: e for e in C.load_json(MARKET)["plugins"]}
-    wanted = args.plugins or list(entries)
-    unknown = [p for p in wanted if p not in entries]
+    wanted = args.plugins or list(entries) + list(COMBINED)
+    unknown = [p for p in wanted if p not in entries and p not in COMBINED]
     if unknown:
         C.die(f"not in the marketplace: {', '.join(unknown)}")
 
@@ -121,6 +161,17 @@ def main() -> int:
     built: dict[str, tuple[bytes, int, int]] = {}
     errors: list[str] = []
     for name in wanted:
+        if name in COMBINED:
+            category, description = COMBINED[name]
+            parts = [(ROOT / e["source"]).resolve() for e in entries.values() if e.get("category") == category]
+            if not parts:
+                errors.append(f"{name}: no marketplace plugins in category {category!r}")
+                continue
+            data, nfiles = build_combined(name, description, parts)
+            errors += check_zip(data, name)
+            nskills = sum(1 for p in parts for d in (p / "skills").iterdir() if (d / "SKILL.md").is_file())
+            built[name] = (data, nfiles, nskills)
+            continue
         folder = (ROOT / entries[name]["source"]).resolve()
         skill_dirs = sorted(d for d in (folder / "skills").iterdir() if (d / "SKILL.md").is_file())
         for d in skill_dirs:
