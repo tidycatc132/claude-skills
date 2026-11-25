@@ -1,6 +1,6 @@
 PY ?= python3
 
-.PHONY: init check selftest triggers outputs golden package
+.PHONY: init check selftest triggers outputs golden package package-plugins
 
 init:        ## session-start ritual
 	bash init.sh
@@ -25,3 +25,6 @@ golden:      ## offline: assertions against recorded golden outputs (free, CI-fr
 
 package:     ## build dist/*.zip and dist/*.skill for every skill that passes the gates
 	$(PY) scripts/package_skill.py --all
+
+package-plugins:  ## build dist/plugins/<plugin>.zip for manual upload in the org admin Plugins page
+	$(PY) plugins/package_plugins.py
