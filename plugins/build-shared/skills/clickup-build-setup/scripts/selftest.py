@@ -61,6 +61,11 @@ def main() -> int:
         check("step 1 to do", k1["status"] == "to do")
         check("AM assigned", k1["assignee"] == "Ana Field")
         check("count", ops["counts"]["dependencies"] == 66 and ops["counts"]["group"] == 14)
+        # an "&" in the name gives the same slug as the kickoff folder
+        p = run(plan, "--client", "Fernhill Glass & Glazing", "--code", "fgg", "--kickoff", "2026-11-16",
+                "--paid-media", "no", cwd=tmp)
+        check("ampersand slug matches kickoff", p.returncode == 0 and
+              (tmp / "clickup/fernhill-glass-and-glazing/fernhill-glass-and-glazing-clickup-ops.json").is_file())
         # check_list on a perfect readback
         rb = fake_readback(ops)
         rb_path = tmp / "rb.json"

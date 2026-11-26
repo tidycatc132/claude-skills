@@ -61,3 +61,9 @@ Template:
 - Root cause: sensor too narrow (stale path assumption after the plugin move).
 - Evidence: `check_contracts.py` line "if not (C.SKILLS_DIR / c[role]).is_dir()".
 - Control proposed: let `check_contracts.py` (and `skill_text`) find a skill under `plugins/*/*/skills/<name>/` too, with a selftest case (status: proposed; scripts/ is frozen, needs the user's yes).
+
+## 2026-11-26 new-build-kickoff - inventory check passed while saved subfolder pages were skipped
+- What happened: in Cowork pilot chain 1, `make_inventory.py --html-dir` read only top-level `*.htm*`, so a saved site laid out as `about/index.html` gave titles for the home page only; `check_kickoff.py` still printed `RESULT: PASS`. Separately, clickup-build-setup slugged `&` differently from the kickoff folder.
+- Root cause: sensor too loose (the inventory check never compared against the saved copy) and two copies of the slug rule drifting apart.
+- Evidence: pilot report findings 1 and 2; rerun of main's script on the same input: 1 saved row of 4.
+- Control added: recursive `--html-dir`, `check_kickoff.py --html-dir` row that fails on a missed page, one slug rule in both scripts, selftest cases in both skills.

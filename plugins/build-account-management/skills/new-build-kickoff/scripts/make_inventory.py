@@ -7,7 +7,8 @@ Usage:
   python3 make_inventory.py --out kickoff/<slug>/<slug>-url-inventory.csv --no-website
 
 --sitemap   a saved sitemap.xml (or sitemap index file); its URLs are added with status `listed`.
---html-dir  a folder of saved pages; index.html maps to the base URL, about.html to /about, etc.
+--html-dir  a folder of saved pages, read with its subfolders: index.html maps to the base URL,
+            about.html and about/index.html to /about, services/drain/index.html to /services/drain.
 --urls      a text file, one URL per line, optionally `URL<TAB>title<TAB>status` (from a live crawl).
 --type      override the guessed page_type for one URL (repeatable).
 Standard library only. Prints the row count.
@@ -52,6 +53,21 @@ def guess_type(url: str) -> str:
     return "other"
 
 
+def saved_pages(html_dir: str) -> dict[str, Path]:
+    """URL path -> file for every saved page under html_dir, subfolders included."""
+    root = Path(html_dir)
+    pages: dict[str, Path] = {}
+    for f in sorted(root.rglob("*.htm*")):
+        if not f.is_file() or f.suffix.lower() not in (".htm", ".html"):
+            continue
+        parts = list(f.relative_to(root).with_suffix("").parts)
+        if parts[-1].lower() in ("index", "home"):
+            parts = parts[:-1]
+        path = "/" + "/".join(parts)
+        pages.setdefault(path, f)
+    return pages
+
+
 def title_of(html: str) -> str:
     m = re.search(r"<title[^>]*>(.*?)</title>", html, re.I | re.S)
     return re.sub(r"\s+", " ", m.group(1)).strip() if m else ""
@@ -75,9 +91,8 @@ def main() -> int:
             return 2
         base = a.base if "://" in a.base else f"https://{a.base}"
         if a.html_dir:
-            for f in sorted(Path(a.html_dir).glob("*.htm*")):
-                stem = f.stem
-                url = norm(base + ("/" if stem in ("index", "home") else f"/{stem}"))
+            for path, f in saved_pages(a.html_dir).items():
+                url = norm(base + path)
                 rows[url] = {"url": url, "title": title_of(f.read_text(encoding="utf-8", errors="replace")),
                              "status": "saved", "source": "saved"}
         if a.urls:

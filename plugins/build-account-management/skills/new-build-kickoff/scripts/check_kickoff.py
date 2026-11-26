@@ -5,7 +5,10 @@ Usage:
   python3 check_kickoff.py --slug "Client Name"            print the client slug
   python3 check_kickoff.py --paid-media sow.md             print yes or no
   python3 check_kickoff.py --deal-terms notes.md           print yes if the notes have a Deal Details block
-  python3 check_kickoff.py kickoff/<slug> --client "Client Name" --sow sow.md [--no-website]
+  python3 check_kickoff.py kickoff/<slug> --client "Client Name" --sow sow.md [--no-website] [--html-dir site/]
+
+--html-dir is the saved site copy given to make_inventory.py; every page in it must be in the
+inventory with status `saved`.
 
 --sow is the scope source: the signed SOW, or the discovery notes holding the signed deal terms
 when there is no SOW (then the scope lines are tagged [notes] instead of [sow]).
@@ -20,6 +23,10 @@ import csv
 import re
 import sys
 from pathlib import Path
+from urllib.parse import urlparse
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from make_inventory import saved_pages  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 SEQUENCE = HERE.parent / "references" / "week-1-sequence.md"
@@ -116,7 +123,8 @@ def sections(text: str) -> dict[str, list[str]]:
     return out
 
 
-def check(folder: Path, client: str, sow_path: Path, no_website: bool) -> list[tuple[str, bool, str]]:
+def check(folder: Path, client: str, sow_path: Path, no_website: bool,
+          html_dir: str | None = None) -> list[tuple[str, bool, str]]:
     res: list[tuple[str, bool, str]] = []
     add = lambda name, ok, detail="": res.append((name, ok, detail))
     slug = slugify(client)
@@ -176,6 +184,11 @@ def check(folder: Path, client: str, sow_path: Path, no_website: bool) -> list[t
             add("no website means header only", not data, f"{len(data)} rows")
         else:
             add("inventory has rows", bool(data), "no URLs listed")
+        if html_dir:
+            saved = {(urlparse(r[0]).path.rstrip("/") or "/") for r in data if len(r) == 5 and r[3] == "saved"}
+            missed = [p for p in saved_pages(html_dir) if p not in saved]
+            add("every saved page is in the inventory as saved", not missed,
+                f"{len(missed)} missed: {', '.join(missed[:5])}" if missed else "")
 
     gq_p = folder / f"{slug}-gap-questions.md"
     if gq_p.exists():
@@ -228,6 +241,7 @@ def main() -> int:
     ap.add_argument("--client")
     ap.add_argument("--sow")
     ap.add_argument("--no-website", action="store_true")
+    ap.add_argument("--html-dir")
     ap.add_argument("--slug")
     ap.add_argument("--paid-media")
     ap.add_argument("--deal-terms")
@@ -243,7 +257,7 @@ def main() -> int:
         return 0
     if not (a.folder and a.client and a.sow):
         ap.error("folder, --client and --sow are required for a check")
-    res = check(Path(a.folder), a.client, Path(a.sow), a.no_website)
+    res = check(Path(a.folder), a.client, Path(a.sow), a.no_website, a.html_dir)
     print("| Check | Result | Detail |\n|---|---|---|")
     for name, ok, detail in res:
         print(f"| {name} | {'PASS' if ok else 'FAIL'} | {detail if not ok else ''} |")
