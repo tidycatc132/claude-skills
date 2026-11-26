@@ -19,7 +19,7 @@ Creates one build's ClickUp list from the fixed plan in [build-plan.json](refere
 | Client name | the message, else the first line `Client: <name>` of `kickoff/<slug>/<slug>-context.md` | yes |
 | Client code | the message: three letters or digits, as in `[ABC]` | yes, ask if missing |
 | Kickoff date (Day 1) | the message, `YYYY-MM-DD`, a business day | yes, ask if missing |
-| Paid media signed | the message; else whether `kickoff/<slug>/<slug>-paid-media-brief.md` exists | yes |
+| Paid media signed | the message; else whether `kickoff/<slug>/<slug>-paid-media-brief.md` exists (the slug is the kickoff folder's name, and `plan_build.py` makes the same one: `&` becomes `and`) | yes |
 | People by role | the message: `AM`, `PM`, `SEO`, `Editor`, `Designer`, `Developer`, `PaidMedia` | no: a role with no name gets no assignee |
 | Test run | the message says test or test run | no |
 | List name | only when the person gives an exact name (it must start with `[CODE] `): pass it as `--list-name` | no |

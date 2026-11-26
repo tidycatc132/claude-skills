@@ -32,7 +32,10 @@ def fail(msg: str) -> None:
 
 
 def slugify(name: str) -> str:
-    s = re.sub(r"[^a-z0-9]+", "-", name.lower()).strip("-")
+    """Same rule as new-build-kickoff (its folder is kickoff/<slug>/): lowercase, `&` becomes "and",
+    every run of other characters becomes one hyphen."""
+    s = re.sub(r"&", " and ", name.lower())
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
     return s or "client"
 
 
